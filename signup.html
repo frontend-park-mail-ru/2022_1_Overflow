@@ -2,35 +2,43 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <title>Регистрация</title>
 </head>
-<body class="bg-dark bg-gradient">
+<body style="background-color: rgb(33 149 242)">
     <div class="container h-100 w-100">
-        <div class="row justify-content-center position-absolute top-50 start-50 translate-middle mw-50">
-            <!-- Форма входа -->
-            <div class="col align-self-center bg-white border border-2 border-white text-center rounded-2 p-3">
-                <!--<h4 class="mb-3">Вход</h4>-->
-                <div class="col bg-secondary justify-content-center text-white py-4 px-2 mb-3 rounded-3">
-                    <div class="mb-3 row">
-                        <!--<label for="inputLogin" class="col-sm-2 col-form-label">Логин:</label>-->
-                        <div class="col">
-                            <input type="text" class="form-control" id="inputLogin" placeholder="Ваш логин">
-                        </div>
-                    </div>
-                    <div class="mb-3 row">
-                        <!--<label for="inputPassword" class="col-sm-2 col-form-label">Пароль:</label>-->
-                        <div class="col">
-                            <input type="password" class="form-control" id="inputPassword" placeholder="Ваш пароль">
-                        </div>
-                    </div>
-                    <div class="row">
-                        <!--<label for="inputPassword" class="col-sm-2 col-form-label">Повторите пароль:</label>-->
-                        <div class="col">
-                            <input type="password" class="form-control" id="inputPassword" placeholder="Повтор пароля">
-                        </div>
+        <!-- Форма входа -->
+        <div class="col shadow align-self-center bg-white border border-2 border-white text-center rounded-3 p-3 justify-content-center position-absolute top-50 start-50 translate-middle" style="width: 30%; min-width: 20%">
+            <img class="mb-2" src="./icon.png" width="100px">
+            <!--<h4 class="mb-3">Вход</h4>-->
+            <div class="mb-3 row">
+                <div class="col">
+                    <input type="text" class="form-control" id="inputFirstName" placeholder="Имя">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col">
+                    <input type="text" class="form-control" id="inputLastName" placeholder="Фамилия">
+                </div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" id="inputEmail" placeholder="Почта">
+                        <span class="input-group-text" id="basic-addon2">@over.ru</span>
                     </div>
                 </div>
-                <div class="d-grid">
-                    <button class="btn btn-primary" type="button">Зарегистрироваться</button>
+            </div>
+            <div class="mb-3 row">
+                <div class="col">
+                    <input type="password" class="form-control" id="inputPassword" placeholder="Пароль">
                 </div>
+            </div>
+            <div class="mb-4 row">
+                <div class="col">
+                    <input type="password" class="form-control" id="inputPassword" placeholder="Повторить пароль">
+                </div>
+            </div>
+            <div class="d-grid gap-2">
+                <button class="btn btn-primary" type="button">Создать</button>
+                <button class="btn btn-secondary" type="button">Назад</button>
             </div>
         </div>
     </div>
