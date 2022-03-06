@@ -1,0 +1,27 @@
+<head>
+    <title>Регистрация</title>
+    <link href='https://fonts.googleapis.com/css?family=Red Hat Display' rel='stylesheet'>
+    <link href="./signup.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <form class="showbox showbox-center showbox-self-center shadow">
+            <svg class="mb-2" viewBox="0 0 102 62" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 1C6.33333 1 1 3 1 11V51C1 54.3333 2.6 61 9 61H93C95.6667 61 101 59 101 51V11C101 7.66667 99.4 1 93 1H9Z" fill="#2E6395" stroke="#2E6395"/>
+            <path d="M51.0001 25L10.6775 7L39.4793 31L16.4379 49L45.2397 37L51.0001 46L56.7604 37L85.5623 49L62.5208 31L91.3227 7L51.0001 25Z" fill="white"/>
+            </svg>
+            <div class="addon">
+                <input type="text" id="inputEmail" class="addon-field" placeholder="Почта" required> 
+                <button class="addon-item">@over.ru</button>
+            </div>
+            <!--<span class="input-group-text" id="basic-addon2">@over.ru</span>-->
+            <input type="password" id="inputPassword" placeholder="Пароль" required>
+            <div class="invalid-pass mt-3">Не верное имя пользователя или пароль.</div>
+            <p class = "forget-pass"> Забыл пароль</p>
+            <div class="button-grid">
+                <button id="signupButton" class="btn btn-primary" type="submit">Войти</button>
+                <button id="backButton" class="btn btn-secondary" type="button">Зарегестрироваться</button>
+            </div>
+        </div>
+    </div>
+</body>
