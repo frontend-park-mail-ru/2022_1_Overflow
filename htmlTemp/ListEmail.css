@@ -9,19 +9,19 @@ html, body {
     margin: 0;
 }
 
-header{
+.headerParent{
     width: 100%;
     height: 60px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.25);  //нет тенней вопрос!!!
 }
 
-main{
+.mainParent{
     background: #C0DAF3;
     display: flex;
     flex: 1;
 }
 
-.ParentHead{
+.parentHead{
     background: #8FBBE6;
     width: 100%;
     height: 60px;
@@ -29,11 +29,11 @@ main{
     align-items: center;
 }
 
-.LogoLOGO{
+.logoLOGO{
     margin: 10px 0 10px 35px;
 }
 
-.LogoTitle{
+.logoTitle{
     font-size: 34px;
     font-weight: 400;
     margin-left: 30px;
@@ -44,26 +44,26 @@ main{
     flex-grow: 1;
 }
 
-.Avatar{
+.avatar{
     margin-right: 10px;
 }
 
-.AvatarMassage{
+.avatarMassage{
     margin-right: 10px;
     width: 40px;
     height: 40px;
 }
 
-.Email{
+.email{
     margin-right: 10px;
     font-size: 12px;
 }
 
-.Strelka{
+.strelka{
     margin-right: 30px;
 }
 
-.ParentMain{
+.parentMain{
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -72,7 +72,7 @@ main{
     background: #C0DAF3;
 }
 
-.Menu{
+.menu{
     display: flex;
     max-height: 850px;
     flex-direction: column;
@@ -123,7 +123,7 @@ main{
     padding-right: 10px;
 }
 
-.Massage{
+.massage{
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -135,29 +135,29 @@ main{
     background: #FFFFFF;
 }
 
-.MassageText{
+.massageText{
     display: flex;
     flex-direction: row;
     align-items: center;
     width: 100%;
 }
 
-.MassageTextText{
+.massageTextText{
     padding-left: 30px;
     font-size: 20px;
 }
 
-.MassageTextSub{
+.massageTextSub{
     padding-left: 30px;
     font-size: 20px;
     color: #D8D8D8;
 }
 
-.MassageTextBlock{
+.massageTextBlock{
     flex: 1;
 }
 
-.MassageTextTime{
+.massageTextTime{
     padding-right: 20px;
     font-family: 'Arimo', sans-serif;
     font-size: 20px;
