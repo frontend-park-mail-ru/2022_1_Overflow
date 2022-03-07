@@ -1,0 +1,191 @@
+body {
+    font-family: 'Red Hat Display', sans-serif;
+    font-weight: 300;
+}
+
+.container {
+    background-color: #C0DAF3;
+    height: 100%;
+    width: 100%;
+}
+
+.showbox {
+    max-width: 40vh;
+    min-width: 340px;
+
+    background-color: white;
+    border-radius: 1vh;
+    -moz-border-radius: 1vh;
+    -webkit-border-radius: 1vh;
+    display: flex;
+    flex-direction: column;
+    block-size: fit-content;
+    padding: 2rem;
+    gap: 2vh;
+}
+
+.showboxSelfCenter {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+}
+
+.showboxCenter {
+    align-items: center;
+    justify-content: center;
+}
+
+.buttonGrid {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1vh;
+}
+
+.shadow {
+    -webkit-box-shadow: 0px 0px 12px 5px rgba(0, 0, 0, 0.09);
+    -moz-box-shadow: 0px 0px 12px 5px rgba(0, 0, 0, 0.09);
+    box-shadow: 0px 0px 12px 5px rgba(0, 0, 0, 0.09);
+}
+
+input {
+    min-height: 4.2vh;
+    min-width: 100%;
+
+    padding-left: 3%;
+    padding-right: 3%;
+
+    background: #FFFFFF;
+    border: 1px solid #EBEBEB;
+    border-radius: 0.5vh;
+    -moz-border-radius: 0.5vh;
+    -webkit-border-radius: 0.5vh;
+
+    font-size: 95%;
+}
+
+.addon {
+    display: flex;
+    justify-content: center;
+}
+  
+.addonField {
+    flex: 1;
+}
+
+.addonField:not(:first-child) {
+    border-left: 0;
+}
+
+.addonField:not(:last-child) {
+    border-right: 0;
+}
+
+.addonItem {
+    background-color: rgba(147, 128, 108, 0.1);
+    color: #666666;
+    font-weight: normal;
+    font: inherit;
+}
+
+.addonField,
+.addonItem {
+    border: 1px solid #EBEBEB;
+}
+.addonField:first-child,
+.addonItem:first-child {
+    border-radius: 0.5vh 0 0 0.5vh;
+    -moz-border-radius: 0.5vh 0 0 0.5vh;
+    -webkit-border-radius: 0.5vh 0 0 0.5vh;
+}
+.addonField:last-child,
+.addonItem:last-child {
+    border-radius: 0 0.5vh 0.5vh 0;
+    -moz-border-radius: 0 0.5vh 0.5vh 0;
+    -webkit-border-radius: 0 0.5vh 0.5vh 0;
+}
+
+.inputDanger {
+    border: 1px solid #EA2222 !important;
+}
+
+::placeholder {
+    color: #D8D8D8;
+}
+
+.btn {
+    display: inline;
+    padding: 2%;
+    border: 0;
+    border-radius: 5px;
+
+    height: 10%;
+    width: 100%;
+
+    text-align: center;
+    font-size: medium;
+}
+
+.btn:hover {
+    cursor: pointer;
+
+    filter: drop-shadow(0px 0px 1px #000);
+    -webkit-filter: drop-shadow(0px 0px 2px #000);
+    -webkit-transition: all 800ms ease;
+    -moz-transition: all 800ms ease;
+    -o-transition: all 800ms ease;
+    -ms-transition: all 800ms ease;
+    transition: all 800ms ease;
+}
+
+.btnPrimary {
+    background: #2E6395;
+    color: #FFFFFF;
+}
+
+.btnSecondary {
+    background: #EBEBEB;
+    color: #000000;
+    
+}
+
+.mb2 {
+    margin-bottom: 2vh;
+}
+
+
+svg {
+    height: auto;
+    width: 7vh;
+}
+
+.invalidPass {
+    display: flex;
+    font-family: Red Hat Display;
+    font-style: normal;
+    color:#FF0000;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 26px;
+    margin-bottom: -2.5vh;
+    align-content: center;
+    flex-direction: row;
+    margin-top: -2vh;
+    visibility: hidden;
+}
+.forgetPass {
+    display: flex;
+    font-family: Red Hat Display;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 26px;
+    text-align: left;
+    color: #2E6395;
+    margin-right: 64%;
+    margin-bottom: -2vh;
+    margin-top: 0vh;
+}
