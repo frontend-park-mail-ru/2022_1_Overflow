@@ -1,3 +1,8 @@
+html, body {
+    font-family: 'Red Hat Display', sans-serif;
+    font-weight: 300;
+}
+
 .container {
     background-color: #C0DAF3;
     height: 100%;
@@ -17,6 +22,11 @@
     block-size: fit-content;
     padding: 2rem;
     gap: 2vh;
+}
+
+.showbox > input,
+.showbox > div {
+    min-width: 100%;
 }
 
 .showboxSelfCenter {
@@ -48,7 +58,7 @@
 
 input {
     min-height: 4.2vh;
-    min-width: 100%;
+    /*min-width: 100%;*/
 
     padding-left: 3%;
     padding-right: 3%;
@@ -82,9 +92,6 @@ input {
 .addonItem {
     background-color: rgba(147, 128, 108, 0.1);
     color: #666666;
-    font-family: 'Red Hat Display' !important;
-    font-weight: normal !important;
-    font: inherit;
 }
 
 .addonField,
@@ -121,9 +128,7 @@ input {
     height: 10%;
     width: 100%;
 
-    font-family: 'Calibri';
     text-align: center;
-    font-style: normal;
     font-size: medium;
 }
 
@@ -141,12 +146,12 @@ input {
 
 .btnPrimary {
     background: #2E6395;
-    color: #FFFFFF !important;
+    color: #FFFFFF
 }
 
 .btnSecondary {
     background: #EBEBEB;
-    color: #000000 !important;
+    color: #000000
 }
 
 .mt2 {
@@ -165,7 +170,7 @@ input {
     margin-bottom: 4vh;
 }
 
-svg {
+.logoSize {
     height: auto;
     width: 7vh;
 }
