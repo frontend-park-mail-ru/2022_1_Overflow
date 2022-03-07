@@ -1,0 +1,42 @@
+.mainParent{
+    background: #C0DAF3;
+    display: flex;
+    flex: 1;
+}
+
+.parentMain{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    padding: 20px;
+    background: #C0DAF3;
+}
+
+.menu{
+    display: flex;
+    max-height: 850px;
+    flex-direction: column;
+    padding: 25px 25px 25px 25px;
+    width: 240px;
+    background: #FFFFFF;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+}
+
+.manuPoint{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 5px;
+    margin-left: 5px;
+}
+
+.iconPoint{
+    padding-right: 10px;
+}
+
+.menuText{
+    margin-left: 10px;
+    font-size: 18px;
+}

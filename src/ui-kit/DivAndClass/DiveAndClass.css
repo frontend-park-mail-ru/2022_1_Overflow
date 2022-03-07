@@ -1,0 +1,11 @@
+.parentHead{
+    background: #8FBBE6;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.spaseBox{
+    flex-grow: 1;
+}

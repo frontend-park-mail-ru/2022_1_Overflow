@@ -1,13 +1,19 @@
+'use strict';
+
 const express = require('express');
+const body = require('body-parser');
+const cookie = require('cookie-parser');
+const morgan = require('morgan');
 const path = require('path');
 const app = express();
 
-app.get('*', function (req, res) {
-    res.sendFile(path.resolve(__dirname, '..', 'index.html'));
-});
+app.use(morgan('dev'));
+app.use(express.static(path.resolve(__dirname, '..', 'src')));
+app.use(body.json());
+app.use(cookie());
 
 const port = 3000;
 
-app.listen(port, function (){
+app.listen(port,  () => {
     console.log(`Server listening port ${port}`);
 });
