@@ -1,5 +1,12 @@
 body {
+    font-family: 'Red Hat Display', sans-serif;
+    font-weight: 300;
+}
+
+.container {
     background-color: #C0DAF3;
+    height: 100%;
+    width: 100%;
 }
 
 .showbox {
@@ -17,7 +24,7 @@ body {
     gap: 2vh;
 }
 
-.showbox-self-center {
+.showboxSelfCenter {
     margin: 0;
     position: absolute;
     top: 50%;
@@ -26,12 +33,12 @@ body {
     transform: translate(-50%, -50%);
 }
 
-.showbox-center {
+.showboxCenter {
     align-items: center;
     justify-content: center;
 }
 
-.button-grid {
+.buttonGrid {
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -65,44 +72,43 @@ input {
     justify-content: center;
 }
   
-.addon-field {
+.addonField {
     flex: 1;
 }
 
-.addon-field:not(:first-child) {
+.addonField:not(:first-child) {
     border-left: 0;
 }
 
-.addon-field:not(:last-child) {
+.addonField:not(:last-child) {
     border-right: 0;
 }
 
-.addon-item {
+.addonItem {
     background-color: rgba(147, 128, 108, 0.1);
     color: #666666;
-    font-family: Red Hat Display;
     font-weight: normal;
     font: inherit;
 }
 
-.addon-field,
-.addon-item {
+.addonField,
+.addonItem {
     border: 1px solid #EBEBEB;
 }
-.addon-field:first-child,
-.addon-item:first-child {
+.addonField:first-child,
+.addonItem:first-child {
     border-radius: 0.5vh 0 0 0.5vh;
     -moz-border-radius: 0.5vh 0 0 0.5vh;
     -webkit-border-radius: 0.5vh 0 0 0.5vh;
 }
-.addon-field:last-child,
-.addon-item:last-child {
+.addonField:last-child,
+.addonItem:last-child {
     border-radius: 0 0.5vh 0.5vh 0;
     -moz-border-radius: 0 0.5vh 0.5vh 0;
     -webkit-border-radius: 0 0.5vh 0.5vh 0;
 }
 
-.input-danger {
+.inputDanger {
     border: 1px solid #EA2222 !important;
 }
 
@@ -119,9 +125,7 @@ input {
     height: 10%;
     width: 100%;
 
-    font-family: 'Calibri';
     text-align: center;
-    font-style: normal;
     font-size: medium;
 }
 
@@ -137,39 +141,28 @@ input {
     transition: all 800ms ease;
 }
 
-.btn-primary {
+.btnPrimary {
     background: #2E6395;
-    color: #FFFFFF !important;
+    color: #FFFFFF;
 }
 
-.btn-secondary {
+.btnSecondary {
     background: #EBEBEB;
-    color: #000000 !important;
+    color: #000000;
     
 }
 
-.mt-2 {
-    margin-top: 2vh;
-}
-
-.mt-4 {
-    margin-top: 3vh;
-}
-
-.mb-2 {
+.mb2 {
     margin-bottom: 2vh;
 }
 
-.mb-4 {
-    margin-bottom: 4vh;
-}
 
 svg {
     height: auto;
     width: 7vh;
 }
 
-.invalid-pass {
+.invalidPass {
     display: flex;
     font-family: Red Hat Display;
     font-style: normal;
@@ -183,7 +176,7 @@ svg {
     margin-top: -2vh;
     visibility: hidden;
 }
-.forget-pass {
+.forgetPass {
     display: flex;
     font-family: Red Hat Display;
     font-style: normal;
