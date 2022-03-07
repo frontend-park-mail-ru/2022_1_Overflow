@@ -20,7 +20,10 @@ html, body {
     display: flex;
     flex-direction: column;
     block-size: fit-content;
-    padding: 2rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
     gap: 2vh;
 }
 
@@ -70,6 +73,11 @@ input {
     -webkit-border-radius: 0.5vh;
 
     font-size: 95%;
+}
+
+textarea:focus, input:focus{
+    outline: none;
+    border:1px solid #2E6395;
 }
 
 .addon {
@@ -173,4 +181,19 @@ input {
 .logoSize {
     height: auto;
     width: 7vh;
+}
+
+.invalidMsg {
+    display: flex;
+    font-family: 'Red Hat Display';
+    font-style: normal;
+    color:#FF0000;
+    font-weight: 300;
+    line-height: 26px;
+    align-content: center;
+    flex-direction: row;
+    text-align: start;
+    width: 100%;
+    margin-top: -1vh;
+    margin-bottom: -4vh;
 }

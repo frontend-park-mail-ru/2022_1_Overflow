@@ -20,7 +20,10 @@ body {
     display: flex;
     flex-direction: column;
     block-size: fit-content;
-    padding: 2rem;
+    padding-left: 4rem;
+    padding-right: 4rem;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
     gap: 2vh;
 }
 
@@ -156,36 +159,37 @@ input {
     margin-bottom: 2vh;
 }
 
+.mt4 {
+    margin-top: 4vh;
+}
 
 svg {
     height: auto;
     width: 7vh;
 }
 
-.invalidPass {
+.invalidMsg {
     display: flex;
-    font-family: Red Hat Display;
+    font-family: 'Red Hat Display';
     font-style: normal;
     color:#FF0000;
     font-weight: 300;
-    font-size: 20px;
     line-height: 26px;
-    margin-bottom: -2.5vh;
     align-content: center;
     flex-direction: row;
-    margin-top: -2vh;
-    visibility: hidden;
+    text-align: start;
+    width: 100%;
+    margin-top: -1vh;
+    margin-bottom: -4vh;
 }
+
 .forgetPass {
     display: flex;
-    font-family: Red Hat Display;
+    font-family: 'Red Hat Display';
     font-style: normal;
     font-weight: 300;
-    font-size: 20px;
     line-height: 26px;
-    text-align: left;
     color: #2E6395;
-    margin-right: 64%;
-    margin-bottom: -2vh;
-    margin-top: 0vh;
+    width: 100%;
+    text-align: start;
 }
