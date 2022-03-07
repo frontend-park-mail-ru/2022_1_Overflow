@@ -70,6 +70,11 @@ input {
     font-size: 95%;
 }
 
+textarea:focus, input:focus{
+    outline: none;
+    border:1px solid #2E6395;
+}
+
 .addon {
     display: flex;
     justify-content: center;
