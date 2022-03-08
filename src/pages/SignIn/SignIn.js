@@ -1,4 +1,4 @@
-import {SignIn} from "../../components/SignIn/SignIn.js";
+import {SignIn} from '../../components/SignIn/SignIn.js';
 
 export class SignInRender {
     #parent;

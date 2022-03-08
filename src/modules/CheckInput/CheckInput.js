@@ -1,4 +1,4 @@
-import {safe} from "../Safe/safe.js";
+import {safe} from '../Safe/safe.js';
 
 export const CheckInput = (str) => {
     str = safe(str);
@@ -7,4 +7,4 @@ export const CheckInput = (str) => {
         return '';
     }
     return str;
-}
+};

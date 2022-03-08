@@ -5,7 +5,7 @@ export class ImageAndClass {
     #html;
 
     constructor(parent) {
-        this.#html = `<img class="{{class}}" src="./image/{{name}}.svg" alt="{{name}}">`;
+        this.#html = '<img class="{{class}}" src="./image/{{name}}.svg" alt="{{name}}">';
         this.#parent = parent;
     }
 
@@ -18,6 +18,7 @@ export class ImageAndClass {
     }
 
     render = () => {
+        // eslint-disable-next-line
         const template = Handlebars.compile(this.#html);
         const html = template({
             name: this.#name,

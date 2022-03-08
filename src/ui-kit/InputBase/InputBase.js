@@ -6,7 +6,7 @@ export class InputBase {
     #html;
 
     constructor(parent) {
-        this.#html = `<input type="{{type}}" id="{{id}}" placeholder="{{placeholder}}">`;
+        this.#html = '<input type="{{type}}" id="{{id}}" placeholder="{{placeholder}}">';
         this.#parent = parent;
     }
 
@@ -24,6 +24,7 @@ export class InputBase {
     }
 
     render = () => {
+        // eslint-disable-next-line
         const template = Handlebars.compile(this.#html);
         const html = template({
             placeholder: this.#placeholder,

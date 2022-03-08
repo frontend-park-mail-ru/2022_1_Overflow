@@ -7,7 +7,7 @@ export class ButtonBase {
     #type;
 
     constructor(parent) {
-        this.#html = `<button id="{{id}}" class="{{class}}" type="{{type}}">{{name}}</button>`;
+        this.#html = '<button id="{{id}}" class="{{class}}" type="{{type}}">{{name}}</button>';
         this.#parent = parent;
     }
 
@@ -28,6 +28,7 @@ export class ButtonBase {
     }
 
     render = () => {
+        // eslint-disable-next-line
         const template = Handlebars.compile(this.#html);
         const html = template({
             name: this.#name,

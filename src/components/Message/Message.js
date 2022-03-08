@@ -1,4 +1,4 @@
-import {createElementDiv, createElementP, createElementImg} from  "../../modules/CreateElement/createElement.js"
+import {createElementDiv, createElementP, createElementImg} from '../../modules/CreateElement/createElement.js';
 
 const itemsMassage = {
     input: [
@@ -88,7 +88,7 @@ const itemsMassage = {
         },
 
     ]
-}
+};
 
 export class Message {
     #parent;
@@ -114,17 +114,17 @@ export class Message {
                 const hr = document.createElement('hr');
                 hr.color = 'EBEBEB';
                 hr.size = '1';
-                hr.width = '100%'
+                hr.width = '100%';
                 massage.appendChild(hr);
             }
             parent.addEventListener('mouseover', () => {
-                parent.style.backgroundSize = '100%'
+                parent.style.backgroundSize = '100%';
                 parent.style.backgroundColor = '#F1F1F1';
                 parent.style.borderRadius = '15px';
-            })
+            });
             parent.addEventListener('mouseout', () => {
                 parent.style.backgroundColor = '#FFFFFF';
-            })
+            });
         }, massage);
 
     };

@@ -1,6 +1,6 @@
-import {Header} from "../../components/Header/Header.js";
-import {Menu} from "../../components/Menu/Menu.js";
-import {Message} from "../../components/Message/Message.js";
+import {Header} from '../../components/Header/Header.js';
+import {Menu} from '../../components/Menu/Menu.js';
+import {Message} from '../../components/Message/Message.js';
 
 export class MainPage {
     #parent;

@@ -2,12 +2,11 @@ import {
     createElementInputBase,
     createElementButtonBase,
     createElementDiv,
-    createElementP,
     createElementImg,
-} from "../../modules/CreateElement/createElement.js"
-import {SignInRender} from "../../pages/SignIn/SignIn.js";
-import {MainPage} from "../../pages/MainPage/MainPage.js";
-import {safe} from "../../modules/Safe/safe.js";
+} from '../../modules/CreateElement/createElement.js';
+import {SignInRender} from '../../pages/SignIn/SignIn.js';
+import {MainPage} from '../../pages/MainPage/MainPage.js';
+import {safe} from '../../modules/Safe/safe.js';
 
 export class SignUp {
     #parent;
@@ -57,10 +56,10 @@ export class SignUp {
                 const mainPage = new MainPage(this.#parent);
                 mainPage.render();
             }
-        })
+        });
         goSignIn.addEventListener('click', () => {
             const signUp = new SignInRender(this.#parent);
             signUp.render();
-        })
-    };
+        });
+    }
 }

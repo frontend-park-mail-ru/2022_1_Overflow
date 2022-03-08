@@ -1,7 +1,6 @@
-import {createElementDiv, createElementP, createElementImg} from  "../../modules/CreateElement/createElement.js"
-import {MainPage} from '../../pages/MainPage/MainPage.js'
-import {SignInRender} from '../../pages/SignIn/SignIn.js'
-import {PopUp} from '../PopUp/PopUp.js'
+import {createElementDiv, createElementImg} from  '../../modules/CreateElement/createElement.js';
+import {SignInRender} from '../../pages/SignIn/SignIn.js';
+import {PopUp} from '../PopUp/PopUp.js';
 
 const itemsMenu = {
     input: [
@@ -10,7 +9,7 @@ const itemsMenu = {
             textText: 'Входящие',
         },
     ]
-}
+};
 
 export class Menu {
     #parent;
@@ -21,7 +20,7 @@ export class Menu {
 
     render = () => {
         const main = document.createElement('main');
-        main.className = 'mainParent'
+        main.className = 'mainParent';
         this.#parent.appendChild(main);
 
 
@@ -29,12 +28,12 @@ export class Menu {
         const temp = document.getElementsByClassName('parentMain')[0];
 
         createElementDiv(temp, '', 'menu');
-        const parentMenu = document.getElementsByClassName('menu')[0]
+        const parentMenu = document.getElementsByClassName('menu')[0];
 
 
         itemsMenu.input.forEach(function (item, index) {
             createElementDiv(parentMenu, '', 'manuPoint');
-            const parent = document.getElementsByClassName('manuPoint')[index]
+            const parent = document.getElementsByClassName('manuPoint')[index];
             createElementImg(parent, item.iconName, 'iconPoint');
             createElementDiv(parent, item.textText, 'menuText1');
         }, parentMenu);
@@ -56,6 +55,6 @@ export class Menu {
                 }
             });
         });
-    }
+    };
 }
 

@@ -1,4 +1,4 @@
-import {createElementDiv, createElementP, createElementImg} from  "../../modules/CreateElement/createElement.js"
+import {createElementDiv, createElementImg} from  '../../modules/CreateElement/createElement.js';
 
 export class PopUp {
     #parent;
@@ -16,5 +16,5 @@ export class PopUp {
         const exit = document.getElementsByClassName('exit')[0];
         createElementImg(exit, 'door', 'iconPoint');
         createElementDiv(exit, 'Выход', 'menuText');
-    };
+    }
 }

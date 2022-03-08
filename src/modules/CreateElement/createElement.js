@@ -1,8 +1,8 @@
-import {DiveAndClass} from "../../ui-kit/DivAndClass/DiveAndClass.js";
-import {ImageAndClass} from "../../ui-kit/ImageAndClass/ImageAndClass.js";
-import {TextAndClass} from "../../ui-kit/TextAndClass/TextAndClass.js";
-import {InputBase} from "../../ui-kit/InputBase/InputBase.js";
-import {ButtonBase} from "../../ui-kit/ButtonBase/ButtonBase.js";
+import {DiveAndClass} from '../../ui-kit/DivAndClass/DiveAndClass.js';
+import {ImageAndClass} from '../../ui-kit/ImageAndClass/ImageAndClass.js';
+import {TextAndClass} from '../../ui-kit/TextAndClass/TextAndClass.js';
+import {InputBase} from '../../ui-kit/InputBase/InputBase.js';
+import {ButtonBase} from '../../ui-kit/ButtonBase/ButtonBase.js';
 
 export const createElementButtonBase = (parent, text, className, id, type) => {
     const elementInputBase = new ButtonBase(parent);
@@ -12,7 +12,7 @@ export const createElementButtonBase = (parent, text, className, id, type) => {
     elementInputBase.id = id;
     elementInputBase.render();
     return elementInputBase;
-}
+};
 
 export const createElementInputBase = (parent, placeholder, id, type) => {
     const elementInputBase = new InputBase(parent);
@@ -21,7 +21,7 @@ export const createElementInputBase = (parent, placeholder, id, type) => {
     elementInputBase.id = id;
     elementInputBase.render();
     return elementInputBase;
-}
+};
 
 export const createElementDiv = (parent, text, className) => {
     const elementDiv = new DiveAndClass(parent);
@@ -29,7 +29,7 @@ export const createElementDiv = (parent, text, className) => {
     elementDiv.class = className;
     elementDiv.render();
     return elementDiv;
-}
+};
 
 export const createElementP = (parent, text, className) => {
     const elementP = new TextAndClass(parent);
@@ -37,7 +37,7 @@ export const createElementP = (parent, text, className) => {
     elementP.class = className;
     elementP.render();
     return elementP;
-}
+};
 
 export const createElementImg = (parent, text, className) => {
     const elementImg = new ImageAndClass(parent);
@@ -45,4 +45,4 @@ export const createElementImg = (parent, text, className) => {
     elementImg.class = className;
     elementImg.render();
     return elementImg;
-}
+};

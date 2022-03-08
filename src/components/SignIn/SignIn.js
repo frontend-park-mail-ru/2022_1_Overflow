@@ -3,10 +3,10 @@ import {
     createElementButtonBase,
     createElementDiv,
     createElementImg,
-} from "../../modules/CreateElement/createElement.js"
+} from '../../modules/CreateElement/createElement.js';
 import {MainPage} from '../../pages/MainPage/MainPage.js';
 import {SignUpRender} from '../../pages/SignUp/SignUp.js';
-import {CheckInput} from "../../modules/CheckInput/CheckInput.js";
+import {CheckInput} from '../../modules/CheckInput/CheckInput.js';
 
 export class SignIn {
     #parent;
@@ -63,10 +63,10 @@ export class SignIn {
                 const mainPage = new MainPage(this.#parent);
                 mainPage.render();
             }
-        })
+        });
         goRegistration.addEventListener('click', () => {
             const signUp = new SignUpRender(this.#parent);
             signUp.render();
-        })
-    };
+        });
+    }
 }

@@ -5,7 +5,7 @@ export class TextAndClass {
     #html;
 
     constructor(parent) {
-        this.#html = `<p class="{{class}}">{{ text }}</p>`;
+        this.#html = '<p class="{{class}}">{{ text }}</p>';
         this.#parent = parent;
     }
 

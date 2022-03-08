@@ -5,7 +5,7 @@ export class DiveAndClass {
     #html;
 
     constructor(parent) {
-        this.#html = `<div class="{{class}}">{{name}}</div>`;
+        this.#html = '<div class="{{class}}">{{name}}</div>';
         this.#parent = parent;
     }
 
@@ -18,6 +18,7 @@ export class DiveAndClass {
     }
 
     render = () => {
+        // eslint-disable-next-line
         const template = Handlebars.compile(this.#html);
         const html = template({
             name: this.#name,

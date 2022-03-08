@@ -1,5 +1,4 @@
-import {createElementDiv, createElementP, createElementImg} from  "../../modules/CreateElement/createElement.js"
-import {SignInRender} from "../../pages/SignIn/SignIn.js";
+import {createElementDiv, createElementP, createElementImg} from '../../modules/CreateElement/createElement.js';
 
 export class Header {
     #parent;
@@ -17,7 +16,7 @@ export class Header {
         createElementImg(divParentObject, 'Logo', 'logoLogo');
         createElementP(divParentObject, 'OverMail', 'logoTitle');
         createElementDiv(divParentObject, '', 'spaseBox');
-        createElementImg(divParentObject, 'avatar', 'avatar')
+        createElementImg(divParentObject, 'avatar', 'avatar');
         createElementP(divParentObject, 'aleksandrnaumenko@mail.ru', 'email');
         createElementImg(divParentObject, 'strelka', 'strelka');
     };
