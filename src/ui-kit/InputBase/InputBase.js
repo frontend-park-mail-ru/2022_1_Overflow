@@ -15,6 +15,10 @@ export class InputBase {
         this.#id = name;
     }
 
+    set type(name){
+        this.#type = name;
+    }
+
     set placeholder(name){
         this.#placeholder = name;
     }

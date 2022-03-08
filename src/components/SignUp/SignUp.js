@@ -6,6 +6,8 @@ import {
     createElementImg,
 } from "../../modules/CreateElement/createElement.js"
 import {SignInRender} from "../../pages/SignIn/SignIn.js";
+import {MainPage} from "../../pages/MainPage/MainPage.js";
+import {safe} from "../../modules/Safe/safe.js";
 
 export class SignUp {
     #parent;
@@ -14,7 +16,22 @@ export class SignUp {
         this.#parent = parent;
     }
 
-    render = () => {
+    getForm() {
+        //накрутить проверок
+        let name = document.getElementById('inputFirstName').value;
+        let password = document.getElementById('inputPassword').value;
+        password = safe(password);
+        if (email === '2' && password === '2') {
+            return true;
+        }
+        let invalidMsg = document.getElementsByClassName('invalidMsg')[0];
+        document.getElementById('inputPassword').value = '';
+        document.getElementById('inputEmail').value = '';
+        invalidMsg.style.visibility = 'visible';
+        return false;
+    }
+
+    render() {
         createElementDiv(this.#parent, '', 'container');
         let container = document.getElementsByClassName('container')[0];
         let form = document.createElement('form');
@@ -27,15 +44,19 @@ export class SignUp {
         createElementInputBase(form, 'Пароль', 'inputPassword', 'password');
         createElementInputBase(form, 'Повторить пароль', 'inputPasswordRepeat', 'password');
         createElementDiv(form, 'Не верное имя пользователя или пароль.', 'invalidMsg');
+        let invalidMsg = document.getElementsByClassName('invalidMsg')[0];
+        invalidMsg.style.visibility = 'hidden';
         createElementDiv(form, '', 'buttonGrid mt4');
         let divParent = document.getElementsByClassName('buttonGrid mt4')[0];
-        createElementButtonBase(divParent, 'Создать','btn btnPrimary', 'signupButton', 'submit');
+        createElementButtonBase(divParent, 'Создать','btn btnPrimary', 'signupButton', 'button');
         createElementButtonBase(divParent, 'Назад','btn btnSecondary', 'backButton', 'button');
         let goSignIn = document.getElementById('backButton');
         let goMenu = document.getElementById('signupButton');
         goMenu.addEventListener('click', () => {
-            let mainPage = new MainPage(this.#parent);
-            mainPage.render();
+            if (this.getForm() === true){
+                let mainPage = new MainPage(this.#parent);
+                mainPage.render();
+            }
         })
         goSignIn.addEventListener('click', () => {
             let signUp = new SignInRender(this.#parent);

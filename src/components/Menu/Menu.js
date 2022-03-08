@@ -1,6 +1,7 @@
 import {createElementDiv, createElementP, createElementImg} from  "../../modules/CreateElement/createElement.js"
 import {MainPage} from '../../pages/MainPage/MainPage.js'
 import {SignInRender} from '../../pages/SignIn/SignIn.js'
+import {PopUp} from '../PopUp/PopUp.js'
 
 const itemsMenu = {
     input: [
@@ -35,30 +36,26 @@ export class Menu {
             createElementDiv(parentMenu, '', 'manuPoint');
             let parent = document.getElementsByClassName('manuPoint')[index]
             createElementImg(parent, item.iconName, 'iconPoint');
-            createElementDiv(parent, item.textText, 'menuText');
+            createElementDiv(parent, item.textText, 'menuText1');
         }, parentMenu);
 
         let strelka = document.getElementsByClassName('strelka')[0];
-        strelka.addEventListener('click', () => {
-
-            createElementDiv(main, '', 'openFolder');
-            let openFolder = document.getElementsByClassName('openFolder')[0];
-
-            createElementDiv(openFolder, '', 'exit');
-            let exit = document.getElementsByClassName('exit')[0];
-            createElementImg(exit, 'door', 'iconPoint');
-            createElementDiv(exit, 'Выход', 'menuText');
-            document.addEventListener('click', () => {  // не могу придумать как надо
-                if (event.target.className !== 'openFolder') {
-                    const newMain = new MainPage(this.#parent);
-                    newMain.render();
+        strelka.addEventListener('click', (event) => {
+            event.stopPropagation();
+            let popUp = new PopUp(main);
+            popUp.render();
+            document.addEventListener('click', (event) => {
+                if (event.target.className !== 'menuText') {
+                    if (document.getElementsByClassName('openFolder')[0]){
+                        document.getElementsByClassName('openFolder')[0].remove();
+                    }
                 }
-
-                if (event.target.className === 'openFolder') {
-                    const newMain = new SignInRender(this.#parent);
-                    newMain.render();
+                if (event.target.className === 'menuText') {
+                    let signIn = new SignInRender(this.#parent);
+                    signIn.render();
                 }
             });
         });
     }
 }
+

@@ -43,6 +43,11 @@
     font-size: 18px;
 }
 
+.menuText1{
+    margin-left: 10px;
+    font-size: 18px;
+}
+
 .openFolder{
     float: right;
     position: fixed;

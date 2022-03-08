@@ -117,6 +117,15 @@ export class Message {
                 hr.width = '100%'
                 massage.appendChild(hr);
             }
+            parent.addEventListener('mouseover', () => {
+                parent.style.backgroundSize = '100%'
+                parent.style.backgroundColor = '#F1F1F1';
+                parent.style.borderRadius = '15px';
+            })
+            parent.addEventListener('mouseout', () => {
+                parent.style.backgroundColor = '#FFFFFF';
+            })
         }, massage);
+
     };
 }
