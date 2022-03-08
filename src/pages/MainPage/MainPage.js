@@ -10,6 +10,7 @@ export class MainPage {
     }
 
     render = () => {
+        this.#parent.innerHTML = '';
         const handler = new Header(this.#parent);
         handler.render();
         const menu = new Menu(this.#parent);

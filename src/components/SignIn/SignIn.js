@@ -5,6 +5,8 @@ import {
     createElementP,
     createElementImg,
 } from "../../modules/CreateElement/createElement.js"
+import {MainPage} from '../../pages/MainPage/MainPage.js';
+import {SignUpRender} from '../../pages/SignUp/SignUp.js';
 
 export class SignIn {
     #parent;
@@ -29,7 +31,17 @@ export class SignIn {
         aForm.className = 'forgetPass';
         aForm.text = 'Забыл пароль';
         divParent.appendChild(aForm);
-        createElementButtonBase(divParent, 'Войти','btn btnPrimary', 'signupButton', 'submit');
-        createElementButtonBase(divParent, 'Зарегистрироваться','btn btnSecondary', 'backButton', 'button');
+        createElementButtonBase(divParent, 'Войти','btn btnPrimary', 'signInButton', 'submit');
+        createElementButtonBase(divParent, 'Зарегистрироваться','btn btnSecondary', 'registration', 'button');
+        let goMenu = document.getElementById('signInButton');
+        let goRegistration = document.getElementById('registration');
+        goMenu.addEventListener('click', () => {
+            let mainPage = new MainPage(this.#parent);
+            mainPage.render();
+        })
+        goRegistration.addEventListener('click', () => {
+            let signUp = new SignUpRender(this.#parent);
+            signUp.render();
+        })
     };
 }

@@ -8,6 +8,7 @@ export class SignUpRender {
     }
 
     render = () => {
+        this.#parent.innerHTML = '';
         const signUp = new SignUp(this.#parent);
         signUp.render();
     };

@@ -8,7 +8,8 @@ export class SignInRender {
     }
 
     render = () => {
-        const signin = new SignIn(this.#parent);
-        signin.render();
+        this.#parent.innerHTML = '';
+        const signIn = new SignIn(this.#parent);
+        signIn.render();
     };
 }

@@ -48,6 +48,11 @@ export class Message {
             createElementP(parent, item.subTitle, 'massageTextSub');
             createElementP(parent, '', 'massageTextBlock');
             createElementP(parent, item.time, 'massageTextTime');
+            let hr = document.createElement('hr');
+            hr.color = 'EBEBEB';
+            hr.size = '1';
+            hr.width = '100%'
+            temp.appendChild(hr);
         }, temp);
     };
 }

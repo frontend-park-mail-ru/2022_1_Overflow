@@ -5,6 +5,8 @@ import {
     createElementP,
     createElementImg,
 } from "../../modules/CreateElement/createElement.js"
+import {MainPage} from "../../pages/MainPage/MainPage.js";
+import {SignInRender} from "../../pages/SignIn/SignIn.js";
 
 export class SignUp {
     #parent;
@@ -30,5 +32,15 @@ export class SignUp {
         let divParent = document.getElementsByClassName('buttonGrid mt4')[0];
         createElementButtonBase(divParent, 'Создать','btn btnPrimary', 'signupButton', 'submit');
         createElementButtonBase(divParent, 'Назад','btn btnSecondary', 'backButton', 'button');
+        let goSignIn = document.getElementById('backButton');
+        let goMenu = document.getElementById('signupButton');
+        goMenu.addEventListener('click', () => {
+            let mainPage = new MainPage(this.#parent);
+            mainPage.render();
+        })
+        goSignIn.addEventListener('click', () => {
+            let signUp = new SignInRender(this.#parent);
+            signUp.render();
+        })
     };
 }
