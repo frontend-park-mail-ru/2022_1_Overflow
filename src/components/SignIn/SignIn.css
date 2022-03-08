@@ -22,11 +22,6 @@
     gap: 2vh;
 }
 
-.showbox > input,
-.showbox > div {
-    min-width: 100%;
-}
-
 .showboxSelfCenter {
     margin: 0;
     position: absolute;
@@ -56,7 +51,7 @@
 
 input {
     min-height: 4.2vh;
-    /*min-width: 100%;*/
+    min-width: 100%;
 
     padding-left: 3%;
     padding-right: 3%;
@@ -95,6 +90,8 @@ textarea:focus, input:focus{
 .addonItem {
     background-color: rgba(147, 128, 108, 0.1);
     color: #666666;
+    font-weight: normal;
+    font: inherit;
 }
 
 .addonField,
@@ -149,31 +146,26 @@ textarea:focus, input:focus{
 
 .btnPrimary {
     background: #2E6395;
-    color: #FFFFFF
+    color: #FFFFFF;
 }
 
 .btnSecondary {
     background: #EBEBEB;
-    color: #000000
+    color: #000000;
+
 }
 
-.mt2 {
-    margin-top: 2vh;
+.mb2 {
+    width: 80px;
+    height: 40px;
+    margin-bottom: 2vh;
 }
 
 .mt4 {
     margin-top: 4vh;
 }
 
-.mb2 {
-    margin-bottom: 2vh;
-}
-
-.mb4 {
-    margin-bottom: 4vh;
-}
-
-.logoSize {
+svg {
     height: auto;
     width: 7vh;
 }
@@ -191,4 +183,15 @@ textarea:focus, input:focus{
     width: 100%;
     margin-top: -1vh;
     margin-bottom: -4vh;
+}
+
+.forgetPass {
+    display: flex;
+    font-family: 'Red Hat Display', sans-serif;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 26px;
+    color: #2E6395;
+    width: 100%;
+    text-align: start;
 }

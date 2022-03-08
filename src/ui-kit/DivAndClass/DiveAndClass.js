@@ -1,7 +1,7 @@
 export class DiveAndClass {
     #parent;
     #name;
-    #class;
+    #className;
     #html;
 
     constructor(parent) {
@@ -14,14 +14,14 @@ export class DiveAndClass {
     }
 
     set class(name){
-        this.#class = name;
+        this.#className = name;
     }
 
     render = () => {
         const template = Handlebars.compile(this.#html);
         const html = template({
             name: this.#name,
-            class: this.#class,
+            class: this.#className,
         });
         this.#parent.insertAdjacentHTML('beforeend', html);
     };

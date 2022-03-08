@@ -1,7 +1,7 @@
 export class TextAndClass {
     #parent;
     #text;
-    #class;
+    #className;
     #html;
 
     constructor(parent) {
@@ -14,14 +14,14 @@ export class TextAndClass {
     }
 
     set class(text){
-        this.#class = text;
+        this.#className = text;
     }
 
     render = () => {
         // eslint-disable-next-line
         const template = Handlebars.compile(this.#html);
         const html = template({
-            class: this.#class,
+            class: this.#className,
             text: this.#text,
         });
         this.#parent.insertAdjacentHTML('beforeend', html);

@@ -1,11 +1,13 @@
-export class ImageAndClass {
+export class ButtonBase {
     #parent;
     #name;
     #className;
     #html;
+    #id;
+    #type;
 
     constructor(parent) {
-        this.#html = `<img class="{{class}}" src="./image/{{name}}.svg" alt="{{name}}">`;
+        this.#html = `<button id="{{id}}" class="{{class}}" type="{{type}}">{{name}}</button>`;
         this.#parent = parent;
     }
 
@@ -13,8 +15,16 @@ export class ImageAndClass {
         this.#name = name;
     }
 
-    set class(name){
+    set className(name){
         this.#className = name;
+    }
+
+    set id(name){
+        this.#id = name;
+    }
+
+    set type(name){
+        this.#type = name;
     }
 
     render = () => {
@@ -22,6 +32,8 @@ export class ImageAndClass {
         const html = template({
             name: this.#name,
             class: this.#className,
+            id: this.#id,
+            type: this.#type,
         });
         this.#parent.insertAdjacentHTML('beforeend', html);
     };

@@ -10,12 +10,12 @@ export class MainPage {
     }
 
     render = () => {
-        let tmp2 = new Header(this.#parent);
-        tmp2.render();
-        let tmp3 = new Menu(this.#parent);
-        tmp3.render();
+        const handler = new Header(this.#parent);
+        handler.render();
+        const menu = new Menu(this.#parent);
+        menu.render();
         let main = document.getElementsByClassName('parentMain')[0];
-        let tmp4 = new Message(main);
-        tmp4.render();
+        let message = new Message(main);
+        message.render();
     };
 }

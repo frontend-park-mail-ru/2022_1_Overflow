@@ -1,6 +1,4 @@
-import {TextAndClass} from '../../ui-kit/TextAndClass/TextAndClass.js';
-import {ImageAndClass} from '../../ui-kit/ImageAndClass/ImageAndClass.js';
-import {DiveAndClass} from "../../ui-kit/DivAndClass/DiveAndClass.js";
+import {createElementDiv, createElementP, createElementImg} from  "../../modules/CreateElement/createElement.js"
 
 const itemsMassage = {
     input: [
@@ -39,43 +37,17 @@ export class Message {
     }
 
     render = () => {
-        let messageParent = new DiveAndClass(this.#parent);
-        messageParent.data = '';
-        messageParent.class = 'massage';
-        messageParent.render();
+        createElementDiv(this.#parent, '', 'massage');
         let temp = document.getElementsByClassName('massage')[0];
 
         itemsMassage.input.forEach(function (item, index) {
-            let manuPoint = new DiveAndClass(temp);
-            manuPoint.data = '';
-            manuPoint.class = 'massageText';
-            manuPoint.render();
-            let parent = document.getElementsByClassName('massageText')[index]
-
-            let avatar = new ImageAndClass(parent);
-            avatar.data = item.avatar;
-            avatar.class = 'avatarMassage';
-            avatar.render();
-
-            let title = new TextAndClass(parent);
-            title.data = item.title;
-            title.class = 'massageTextText';
-            title.render();
-
-            let subTitle = new TextAndClass(parent);
-            title.data = item.subTitle;
-            title.class = 'massageTextSub';
-            title.render();
-
-            let block = new TextAndClass(parent);
-            title.data = '';
-            title.class = 'massageTextBlock';
-            title.render();
-
-            let time = new TextAndClass(parent);
-            time.data = item.time;
-            time.class = 'massageTextTime';
-            time.render();
+            createElementDiv(temp, '', 'massageText');
+            let parent = document.getElementsByClassName('massageText')[index];
+            createElementImg(parent, item.avatar, 'avatarMassage');
+            createElementP(parent, item.title, 'massageTextText');
+            createElementP(parent, item.subTitle, 'massageTextSub');
+            createElementP(parent, '', 'massageTextBlock');
+            createElementP(parent, item.time, 'massageTextTime');
         }, temp);
     };
 }
