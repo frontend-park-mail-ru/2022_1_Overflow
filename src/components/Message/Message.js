@@ -26,6 +26,67 @@ const itemsMassage = {
             subTitle: 'Часть содержимого письма тут',
             time: '00:00',
         },
+        {
+            avatar: 'avatar',
+            title: 'Тема сообщения',
+            subTitle: 'Часть содержимого письма тут',
+            time: '00:00',
+        },
+        {
+            avatar: 'avatar',
+            title: 'Тема сообщения',
+            subTitle: 'Часть содержимого письма тут',
+            time: '00:00',
+        },
+        {
+            avatar: 'avatar',
+            title: 'Тема сообщения',
+            subTitle: 'Часть содержимого письма тут',
+            time: '00:00',
+        },
+        {
+            avatar: 'avatar',
+            title: 'Тема сообщения',
+            subTitle: 'Часть содержимого письма тут',
+            time: '00:00',
+        },
+        {
+            avatar: 'avatar',
+            title: 'Тема сообщения',
+            subTitle: 'Часть содержимого письма тут',
+            time: '00:00',
+        },
+        {
+            avatar: 'avatar',
+            title: 'Тема сообщения',
+            subTitle: 'Часть содержимого письма тут',
+            time: '00:00',
+        },
+        {
+            avatar: 'avatar',
+            title: 'Тема сообщения',
+            subTitle: 'Часть содержимого письма тут',
+            time: '00:00',
+        },
+        {
+            avatar: 'avatar',
+            title: 'Тема сообщения',
+            subTitle: 'Часть содержимого письма тут',
+            time: '00:00',
+        },
+        {
+            avatar: 'avatar',
+            title: 'Тема сообщения',
+            subTitle: 'Часть содержимого письма тут',
+            time: '00:00',
+        },
+        {
+            avatar: 'avatar',
+            title: 'Тема сообщения',
+            subTitle: 'Часть содержимого письма тут',
+            time: '00:00',
+        },
+
     ]
 }
 
@@ -38,21 +99,24 @@ export class Message {
 
     render = () => {
         createElementDiv(this.#parent, '', 'massage');
-        let temp = document.getElementsByClassName('massage')[0];
+        let massage = document.getElementsByClassName('massage')[0];
 
         itemsMassage.input.forEach(function (item, index) {
-            createElementDiv(temp, '', 'massageText');
+            createElementDiv(massage, '', 'massageText');
             let parent = document.getElementsByClassName('massageText')[index];
             createElementImg(parent, item.avatar, 'avatarMassage');
             createElementP(parent, item.title, 'massageTextText');
             createElementP(parent, item.subTitle, 'massageTextSub');
             createElementP(parent, '', 'massageTextBlock');
             createElementP(parent, item.time, 'massageTextTime');
-            let hr = document.createElement('hr');
-            hr.color = 'EBEBEB';
-            hr.size = '1';
-            hr.width = '100%'
-            temp.appendChild(hr);
-        }, temp);
+            if (itemsMassage.input.length - 1 !== index) {
+                console.log(itemsMassage.length - 1);
+                let hr = document.createElement('hr');
+                hr.color = 'EBEBEB';
+                hr.size = '1';
+                hr.width = '100%'
+                massage.appendChild(hr);
+            }
+        }, massage);
     };
 }

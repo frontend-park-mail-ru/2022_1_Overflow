@@ -5,7 +5,6 @@ import {
     createElementP,
     createElementImg,
 } from "../../modules/CreateElement/createElement.js"
-import {MainPage} from "../../pages/MainPage/MainPage.js";
 import {SignInRender} from "../../pages/SignIn/SignIn.js";
 
 export class SignUp {
