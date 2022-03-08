@@ -7,6 +7,7 @@ import {
 import {MainPage} from '../../pages/MainPage/MainPage.js';
 import {SignUpRender} from '../../pages/SignUp/SignUp.js';
 import {CheckInput} from '../../modules/CheckInput/CheckInput.js';
+import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn.js'
 
 export class SignIn {
     #parent;
@@ -15,13 +16,28 @@ export class SignIn {
         this.#parent = parent;
     }
 
+    callback(status, responseText) {
+        console.log(status, responseText);
+    }
+
     getForm() {
         const invalidMsg = document.getElementsByClassName('invalidMsg')[0];
         let email = document.getElementById('inputEmail').value;
         email = CheckInput(email);
         let password = document.getElementById('inputPassword').value;
         password = CheckInput(password);
-        if (email === '123' && password === '123') {
+
+        const ajaxSignIn = new Ajax();
+        ajaxSignIn.post({
+            url: 'http://127.0.0.1:8080/signin',
+            callback: this.callback,
+            body: {
+                email: email,
+                password: password,
+            },
+        });
+
+        if (flag === true) {
             return true;
         }
         document.getElementById('inputPassword').value = '';

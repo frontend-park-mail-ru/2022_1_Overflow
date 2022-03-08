@@ -23,13 +23,11 @@ export class Menu {
         main.className = 'mainParent';
         this.#parent.appendChild(main);
 
-
         createElementDiv(main, '', 'parentMain');
         const temp = document.getElementsByClassName('parentMain')[0];
 
         createElementDiv(temp, '', 'menu');
         const parentMenu = document.getElementsByClassName('menu')[0];
-
 
         itemsMenu.input.forEach(function (item, index) {
             createElementDiv(parentMenu, '', 'manuPoint');
