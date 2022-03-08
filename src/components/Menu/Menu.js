@@ -20,21 +20,21 @@ export class Menu {
     }
 
     render = () => {
-        let main = document.createElement('main');
+        const main = document.createElement('main');
         main.className = 'mainParent'
         this.#parent.appendChild(main);
 
 
         createElementDiv(main, '', 'parentMain');
-        let temp = document.getElementsByClassName('parentMain')[0];
+        const temp = document.getElementsByClassName('parentMain')[0];
 
         createElementDiv(temp, '', 'menu');
-        let parentMenu = document.getElementsByClassName('menu')[0]
+        const parentMenu = document.getElementsByClassName('menu')[0]
 
 
         itemsMenu.input.forEach(function (item, index) {
             createElementDiv(parentMenu, '', 'manuPoint');
-            let parent = document.getElementsByClassName('manuPoint')[index]
+            const parent = document.getElementsByClassName('manuPoint')[index]
             createElementImg(parent, item.iconName, 'iconPoint');
             createElementDiv(parent, item.textText, 'menuText1');
         }, parentMenu);
@@ -42,7 +42,7 @@ export class Menu {
         let strelka = document.getElementsByClassName('strelka')[0];
         strelka.addEventListener('click', (event) => {
             event.stopPropagation();
-            let popUp = new PopUp(main);
+            const popUp = new PopUp(main);
             popUp.render();
             document.addEventListener('click', (event) => {
                 if (event.target.className !== 'menuText') {
@@ -51,7 +51,7 @@ export class Menu {
                     }
                 }
                 if (event.target.className === 'menuText') {
-                    let signIn = new SignInRender(this.#parent);
+                    const signIn = new SignInRender(this.#parent);
                     signIn.render();
                 }
             });

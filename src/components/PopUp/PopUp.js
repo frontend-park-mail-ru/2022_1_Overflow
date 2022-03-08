@@ -10,10 +10,10 @@ export class PopUp {
 
     render() {
         createElementDiv(this.#parent, '', 'openFolder');
-        let openFolder = document.getElementsByClassName('openFolder')[0];
+        const openFolder = document.getElementsByClassName('openFolder')[0];
         this.#style= openFolder;
         createElementDiv(openFolder, '', 'exit');
-        let exit = document.getElementsByClassName('exit')[0];
+        const exit = document.getElementsByClassName('exit')[0];
         createElementImg(exit, 'door', 'iconPoint');
         createElementDiv(exit, 'Выход', 'menuText');
     };

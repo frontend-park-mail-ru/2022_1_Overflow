@@ -21,10 +21,10 @@ export class SignUp {
         let name = document.getElementById('inputFirstName').value;
         let password = document.getElementById('inputPassword').value;
         password = safe(password);
-        if (email === '2' && password === '2') {
+        if (name === '2' && password === '2') {
             return true;
         }
-        let invalidMsg = document.getElementsByClassName('invalidMsg')[0];
+        const invalidMsg = document.getElementsByClassName('invalidMsg')[0];
         document.getElementById('inputPassword').value = '';
         document.getElementById('inputEmail').value = '';
         invalidMsg.style.visibility = 'visible';
@@ -33,8 +33,8 @@ export class SignUp {
 
     render() {
         createElementDiv(this.#parent, '', 'container');
-        let container = document.getElementsByClassName('container')[0];
-        let form = document.createElement('form');
+        const container = document.getElementsByClassName('container')[0];
+        const form = document.createElement('form');
         form.className = 'showbox showboxCenter showboxSelfCenter shadow';
         container.appendChild(form);
         createElementImg(form, 'LogoSigin', 'mb2');
@@ -44,22 +44,22 @@ export class SignUp {
         createElementInputBase(form, 'Пароль', 'inputPassword', 'password');
         createElementInputBase(form, 'Повторить пароль', 'inputPasswordRepeat', 'password');
         createElementDiv(form, 'Не верное имя пользователя или пароль.', 'invalidMsg');
-        let invalidMsg = document.getElementsByClassName('invalidMsg')[0];
+        const invalidMsg = document.getElementsByClassName('invalidMsg')[0];
         invalidMsg.style.visibility = 'hidden';
         createElementDiv(form, '', 'buttonGrid mt4');
-        let divParent = document.getElementsByClassName('buttonGrid mt4')[0];
+        const divParent = document.getElementsByClassName('buttonGrid mt4')[0];
         createElementButtonBase(divParent, 'Создать','btn btnPrimary', 'signupButton', 'button');
         createElementButtonBase(divParent, 'Назад','btn btnSecondary', 'backButton', 'button');
-        let goSignIn = document.getElementById('backButton');
-        let goMenu = document.getElementById('signupButton');
+        const goSignIn = document.getElementById('backButton');
+        const goMenu = document.getElementById('signupButton');
         goMenu.addEventListener('click', () => {
             if (this.getForm() === true){
-                let mainPage = new MainPage(this.#parent);
+                const mainPage = new MainPage(this.#parent);
                 mainPage.render();
             }
         })
         goSignIn.addEventListener('click', () => {
-            let signUp = new SignInRender(this.#parent);
+            const signUp = new SignInRender(this.#parent);
             signUp.render();
         })
     };

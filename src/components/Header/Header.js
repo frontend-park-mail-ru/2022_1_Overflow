@@ -9,11 +9,11 @@ export class Header {
     }
 
     render = () => {
-        let head = document.createElement('header');
+        const head = document.createElement('header');
         this.#parent.appendChild(head);
 
         createElementDiv(head, '', 'parentHead');
-        let divParentObject = document.getElementsByClassName('parentHead')[0];
+        const divParentObject = document.getElementsByClassName('parentHead')[0];
         createElementImg(divParentObject, 'Logo', 'logoLogo');
         createElementP(divParentObject, 'OverMail', 'logoTitle');
         createElementDiv(divParentObject, '', 'spaseBox');

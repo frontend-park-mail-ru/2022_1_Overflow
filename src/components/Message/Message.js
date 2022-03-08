@@ -99,11 +99,11 @@ export class Message {
 
     render = () => {
         createElementDiv(this.#parent, '', 'massage');
-        let massage = document.getElementsByClassName('massage')[0];
+        const massage = document.getElementsByClassName('massage')[0];
 
         itemsMassage.input.forEach(function (item, index) {
             createElementDiv(massage, '', 'massageText');
-            let parent = document.getElementsByClassName('massageText')[index];
+            const parent = document.getElementsByClassName('massageText')[index];
             createElementImg(parent, item.avatar, 'avatarMassage');
             createElementP(parent, item.title, 'massageTextText');
             createElementP(parent, item.subTitle, 'massageTextSub');
@@ -111,7 +111,7 @@ export class Message {
             createElementP(parent, item.time, 'massageTextTime');
             if (itemsMassage.input.length - 1 !== index) {
                 console.log(itemsMassage.length - 1);
-                let hr = document.createElement('hr');
+                const hr = document.createElement('hr');
                 hr.color = 'EBEBEB';
                 hr.size = '1';
                 hr.width = '100%'

@@ -15,8 +15,8 @@ export class MainPage {
         handler.render();
         const menu = new Menu(this.#parent);
         menu.render();
-        let main = document.getElementsByClassName('parentMain')[0];
-        let message = new Message(main);
+        const main = document.getElementsByClassName('parentMain')[0];
+        const message = new Message(main);
         message.render();
     };
 }

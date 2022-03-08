@@ -16,7 +16,7 @@ export class SignIn {
     }
 
     getForm() {
-        let invalidMsg = document.getElementsByClassName('invalidMsg')[0];
+        const invalidMsg = document.getElementsByClassName('invalidMsg')[0];
         let email = document.getElementById('inputEmail').value;
         email = CheckInput(email);
         let password = document.getElementById('inputPassword').value;
@@ -32,9 +32,9 @@ export class SignIn {
 
     render() {
         createElementDiv(this.#parent, '', 'container');
-        let container = document.getElementsByClassName('container')[0];
+        const container = document.getElementsByClassName('container')[0];
 
-        let form = document.createElement('form');
+        const form = document.createElement('form');
         form.className = 'showbox showboxCenter showboxSelfCenter shadow';
         container.appendChild(form);
 
@@ -42,11 +42,11 @@ export class SignIn {
         createElementInputBase(form, 'Почта', 'inputEmail', 'text');
         createElementInputBase(form, 'Пароль', 'inputPassword', 'password');
         createElementDiv(form, 'Не верное имя пользователя или пароль.', 'invalidMsg');
-        let invalidMsg = document.getElementsByClassName('invalidMsg')[0];
+        const invalidMsg = document.getElementsByClassName('invalidMsg')[0];
         invalidMsg.style.visibility = 'hidden';
         createElementDiv(form, '', 'buttonGrid mt4');
 
-        let divParent = document.getElementsByClassName('buttonGrid mt4')[0];
+        const divParent = document.getElementsByClassName('buttonGrid mt4')[0];
         // let aForm = document.createElement('a');
         // aForm.className = 'forgetPass';
         // aForm.text = 'Забыл пароль';
@@ -55,17 +55,17 @@ export class SignIn {
         createElementButtonBase(divParent, 'Войти','btn btnPrimary', 'signInButton', 'button');
         createElementButtonBase(divParent, 'Зарегистрироваться','btn btnSecondary', 'registration', 'button');
 
-        let goMenu = document.getElementById('signInButton');
-        let goRegistration = document.getElementById('registration');
+        const goMenu = document.getElementById('signInButton');
+        const goRegistration = document.getElementById('registration');
 
         goMenu.addEventListener('click', () => {
             if (this.getForm() === true){
-                let mainPage = new MainPage(this.#parent);
+                const mainPage = new MainPage(this.#parent);
                 mainPage.render();
             }
         })
         goRegistration.addEventListener('click', () => {
-            let signUp = new SignUpRender(this.#parent);
+            const signUp = new SignUpRender(this.#parent);
             signUp.render();
         })
     };
