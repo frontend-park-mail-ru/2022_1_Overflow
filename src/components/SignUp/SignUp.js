@@ -7,6 +7,8 @@ import {
 import {SignInRender} from '../../pages/SignIn/SignIn.js';
 import {MainPage} from '../../pages/MainPage/MainPage.js';
 import {safe} from '../../modules/Safe/safe.js';
+import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn.js';
+import {SignIn} from '../SignIn/SignIn.js';
 
 export class SignUp {
     #parent;
@@ -16,12 +18,11 @@ export class SignUp {
     }
 
     getForm() {
-        //накрутить проверок
         let firstName = document.getElementById('inputFirstName').value;
         let lastName = document.getElementById('inputLastName').value;
         let email = document.getElementById('inputEmail').value;
         let password = document.getElementById('inputPassword').value;
-        let password_confirmation = document.getElementById('inputPasswordRepeat')
+        let password_confirmation = document.getElementById('inputPasswordRepeat');
         password = safe(password);
 
         const ajaxSignIn = new Ajax();
@@ -34,8 +35,8 @@ export class SignUp {
         
                 const parsed = JSON.parse(responseText);
                 if (parsed['status'] == 0) {
-                    const main = new MainPage(parent);
-                    main.render();
+                    const signIn = new SignIn(parent);
+                    signIn.render();
                 }
                 else {
                     document.getElementsByClassName('invalidMsg')[0].style.visibility = 'visible';
@@ -43,9 +44,11 @@ export class SignUp {
                 }
             },
             {
-                'first_name': name,
+                'firstName': firstName,
+                'lastName': lastName,
                 'email': email,
                 'password': password,
+                'password_confirmation': password_confirmation,
             },
         );
     }
@@ -72,10 +75,7 @@ export class SignUp {
         const goSignIn = document.getElementById('backButton');
         const goMenu = document.getElementById('signupButton');
         goMenu.addEventListener('click', () => {
-            if (this.getForm() === true){
-                const mainPage = new MainPage(this.#parent);
-                mainPage.render();
-            }
+            this.getForm();
         });
         goSignIn.addEventListener('click', () => {
             const signUp = new SignInRender(this.#parent);
