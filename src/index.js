@@ -14,7 +14,7 @@ else {
     const password = getCookie('password');
     const ajaxSignIn = new Ajax();
     ajaxSignIn.post(
-        'http://127.0.0.1:8080/signin',
+        'http://:8080/signin',
         (status, responseText) => {
             if (status != 200) {
                 const signIn = new SignInRender(root);
