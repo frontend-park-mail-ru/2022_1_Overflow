@@ -7,7 +7,7 @@ import {
 import {MainPage} from '../../pages/MainPage/MainPage.js';
 import {SignUpRender} from '../../pages/SignUp/SignUp.js';
 import {CheckInput} from '../../modules/CheckInput/CheckInput.js';
-import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn.js'
+import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn.js';
 
 export class SignIn {
     #parent;

@@ -23,8 +23,9 @@ else {
             }
 
             const parsed = JSON.parse(responseText);
+
             if (parsed['status'] == 0) {
-                const main = new MainPage(parent);
+                const main = new MainPage(root);
                 main.render();
             }
             else {

@@ -1,6 +1,7 @@
 import {createElementDiv, createElementImg} from  '../../modules/CreateElement/createElement.js';
 import {SignInRender} from '../../pages/SignIn/SignIn.js';
 import {PopUp} from '../PopUp/PopUp.js';
+import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn.js';
 
 const itemsMenu = {
     input: [
@@ -36,20 +37,36 @@ export class Menu {
             createElementDiv(parent, item.textText, 'menuText1');
         }, parentMenu);
 
-        let strelka = document.getElementsByClassName('strelka')[0];
-        strelka.addEventListener('click', (event) => {
+        const strelka = document.getElementsByClassName('strelka')[0];
+        let a;
+        strelka.addEventListener('click', a = (event) => {
             event.stopPropagation();
+            strelka.removeEventListener('click', a);
             const popUp = new PopUp(main);
             popUp.render();
             document.addEventListener('click', (event) => {
                 if (event.target.className !== 'menuText') {
                     if (document.getElementsByClassName('openFolder')[0]){
                         document.getElementsByClassName('openFolder')[0].remove();
+                        strelka.addEventListener('click', a);
                     }
                 }
                 if (event.target.className === 'menuText') {
-                    const signIn = new SignInRender(this.#parent);
-                    signIn.render();
+                    const ajaxSignIn = new Ajax();
+                    ajaxSignIn.get(
+                        'http://127.0.0.1:8080/logout',
+                        // eslint-disable-next-line
+                        (status, responseText) => {
+                            if (status != 200) {
+                                return;
+                            }
+                            const parsed = JSON.parse(responseText);
+                            if (parsed['status'] == 0) {
+                                const signIn = new SignInRender(this.#parent);
+                                signIn.render();
+                            }
+                        },
+                    );
                 }
             });
         });

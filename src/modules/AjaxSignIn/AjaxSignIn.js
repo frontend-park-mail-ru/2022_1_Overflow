@@ -1,4 +1,5 @@
-const noop = () => {};
+const noop = () => {
+};
 
 export class Ajax {
     post(url, callback, data) {
@@ -7,34 +8,45 @@ export class Ajax {
             'POST',
             data,
             callback,
-        )
+        );
+    }
+    get(url, callback) {
+        return this._ajax(
+            url,
+            'GET',
+            null,
+            callback,
+        );
     }
 
-    urlencodeFormData(fd){
-        var s = '';
-        function encode(s){ return encodeURIComponent(s).replace(/%20/g,'+'); }
-        for(var pair of fd.entries()){
-            if(typeof pair[1]=='string'){
-                s += (s?'&':'') + encode(pair[0])+'='+encode(pair[1]);
+    urlencodeFormData(fd) {
+        let s = '';
+
+        function encode(s) {
+            return encodeURIComponent(s).replace(/%20/g, '+');
+        }
+
+        for (var pair of fd.entries()) {
+            if (typeof pair[1] == 'string') {
+                s += (s ? '&' : '') + encode(pair[0]) + '=' + encode(pair[1]);
             }
         }
         return s;
     }
 
     _ajax(
-            url = '/',
-            method = 'POST',
-            data = null,
-            callback = noop
-        ) {
+        url = '/',
+        method = 'POST',
+        data = null,
+        callback = noop
+    ) {
         const xhr = new XMLHttpRequest();
 
         xhr.open(method, url, true);
         xhr.withCredentials = true;
 
-        xhr.addEventListener('readystatechange', function() {
+        xhr.addEventListener('readystatechange', function () {
             if (xhr.readyState !== XMLHttpRequest.DONE) return;
-            console.log(callback);
             callback(xhr.status, xhr.responseText);
         });
 

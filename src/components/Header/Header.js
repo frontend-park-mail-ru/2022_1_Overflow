@@ -1,4 +1,5 @@
 import {createElementDiv, createElementP, createElementImg} from '../../modules/CreateElement/createElement.js';
+import {getCookie} from '../../modules/GetCookie/GetCookie.js';
 
 export class Header {
     #parent;
@@ -17,7 +18,7 @@ export class Header {
         createElementP(divParentObject, 'OverMail', 'logoTitle');
         createElementDiv(divParentObject, '', 'spaseBox');
         createElementImg(divParentObject, 'avatar', 'avatar');
-        createElementP(divParentObject, 'aleksandrnaumenko@mail.ru', 'email');
+        createElementP(divParentObject, getCookie('email'), 'email');
         createElementImg(divParentObject, 'strelka', 'strelka');
     };
 }
