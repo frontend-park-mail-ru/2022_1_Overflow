@@ -51,7 +51,7 @@ export class Menu {
                         strelka.addEventListener('click', a);
                     }
                 }
-                if (event.target.className === 'menuText') {
+                if (event.target.className === 'exit') {
                     const ajaxSignIn = new Ajax();
                     ajaxSignIn.get(
                         `http://${window.location.hostname}:8080/logout`,
