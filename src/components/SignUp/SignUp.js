@@ -39,6 +39,11 @@ export class SignUp {
                     signIn.render();
                 }
                 else {
+                    document.getElementById('inputFirstName').style.borderColor = 'red';
+                    document.getElementById('inputLastName').style.borderColor = 'red';
+                    document.getElementById('inputEmail').style.borderColor = 'red';
+                    document.getElementById('inputPassword').style.borderColor = 'red';
+                    document.getElementById('inputPasswordRepeat').style.borderColor = 'red';
                     document.getElementsByClassName('invalidMsg')[0].style.visibility = 'visible';
                     document.getElementsByClassName('invalidMsg')[0].textContent = parsed['message'];
                 }

@@ -36,6 +36,8 @@ export class SignIn {
                     main.render();
                 }
                 else {
+                    document.getElementById('inputEmail').style.borderColor = 'red';
+                    document.getElementById('inputPassword').style.borderColor = 'red';
                     document.getElementsByClassName('invalidMsg')[0].style.visibility = 'visible';
                     document.getElementsByClassName('invalidMsg')[0].textContent = parsed['message'];
                 }
