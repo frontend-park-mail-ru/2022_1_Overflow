@@ -9,8 +9,8 @@ export class Message {
     }
 
     render() {
-        createElementDiv(this.#parent, '', 'massage');
-        const massage = document.getElementsByClassName('massage')[0];
+        createElementDiv(this.#parent, '', 'message');
+        const message = document.getElementsByClassName('message')[0];
 
 
         const ajaxSignIn = new Ajax();
@@ -24,11 +24,15 @@ export class Message {
                     return;
                 }
                 const parsed = JSON.parse(responseText)['content'];
-                const log = JSON.parse(parsed);
+                if (parsed == "") {
+                    const log = null;
+                } else {
+                    const log = JSON.parse(parsed);
+                }
                 if (log == null) {
-                    createElementDiv(massage, '', 'massageText');
-                    const parent = document.getElementsByClassName('massageText')[0];
-                    createElementP(parent, 'Список пуст', 'massageEmpty');
+                    createElementDiv(message, '', 'messageText');
+                    const parent = document.getElementsByClassName('messageText')[0];
+                    createElementP(parent, 'Список пуст', 'messageEmpty');
                     return;
                 }
                 log.forEach((pars) => {
@@ -41,26 +45,26 @@ export class Message {
                         time: (('0' + date.getDate()).slice(-2) + ':' + ('0' + (date.getMonth() + 1)).slice(-2)),
                     });
                 });
-                this.renderMassege(massage, itemsMassage);
+                this.renderMassege(message, itemsMassage);
             }
         );
     }
 
-    renderMassege(massage, itemsMassage) {
+    renderMassege(message, itemsMassage) {
         itemsMassage.input.forEach(function (item, index) {
-            createElementDiv(massage, '', 'massageText');
-            const parent = document.getElementsByClassName('massageText')[index];
+            createElementDiv(message, '', 'messageText');
+            const parent = document.getElementsByClassName('messageText')[index];
             createElementImg(parent, item.avatar, 'avatarMassage');
-            createElementP(parent, item.title, 'massageTextText');
-            createElementP(parent, item.subTitle, 'massageTextSub');
-            createElementP(parent, '', 'massageTextBlock');
-            createElementP(parent, item.time, 'massageTextTime');
+            createElementP(parent, item.title, 'messageTextText');
+            createElementP(parent, item.subTitle, 'messageTextSub');
+            createElementP(parent, '', 'messageTextBlock');
+            createElementP(parent, item.time, 'messageTextTime');
             if (itemsMassage.input.length - 1 !== index) {
                 const hr = document.createElement('hr');
                 hr.color = 'EBEBEB';
                 hr.size = '1';
                 hr.width = '100%';
-                massage.appendChild(hr);
+                message.appendChild(hr);
             }
             parent.addEventListener('mouseover', () => {
                 parent.style.backgroundSize = '100%';
@@ -70,6 +74,6 @@ export class Message {
             parent.addEventListener('mouseout', () => {
                 parent.style.backgroundColor = '#FFFFFF';
             });
-        }, massage);
+        }, message);
     }
 }

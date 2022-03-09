@@ -1,4 +1,4 @@
-.massage{
+.message{
     flex: 1;
     display: flex;
     flex-direction: column;
@@ -10,14 +10,14 @@
     background: #FFFFFF;
 }
 
-.massageEmpty{
+.messageEmpty{
     text-align: center;
     width: 100%;
     font-size: 2.5vh;
     color: #D8D8D8;
 }
 
-.massageText{
+.messageText{
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -31,22 +31,22 @@
     height: 40px;
 }
 
-.massageTextText{
+.messageTextText{
     padding-left: 30px;
     font-size: 20px;
 }
 
-.massageTextSub{
+.messageTextSub{
     padding-left: 30px;
     font-size: 20px;
     color: #D8D8D8;
 }
 
-.massageTextBlock{
+.messageTextBlock{
     flex: 1;
 }
 
-.massageTextTime{
+.messageTextTime{
     padding-right: 20px;
     font-family: 'Arimo', sans-serif;
     font-size: 20px;
