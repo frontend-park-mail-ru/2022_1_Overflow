@@ -54,7 +54,7 @@ export class Menu {
                 if (event.target.className === 'menuText') {
                     const ajaxSignIn = new Ajax();
                     ajaxSignIn.get(
-                        'http://:8080/logout',
+                        ':8080/logout',
                         // eslint-disable-next-line
                         (status, responseText) => {
                             if (status != 200) {
