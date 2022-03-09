@@ -17,17 +17,37 @@ export class SignUp {
 
     getForm() {
         //накрутить проверок
-        let name = document.getElementById('inputFirstName').value;
+        let firstName = document.getElementById('inputFirstName').value;
+        let lastName = document.getElementById('inputLastName').value;
+        let email = document.getElementById('inputEmail').value;
         let password = document.getElementById('inputPassword').value;
+        let password_confirmation = document.getElementById('inputPasswordRepeat')
         password = safe(password);
-        if (name === '2' && password === '2') {
-            return true;
-        }
-        const invalidMsg = document.getElementsByClassName('invalidMsg')[0];
-        document.getElementById('inputPassword').value = '';
-        document.getElementById('inputEmail').value = '';
-        invalidMsg.style.visibility = 'visible';
-        return false;
+
+        const ajaxSignIn = new Ajax();
+        ajaxSignIn.post(
+            'http://127.0.0.1:8080/signup',
+            (status, responseText) => {
+                if (status != 200) {
+                    return;
+                }
+        
+                const parsed = JSON.parse(responseText);
+                if (parsed['status'] == 0) {
+                    const main = new MainPage(parent);
+                    main.render();
+                }
+                else {
+                    document.getElementsByClassName('invalidMsg')[0].style.visibility = 'visible';
+                    document.getElementsByClassName('invalidMsg')[0].textContent = parsed['message'];
+                }
+            },
+            {
+                'first_name': name,
+                'email': email,
+                'password': password,
+            },
+        );
     }
 
     render() {

@@ -39,7 +39,6 @@ export class SignIn {
                     document.getElementsByClassName('invalidMsg')[0].style.visibility = 'visible';
                     document.getElementsByClassName('invalidMsg')[0].textContent = parsed['message'];
                 }
-                console.log(parsed['message']);
             },
             {
                 'email': email,

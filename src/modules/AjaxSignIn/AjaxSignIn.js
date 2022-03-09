@@ -10,6 +10,17 @@ export class Ajax {
         )
     }
 
+    urlencodeFormData(fd){
+        var s = '';
+        function encode(s){ return encodeURIComponent(s).replace(/%20/g,'+'); }
+        for(var pair of fd.entries()){
+            if(typeof pair[1]=='string'){
+                s += (s?'&':'') + encode(pair[0])+'='+encode(pair[1]);
+            }
+        }
+        return s;
+    }
+
     _ajax(
             url = '/',
             method = 'POST',
@@ -33,9 +44,8 @@ export class Ajax {
                 form.append(key, data[key]);
             }
 
-            //xhr.setRequestHeader('Content-type', 'application/json; charset=utf8');
-            //xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-            xhr.send(form);
+            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded ');
+            xhr.send(this.urlencodeFormData(form));
             return;
         }
 
