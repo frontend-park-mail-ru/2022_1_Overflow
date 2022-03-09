@@ -19,21 +19,6 @@ export class Ajax {
         );
     }
 
-    urlencodeFormData(fd) {
-        let s = '';
-
-        function encode(s) {
-            return encodeURIComponent(s).replace(/%20/g, '+');
-        }
-
-        for (var pair of fd.entries()) {
-            if (typeof pair[1] == 'string') {
-                s += (s ? '&' : '') + encode(pair[0]) + '=' + encode(pair[1]);
-            }
-        }
-        return s;
-    }
-
     _ajax(
         url = '/',
         method = 'POST',
@@ -51,13 +36,8 @@ export class Ajax {
         });
 
         if (data) {
-            const form = new FormData();
-            for (const key in data) {
-                form.append(key, data[key]);
-            }
-
-            xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded ');
-            xhr.send(this.urlencodeFormData(form));
+            xhr.setRequestHeader('Content-type', 'application/json');
+            xhr.send(JSON.stringify(data));
             return;
         }
 
