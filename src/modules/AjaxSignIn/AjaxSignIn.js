@@ -1,35 +1,41 @@
 const noop = () => {};
 
 export class Ajax {
-    post({url, callback, body}) {
-        return this._ajax({
+    post(url, callback, data) {
+        return this._ajax(
             url,
+            'POST',
+            data,
             callback,
-            body,
-            method: 'POST',
-        })
+        )
     }
 
-    _ajax({
-              url = '/',
-              method = 'POST',
-              body = null,
-              callback = noop
-          }) {
+    _ajax(
+            url = '/',
+            method = 'POST',
+            data = null,
+            callback = noop
+        ) {
         const xhr = new XMLHttpRequest();
+
         xhr.open(method, url, true);
         xhr.withCredentials = true;
 
         xhr.addEventListener('readystatechange', function() {
             if (xhr.readyState !== XMLHttpRequest.DONE) return;
-
+            console.log(callback);
             callback(xhr.status, xhr.responseText);
         });
 
-        if (body) {
-            xhr.setRequestHeader('Content-type', 'application/json; charset=utf8');
-            xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
-            xhr.send(JSON.stringify(body));
+        if (data) {
+            const form = new FormData();
+            for (const key in data) {
+                form.append(key, data[key]);
+            }
+
+            //xhr.setRequestHeader('Content-type', 'application/json; charset=utf8');
+            //xhr.setRequestHeader('Access-Control-Allow-Origin', '*');
+            xhr.send(form);
             return;
         }
 

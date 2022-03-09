@@ -16,34 +16,36 @@ export class SignIn {
         this.#parent = parent;
     }
 
-    callback(status, responseText) {
-        console.log(status, responseText);
-    }
-
-    getForm() {
-        const invalidMsg = document.getElementsByClassName('invalidMsg')[0];
+    getForm(parent) {
         let email = document.getElementById('inputEmail').value;
         email = CheckInput(email);
         let password = document.getElementById('inputPassword').value;
         password = CheckInput(password);
 
         const ajaxSignIn = new Ajax();
-        ajaxSignIn.post({
-            url: 'http://127.0.0.1:8080/signin',
-            callback: this.callback,
-            body: {
-                email: email,
-                password: password,
+        ajaxSignIn.post(
+            'http://127.0.0.1:8080/signin',
+            (status, responseText) => {
+                if (status != 200) {
+                    return;
+                }
+        
+                const parsed = JSON.parse(responseText);
+                if (parsed['status'] == 0) {
+                    const main = new MainPage(parent);
+                    main.render();
+                }
+                else {
+                    document.getElementsByClassName('invalidMsg')[0].style.visibility = 'visible';
+                    document.getElementsByClassName('invalidMsg')[0].textContent = parsed['message'];
+                }
+                console.log(parsed['message']);
             },
-        });
-
-        if (flag === true) {
-            return true;
-        }
-        document.getElementById('inputPassword').value = '';
-        document.getElementById('inputEmail').value = '';
-        invalidMsg.style.visibility = 'visible';
-        return false;
+            {
+                'email': email,
+                'password': password,
+            },
+        );
     }
 
     render() {
@@ -75,11 +77,8 @@ export class SignIn {
         const goRegistration = document.getElementById('registration');
 
         goMenu.addEventListener('click', () => {
-            if (this.getForm() === true){
-                const mainPage = new MainPage(this.#parent);
-                mainPage.render();
-            }
-        });
+            this.getForm(this.#parent);
+        }); 
         goRegistration.addEventListener('click', () => {
             const signUp = new SignUpRender(this.#parent);
             signUp.render();
