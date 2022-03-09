@@ -1,5 +1,6 @@
 .mainParent{
     background: #C0DAF3;
+    margin-top: 60px;
     display: flex;
     flex: 1;
 }

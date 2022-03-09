@@ -1,4 +1,6 @@
 .parentHead{
+    position: fixed;
+    top: 0;
     background: #8FBBE6;
     width: 100%;
     height: 60px;
@@ -8,6 +10,6 @@
 }
 
 header{
-    position: sticky;
+    position: fixed;
     top: 0;
 }
