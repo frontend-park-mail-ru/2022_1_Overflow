@@ -40,7 +40,7 @@ export class Menu {
         const strelka = document.getElementsByClassName('strelka')[0];
         let a;
         strelka.addEventListener('click', a = (event) => {
-            event.stopPropagation();
+            //event.stopPropagation();
             strelka.removeEventListener('click', a);
             const popUp = new PopUp(main);
             popUp.render();
