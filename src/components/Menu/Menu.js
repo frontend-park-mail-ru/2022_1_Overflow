@@ -40,7 +40,7 @@ export class Menu {
         const strelka = document.getElementsByClassName('strelka')[0];
         let a;
         strelka.addEventListener('click', a = (event) => {
-            //event.stopPropagation();
+            event.stopPropagation();
             strelka.removeEventListener('click', a);
             const popUp = new PopUp(main);
             popUp.render();
@@ -51,7 +51,7 @@ export class Menu {
                         strelka.addEventListener('click', a);
                     }
                 }
-                if (event.target.className === 'exit') {
+                if (event.target.getElementsByClassName('exit') !== 0) {
                     const ajaxSignIn = new Ajax();
                     ajaxSignIn.get(
                         `http://${window.location.hostname}:8080/logout`,
