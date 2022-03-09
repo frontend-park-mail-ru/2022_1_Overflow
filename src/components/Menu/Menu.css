@@ -62,6 +62,9 @@
     right: 0px;
     top: 60px;
 }
+.openFolder > * {
+    cursor: pointer;
+}
 
 .exit{
     display: flex;
