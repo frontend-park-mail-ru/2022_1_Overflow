@@ -24,10 +24,11 @@ export class Message {
                     return;
                 }
                 const parsed = JSON.parse(responseText)['content'];
+                let log;
                 if (parsed == "") {
-                    const log = null;
+                    log = null;
                 } else {
-                    const log = JSON.parse(parsed);
+                    log = JSON.parse(parsed);
                 }
                 if (log == null) {
                     createElementDiv(message, '', 'messageText');
