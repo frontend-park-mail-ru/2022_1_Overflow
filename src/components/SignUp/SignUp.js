@@ -44,8 +44,8 @@ export class SignUp {
                 }
             },
             {
-                'firstName': firstName,
-                'lastName': lastName,
+                'first_name': firstName,
+                'last_name': lastName,
                 'email': email,
                 'password': password,
                 'password_confirmation': password_confirmation,
