@@ -15,7 +15,7 @@ export class Message {
 
         const ajaxSignIn = new Ajax();
         ajaxSignIn.get(
-            ':8080/list',
+            `http${window.location.hostname}:8080/list',
             (status, responseText) => {
                 const itemsMassage = {
                     input: []

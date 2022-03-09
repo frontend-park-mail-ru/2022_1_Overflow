@@ -24,7 +24,7 @@ export class SignIn {
 
         const ajaxSignIn = new Ajax();
         ajaxSignIn.post(
-            ':8080/signin',
+            `http${window.location.hostname}:8080/signin',
             (status, responseText) => {
                 if (status != 200) {
                     return;
