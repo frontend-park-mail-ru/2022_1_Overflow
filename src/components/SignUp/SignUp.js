@@ -5,8 +5,8 @@ import {
     createElementImg,
 } from '../../modules/CreateElement/createElement.js';
 import {SignInRender} from '../../pages/SignIn/SignIn.js';
-import {MainPage} from '../../pages/MainPage/MainPage.js';
-import {safe} from '../../modules/Safe/safe.js';
+import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn.js';
+import {CheckInput} from '../../modules/CheckInput/CheckInput.js';
 
 export class SignUp {
     #parent;
@@ -16,13 +16,12 @@ export class SignUp {
     }
 
     getForm() {
-        //накрутить проверок
         let firstName = document.getElementById('inputFirstName').value;
         let lastName = document.getElementById('inputLastName').value;
         let email = document.getElementById('inputEmail').value;
         let password = document.getElementById('inputPassword').value;
-        let password_confirmation = document.getElementById('inputPasswordRepeat')
-        password = safe(password);
+        let password_confirmation = document.getElementById('inputPasswordRepeat').value;
+        password = CheckInput(password);
 
         const ajaxSignIn = new Ajax();
         ajaxSignIn.post(
@@ -31,21 +30,26 @@ export class SignUp {
                 if (status != 200) {
                     return;
                 }
-        
                 const parsed = JSON.parse(responseText);
                 if (parsed['status'] == 0) {
-                    const main = new MainPage(parent);
-                    main.render();
-                }
-                else {
+                    const signIn = new SignInRender(this.#parent);
+                    signIn.render();
+                } else {
+                    document.getElementById('inputFirstName').style.borderColor = 'red';
+                    document.getElementById('inputLastName').style.borderColor = 'red';
+                    document.getElementById('inputEmail').style.borderColor = 'red';
+                    document.getElementById('inputPassword').style.borderColor = 'red';
+                    document.getElementById('inputPasswordRepeat').style.borderColor = 'red';
                     document.getElementsByClassName('invalidMsg')[0].style.visibility = 'visible';
                     document.getElementsByClassName('invalidMsg')[0].textContent = parsed['message'];
                 }
             },
             {
-                'first_name': name,
+                'first_name': firstName,
+                'last_name': lastName,
                 'email': email,
                 'password': password,
+                'password_confirmation': password_confirmation,
             },
         );
     }
@@ -67,16 +71,15 @@ export class SignUp {
         invalidMsg.style.visibility = 'hidden';
         createElementDiv(form, '', 'buttonGrid mt4');
         const divParent = document.getElementsByClassName('buttonGrid mt4')[0];
-        createElementButtonBase(divParent, 'Создать','btn btnPrimary', 'signupButton', 'button');
-        createElementButtonBase(divParent, 'Назад','btn btnSecondary', 'backButton', 'button');
+        createElementButtonBase(divParent, 'Создать', 'btn btnPrimary', 'signupButton', 'button');
+        createElementButtonBase(divParent, 'Назад', 'btn btnSecondary', 'backButton', 'button');
         const goSignIn = document.getElementById('backButton');
         const goMenu = document.getElementById('signupButton');
+
         goMenu.addEventListener('click', () => {
-            if (this.getForm() === true){
-                const mainPage = new MainPage(this.#parent);
-                mainPage.render();
-            }
+            this.getForm();
         });
+
         goSignIn.addEventListener('click', () => {
             const signUp = new SignInRender(this.#parent);
             signUp.render();
