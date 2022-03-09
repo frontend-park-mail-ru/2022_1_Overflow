@@ -50,11 +50,11 @@
 }
 
 input {
-    min-height: 4.2vh;
+    min-height: 3.5vh;
     min-width: 100%;
 
-    padding-left: 3%;
-    padding-right: 3%;
+    margin-right: 4%;
+    margin-left: 4%;
 
     background: #FFFFFF;
     border: 1px solid #EBEBEB;
