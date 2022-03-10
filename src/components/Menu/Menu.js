@@ -37,18 +37,18 @@ export class Menu {
             createElementDiv(parent, item.textText, 'menuText1');
         }, parentMenu);
 
-        const strelka = document.getElementsByClassName('strelka')[0];
+        const arrow = document.getElementsByClassName('arrow')[0];
         let a;
-        strelka.addEventListener('click', a = (event) => {
+        arrow.addEventListener('click', a = (event) => {
             event.stopPropagation();
-            strelka.removeEventListener('click', a);
+            arrow.removeEventListener('click', a);
             const popUp = new PopUp(main);
             popUp.render();
             document.addEventListener('click', (event) => {
                 if (event.target.className !== 'menuText') {
                     if (document.getElementsByClassName('openFolder')[0]){
                         document.getElementsByClassName('openFolder')[0].remove();
-                        strelka.addEventListener('click', a);
+                        arrow.addEventListener('click', a);
                     }
                 }
                 if (event.target.getElementsByClassName('exit') !== 0) {

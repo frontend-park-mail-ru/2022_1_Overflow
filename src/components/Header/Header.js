@@ -19,6 +19,6 @@ export class Header {
         createElementDiv(divParentObject, '', 'spaseBox');
         createElementImg(divParentObject, 'avatar', 'avatar');
         createElementP(divParentObject, getCookie('email'), 'email');
-        createElementImg(divParentObject, 'strelka', 'strelka');
+        createElementImg(divParentObject, 'arrow', 'arrow');
     };
 }
