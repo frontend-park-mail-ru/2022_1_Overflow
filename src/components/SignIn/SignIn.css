@@ -5,8 +5,7 @@
 }
 
 .showbox {
-    max-width: 40vh;
-    min-width: 340px;
+    width: 350px;
 
     background-color: white;
     border-radius: 1vh;
@@ -15,10 +14,7 @@
     display: flex;
     flex-direction: column;
     block-size: fit-content;
-    padding-left: 4rem;
-    padding-right: 4rem;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    padding: 50px 60px;
     gap: 2vh;
 }
 
@@ -50,11 +46,13 @@
 }
 
 input {
-    min-height: 3.5vh;
-    min-width: 100%;
+    width: 310px;
+    height: 37px;
 
     margin-right: 4%;
     margin-left: 4%;
+    padding-left: 5px;
+    padding-right: 5px;
 
     background: #FFFFFF;
     border: 1px solid #EBEBEB;
@@ -121,14 +119,13 @@ textarea:focus, input:focus{
 
 .btn {
     display: inline;
-    padding: 2%;
     border: 0;
     border-radius: 5px;
 
-    height: 10%;
-    width: 100%;
+    width: 320px;
+    height: 37px;
 
-    text-align: center;
+    align-self: center;
     font-size: medium;
 }
 
@@ -161,9 +158,9 @@ textarea:focus, input:focus{
     margin-bottom: 2vh;
 }
 
-.mt4 {
-    margin-top: 4vh;
-}
+/*.mt4 {*/
+/*    margin-top: 4vh;*/
+/*}*/
 
 svg {
     height: auto;
@@ -174,6 +171,7 @@ svg {
     display: flex;
     font-family: 'Red Hat Display', sans-serif;
     font-style: normal;
+    margin-left: 30px;
     color:#FF0000;
     font-weight: 300;
     line-height: 26px;
@@ -181,8 +179,6 @@ svg {
     flex-direction: row;
     text-align: start;
     width: 100%;
-    margin-top: -1vh;
-    margin-bottom: -4vh;
 }
 
 .forgetPass {

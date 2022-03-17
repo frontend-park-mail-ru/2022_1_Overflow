@@ -5,37 +5,13 @@ import {Ajax} from './modules/AjaxSignIn/AjaxSignIn.js';
 
 const root = document.getElementsByTagName('body')[0];
 
-if (getCookie('email') === undefined || getCookie('password')=== undefined) {
+console.log(getCookie('OveflowMail'));
+
+if (getCookie('OveflowMail') === undefined) {
     const signIn = new SignInRender(root);
     signIn.render();
 }
 else {
-    const email = getCookie('email');
-    const password = getCookie('password');
-    const ajaxSignIn = new Ajax();
-    ajaxSignIn.post(
-        `http://${window.location.hostname}:8080/signin`,
-        (status, responseText) => {
-            if (status != 200) {
-                const signIn = new SignInRender(root);
-                signIn.render();
-                return;
-            }
-
-            const parsed = JSON.parse(responseText);
-
-            if (parsed['status'] == 0) {
-                const main = new MainPage(root);
-                main.render();
-            }
-            else {
-                const signIn = new SignInRender(root);
-                signIn.render();
-            }
-        },
-        {
-            'email': email,
-            'password': password,
-        },
-    );
+    const main = new MainPage(root);
+    main.render();
 }

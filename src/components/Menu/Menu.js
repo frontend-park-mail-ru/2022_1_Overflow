@@ -38,33 +38,28 @@ export class Menu {
         }, parentMenu);
 
         const arrow = document.getElementsByClassName('arrow')[0];
-        let a;
-        arrow.addEventListener('click', a = (event) => {
+        let arrowEvent;
+        arrow.addEventListener('click', arrowEvent = (event) => {
             event.stopPropagation();
-            arrow.removeEventListener('click', a);
+            arrow.removeEventListener('click', arrowEvent);
             const popUp = new PopUp(main);
             popUp.render();
             document.addEventListener('click', (event) => {
                 if (event.target.className !== 'menuText') {
                     if (document.getElementsByClassName('openFolder')[0]){
                         document.getElementsByClassName('openFolder')[0].remove();
-                        arrow.addEventListener('click', a);
+                        arrow.addEventListener('click', arrowEvent);
                     }
                 }
-                if (event.target.getElementsByClassName('exit') !== 0) {
+                if (event.target.className === 'menuText') {
+                    console.log(1);
                     const ajaxSignIn = new Ajax();
                     ajaxSignIn.get(
                         `http://${window.location.hostname}:8080/logout`,
                         // eslint-disable-next-line
                         (status, responseText) => {
-                            if (status != 200) {
-                                return;
-                            }
-                            const parsed = JSON.parse(responseText);
-                            if (parsed['status'] == 0) {
                                 const signIn = new SignInRender(this.#parent);
                                 signIn.render();
-                            }
                         },
                     );
                 }
