@@ -55,12 +55,13 @@ export class Menu {
                     }
                 }
                 if (event.target.className === 'menuText' || event.target.className === 'iconPoint') {
-                    console.log(1);
                     const ajaxSignIn = new Ajax();
                     ajaxSignIn.get(
                         `http://${window.location.hostname}:8080/logout`,
                         // eslint-disable-next-line
                         (status, responseText) => {
+                            if (status != 200)
+                                return;
                             const signIn = new SignInRender(this.#parent);
                             signIn.render();
                         },

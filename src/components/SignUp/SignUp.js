@@ -71,6 +71,7 @@ export class SignUp {
                 if (status != 200) {
                     return;
                 }
+
                 const parsed = JSON.parse(responseText);
                 if (parsed['status'] == 0) {
                     const signIn = new SignInRender(this.#parent);
