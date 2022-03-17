@@ -46,7 +46,6 @@ export class Menu {
             popUp.render();
             let docEvent;
             document.addEventListener('click', docEvent = (event) => {
-                console.log(event.target.className);
                 if (event.target.className !== 'menuText' && event.target.className !== 'iconPoint') {
                     if (document.getElementsByClassName('openFolder')[0]) {
                         document.getElementsByClassName('openFolder')[0].remove();
