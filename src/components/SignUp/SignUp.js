@@ -27,40 +27,40 @@ export class SignUp {
 
     getForm() {
         let firstName = document.getElementById('inputFirstName').value;
-        const errorFirstName = LenghtCheck(firstName, 'Имени');
+        const errorFirstName = LenghtCheck(firstName, 'имени');
         if (errorFirstName !== '') {
             this.setError(errorFirstName);
             return;
         }
 
         let lastName = document.getElementById('inputLastName').value;
-        const errorLastName = LenghtCheck(lastName, 'Фамилии');
+        const errorLastName = LenghtCheck(lastName, 'фамилии');
         if (errorLastName !== '') {
             this.setError(errorLastName);
             return;
         }
 
         let email = document.getElementById('inputEmail').value;
-        const errorEmail = LenghtCheck(email, 'Почты');
+        const errorEmail = LenghtCheck(email, 'почты');
         if (errorEmail !== '') {
             this.setError(errorEmail);
             return;
         }
 
         let password = document.getElementById('inputPassword').value;
-        const errorPassword = LenghtCheck(password, 'Пароля');
+        const errorPassword = LenghtCheck(password, 'пароля');
         if (errorPassword !== '') {
             this.setError(errorPassword);
             return;
         }
         let password_confirmation = document.getElementById('inputPasswordRepeat').value;
-        const errorPassword_confirmation = LenghtCheck(password_confirmation, 'Повтора пароля');
+        const errorPassword_confirmation = LenghtCheck(password_confirmation, 'повтора пароля');
         if (errorPassword_confirmation !== '') {
             this.setError(errorPassword_confirmation);
             return;
         }
         if (password !== password_confirmation) {
-            this.setError('Поля пароля и повтора пароля не совпадают');
+            this.setError('поля пароля и повтора пароля не совпадают');
             return;
         }
 

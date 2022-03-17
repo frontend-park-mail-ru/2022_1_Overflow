@@ -26,7 +26,7 @@ export class SignIn {
 
     getForm(parent) {
         let email = document.getElementById('inputEmail').value;
-        const errEmail = LenghtCheck(email, 'Почты');
+        const errEmail = LenghtCheck(email, 'почты');
         if (errEmail !== '') {
             this.setError(errEmail);
             return;
@@ -34,7 +34,7 @@ export class SignIn {
 
         let password = document.getElementById('inputPassword').value;
         password = CheckInput(password);
-        const errPassword = LenghtCheck(password, 'Пароля');
+        const errPassword = LenghtCheck(password, 'пароля');
         if (errPassword !== '') {
             this.setError(errPassword);
             return;
