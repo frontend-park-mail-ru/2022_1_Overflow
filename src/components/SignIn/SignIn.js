@@ -8,7 +8,7 @@ import {MainPage} from '../../pages/MainPage/MainPage.js';
 import {SignUpRender} from '../../pages/SignUp/SignUp.js';
 import {CheckInput} from '../../modules/CheckInput/CheckInput.js';
 import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn.js';
-import {LenghtCheck} from '../../modules/LenghtCheck/LenghtCheck.js'
+import {LenghtCheck} from '../../modules/LenghtCheck/LenghtCheck.js';
 
 export class SignIn {
     #parent;
@@ -17,7 +17,7 @@ export class SignIn {
         this.#parent = parent;
     }
 
-    setError(text, type) {
+    setError(text) {
         document.getElementById('inputEmail').style.borderColor = 'red';
         document.getElementById('inputPassword').style.borderColor = 'red';
         document.getElementsByClassName('invalidMsg')[0].style.visibility = 'visible';

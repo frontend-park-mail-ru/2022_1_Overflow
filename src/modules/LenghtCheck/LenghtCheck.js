@@ -1,4 +1,4 @@
-import {CheckInput} from '../CheckInput/CheckInput.js'
+import {CheckInput} from '../CheckInput/CheckInput.js';
 
 export const LenghtCheck = (text, type) => {
     text = CheckInput(text);
@@ -9,4 +9,4 @@ export const LenghtCheck = (text, type) => {
         return `Длинна ${type} слишком большая.`;
     }
     return '';
-}
+};
