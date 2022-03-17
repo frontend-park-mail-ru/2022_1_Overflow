@@ -19,6 +19,11 @@ export class Message {
                 const itemsMassage = {
                     input: []
                 };
+                if (status == 401)
+                {
+                    const signIn = new SignInRender(root);
+                    signIn.render();
+                }
                 if (status != 200) {
                     return;
                 }
