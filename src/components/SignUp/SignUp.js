@@ -60,7 +60,7 @@ export class SignUp {
             return;
         }
         if (password !== password_confirmation) {
-            this.setError('поля пароля и повтора пароля не совпадают');
+            this.setError('Поля пароля и повтора пароля не совпадают');
             return;
         }
 
