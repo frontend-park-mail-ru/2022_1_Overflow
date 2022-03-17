@@ -153,8 +153,7 @@ textarea:focus, input:focus{
 }
 
 .mb2 {
-    height: auto;
-    width: 7vh;
+    width: 70px;
     margin-bottom: 2vh;
 }
 
