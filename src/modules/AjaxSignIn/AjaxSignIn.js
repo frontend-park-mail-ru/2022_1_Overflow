@@ -40,7 +40,6 @@ export class Ajax {
             xhr.send(JSON.stringify(data));
             return;
         }
-
         xhr.send();
     }
 }
