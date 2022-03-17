@@ -33,7 +33,7 @@ export class Menu {
         itemsMenu.input.forEach(function (item, index) {
             createElementDiv(parentMenu, '', 'manuPoint');
             const parent = document.getElementsByClassName('manuPoint')[index];
-            createElementImg(parent, item.iconName, 'iconPoint');
+            createElementImg(parent, item.iconName, 'iconPoint1');
             createElementDiv(parent, item.textText, 'menuText1');
         }, parentMenu);
 
@@ -44,22 +44,25 @@ export class Menu {
             arrow.removeEventListener('click', arrowEvent);
             const popUp = new PopUp(main);
             popUp.render();
-            document.addEventListener('click', (event) => {
-                if (event.target.className !== 'menuText') {
-                    if (document.getElementsByClassName('openFolder')[0]){
+            let docEvent;
+            document.addEventListener('click', docEvent = (event) => {
+                console.log(event.target.className);
+                if (event.target.className !== 'menuText' && event.target.className !== 'iconPoint') {
+                    if (document.getElementsByClassName('openFolder')[0]) {
                         document.getElementsByClassName('openFolder')[0].remove();
+                        document.removeEventListener('click', docEvent);
                         arrow.addEventListener('click', arrowEvent);
                     }
                 }
-                if (event.target.className === 'menuText') {
+                if (event.target.className === 'menuText' || event.target.className === 'iconPoint') {
                     console.log(1);
                     const ajaxSignIn = new Ajax();
                     ajaxSignIn.get(
                         `http://${window.location.hostname}:8080/logout`,
                         // eslint-disable-next-line
                         (status, responseText) => {
-                                const signIn = new SignInRender(this.#parent);
-                                signIn.render();
+                            const signIn = new SignInRender(this.#parent);
+                            signIn.render();
                         },
                     );
                 }

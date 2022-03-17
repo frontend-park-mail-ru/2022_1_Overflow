@@ -36,6 +36,12 @@
 }
 
 .iconPoint{
+    cursor: pointer;
+    padding-right: 10px;
+}
+
+.iconPoint1{
+    cursor: pointer;
     padding-right: 10px;
 }
 
@@ -45,6 +51,7 @@
 }
 
 .menuText1{
+    cursor: pointer;
     margin-left: 10px;
     font-size: 18px;
 }

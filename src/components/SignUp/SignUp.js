@@ -6,7 +6,7 @@ import {
 } from '../../modules/CreateElement/createElement.js';
 import {SignInRender} from '../../pages/SignIn/SignIn.js';
 import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn.js';
-import {CheckInput} from '../../modules/CheckInput/CheckInput.js';
+import {LenghtCheck} from '../../modules/LenghtCheck/LenghtCheck.js';
 
 export class SignUp {
     #parent;
@@ -15,13 +15,54 @@ export class SignUp {
         this.#parent = parent;
     }
 
+    setError(text) {
+        document.getElementById('inputFirstName').style.borderColor = 'red';
+        document.getElementById('inputLastName').style.borderColor = 'red';
+        document.getElementById('inputEmail').style.borderColor = 'red';
+        document.getElementById('inputPassword').style.borderColor = 'red';
+        document.getElementById('inputPasswordRepeat').style.borderColor = 'red';
+        document.getElementsByClassName('invalidMsg')[0].style.visibility = 'visible';
+        document.getElementsByClassName('invalidMsg')[0].textContent = text;
+    }
+
     getForm() {
         let firstName = document.getElementById('inputFirstName').value;
+        const errorFirstName = LenghtCheck(firstName, 'Имени');
+        if (errorFirstName !== '') {
+            this.setError(errorFirstName);
+            return;
+        }
+
         let lastName = document.getElementById('inputLastName').value;
+        const errorLastName = LenghtCheck(lastName, 'Фамилии');
+        if (errorLastName !== '') {
+            this.setError(errorLastName);
+            return;
+        }
+
         let email = document.getElementById('inputEmail').value;
+        const errorEmail = LenghtCheck(email, 'Почты');
+        if (errorEmail !== '') {
+            this.setError(errorEmail);
+            return;
+        }
+
         let password = document.getElementById('inputPassword').value;
+        const errorPassword = LenghtCheck(password, 'Пароля');
+        if (errorPassword !== '') {
+            this.setError(errorPassword);
+            return;
+        }
         let password_confirmation = document.getElementById('inputPasswordRepeat').value;
-        password = CheckInput(password);
+        const errorPassword_confirmation = LenghtCheck(password_confirmation, 'Повтора пароля');
+        if (errorPassword_confirmation !== '') {
+            this.setError(errorPassword_confirmation);
+            return;
+        }
+        if (password !== password_confirmation) {
+            this.setError('Поля пароля и повтора пароля не совпадают');
+            return;
+        }
 
         const ajaxSignIn = new Ajax();
         ajaxSignIn.post(
@@ -81,8 +122,8 @@ export class SignUp {
         });
 
         goSignIn.addEventListener('click', () => {
-            const signUp = new SignInRender(this.#parent);
-            signUp.render();
+            const signIn = new SignInRender(this.#parent);
+            signIn.render();
         });
     }
 }

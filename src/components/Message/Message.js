@@ -12,7 +12,6 @@ export class Message {
         createElementDiv(this.#parent, '', 'message');
         const message = document.getElementsByClassName('message')[0];
 
-
         const ajaxSignIn = new Ajax();
         ajaxSignIn.get(
             `http://${window.location.hostname}:8080/income`,
@@ -23,22 +22,15 @@ export class Message {
                 if (status != 200) {
                     return;
                 }
-                const parsed = JSON.parse(responseText)['content'];
-                let log;
-                if (parsed == "") {
-                    log = null;
-                } else {
-                    log = JSON.parse(parsed);
-                }
-                if (log == null) {
+                const parsed = JSON.parse(responseText);
+                if (parsed == null) {
                     createElementDiv(message, '', 'messageText');
                     const parent = document.getElementsByClassName('messageText')[0];
                     createElementP(parent, 'Список пуст', 'messageEmpty');
                     return;
                 }
-                log.forEach((pars) => {
+                parsed.forEach((pars) => {
                     const date = new Date(pars['date']);
-                    console.log(date);
                     itemsMassage.input.push({
                         avatar: 'avatar',
                         title: pars['theme'],

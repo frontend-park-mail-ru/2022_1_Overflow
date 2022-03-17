@@ -122,23 +122,32 @@ textarea:focus, input:focus{
     border: 0;
     border-radius: 5px;
 
-    width: 320px;
+    width: 322px;
     height: 37px;
 
     align-self: center;
     font-size: medium;
 }
 
-.btn:hover {
-    cursor: pointer;
 
-    filter: drop-shadow(0px 0px 1px #000);
-    -webkit-filter: drop-shadow(0px 0px 2px #000);
-    -webkit-transition: all 800ms ease;
-    -moz-transition: all 800ms ease;
-    -o-transition: all 800ms ease;
-    -ms-transition: all 800ms ease;
-    transition: all 800ms ease;
+#signInButton:hover {
+    cursor: pointer;
+    background: #275682;
+}
+
+#registration:hover {
+    cursor: pointer;
+    background: #DBDBDB;
+}
+
+#signupButton:hover {
+    cursor: pointer;
+    background: #275682;
+}
+
+#backButton:hover {
+    cursor: pointer;
+    background: #DBDBDB;
 }
 
 .btnPrimary {
