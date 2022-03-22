@@ -41,7 +41,7 @@ export class SignUp {
         }
 
         let email = document.getElementById('inputEmail').value;
-        const errorEmail = LenghtCheck(email, 'почты');
+        const errorEmail = LenghtCheck(email, 'логина');
         if (errorEmail !== '') {
             this.setError(errorEmail);
             return;
@@ -77,13 +77,7 @@ export class SignUp {
                     const signIn = new SignInRender(this.#parent);
                     signIn.render();
                 } else {
-                    document.getElementById('inputFirstName').style.borderColor = 'red';
-                    document.getElementById('inputLastName').style.borderColor = 'red';
-                    document.getElementById('inputEmail').style.borderColor = 'red';
-                    document.getElementById('inputPassword').style.borderColor = 'red';
-                    document.getElementById('inputPasswordRepeat').style.borderColor = 'red';
-                    document.getElementsByClassName('invalidMsg')[0].style.visibility = 'visible';
-                    document.getElementsByClassName('invalidMsg')[0].textContent = parsed['message'];
+                    this.setError(parsed['message']);
                 }
             },
             {

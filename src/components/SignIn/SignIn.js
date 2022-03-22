@@ -26,7 +26,7 @@ export class SignIn {
 
     getForm(parent) {
         let email = document.getElementById('inputEmail').value;
-        const errEmail = LenghtCheck(email, 'почты');
+        const errEmail = LenghtCheck(email, 'логина');
         if (errEmail !== '') {
             this.setError(errEmail);
             return;
@@ -54,10 +54,7 @@ export class SignIn {
                     main.render();
                 }
                 else {
-                    document.getElementById('inputEmail').style.borderColor = 'red';
-                    document.getElementById('inputPassword').style.borderColor = 'red';
-                    document.getElementsByClassName('invalidMsg')[0].style.visibility = 'visible';
-                    document.getElementsByClassName('invalidMsg')[0].textContent = parsed['message'];
+                    this.setError(parsed['message']);
                 }
             },
             {
