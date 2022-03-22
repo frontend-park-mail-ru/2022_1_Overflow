@@ -68,17 +68,17 @@ export class SignUp {
         ajaxSignIn.post(
             `http://${window.location.hostname}:8080/signup`,
             (status, responseText) => {
-                if (status != 200) {
+                if (status === 500) {
+                    this.setError(responseText);
                     return;
                 }
 
-                const parsed = JSON.parse(responseText);
-                if (parsed['status'] == 0) {
-                    const signIn = new SignInRender(this.#parent);
-                    signIn.render();
-                } else {
-                    this.setError(parsed['message']);
+                if (status !== 200) {
+                    return;
                 }
+
+                const signIn = new SignInRender(this.#parent);
+                signIn.render();
             },
             {
                 'first_name': firstName,

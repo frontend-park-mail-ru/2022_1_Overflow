@@ -35,6 +35,7 @@ export class Message {
                     createElementP(parent, 'Список писем пуст', 'messageEmpty');
                     return;
                 }
+
                 parsed.forEach((pars) => {
                     const date = new Date(pars['date']);
                     itemsMassage.input.push({
