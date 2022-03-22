@@ -15,7 +15,7 @@ export class Message {
 
         const ajaxSignIn = new Ajax();
         ajaxSignIn.get(
-            `http://${window.location.hostname}:8080/income`,
+            `http://${window.location.hostname}:8080/mail/income`,
             (status, responseText) => {
                 const itemsMassage = {
                     input: []
