@@ -12,7 +12,7 @@ ajaxGetEmail.get(
     (status, responseText) => {
         if (status == 401)
         {
-            const signIn = new SignInRender(root);
+            const signIn = new SignInRender(root)
             signIn.render();
         }
         if (status != 200) {
