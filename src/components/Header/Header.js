@@ -1,4 +1,5 @@
 import {createElementDiv, createElementP, createElementImg} from '../../modules/CreateElement/createElement.js';
+import {SignInRender} from '../../pages/SignIn/SignIn.js';
 import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn.js';
 
 export class Header {
@@ -28,7 +29,7 @@ export class Header {
             (status, responseText) => {
                 if (status == 401)
                 {
-                    const signIn = new SignInRender(root);
+                    const signIn = new SignInRender(this.#parent);
                     signIn.render();
                 }
                 if (status != 200) {

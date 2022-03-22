@@ -61,7 +61,7 @@ export class Menu {
                         (status, responseText) => {
                             if (status == 401)
                             {
-                                const signIn = new SignInRender(root);
+                                const signIn = new SignInRender(this.#parent);
                                 signIn.render();
                             }
                             if (status != 200)

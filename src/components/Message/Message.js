@@ -1,4 +1,5 @@
 import {createElementDiv, createElementP, createElementImg} from '../../modules/CreateElement/createElement.js';
+import {SignInRender} from '../../pages/SignIn/SignIn.js';
 import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn.js';
 
 export class Message {
@@ -21,7 +22,7 @@ export class Message {
                 };
                 if (status == 401)
                 {
-                    const signIn = new SignInRender(root);
+                    const signIn = new SignInRender(this.#parent);
                     signIn.render();
                 }
                 if (status != 200) {
@@ -31,7 +32,7 @@ export class Message {
                 if (parsed == null) {
                     createElementDiv(message, '', 'messageText');
                     const parent = document.getElementsByClassName('messageText')[0];
-                    createElementP(parent, 'Список пуст', 'messageEmpty');
+                    createElementP(parent, 'Список писем пуст', 'messageEmpty');
                     return;
                 }
                 parsed.forEach((pars) => {
