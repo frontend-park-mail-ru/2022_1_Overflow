@@ -76,7 +76,7 @@ export class SignIn {
         container.appendChild(form);
 
         createElementImg(form, 'LogoSigin', 'mb2');
-        createElementInputBase(form, 'Почта', 'inputEmail', 'text');
+        createElementInputBase(form, 'Логин', 'inputEmail', 'text');
         createElementInputBase(form, 'Пароль', 'inputPassword', 'password');
         createElementDiv(form, 'Не верное имя пользователя или пароль.', 'invalidMsg');
         const invalidMsg = document.getElementsByClassName('invalidMsg')[0];

@@ -36,7 +36,7 @@ export class Header {
                 }
                 jsonProfile = JSON.parse(responseText);
                 const email = document.getElementsByClassName('email')[0];
-                email.textContent = jsonProfile['Email'] + '@over.com';
+                email.textContent = jsonProfile['Email'];
             },
         );
     };

@@ -105,7 +105,7 @@ export class SignUp {
         createElementImg(form, 'LogoSigin', 'mb2');
         createElementInputBase(form, 'Имя', 'inputFirstName', 'text');
         createElementInputBase(form, 'Фамилия', 'inputLastName', 'text');
-        createElementInputBase(form, 'Почта', 'inputEmail', 'text');
+        createElementInputBase(form, 'Логин', 'inputEmail', 'text');
         createElementInputBase(form, 'Пароль', 'inputPassword', 'password');
         createElementInputBase(form, 'Повторить пароль', 'inputPasswordRepeat', 'password');
         createElementDiv(form, 'Не верное имя пользователя или пароль.', 'invalidMsg');
