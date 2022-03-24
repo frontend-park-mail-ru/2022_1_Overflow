@@ -42,4 +42,52 @@ export class Ajax {
         }
         xhr.send();
     }
+
+    promisifyGet(url) {
+        return new Promise((resolve, reject) => {
+            this._ajax(
+                url,
+                'GET',
+                null,
+                (status, responseText) => {
+                    if (status !== 200) {
+                        reject(responseText);
+                    }
+                    resolve(responseText);
+                }
+            );
+        })
+    }
+
+    promisifyPostSignUp(url, data) {
+        return new Promise((resolve, reject) => {
+            this._ajax(
+                url,
+                'POST',
+                data,
+                (status, responseText) => {
+                    if (status !== 200) {
+                        reject(responseText);
+                    }
+                    resolve(data);
+                }
+            );
+        })
+    }
+
+    promisifyPostSignIn(url, data) {
+        return new Promise((resolve, reject) => {
+            this._ajax(
+                url,
+                'POST',
+                data,
+                (status, responseText) => {
+                    if (status !== 200) {
+                        reject(responseText)
+                    }
+                    resolve()
+                }
+            );
+        })
+    }
 }

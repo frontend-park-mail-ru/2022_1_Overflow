@@ -17,6 +17,7 @@
 .menu{
     position: sticky;
     top: 80px;
+    z-index: 1;
     display: flex;
     height: 84.5vh;
     flex-direction: column;

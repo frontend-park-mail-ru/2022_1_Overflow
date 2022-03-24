@@ -13,41 +13,32 @@ export class Message {
         createElementDiv(this.#parent, '', 'message');
         const message = document.getElementsByClassName('message')[0];
 
-        const ajaxSignIn = new Ajax();
-        ajaxSignIn.get(
+        const ajax = new Ajax();
+        ajax.promisifyGet(
             `http://${window.location.hostname}:8080/mail/income`,
-            (status, responseText) => {
-                const itemsMassage = {
-                    input: []
-                };
-                if (status == 401)
-                {
-                    const signIn = new SignInRender(this.#parent);
-                    signIn.render();
-                }
-                if (status != 200) {
-                    return;
-                }
-                const parsed = JSON.parse(responseText);
-                if (parsed == null) {
-                    createElementDiv(message, '', 'messageText');
-                    const parent = document.getElementsByClassName('messageText')[0];
-                    createElementP(parent, 'Список писем пуст', 'messageEmpty');
-                    return;
-                }
-
-                parsed.forEach((pars) => {
-                    const date = new Date(pars['date']);
-                    itemsMassage.input.push({
-                        avatar: 'avatar',
-                        title: pars['theme'],
-                        subTitle: pars['text'],
-                        time: (('0' + date.getDate()).slice(-2) + ':' + ('0' + (date.getMonth() + 1)).slice(-2)),
-                    });
-                });
-                this.renderMassege(message, itemsMassage);
+        ).then((responseText) => {
+            const parsed = JSON.parse(responseText);
+            if (parsed === null) {
+                createElementDiv(message, '', 'messageText');
+                const parent = document.getElementsByClassName('messageText')[0];
+                createElementP(parent, 'Список писем пуст', 'messageEmpty');
+                return;
             }
-        );
+
+            parsed.forEach((pars) => {
+                const date = new Date(pars['date']);
+                itemsMassage.input.push({
+                    avatar: 'avatar',
+                    title: pars['theme'],
+                    subTitle: pars['text'],
+                    time: (('0' + date.getDate()).slice(-2) + ':' + ('0' + (date.getMonth() + 1)).slice(-2)),
+                });
+            });
+            this.renderMassege(message, itemsMassage);
+        }).catch((responseText) => {
+            const signIn = new SignInRender(this.#parent);
+            signIn.render();
+        })
     }
 
     renderMassege(message, itemsMassage) {

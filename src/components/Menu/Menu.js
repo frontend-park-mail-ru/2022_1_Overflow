@@ -59,12 +59,12 @@ export class Menu {
                         `http://${window.location.hostname}:8080/logout`,
                         // eslint-disable-next-line
                         (status, responseText) => {
-                            if (status == 401)
+                            if (status === 401)
                             {
                                 const signIn = new SignInRender(this.#parent);
                                 signIn.render();
                             }
-                            if (status != 200)
+                            if (status !== 200)
                                 return;
                             const signIn = new SignInRender(this.#parent);
                             signIn.render();
@@ -75,4 +75,3 @@ export class Menu {
         });
     };
 }
-

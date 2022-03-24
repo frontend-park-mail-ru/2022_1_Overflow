@@ -41,26 +41,19 @@ export class SignIn {
         }
 
         const ajaxSignIn = new Ajax();
-        ajaxSignIn.post(
+        ajaxSignIn.promisifyPostSignIn(
             `http://${window.location.hostname}:8080/signin`,
-            (status, responseText) => {
-                if (status === 500) {
-                    this.setError(responseText);
-                    return;
-                }
-
-                if (status !== 200) {
-                    return;
-                }
-
-                const main = new MainPage(parent);
-                main.render();
-            },
             {
                 'email': email,
                 'password': password,
             },
-        );
+        ).then(() => {
+            const main = new MainPage(parent);
+            main.render();
+        }).catch((responseText) => {
+            const json = JSON.parse(responseText);
+            this.setError(json['message']);
+        });
     }
 
     render() {

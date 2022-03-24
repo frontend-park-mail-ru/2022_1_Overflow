@@ -7,6 +7,7 @@ import {
 import {SignInRender} from '../../pages/SignIn/SignIn.js';
 import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn.js';
 import {LenghtCheck} from '../../modules/LenghtCheck/LenghtCheck.js';
+import {MainPage} from '../../pages/MainPage/MainPage.js';
 
 export class SignUp {
     #parent;
@@ -64,22 +65,9 @@ export class SignUp {
             return;
         }
 
-        const ajaxSignIn = new Ajax();
-        ajaxSignIn.post(
+        const ajax = new Ajax();
+        const promise = ajax.promisifyPostSignUp(
             `http://${window.location.hostname}:8080/signup`,
-            (status, responseText) => {
-                if (status === 500) {
-                    this.setError(responseText);
-                    return;
-                }
-
-                if (status !== 200) {
-                    return;
-                }
-
-                const signIn = new SignInRender(this.#parent);
-                signIn.render();
-            },
             {
                 'first_name': firstName,
                 'last_name': lastName,
@@ -87,7 +75,22 @@ export class SignUp {
                 'password': password,
                 'password_confirmation': password_confirmation,
             },
-        );
+        ).then((data) => {
+            console.log(data)
+            return ajax.promisifyPostSignIn(
+                `http://${window.location.hostname}:8080/signin`,
+                {
+                    'email': data['email'],
+                    'password': data['password'],
+                },
+            )
+        }).then(() => {
+            const main = new MainPage(this.#parent);
+            main.render();
+        }).catch((responseText) => {
+            const jsonerror = JSON.parse(responseText);
+            this.setError(jsonerror['message']);
+        });
     }
 
     render() {

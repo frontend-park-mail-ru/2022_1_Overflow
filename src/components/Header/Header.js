@@ -27,12 +27,12 @@ export class Header {
             `http://${window.location.hostname}:8080/profile`,
             // eslint-disable-next-line
             (status, responseText) => {
-                if (status == 401)
+                if (status === 401)
                 {
                     const signIn = new SignInRender(this.#parent);
                     signIn.render();
                 }
-                if (status != 200) {
+                if (status !== 200) {
                     return ;
                 }
                 jsonProfile = JSON.parse(responseText);
