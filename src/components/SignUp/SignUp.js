@@ -80,7 +80,7 @@ export class SignUp {
             return ajax.promisifyPostSignIn(
                 `http://${window.location.hostname}:8080/signin`,
                 {
-                    'username': data['email'],
+                    'username': data['username'],
                     'password': data['password'],
                 },
             );
