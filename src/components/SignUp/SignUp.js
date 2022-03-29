@@ -76,7 +76,6 @@ export class SignUp {
                 'password_confirmation': password_confirmation,
             },
         ).then((data) => {
-            console.log(data);
             return ajax.promisifyPostSignIn(
                 `http://${window.location.hostname}:8080/signin`,
                 {
