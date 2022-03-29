@@ -18,9 +18,11 @@ export class Header {
         createElementImg(divParentObject, 'Logo', 'logoLogo');
         createElementP(divParentObject, 'OverMail', 'logoTitle');
         createElementDiv(divParentObject, '', 'spaseBox');
-        createElementImg(divParentObject, 'avatar', 'avatar');
-        createElementP(divParentObject, '', 'email');
-        createElementImg(divParentObject, 'arrow', 'arrow');
+        createElementDiv(divParentObject, '', 'profile');
+        const divProfile = document.getElementsByClassName('profile')[0];
+        createElementImg(divProfile, 'avatar', 'avatar');
+        createElementP(divProfile, '', 'email');
+        createElementImg(divProfile, 'arrow', 'arrow');
         const ajaxGetEmail = new Ajax();
         let jsonProfile;
         ajaxGetEmail.get(

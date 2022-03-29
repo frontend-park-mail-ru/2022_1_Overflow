@@ -22,8 +22,8 @@ export class SignUp {
         document.getElementById('inputEmail').style.borderColor = 'red';
         document.getElementById('inputPassword').style.borderColor = 'red';
         document.getElementById('inputPasswordRepeat').style.borderColor = 'red';
-        document.getElementsByClassName('invalidMsg')[0].style.visibility = 'visible';
-        document.getElementsByClassName('invalidMsg')[0].textContent = text;
+        document.querySelector('.invalidMsg').style.visibility = 'visible';
+        document.querySelector('.invalidMsg').textContent = text;
     }
 
     getForm() {
@@ -66,7 +66,7 @@ export class SignUp {
         }
 
         const ajax = new Ajax();
-        const promise = ajax.promisifyPostSignUp(
+        ajax.promisifyPostSignUp(
             `http://${window.location.hostname}:8080/signup`,
             {
                 'first_name': firstName,
@@ -76,14 +76,14 @@ export class SignUp {
                 'password_confirmation': password_confirmation,
             },
         ).then((data) => {
-            console.log(data)
+            console.log(data);
             return ajax.promisifyPostSignIn(
                 `http://${window.location.hostname}:8080/signin`,
                 {
                     'email': data['email'],
                     'password': data['password'],
                 },
-            )
+            );
         }).then(() => {
             const main = new MainPage(this.#parent);
             main.render();
@@ -95,10 +95,15 @@ export class SignUp {
 
     render() {
         createElementDiv(this.#parent, '', 'container');
-        const container = document.getElementsByClassName('container')[0];
+        const container = document.querySelector('.container');
         const form = document.createElement('form');
+        form.onsubmit = (event) => {
+            event.preventDefault();
+            return this.getForm(this.#parent);
+        }
         form.className = 'showbox showboxCenter showboxSelfCenter shadow';
         container.appendChild(form);
+
         createElementImg(form, 'LogoSigin', 'mb2');
         createElementInputBase(form, 'Имя', 'inputFirstName', 'text');
         createElementInputBase(form, 'Фамилия', 'inputLastName', 'text');
@@ -106,18 +111,13 @@ export class SignUp {
         createElementInputBase(form, 'Пароль', 'inputPassword', 'password');
         createElementInputBase(form, 'Повторить пароль', 'inputPasswordRepeat', 'password');
         createElementDiv(form, 'Не верное имя пользователя или пароль.', 'invalidMsg');
-        const invalidMsg = document.getElementsByClassName('invalidMsg')[0];
+        const invalidMsg = document.querySelector('.invalidMsg');
         invalidMsg.style.visibility = 'hidden';
         createElementDiv(form, '', 'buttonGrid mt4');
         const divParent = document.getElementsByClassName('buttonGrid mt4')[0];
-        createElementButtonBase(divParent, 'Создать', 'btn btnPrimary', 'signupButton', 'button');
+        createElementButtonBase(divParent, 'Создать', 'btn btnPrimary', 'signupButton', 'submit');
         createElementButtonBase(divParent, 'Назад', 'btn btnSecondary', 'backButton', 'button');
         const goSignIn = document.getElementById('backButton');
-        const goMenu = document.getElementById('signupButton');
-
-        goMenu.addEventListener('click', () => {
-            this.getForm();
-        });
 
         goSignIn.addEventListener('click', () => {
             const signIn = new SignInRender(this.#parent);

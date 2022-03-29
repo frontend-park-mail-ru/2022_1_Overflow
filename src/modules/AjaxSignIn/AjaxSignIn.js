@@ -56,7 +56,7 @@ export class Ajax {
                     resolve(responseText);
                 }
             );
-        })
+        });
     }
 
     promisifyPostSignUp(url, data) {
@@ -72,7 +72,7 @@ export class Ajax {
                     resolve(data);
                 }
             );
-        })
+        });
     }
 
     promisifyPostSignIn(url, data) {
@@ -83,11 +83,11 @@ export class Ajax {
                 data,
                 (status, responseText) => {
                     if (status !== 200) {
-                        reject(responseText)
+                        reject(responseText);
                     }
-                    resolve()
+                    resolve();
                 }
             );
-        })
+        });
     }
 }

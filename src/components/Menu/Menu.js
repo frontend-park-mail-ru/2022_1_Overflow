@@ -25,10 +25,10 @@ export class Menu {
         this.#parent.appendChild(main);
 
         createElementDiv(main, '', 'parentMain');
-        const temp = document.getElementsByClassName('parentMain')[0];
+        const temp = document.querySelector('.parentMain');
 
         createElementDiv(temp, '', 'menu');
-        const parentMenu = document.getElementsByClassName('menu')[0];
+        const parentMenu = document.querySelector('.menu');
 
         itemsMenu.input.forEach(function (item, index) {
             createElementDiv(parentMenu, '', 'manuPoint');
@@ -37,20 +37,20 @@ export class Menu {
             createElementDiv(parent, item.textText, 'menuText1');
         }, parentMenu);
 
-        const arrow = document.getElementsByClassName('arrow')[0];
-        let arrowEvent;
-        arrow.addEventListener('click', arrowEvent = (event) => {
-            event.stopPropagation();
-            arrow.removeEventListener('click', arrowEvent);
+        const profile = document.querySelector('.profile');
+        let profileEvent;
+        profile.addEventListener('click', profileEvent = (event) => {
             const popUp = new PopUp(main);
             popUp.render();
+            event.stopPropagation();
+            profile.removeEventListener('click', profileEvent);
             let docEvent;
             document.addEventListener('click', docEvent = (event) => {
                 if (event.target.className !== 'menuText' && event.target.className !== 'iconPoint') {
                     if (document.getElementsByClassName('openFolder')[0]) {
-                        document.getElementsByClassName('openFolder')[0].remove();
+                        document.querySelector('.openFolder').remove();
                         document.removeEventListener('click', docEvent);
-                        arrow.addEventListener('click', arrowEvent);
+                        profile.addEventListener('click', profileEvent);
                     }
                 }
                 if (event.target.className === 'menuText' || event.target.className === 'iconPoint') {
@@ -66,6 +66,7 @@ export class Menu {
                             }
                             if (status !== 200)
                                 return;
+                            document.removeEventListener('click', docEvent);
                             const signIn = new SignInRender(this.#parent);
                             signIn.render();
                         },

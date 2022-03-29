@@ -25,6 +25,10 @@ export class Message {
                 return;
             }
 
+            let itemsMassage = {
+                input: []
+            };
+
             parsed.forEach((pars) => {
                 const date = new Date(pars['date']);
                 itemsMassage.input.push({
@@ -35,10 +39,10 @@ export class Message {
                 });
             });
             this.renderMassege(message, itemsMassage);
-        }).catch((responseText) => {
+        }).catch(() => {
             const signIn = new SignInRender(this.#parent);
             signIn.render();
-        })
+        });
     }
 
     renderMassege(message, itemsMassage) {

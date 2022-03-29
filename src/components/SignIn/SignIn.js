@@ -20,11 +20,11 @@ export class SignIn {
     setError(text) {
         document.getElementById('inputEmail').style.borderColor = 'red';
         document.getElementById('inputPassword').style.borderColor = 'red';
-        document.getElementsByClassName('invalidMsg')[0].style.visibility = 'visible';
-        document.getElementsByClassName('invalidMsg')[0].textContent = text;
+        document.querySelector('.invalidMsg').style.visibility = 'visible';
+        document.querySelector('.invalidMsg').textContent = text;
     }
 
-    getForm(parent) {
+    async getForm(parent) {
         let email = document.getElementById('inputEmail').value;
         const errEmail = LenghtCheck(email, 'логина');
         if (errEmail !== '') {
@@ -50,25 +50,31 @@ export class SignIn {
         ).then(() => {
             const main = new MainPage(parent);
             main.render();
+            return true;
         }).catch((responseText) => {
             const json = JSON.parse(responseText);
             this.setError(json['message']);
+            return false;
         });
     }
 
     render() {
         createElementDiv(this.#parent, '', 'container');
-        const container = document.getElementsByClassName('container')[0];
+        const container = document.querySelector('.container');
 
         const form = document.createElement('form');
         form.className = 'showbox showboxCenter showboxSelfCenter shadow';
+        form.onsubmit = (event) => {
+            event.preventDefault();
+            return this.getForm(this.#parent);
+        }
         container.appendChild(form);
 
         createElementImg(form, 'LogoSigin', 'mb2');
         createElementInputBase(form, 'Логин', 'inputEmail', 'text');
         createElementInputBase(form, 'Пароль', 'inputPassword', 'password');
         createElementDiv(form, 'Не верное имя пользователя или пароль.', 'invalidMsg');
-        const invalidMsg = document.getElementsByClassName('invalidMsg')[0];
+        const invalidMsg = document.querySelector('.invalidMsg');
         invalidMsg.style.visibility = 'hidden';
         createElementDiv(form, '', 'buttonGrid mt4');
 
@@ -78,15 +84,11 @@ export class SignIn {
         // aForm.text = 'Забыл пароль';
         // divParent.appendChild(aForm);
 
-        createElementButtonBase(divParent, 'Войти','btn btnPrimary', 'signInButton', 'button');
+        createElementButtonBase(divParent, 'Войти','btn btnPrimary', 'signInButton', 'submit');
         createElementButtonBase(divParent, 'Зарегистрироваться','btn btnSecondary', 'registration', 'button');
 
-        const goMenu = document.getElementById('signInButton');
         const goRegistration = document.getElementById('registration');
 
-        goMenu.addEventListener('click', () => {
-            this.getForm(this.#parent);
-        }); 
         goRegistration.addEventListener('click', () => {
             const signUp = new SignUpRender(this.#parent);
             signUp.render();
