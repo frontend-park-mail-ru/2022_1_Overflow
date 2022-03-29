@@ -71,7 +71,7 @@ export class SignUp {
             {
                 'first_name': firstName,
                 'last_name': lastName,
-                'email': email,
+                'username': email,
                 'password': password,
                 'password_confirmation': password_confirmation,
             },
@@ -80,7 +80,7 @@ export class SignUp {
             return ajax.promisifyPostSignIn(
                 `http://${window.location.hostname}:8080/signin`,
                 {
-                    'email': data['email'],
+                    'username': data['email'],
                     'password': data['password'],
                 },
             );
@@ -100,7 +100,7 @@ export class SignUp {
         form.onsubmit = (event) => {
             event.preventDefault();
             return this.getForm(this.#parent);
-        }
+        };
         form.className = 'showbox showboxCenter showboxSelfCenter shadow';
         container.appendChild(form);
 

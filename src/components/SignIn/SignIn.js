@@ -44,7 +44,7 @@ export class SignIn {
         ajaxSignIn.promisifyPostSignIn(
             `http://${window.location.hostname}:8080/signin`,
             {
-                'email': email,
+                'username': email,
                 'password': password,
             },
         ).then(() => {
@@ -67,7 +67,7 @@ export class SignIn {
         form.onsubmit = (event) => {
             event.preventDefault();
             return this.getForm(this.#parent);
-        }
+        };
         container.appendChild(form);
 
         createElementImg(form, 'LogoSigin', 'mb2');
