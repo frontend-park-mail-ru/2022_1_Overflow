@@ -1,8 +1,3 @@
-body {
-    font-family: 'Red Hat Display', sans-serif;
-    font-weight: 300;
-}
-
 .container {
     background-color: #C0DAF3;
     height: 100%;
@@ -10,8 +5,7 @@ body {
 }
 
 .showbox {
-    max-width: 40vh;
-    min-width: 340px;
+    width: 350px;
 
     background-color: white;
     border-radius: 1vh;
@@ -20,10 +14,7 @@ body {
     display: flex;
     flex-direction: column;
     block-size: fit-content;
-    padding-left: 4rem;
-    padding-right: 4rem;
-    padding-top: 2rem;
-    padding-bottom: 2rem;
+    padding: 50px 60px;
     gap: 2vh;
 }
 
@@ -55,11 +46,13 @@ body {
 }
 
 input {
-    min-height: 4.2vh;
-    min-width: 100%;
+    width: 310px;
+    height: 37px;
 
-    padding-left: 3%;
-    padding-right: 3%;
+    margin-right: 4%;
+    margin-left: 4%;
+    padding-left: 5px;
+    padding-right: 5px;
 
     background: #FFFFFF;
     border: 1px solid #EBEBEB;
@@ -79,7 +72,7 @@ textarea:focus, input:focus{
     display: flex;
     justify-content: center;
 }
-  
+
 .addonField {
     flex: 1;
 }
@@ -126,27 +119,35 @@ textarea:focus, input:focus{
 
 .btn {
     display: inline;
-    padding: 2%;
     border: 0;
     border-radius: 5px;
 
-    height: 10%;
-    width: 100%;
+    width: 322px;
+    height: 37px;
 
-    text-align: center;
+    align-self: center;
     font-size: medium;
 }
 
-.btn:hover {
-    cursor: pointer;
 
-    filter: drop-shadow(0px 0px 1px #000);
-    -webkit-filter: drop-shadow(0px 0px 2px #000);
-    -webkit-transition: all 800ms ease;
-    -moz-transition: all 800ms ease;
-    -o-transition: all 800ms ease;
-    -ms-transition: all 800ms ease;
-    transition: all 800ms ease;
+#signInButton:hover {
+    cursor: pointer;
+    background: #275682;
+}
+
+#registration:hover {
+    cursor: pointer;
+    background: #DBDBDB;
+}
+
+#signupButton:hover {
+    cursor: pointer;
+    background: #275682;
+}
+
+#backButton:hover {
+    cursor: pointer;
+    background: #DBDBDB;
 }
 
 .btnPrimary {
@@ -157,16 +158,17 @@ textarea:focus, input:focus{
 .btnSecondary {
     background: #EBEBEB;
     color: #000000;
-    
+
 }
 
 .mb2 {
+    width: 70px;
     margin-bottom: 2vh;
 }
 
-.mt4 {
-    margin-top: 4vh;
-}
+/*.mt4 {*/
+/*    margin-top: 4vh;*/
+/*}*/
 
 svg {
     height: auto;
@@ -175,8 +177,9 @@ svg {
 
 .invalidMsg {
     display: flex;
-    font-family: 'Red Hat Display';
+    font-family: 'Red Hat Display', sans-serif;
     font-style: normal;
+    margin-left: 30px;
     color:#FF0000;
     font-weight: 300;
     line-height: 26px;
@@ -184,13 +187,11 @@ svg {
     flex-direction: row;
     text-align: start;
     width: 100%;
-    margin-top: -1vh;
-    margin-bottom: -4vh;
 }
 
 .forgetPass {
     display: flex;
-    font-family: 'Red Hat Display';
+    font-family: 'Red Hat Display', sans-serif;
     font-style: normal;
     font-weight: 300;
     line-height: 26px;
