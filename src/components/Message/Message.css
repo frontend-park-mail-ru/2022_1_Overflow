@@ -1,0 +1,63 @@
+.message{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-left: 310px;
+    min-height: calc(100vh - 150px);
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    padding: 25px 40px 25px 40px;
+    background: #FFFFFF;
+}
+
+.messageEmpty{
+    text-align: center;
+    width: 100%;
+    font-size: 20px;
+    color: #D8D8D8;
+}
+
+.messageText{
+    user-select: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+.avatarMassage{
+    margin-left: 10px;
+    margin-right: 15px;
+    width: 40px;
+    height: 40px;
+}
+
+.messageTextText{
+    width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-left: 30px;
+    font-size: 20px;
+}
+
+.messageTextSub{
+    width: 900px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-left: 30px;
+    font-size: 20px;
+    color: #D8D8D8;
+}
+
+.messageTextBlock{
+    flex: 1;
+}
+
+.messageTextTime{
+    padding-right: 20px;
+    font-family: 'Arimo', sans-serif;
+    font-size: 20px;
+}
