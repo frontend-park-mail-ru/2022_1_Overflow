@@ -1,29 +1,36 @@
-export class ImageAndClass {
-    #parent;
-    #name;
-    #className;
-    #html;
-
-    constructor(parent) {
-        this.#html = '<img class="{{class}}" src="./image/{{name}}.svg" alt="{{name}}">';
-        this.#parent = parent;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.ImageAndClass = void 0;
+var ImageAndClass = /** @class */ (function () {
+    function ImageAndClass(parent) {
+        var _this = this;
+        this.render = function () {
+            // eslint-disable-next-line
+            var template = Handlebars.compile(_this.html);
+            var html = template({
+                name: _this.name,
+                class: _this.className,
+            });
+            _this.parent.insertAdjacentHTML('beforeend', html);
+        };
+        this.html = '<img class="{{class}}" src="./image/{{name}}.svg" alt="{{name}}">';
+        this.parent = parent;
     }
-
-    set data(name){
-        this.#name = name;
-    }
-
-    set class(name){
-        this.#className = name;
-    }
-
-    render = () => {
-        // eslint-disable-next-line
-        const template = Handlebars.compile(this.#html);
-        const html = template({
-            name: this.#name,
-            class: this.#className,
-        });
-        this.#parent.insertAdjacentHTML('beforeend', html);
-    };
-}
+    Object.defineProperty(ImageAndClass.prototype, "data", {
+        set: function (name) {
+            this.name = name;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    Object.defineProperty(ImageAndClass.prototype, "class", {
+        set: function (className) {
+            this.className = className;
+        },
+        enumerable: false,
+        configurable: true
+    });
+    return ImageAndClass;
+}());
+exports.ImageAndClass = ImageAndClass;
+//# sourceMappingURL=ImageAndClass.js.map

@@ -1,15 +1,18 @@
-import {SignUp} from '../../components/SignUp/SignUp.js';
-
-export class SignUpRender {
-    #parent;
-
-    constructor(parent) {
-        this.#parent = parent;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.SignUpRender = void 0;
+var SignUp_js_1 = require("../../components/SignUp/SignUp.js");
+var SignUpRender = /** @class */ (function () {
+    function SignUpRender(parent) {
+        var _this = this;
+        this.render = function () {
+            _this.parent.innerHTML = '';
+            var signUp = new SignUp_js_1.SignUp(_this.parent);
+            signUp.render();
+        };
+        this.parent = parent;
     }
-
-    render = () => {
-        this.#parent.innerHTML = '';
-        const signUp = new SignUp(this.#parent);
-        signUp.render();
-    };
-}
+    return SignUpRender;
+}());
+exports.SignUpRender = SignUpRender;
+//# sourceMappingURL=SignUp.js.map

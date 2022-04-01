@@ -1,97 +1,84 @@
-import {
-    createElementInputBase,
-    createElementButtonBase,
-    createElementDiv,
-    createElementImg,
-} from '../../modules/CreateElement/createElement.js';
-import {MainPage} from '../../pages/MainPage/MainPage.js';
-import {SignUpRender} from '../../pages/SignUp/SignUp.js';
-import {CheckInput} from '../../modules/CheckInput/CheckInput.js';
-import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn.js';
-import {LenghtCheck} from '../../modules/LenghtCheck/LenghtCheck.js';
-
-export class SignIn {
-    #parent;
-
-    constructor(parent) {
-        this.#parent = parent;
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.SignIn = void 0;
+var createElement_js_1 = require("../../modules/CreateElement/createElement.js");
+var MainPage_js_1 = require("../../pages/MainPage/MainPage.js");
+var SignUp_js_1 = require("../../pages/SignUp/SignUp.js");
+var CheckInput_1 = require("../../modules/CheckInput/CheckInput");
+var AjaxSignIn_js_1 = require("../../modules/AjaxSignIn/AjaxSignIn.js");
+var LenghtCheck_js_1 = require("../../modules/LenghtCheck/LenghtCheck.js");
+var SignIn = /** @class */ (function () {
+    function SignIn(parent) {
+        this.parent = parent;
     }
-
-    setError(text) {
+    SignIn.prototype.setError = function (text) {
         document.getElementById('inputEmail').style.borderColor = 'red';
         document.getElementById('inputPassword').style.borderColor = 'red';
-        document.querySelector('.invalidMsg').style.visibility = 'visible';
-        document.querySelector('.invalidMsg').textContent = text;
-    }
-
-    async getForm(parent) {
-        let email = document.getElementById('inputEmail').value;
-        const errEmail = LenghtCheck(email, 'логина');
+        var error = document.querySelector('.invalidMsg');
+        error.style.visibility = 'visible';
+        error.textContent = text;
+    };
+    SignIn.prototype.getForm = function (parent) {
+        var _this = this;
+        var email = document.getElementById('inputEmail').textContent;
+        var errEmail = (0, LenghtCheck_js_1.LenghtCheck)(email, 'логина');
         if (errEmail !== '') {
             this.setError(errEmail);
             return;
         }
-
-        let password = document.getElementById('inputPassword').value;
-        password = CheckInput(password);
-        const errPassword = LenghtCheck(password, 'пароля');
+        var password = document.getElementById('inputPassword').textContent;
+        password = (0, CheckInput_1.CheckInput)(password);
+        var errPassword = (0, LenghtCheck_js_1.LenghtCheck)(password, 'пароля');
         if (errPassword !== '') {
             this.setError(errPassword);
             return;
         }
-
-        const ajaxSignIn = new Ajax();
-        ajaxSignIn.promisifyPostSignIn(
-            `http://${window.location.hostname}:8080/signin`,
-            {
-                'username': email,
-                'password': password,
-            },
-        ).then(() => {
-            const main = new MainPage(parent);
+        var ajaxSignIn = new AjaxSignIn_js_1.Ajax();
+        ajaxSignIn.promisifyPostSignIn("http://".concat(window.location.hostname, ":8080/signin"), {
+            'username': email,
+            'password': password,
+        }).then(function () {
+            var main = new MainPage_js_1.MainPage(parent);
             main.render();
             return true;
-        }).catch((responseText) => {
-            const json = JSON.parse(responseText);
-            this.setError(json['message']);
+        }).catch(function (responseText) {
+            var json = JSON.parse(responseText);
+            _this.setError(json['message']);
             return false;
         });
-    }
-
-    render() {
-        createElementDiv(this.#parent, '', 'container');
-        const container = document.querySelector('.container');
-
-        const form = document.createElement('form');
+    };
+    SignIn.prototype.render = function () {
+        var _this = this;
+        (0, createElement_js_1.createElementDiv)(this.parent, '', 'container');
+        var container = document.querySelector('.container');
+        var form = document.createElement('form');
         form.className = 'showbox showboxCenter showboxSelfCenter shadow';
-        form.onsubmit = (event) => {
+        form.onsubmit = function (event) {
             event.preventDefault();
-            return this.getForm(this.#parent);
+            return _this.getForm(_this.parent);
         };
         container.appendChild(form);
-
-        createElementImg(form, 'LogoSigin', 'mb2');
-        createElementInputBase(form, 'Логин', 'inputEmail', 'text');
-        createElementInputBase(form, 'Пароль', 'inputPassword', 'password');
-        createElementDiv(form, 'Не верное имя пользователя или пароль.', 'invalidMsg');
-        const invalidMsg = document.querySelector('.invalidMsg');
+        (0, createElement_js_1.createElementImg)(form, 'LogoSigin', 'mb2');
+        (0, createElement_js_1.createElementInputBase)(form, 'Логин', 'inputEmail', 'text');
+        (0, createElement_js_1.createElementInputBase)(form, 'Пароль', 'inputPassword', 'password');
+        (0, createElement_js_1.createElementDiv)(form, 'Не верное имя пользователя или пароль.', 'invalidMsg');
+        var invalidMsg = document.querySelector('.invalidMsg');
         invalidMsg.style.visibility = 'hidden';
-        createElementDiv(form, '', 'buttonGrid mt4');
-
-        const divParent = document.getElementsByClassName('buttonGrid mt4')[0];
+        (0, createElement_js_1.createElementDiv)(form, '', 'buttonGrid mt4');
+        var divParent = document.getElementsByClassName('buttonGrid mt4')[0];
         // let aForm = document.createElement('a');
         // aForm.className = 'forgetPass';
         // aForm.text = 'Забыл пароль';
         // divParent.appendChild(aForm);
-
-        createElementButtonBase(divParent, 'Войти','btn btnPrimary', 'signInButton', 'submit');
-        createElementButtonBase(divParent, 'Зарегистрироваться','btn btnSecondary', 'registration', 'button');
-
-        const goRegistration = document.getElementById('registration');
-
-        goRegistration.addEventListener('click', () => {
-            const signUp = new SignUpRender(this.#parent);
+        (0, createElement_js_1.createElementButtonBase)(divParent, 'Войти', 'btn btnPrimary', 'signInButton', 'submit');
+        (0, createElement_js_1.createElementButtonBase)(divParent, 'Зарегистрироваться', 'btn btnSecondary', 'registration', 'button');
+        var goRegistration = document.getElementById('registration');
+        goRegistration.addEventListener('click', function () {
+            var signUp = new SignUp_js_1.SignUpRender(_this.parent);
             signUp.render();
         });
-    }
-}
+    };
+    return SignIn;
+}());
+exports.SignIn = SignIn;
+//# sourceMappingURL=SignIn.js.map

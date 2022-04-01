@@ -1,6 +1,6 @@
-import {SignInRender} from './pages/SignIn/SignIn.js';
+import {SignInRender} from './pages/SignIn/SignIn.ts';
 import {MainPage} from './pages/MainPage/MainPage.js';
-import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn.js';
+import {Ajax} from './modules/AjaxSignIn/AjaxSignIn.ts';
 
 const root = document.getElementsByTagName('body')[0];
 
