@@ -46,14 +46,16 @@ export class Menu {
             profile.removeEventListener('click', profileEvent);
             let docEvent;
             document.addEventListener('click', docEvent = (event) => {
-                if (event.target.className !== 'menuText' && event.target.className !== 'iconPoint') {
+                if (event.target.className !== 'menuText' && event.target.className !== 'iconPoint'
+                    && event.target.className !== 'exit') {
                     if (document.getElementsByClassName('openFolder')[0]) {
                         document.querySelector('.openFolder').remove();
                         document.removeEventListener('click', docEvent);
                         profile.addEventListener('click', profileEvent);
                     }
                 }
-                if (event.target.className === 'menuText' || event.target.className === 'iconPoint') {
+                if (event.target.className === 'menuText' || event.target.className === 'iconPoint'
+                    || event.target.className === 'exit') {
                     const ajaxSignIn = new Ajax();
                     ajaxSignIn.get(
                         `http://${window.location.hostname}:8080/logout`,

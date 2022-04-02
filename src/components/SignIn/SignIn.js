@@ -78,7 +78,7 @@ export class SignIn {
         invalidMsg.style.visibility = 'hidden';
         createElementDiv(form, '', 'buttonGrid mt4');
 
-        const divParent = document.getElementsByClassName('buttonGrid mt4')[0];
+        const divParent = document.querySelector('.buttonGrid');
         // let aForm = document.createElement('a');
         // aForm.className = 'forgetPass';
         // aForm.text = 'Забыл пароль';

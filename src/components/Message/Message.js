@@ -11,7 +11,7 @@ export class Message {
 
     render() {
         createElementDiv(this.#parent, '', 'message');
-        const message = document.getElementsByClassName('message')[0];
+        const message = document.querySelector('.message');
 
         const ajax = new Ajax();
         ajax.promisifyGet(
@@ -20,7 +20,7 @@ export class Message {
             const parsed = JSON.parse(responseText);
             if (parsed === null) {
                 createElementDiv(message, '', 'messageText');
-                const parent = document.getElementsByClassName('messageText')[0];
+                const parent = document.querySelector('.messageText');
                 createElementP(parent, 'Список писем пуст', 'messageEmpty');
                 return;
             }

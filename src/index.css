@@ -11,7 +11,7 @@ html, body {
     height: 100%;
     display: flex;
     flex-direction: column;
-    font-family: 'Red Hat Display', sans-serif;
+    font-family: 'Roboto', sans-serif;
     font-weight: 300;
     padding: 0;
     margin: 0;

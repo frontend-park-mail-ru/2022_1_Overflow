@@ -113,7 +113,7 @@ export class SignUp {
         const invalidMsg = document.querySelector('.invalidMsg');
         invalidMsg.style.visibility = 'hidden';
         createElementDiv(form, '', 'buttonGrid mt4');
-        const divParent = document.getElementsByClassName('buttonGrid mt4')[0];
+        const divParent = document.querySelector('.buttonGrid');
         createElementButtonBase(divParent, 'Создать', 'btn btnPrimary', 'signupButton', 'submit');
         createElementButtonBase(divParent, 'Назад', 'btn btnSecondary', 'backButton', 'button');
         const goSignIn = document.getElementById('backButton');

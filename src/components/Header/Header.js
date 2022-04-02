@@ -14,12 +14,16 @@ export class Header {
         this.#parent.appendChild(head);
 
         createElementDiv(head, '', 'parentHead');
-        const divParentObject = document.getElementsByClassName('parentHead')[0];
-        createElementImg(divParentObject, 'Logo', 'logoLogo');
-        createElementP(divParentObject, 'OverMail', 'logoTitle');
+        const divParentObject = document.querySelector('.parentHead');
+        const aHref = document.createElement('a');
+        aHref.href = '/';
+        aHref.className = 'linked';
+        createElementImg(aHref, 'Logo', 'logoLogo');
+        createElementP(aHref, 'OverMail', 'logoTitle');
+        divParentObject.appendChild(aHref);
         createElementDiv(divParentObject, '', 'spaseBox');
         createElementDiv(divParentObject, '', 'profile');
-        const divProfile = document.getElementsByClassName('profile')[0];
+        const divProfile = document.querySelector('.profile');
         createElementImg(divProfile, 'avatar', 'avatar');
         createElementP(divProfile, '', 'email');
         createElementImg(divProfile, 'arrow', 'arrow');
@@ -38,7 +42,7 @@ export class Header {
                     return ;
                 }
                 jsonProfile = JSON.parse(responseText);
-                const email = document.getElementsByClassName('email')[0];
+                const email = document.querySelector('.email');
                 email.textContent = jsonProfile['Username'];
             },
         );
