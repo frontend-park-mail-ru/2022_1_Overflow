@@ -1,6 +1,10 @@
-import {createElementDiv, createElementP, createElementImg} from '../../modules/CreateElement/createElement.js';
-import {SignInRender} from '../../pages/SignIn/SignIn.js';
-import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn.js';
+import {createElementDiv, createElementP, createElementImg} from '../../modules/CreateElement/createElement';
+import {SignInRender} from '../../pages/SignIn/SignIn';
+import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn';
+import './Header.css';
+import logoSvg from '../../image/Logo.svg';
+import avatarSvg from '../../image/avatar.svg';
+import arrowSvg from '../../image/arrow.svg';
 
 export class Header {
     private readonly parent;
@@ -14,15 +18,19 @@ export class Header {
         this.parent.appendChild(head);
 
         createElementDiv(head, '', 'parentHead');
-        const divParentObject = document.getElementsByClassName('parentHead')[0];
-        createElementImg(divParentObject, 'Logo', 'logoLogo');
-        createElementP(divParentObject, 'OverMail', 'logoTitle');
-        createElementDiv(divParentObject, '', 'spaseBox');
-        createElementDiv(divParentObject, '', 'profile');
+        const divParentObject = document.querySelector('.parentHead');
+        const aHref = document.createElement('a');
+        aHref.href = '/';
+        aHref.className = 'linked';
+        createElementImg(aHref, 'Logo', logoSvg, 'logoLogo');
+        createElementP(aHref, 'OverMail', 'logoTitle');
+        divParentObject!.appendChild(aHref);
+        createElementDiv(divParentObject!, '', 'spaseBox');
+        createElementDiv(divParentObject!, '', 'profile');
         const divProfile = document.getElementsByClassName('profile')[0];
-        createElementImg(divProfile, 'avatar', 'avatar');
+        createElementImg(divProfile, 'avatar', avatarSvg, 'avatar');
         createElementP(divProfile, '', 'email');
-        createElementImg(divProfile, 'arrow', 'arrow');
+        createElementImg(divProfile, 'arrow', arrowSvg, 'arrow');
         const ajaxGetEmail = new Ajax();
         let jsonProfile;
         ajaxGetEmail.get(

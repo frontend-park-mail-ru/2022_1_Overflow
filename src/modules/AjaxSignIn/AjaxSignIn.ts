@@ -1,7 +1,7 @@
-const noop = () => {}; // tslint:disable-line
+const noop = (status: number, responseText: string) => {}; // tslint:disable-line
 
 export class Ajax {
-    post(url, callback, data) {
+    post(url: string, callback: any, data: any) {
         return this._ajax(
             url,
             'POST',
@@ -9,7 +9,7 @@ export class Ajax {
             callback,
         );
     }
-    get(url, callback) {
+    get(url: string, callback: any) {
         return this._ajax(
             url,
             'GET',
@@ -42,7 +42,7 @@ export class Ajax {
         xhr.send();
     }
 
-    promisifyGet(url) {
+    promisifyGet(url: string) {
         return new Promise((resolve, reject) => {
             this._ajax(
                 url,
@@ -58,7 +58,7 @@ export class Ajax {
         });
     }
 
-    promisifyPostSignUp(url, data) {
+    promisifyPostSignUp(url: string, data: any) {
         return new Promise((resolve, reject) => {
             this._ajax(
                 url,
@@ -74,13 +74,13 @@ export class Ajax {
         });
     }
 
-    promisifyPostSignIn(url, data) {
-        return new Promise((resolve, reject) => {
+    promisifyPostSignIn(url: string, data: any) {
+        return new Promise<void>((resolve, reject) => {
             this._ajax(
                 url,
                 'POST',
                 data,
-                (status, responseText) => {
+                (status: number, responseText: string) => {
                     if (status !== 200) {
                         reject(responseText);
                     }

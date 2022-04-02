@@ -1,20 +1,21 @@
-import {createElementDiv, createElementImg} from '../../modules/CreateElement/createElement.js';
+import {createElementDiv, createElementImg} from '../../modules/CreateElement/createElement';
+import doorSvg from '../../image/door.svg'
 
 export class PopUp {
-    #parent;
-    #style;
+    private parent: Element;
+    private style: Element | null;
 
-    constructor(parent) {
-        this.#parent = parent;
+    constructor(parent: Element) {
+        this.parent = parent;
     }
 
     render() {
-        createElementDiv(this.#parent, '', 'openFolder');
-        const openFolder = document.getElementsByClassName('openFolder')[0];
-        this.#style= openFolder;
-        createElementDiv(openFolder, '', 'exit');
-        const exit = document.getElementsByClassName('exit')[0];
-        createElementImg(exit, 'door', 'iconPoint');
-        createElementDiv(exit, 'Выход', 'menuText');
+        createElementDiv(this.parent, '', 'openFolder');
+        const openFolder = document.querySelector('.openFolder');
+        this.style= openFolder;
+        createElementDiv(openFolder!, '', 'exit');
+        const exit = document.querySelector('.exit');
+        createElementImg(exit!, 'door', doorSvg, 'iconPoint');
+        createElementDiv(exit!, 'Выход', 'menuText');
     }
 }

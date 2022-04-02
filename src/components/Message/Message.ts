@@ -1,35 +1,37 @@
-import {createElementDiv, createElementP, createElementImg} from '../../modules/CreateElement/createElement.js';
-import {SignInRender} from '../../pages/SignIn/SignIn.js';
-import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn.js';
+import {createElementDiv, createElementP, createElementImg} from '../../modules/CreateElement/createElement';
+import {SignInRender} from '../../pages/SignIn/SignIn';
+import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn';
+import './Message.css';
+import avatarSvg from '../../image/avatar.svg';
 
 export class Message {
-    #parent;
+    private readonly parent: Element;
 
-    constructor(parent) {
-        this.#parent = parent;
+    constructor(parent: Element) {
+        this.parent = parent;
     }
 
     render() {
-        createElementDiv(this.#parent, '', 'message');
-        const message = document.getElementsByClassName('message')[0];
+        createElementDiv(this.parent, '', 'message');
+        const message = document.querySelector('.message');
 
         const ajax = new Ajax();
         ajax.promisifyGet(
             `http://${window.location.hostname}:8080/mail/income`,
-        ).then((responseText) => {
+        ).then((responseText: string) => {
             const parsed = JSON.parse(responseText);
             if (parsed === null) {
-                createElementDiv(message, '', 'messageText');
-                const parent = document.getElementsByClassName('messageText')[0];
-                createElementP(parent, 'Список писем пуст', 'messageEmpty');
+                createElementDiv(message!, '', 'messageText');
+                const parent = document.querySelector('.messageText');
+                createElementP(parent!, 'Список писем пуст', 'messageEmpty');
                 return;
             }
 
             const itemsMassage = {
-                input: []
+                input: [{}]
             };
 
-            parsed.forEach((pars) => {
+            parsed.forEach((pars: any) => {
                 const date = new Date(pars.date);
                 itemsMassage.input.push({
                     avatar: 'avatar',
@@ -38,18 +40,18 @@ export class Message {
                     time: (('0' + date.getDate()).slice(-2) + ':' + ('0' + (date.getMonth() + 1)).slice(-2)),
                 });
             });
-            this.renderMassege(message, itemsMassage);
+            this.renderMassage(message, itemsMassage);
         }).catch(() => {
-            const signIn = new SignInRender(this.#parent);
+            const signIn = new SignInRender(this.parent);
             signIn.render();
         });
     }
 
-    renderMassege(message, itemsMassage) {
-        itemsMassage.input.forEach((item, index) => {
-            createElementDiv(message, '', 'messageText');
+    renderMassage(message: Element | null, itemsMassage: any) {
+        itemsMassage.input.forEach((item: { avatar: string; title: string; subTitle: string; time: string; }, index: number) => {
+            createElementDiv(message!, '', 'messageText');
             const parent = document.getElementsByClassName('messageText')[index];
-            createElementImg(parent, item.avatar, 'avatarMassage');
+            createElementImg(parent, item.avatar, avatarSvg, 'avatarMassage');
             createElementP(parent, item.title, 'messageTextText');
             createElementP(parent, item.subTitle, 'messageTextSub');
             createElementP(parent, '', 'messageTextBlock');
@@ -59,15 +61,17 @@ export class Message {
                 hr.color = 'EBEBEB';
                 hr.size = '1';
                 hr.width = '100%';
-                message.appendChild(hr);
+                message!.appendChild(hr);
             }
             parent.addEventListener('mouseover', () => {
-                parent.style.backgroundSize = '100%';
-                parent.style.backgroundColor = '#F1F1F1';
-                parent.style.borderRadius = '15px';
+                const setStyle = parent as HTMLElement;
+                setStyle.style.backgroundSize = '100%';
+                setStyle.style.backgroundColor = '#F1F1F1';
+                setStyle.style.borderRadius = '15px';
             });
             parent.addEventListener('mouseout', () => {
-                parent.style.backgroundColor = '#FFFFFF';
+                const setStyle = parent as HTMLElement;
+                setStyle.style.backgroundColor = '#FFFFFF';
             });
         }, message);
     }

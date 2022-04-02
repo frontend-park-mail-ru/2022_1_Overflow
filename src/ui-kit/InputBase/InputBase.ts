@@ -1,14 +1,13 @@
-import Handlebars = require("handlebars");
+import './InputBase.css';
+import * as templateHBS from './InputBase.hbs';
 
-export class InputBase {
-    private parent: Element;
+export class InputBase<T extends Element> {
+    private parent: T;
     private types: string;
     private idx: string;
     private placeholders: string;
-    private readonly html: string;
 
-    constructor(parent: Element) {
-        this.html = '<input type="{{type}}" id="{{id}}" placeholder="{{placeholder}}">';
+    constructor(parent: T) {
         this.parent = parent;
     }
 
@@ -26,13 +25,10 @@ export class InputBase {
     }
 
     render = () => {
-        // eslint-disable-next-line
-        const template = Handlebars.compile(this.html);
-        const html = template({
-            placeholder: this.placeholder,
-            id: this.id,
-            type: this.type,
-        });
-        this.parent.insertAdjacentHTML('beforeend', html);
+        this.parent.insertAdjacentHTML('beforeend', templateHBS({
+            placeholder: this.placeholders,
+            id: this.idx,
+            type: this.types,
+        }));
     };
 }

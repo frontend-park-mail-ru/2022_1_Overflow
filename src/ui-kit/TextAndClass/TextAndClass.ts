@@ -1,11 +1,12 @@
-export class TextAndClass {
-    private parent: Element;
+import './TextAndClass.css';
+import * as templateHBS from './TextAndClass.hbs';
+
+export class TextAndClass<T extends Element> {
+    private parent: T;
     private text: string;
     private className: string;
-    private readonly html: string;
 
-    constructor(parent: Element) {
-        this.html = '<p class="{{class}}">{{ text }}</p>';
+    constructor(parent: T) {
         this.parent = parent;
     }
 
@@ -18,13 +19,10 @@ export class TextAndClass {
     }
 
     render = () => {
-        // eslint-disable-next-line
-        const template = Handlebars.compile(this.html);
-        const html = template({
+        this.parent.insertAdjacentHTML('beforeend', templateHBS({
             class: this.className,
             text: this.text,
-        });
-        this.parent.insertAdjacentHTML('beforeend', html);
+        }));
     };
 }
 

@@ -33,8 +33,13 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: 5px;
-    margin-left: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.manuPoint:hover{
+    background: #F1F1F1;
+    border-radius: 15px;
 }
 
 .iconPoint{
@@ -79,7 +84,12 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+}
+
+.exit:hover{
+    background: #F1F1F1;
+    border-radius: 15px;
 }

@@ -1,13 +1,14 @@
-export class ButtonBase {
-    private parent;
+import './ButtonBase.css';
+import * as templateHBS from './ButtonBase.hbs';
+
+export class ButtonBase<T extends Element> {
+    private parent: T;
     private name: string;
     private classNameStr: string;
-    private readonly html: string;
-    private idx: number;
+    private idx: string;
     private types: string;
 
-    constructor(parent: Element) {
-        this.html = '<button id="{{id}}" class="{{class}}" type="{{type}}">{{name}}</button>';
+    constructor(parent: T) {
         this.parent = parent;
     }
 
@@ -19,7 +20,7 @@ export class ButtonBase {
         this.classNameStr = classNameStr;
     }
 
-    set id(idx: number) {
+    set id(idx: string) {
         this.idx = idx;
     }
 
@@ -28,14 +29,11 @@ export class ButtonBase {
     }
 
     render = () => {
-        // eslint-disable-next-line
-        const template = Handlebars.compile(this.html);
-        const html = template({
+        this.parent.insertAdjacentHTML('beforeend', templateHBS({
             name: this.name,
-            class: this.className,
-            id: this.id,
-            type: this.type,
-        });
-        this.parent.insertAdjacentHTML('beforeend', html);
+            class: this.classNameStr,
+            id: this.idx,
+            type: this.types,
+        }));
     };
 }

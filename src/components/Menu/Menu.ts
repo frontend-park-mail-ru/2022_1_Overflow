@@ -1,7 +1,9 @@
-import {createElementDiv, createElementImg} from '../../modules/CreateElement/createElement.js';
-import {SignInRender} from '../../pages/SignIn/SignIn.js';
-import {PopUp} from '../PopUp/PopUp.js';
-import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn.js';
+import {createElementDiv, createElementImg} from '../../modules/CreateElement/createElement';
+import {SignInRender} from '../../pages/SignIn/SignIn';
+import {PopUp} from '../PopUp/PopUp';
+import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn';
+import './Menu.css';
+import inputSvg from '../../image/input.svg';
 
 const itemsMenu = {
     input: [
@@ -27,13 +29,13 @@ export class Menu {
         createElementDiv(main, '', 'parentMain');
         const temp = document.querySelector('.parentMain');
 
-        createElementDiv(temp, '', 'menu');
+        createElementDiv(temp!, '', 'menu');
         const parentMenu = document.querySelector('.menu');
 
         itemsMenu.input.forEach((item, index) => {
-            createElementDiv(parentMenu, '', 'manuPoint');
+            createElementDiv(parentMenu!, '', 'manuPoint');
             const parent = document.getElementsByClassName('manuPoint')[index];
-            createElementImg(parent, item.iconName, 'iconPoint1');
+            createElementImg(parent, item.iconName, inputSvg, 'iconPoint1');
             createElementDiv(parent, item.textText, 'menuText1');
         }, parentMenu);
 
@@ -46,29 +48,30 @@ export class Menu {
             profile!.removeEventListener('click', profileEvent);
             let docEvent: EventListenerOrEventListenerObject;
             document.addEventListener('click', docEvent = (event2: any) => {
-                if (event2.target.className !== 'menuText' && event2.target.className !== 'iconPoint') {
-                    if (document.querySelector('.openFolder')) {
+                if (event2.target.className !== 'menuText' && event2.target.className !== 'iconPoint'
+                    && event2.target.className !== 'exit') {
+                    if (document.getElementsByClassName('openFolder')[0]) {
                         document.querySelector('.openFolder')!.remove();
                         document.removeEventListener('click', docEvent);
                         profile!.addEventListener('click', profileEvent);
                     }
                 }
-                if (event2.target.className === 'menuText' || event2.target.className === 'iconPoint') {
+                if (event2.target.className === 'menuText' || event2.target.className === 'iconPoint'
+                    || event2.target.className === 'exit') {
                     const ajaxSignIn = new Ajax();
                     ajaxSignIn.get(
                         `http://${window.location.hostname}:8080/logout`,
                         // eslint-disable-next-line
-                        (status: number, responseText: string) => {
+                        (status: number) => {
+                            const signIn = new SignInRender(this.parent);
                             if (status === 401)
                             {
-                                const signIn = new SignInRender(this.parent);
                                 signIn.render();
                             }
                             if (status !== 200)
                                 return;
                             document.removeEventListener('click', docEvent);
-                            const signInnew = new SignInRender(this.parent);
-                            signInnew.render();
+                            signIn.render();
                         },
                     );
                 }

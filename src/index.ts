@@ -1,15 +1,14 @@
-import {SignInRender} from './pages/SignIn/SignIn.ts';
-import {MainPage} from './pages/MainPage/MainPage.js';
-import {Ajax} from './modules/AjaxSignIn/AjaxSignIn.ts';
+import {SignInRender} from './pages/SignIn/SignIn';
+import {MainPage} from './pages/MainPage/MainPage';
+import {Ajax} from './modules/AjaxSignIn/AjaxSignIn';
+import './index.css';
 
 const root = document.getElementsByTagName('body')[0];
-
-
 const ajaxGetEmail = new Ajax();
 ajaxGetEmail.get(
     `http://${window.location.hostname}:8080/profile`,
     // eslint-disable-next-line
-    (status) => {
+    (status: number) => {
         if (status === 401)
         {
             const signIn = new SignInRender(root);

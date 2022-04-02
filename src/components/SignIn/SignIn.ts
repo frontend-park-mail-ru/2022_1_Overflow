@@ -3,12 +3,14 @@ import {
     createElementButtonBase,
     createElementDiv,
     createElementImg,
-} from '../../modules/CreateElement/createElement.js';
-import {MainPage} from '../../pages/MainPage/MainPage.js';
-import {SignUpRender} from '../../pages/SignUp/SignUp.js';
+} from '../../modules/CreateElement/createElement';
+import {MainPage} from '../../pages/MainPage/MainPage';
+import {SignUpRender} from '../../pages/SignUp/SignUp';
 import {CheckInput} from '../../modules/CheckInput/CheckInput';
-import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn.js';
-import {LenghtCheck} from '../../modules/LenghtCheck/LenghtCheck.js';
+import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn';
+import {LenghtCheck} from '../../modules/LenghtCheck/LenghtCheck';
+import './SignIn.css';
+import logoSvg from '../../image/Logo.svg';
 
 export class SignIn {
     private readonly parent;
@@ -26,16 +28,16 @@ export class SignIn {
     }
 
     getForm(parent: Element) {
-        const email: string | null = document.getElementById('inputEmail')!.textContent;
+        const email: string = (document.getElementById('inputEmail') as HTMLInputElement).value;
         const errEmail = LenghtCheck(email, 'логина');
         if (errEmail !== '') {
             this.setError(errEmail);
             return;
         }
 
-        let password = document.getElementById('inputPassword')!.textContent;
+        let password : string = (document.getElementById('inputPassword') as HTMLInputElement).value;
         password = CheckInput(password);
-        const errPassword = LenghtCheck(password, 'пароля');
+        const errPassword : string = LenghtCheck(password, 'пароля');
         if (errPassword !== '') {
             this.setError(errPassword);
             return;
@@ -71,7 +73,7 @@ export class SignIn {
         };
         container!.appendChild(form);
 
-        createElementImg(form, 'LogoSigin', 'mb2');
+        createElementImg(form, 'LogoSigin', logoSvg, 'mb2');
         createElementInputBase(form, 'Логин', 'inputEmail', 'text');
         createElementInputBase(form, 'Пароль', 'inputPassword', 'password');
         createElementDiv(form, 'Не верное имя пользователя или пароль.', 'invalidMsg');

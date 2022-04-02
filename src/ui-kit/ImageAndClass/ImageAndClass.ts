@@ -1,11 +1,13 @@
-export class ImageAndClass {
-    private parent: Element;
+import './ImageAndClass.css';
+import * as templateHBS from './ImageAndClass.hbs';
+
+export class ImageAndClass<T extends Element> {
+    private parent: T;
     private name: string;
     private className: string;
-    private readonly html: string;
+    private srcPath: string;
 
-    constructor(parent: Element) {
-        this.html = '<img class="{{class}}" src="./image/{{name}}.svg" alt="{{name}}">';
+    constructor(parent: T) {
         this.parent = parent;
     }
 
@@ -13,17 +15,19 @@ export class ImageAndClass {
         this.name = name;
     }
 
+    set src(srcPath: string) {
+        this.srcPath = srcPath;
+    }
+
     set class(className: string) {
         this.className = className;
     }
 
     render = () => {
-        // eslint-disable-next-line
-        const template = Handlebars.compile(this.html);
-        const html = template({
+        this.parent.insertAdjacentHTML('beforeend', templateHBS({
             name: this.name,
             class: this.className,
-        });
-        this.parent.insertAdjacentHTML('beforeend', html);
+            src: this.srcPath,
+        }));
     };
 }

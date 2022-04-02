@@ -177,7 +177,6 @@ svg {
 
 .invalidMsg {
     display: flex;
-    font-family: 'Red Hat Display', sans-serif;
     font-style: normal;
     margin-left: 30px;
     color:#FF0000;
@@ -191,7 +190,6 @@ svg {
 
 .forgetPass {
     display: flex;
-    font-family: 'Red Hat Display', sans-serif;
     font-style: normal;
     font-weight: 300;
     line-height: 26px;

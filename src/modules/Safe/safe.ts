@@ -4,8 +4,8 @@ const WHITELIST_ATTRS = ['src', 'alt'];
 const R_TAG = /<(\w+)\s?(.*?)>.*?(<\/(.*?)>)?/;
 const R_ATTRIBUTES = /(\w+\s*)=(\s*".*?")/g;
 
-export function safe(unsafeString) {
-    return unsafeString
+export function safe(unsafeString: string | null) {
+    return unsafeString!
         .replace(R_TAG, (match, m1) => {
             return BLACKLIST_TAGS.includes(m1) ? '' : match;
         })

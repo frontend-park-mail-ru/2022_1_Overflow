@@ -3,58 +3,61 @@ import {
     createElementButtonBase,
     createElementDiv,
     createElementImg,
-} from '../../modules/CreateElement/createElement.js';
-import {SignInRender} from '../../pages/SignIn/SignIn.js';
-import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn.js';
-import {LenghtCheck} from '../../modules/LenghtCheck/LenghtCheck.js';
-import {MainPage} from '../../pages/MainPage/MainPage.js';
+} from '../../modules/CreateElement/createElement';
+import {SignInRender} from '../../pages/SignIn/SignIn';
+import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn';
+import {LenghtCheck} from '../../modules/LenghtCheck/LenghtCheck';
+import {MainPage} from '../../pages/MainPage/MainPage';
+import './SignUp.css';
+import logoSvg from '../../image/LogoSigin.svg';
 
 export class SignUp {
-    #parent;
+    parent: Element;
 
-    constructor(parent) {
-        this.#parent = parent;
+    constructor(parent: Element) {
+        this.parent = parent;
     }
 
-    setError(text) {
-        document.getElementById('inputFirstName').style.borderColor = 'red';
-        document.getElementById('inputLastName').style.borderColor = 'red';
-        document.getElementById('inputEmail').style.borderColor = 'red';
-        document.getElementById('inputPassword').style.borderColor = 'red';
-        document.getElementById('inputPasswordRepeat').style.borderColor = 'red';
-        document.querySelector('.invalidMsg').style.visibility = 'visible';
-        document.querySelector('.invalidMsg').textContent = text;
+    setError(text: string) {
+        document.getElementById('inputFirstName')!.style.borderColor = 'red';
+        document.getElementById('inputLastName')!.style.borderColor = 'red';
+        document.getElementById('inputEmail')!.style.borderColor = 'red';
+        document.getElementById('inputPassword')!.style.borderColor = 'red';
+        document.getElementById('inputPasswordRepeat')!.style.borderColor = 'red';
+        const error: HTMLElement = document.querySelector('.invalidMsg') as HTMLElement
+        error.style.visibility = 'visible';
+        document.querySelector('.invalidMsg')!.textContent = text;
     }
 
     getForm() {
-        const firstName = document.getElementById('inputFirstName').value;
+        const firstName: string = (document.getElementById('inputFirstName') as HTMLInputElement).value;
         const errorFirstName = LenghtCheck(firstName, 'имени');
         if (errorFirstName !== '') {
             this.setError(errorFirstName);
             return;
         }
 
-        const lastName = document.getElementById('inputLastName').value;
+        const lastName : string = (document.getElementById('inputLastName') as HTMLInputElement).value;
         const errorLastName = LenghtCheck(lastName, 'фамилии');
         if (errorLastName !== '') {
             this.setError(errorLastName);
             return;
         }
 
-        const email = document.getElementById('inputEmail').value;
+        const email : string = (document.getElementById('inputEmail') as HTMLInputElement).value;
         const errorEmail = LenghtCheck(email, 'логина');
         if (errorEmail !== '') {
             this.setError(errorEmail);
             return;
         }
 
-        const password = document.getElementById('inputPassword').value;
+        const password : string = (document.getElementById('inputPassword') as HTMLInputElement).value;
         const errorPassword = LenghtCheck(password, 'пароля');
         if (errorPassword !== '') {
             this.setError(errorPassword);
             return;
         }
-        const passwordConfirmation = document.getElementById('inputPasswordRepeat').value;
+        const passwordConfirmation : string = (document.getElementById('inputPasswordRepeat') as HTMLInputElement).value;
         const errorPasswordConfirmation = LenghtCheck(passwordConfirmation, 'повтора пароля');
         if (errorPasswordConfirmation !== '') {
             this.setError(errorPasswordConfirmation);
@@ -73,9 +76,9 @@ export class SignUp {
                 'last_name': lastName,
                 'username': email,
                 'password': password,
-                'password_confirmation': password_confirmation,
+                'password_confirmation': passwordConfirmation,
             },
-        ).then((data) => {
+        ).then((data: any) => {
             return ajax.promisifyPostSignIn(
                 `http://${window.location.hostname}:8080/signin`,
                 {
@@ -84,7 +87,7 @@ export class SignUp {
                 },
             );
         }).then(() => {
-            const main = new MainPage(this.#parent);
+            const main = new MainPage(this.parent);
             main.render();
         }).catch((responseText) => {
             const jsonerror = JSON.parse(responseText);
@@ -93,24 +96,24 @@ export class SignUp {
     }
 
     render() {
-        createElementDiv(this.#parent, '', 'container');
+        createElementDiv(this.parent, '', 'container');
         const container = document.querySelector('.container');
         const form = document.createElement('form');
         form.onsubmit = (event) => {
             event.preventDefault();
-            return this.getForm(this.#parent);
+            return this.getForm();
         };
         form.className = 'showbox showboxCenter showboxSelfCenter shadow';
-        container.appendChild(form);
+        container!.appendChild(form);
 
-        createElementImg(form, 'LogoSigin', 'mb2');
+        createElementImg(form, 'LogoSigin', logoSvg, 'mb2');
         createElementInputBase(form, 'Имя', 'inputFirstName', 'text');
         createElementInputBase(form, 'Фамилия', 'inputLastName', 'text');
         createElementInputBase(form, 'Логин', 'inputEmail', 'text');
         createElementInputBase(form, 'Пароль', 'inputPassword', 'password');
         createElementInputBase(form, 'Повторить пароль', 'inputPasswordRepeat', 'password');
         createElementDiv(form, 'Не верное имя пользователя или пароль.', 'invalidMsg');
-        const invalidMsg = document.querySelector('.invalidMsg');
+        const invalidMsg = document.querySelector('.invalidMsg') as HTMLElement;
         invalidMsg.style.visibility = 'hidden';
         createElementDiv(form, '', 'buttonGrid mt4');
         const divParent = document.getElementsByClassName('buttonGrid mt4')[0];
@@ -118,8 +121,8 @@ export class SignUp {
         createElementButtonBase(divParent, 'Назад', 'btn btnSecondary', 'backButton', 'button');
         const goSignIn = document.getElementById('backButton');
 
-        goSignIn.addEventListener('click', () => {
-            const signIn = new SignInRender(this.#parent);
+        goSignIn!.addEventListener('click', () => {
+            const signIn = new SignInRender(this.parent);
             signIn.render();
         });
     }

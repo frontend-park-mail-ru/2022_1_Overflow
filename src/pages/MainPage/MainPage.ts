@@ -1,6 +1,6 @@
-import {Header} from '../../components/Header/Header.js';
-import {Menu} from '../../components/Menu/Menu.js';
-import {Message} from '../../components/Message/Message.js';
+import {Header} from '../../components/Header/Header';
+import {Menu} from '../../components/Menu/Menu';
+import {Message} from '../../components/Message/Message';
 
 export class MainPage {
     private readonly parent: Element;
@@ -16,7 +16,7 @@ export class MainPage {
         const menu = new Menu(this.parent);
         menu.render();
         const main = document.querySelector('.parentMain');
-        const message = new Message(main);
+        const message = new Message(main!);
         message.render();
     };
 }
