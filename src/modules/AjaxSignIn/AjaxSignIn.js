@@ -85,7 +85,7 @@ export class Ajax {
                     if (status !== 200) {
                         reject(responseText);
                     }
-                    resolve();
+                    resolve(responseText);
                 }
             );
         });

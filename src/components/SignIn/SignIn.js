@@ -6,7 +6,7 @@ import {
 } from '../../modules/CreateElement/createElement.js';
 import {MainPage} from '../../pages/MainPage/MainPage.js';
 import {SignUpRender} from '../../pages/SignUp/SignUp.js';
-import {CheckInput} from '../../modules/CheckInput/CheckInput.js';
+import {checkStatus} from '../../modules/CheckInput/CheckInput.js';
 import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn.js';
 import {LenghtCheck} from '../../modules/LenghtCheck/LenghtCheck.js';
 
@@ -33,7 +33,6 @@ export class SignIn {
         }
 
         let password = document.getElementById('inputPassword').value;
-        password = CheckInput(password);
         const errPassword = LenghtCheck(password, 'пароля');
         if (errPassword !== '') {
             this.setError(errPassword);
@@ -52,8 +51,7 @@ export class SignIn {
             main.render();
             return true;
         }).catch((responseText) => {
-            const json = JSON.parse(responseText);
-            this.setError(json['message']);
+            this.setError(checkStatus(JSON.parse(responseText)['status'], email));
             return false;
         });
     }
@@ -73,16 +71,12 @@ export class SignIn {
         createElementImg(form, 'LogoSigin', 'mb2');
         createElementInputBase(form, 'Логин', 'inputEmail', 'text');
         createElementInputBase(form, 'Пароль', 'inputPassword', 'password');
-        createElementDiv(form, 'Не верное имя пользователя или пароль.', 'invalidMsg');
+        createElementDiv(form, 'empty', 'invalidMsg');
         const invalidMsg = document.querySelector('.invalidMsg');
         invalidMsg.style.visibility = 'hidden';
         createElementDiv(form, '', 'buttonGrid mt4');
 
         const divParent = document.querySelector('.buttonGrid');
-        // let aForm = document.createElement('a');
-        // aForm.className = 'forgetPass';
-        // aForm.text = 'Забыл пароль';
-        // divParent.appendChild(aForm);
 
         createElementButtonBase(divParent, 'Войти','btn btnPrimary', 'signInButton', 'submit');
         createElementButtonBase(divParent, 'Зарегистрироваться','btn btnSecondary', 'registration', 'button');

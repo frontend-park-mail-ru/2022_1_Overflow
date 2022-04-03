@@ -19,8 +19,8 @@ export class Message {
         ).then((responseText) => {
             const parsed = JSON.parse(responseText);
             if (parsed === null) {
-                createElementDiv(message, '', 'messageText');
-                const parent = document.querySelector('.messageText');
+                createElementDiv(message, '', 'messageText1');
+                const parent = document.querySelector('.messageText1');
                 createElementP(parent, 'Список писем пуст', 'messageEmpty');
                 return;
             }
@@ -61,14 +61,6 @@ export class Message {
                 hr.width = '100%';
                 message.appendChild(hr);
             }
-            parent.addEventListener('mouseover', () => {
-                parent.style.backgroundSize = '100%';
-                parent.style.backgroundColor = '#F1F1F1';
-                parent.style.borderRadius = '15px';
-            });
-            parent.addEventListener('mouseout', () => {
-                parent.style.backgroundColor = '#FFFFFF';
-            });
         }, message);
     }
 }

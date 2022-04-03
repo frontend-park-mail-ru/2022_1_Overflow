@@ -1,12 +1,9 @@
-import {CheckInput} from '../CheckInput/CheckInput.js';
+import {checkInput} from '../CheckInput/CheckInput.js';
 
 export const LenghtCheck = (text, type) => {
-    text = CheckInput(text);
+    text = checkInput(text);
     if (text.length === 0) {
         return `Поле ${type} является пустым.`;
-    }
-    if (text.length <= 2) {
-        return `Длинна ${type} слишком маленькая.`;
     }
     if (text.length > 20) {
         return `Длинна ${type} слишком большая.`;

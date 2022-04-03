@@ -26,6 +26,20 @@
     width: 100%;
 }
 
+.messageText1{
+    user-select: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+.messageText:hover{
+    background-size: 100%;
+    background: #F1F1F1;
+    border-radius: 15px;
+}
+
 .avatarMassage{
     margin-left: 10px;
     margin-right: 15px;

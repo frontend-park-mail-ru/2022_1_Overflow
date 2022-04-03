@@ -8,6 +8,7 @@ import {SignInRender} from '../../pages/SignIn/SignIn.js';
 import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn.js';
 import {LenghtCheck} from '../../modules/LenghtCheck/LenghtCheck.js';
 import {MainPage} from '../../pages/MainPage/MainPage.js';
+import {checkStatus} from "../../modules/CheckInput/CheckInput.js";
 
 export class SignUp {
     #parent;
@@ -87,8 +88,7 @@ export class SignUp {
             const main = new MainPage(this.#parent);
             main.render();
         }).catch((responseText) => {
-            const jsonerror = JSON.parse(responseText);
-            this.setError(jsonerror['message']);
+            this.setError(checkStatus(JSON.parse(responseText)['status'], email));
         });
     }
 
