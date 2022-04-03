@@ -8,7 +8,7 @@ import {SignInRender} from '../../pages/SignIn/SignIn.js';
 import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn.js';
 import {LenghtCheck} from '../../modules/LenghtCheck/LenghtCheck.js';
 import {MainPage} from '../../pages/MainPage/MainPage.js';
-import {checkStatus} from "../../modules/CheckInput/CheckInput.js";
+import {checkStatus} from '../../modules/CheckInput/CheckInput.js';
 
 export class SignUp {
     #parent;
