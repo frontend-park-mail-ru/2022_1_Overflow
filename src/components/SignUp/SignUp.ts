@@ -1,6 +1,4 @@
 import {
-    createElementInputBase,
-    createElementButtonBase,
     createElementDiv,
     createElementImg,
 } from '../../modules/CreateElement/createElement';
@@ -10,11 +8,13 @@ import {LenghtCheck} from '../../modules/LenghtCheck/LenghtCheck';
 import {MainPage} from '../../pages/MainPage/MainPage';
 import './SignUp.css';
 import logoSvg from '../../image/LogoSigin.svg';
+import {Button} from "../../ui-kit/Button/Button";
+import {Input} from "../../ui-kit/Input/Input";
 
-export class SignUp {
-    parent: Element;
+export class SignUp<T extends Element> {
+    private readonly parent: T;
 
-    constructor(parent: Element) {
+    constructor(parent: T) {
         this.parent = parent;
     }
 
@@ -107,18 +107,60 @@ export class SignUp {
         container!.appendChild(form);
 
         createElementImg(form, 'LogoSigin', logoSvg, 'mb2');
-        createElementInputBase(form, 'Имя', 'inputFirstName', 'text');
-        createElementInputBase(form, 'Фамилия', 'inputLastName', 'text');
-        createElementInputBase(form, 'Логин', 'inputEmail', 'text');
-        createElementInputBase(form, 'Пароль', 'inputPassword', 'password');
-        createElementInputBase(form, 'Повторить пароль', 'inputPasswordRepeat', 'password');
+
+        const firstNameInput = new Input({
+            text: 'Имя',
+            id: 'inputFirstName',
+            type: 'text'
+        });
+        form.insertAdjacentHTML('beforeend', firstNameInput.render());
+
+        const lastNameInput = new Input({
+            text: 'Фамилия',
+            id: 'inputLastName',
+            type: 'text'
+        });
+        form.insertAdjacentHTML('beforeend', lastNameInput.render());
+
+        const loginInput = new Input({
+            text: 'Логин',
+            id: 'inputEmail',
+            type: 'text'
+        });
+        form.insertAdjacentHTML('beforeend', loginInput.render());
+
+        const passwordInput = new Input({
+            text: 'Пароль',
+            id: 'inputPassword',
+            type: 'password'
+        });
+        form.insertAdjacentHTML('beforeend', passwordInput.render());
+
+        const passwordRepeatInput = new Input({
+            text: 'Повторить пароль',
+            id: 'inputPasswordRepeat',
+            type: 'password'
+        });
+        form.insertAdjacentHTML('beforeend', passwordRepeatInput.render());
         createElementDiv(form, 'Не верное имя пользователя или пароль.', 'invalidMsg');
         const invalidMsg = document.querySelector('.invalidMsg') as HTMLElement;
         invalidMsg.style.visibility = 'hidden';
         createElementDiv(form, '', 'buttonGrid mt4');
         const divParent = document.getElementsByClassName('buttonGrid mt4')[0];
-        createElementButtonBase(divParent, 'Создать', 'btn btnPrimary', 'signupButton', 'submit');
-        createElementButtonBase(divParent, 'Назад', 'btn btnSecondary', 'backButton', 'button');
+        const primBtn = new Button({
+            type: 'submit',
+            text: 'Создать',
+            id: 'signupButton',
+            className: 'btn',
+        });
+        divParent.insertAdjacentHTML('beforeend', primBtn.render());
+        const secBtn = new Button({
+            variant: 'Secondary',
+            text: 'Назад',
+            id: 'backButton',
+            className: 'btn',
+        });
+        divParent.insertAdjacentHTML('beforeend', secBtn.render());
         const goSignIn = document.getElementById('backButton');
 
         goSignIn!.addEventListener('click', () => {

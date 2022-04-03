@@ -1,6 +1,4 @@
 import {
-    createElementInputBase,
-    createElementButtonBase,
     createElementDiv,
     createElementImg,
 } from '../../modules/CreateElement/createElement';
@@ -11,11 +9,13 @@ import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn';
 import {LenghtCheck} from '../../modules/LenghtCheck/LenghtCheck';
 import './SignIn.css';
 import logoSvg from '../../image/Logo.svg';
+import {Button} from "../../ui-kit/Button/Button";
+import {Input} from "../../ui-kit/Input/Input";
 
-export class SignIn {
-    private readonly parent;
+export class SignIn<T extends Element> {
+    private readonly parent : T;
 
-    constructor(parent: Element) {
+    constructor(parent: T) {
         this.parent = parent;
     }
 
@@ -74,21 +74,41 @@ export class SignIn {
         container!.appendChild(form);
 
         createElementImg(form, 'LogoSigin', logoSvg, 'mb2');
-        createElementInputBase(form, 'Логин', 'inputEmail', 'text');
-        createElementInputBase(form, 'Пароль', 'inputPassword', 'password');
+        const loginInput = new Input({
+            text: 'Логин',
+            id: 'inputEmail',
+            type: 'text'
+        });
+        form.insertAdjacentHTML('beforeend', loginInput.render());
+
+        const passwordInput = new Input({
+            text: 'Пароль',
+            id: 'inputPassword',
+            type: 'password'
+        });
+        form.insertAdjacentHTML('beforeend', passwordInput.render());
+
         createElementDiv(form, 'Не верное имя пользователя или пароль.', 'invalidMsg');
         const invalidMsg = document.querySelector('.invalidMsg') as HTMLElement;
         invalidMsg!.style.visibility = 'hidden';
         createElementDiv(form, '', 'buttonGrid mt4');
 
         const divParent = document.getElementsByClassName('buttonGrid mt4')[0];
-        // let aForm = document.createElement('a');
-        // aForm.className = 'forgetPass';
-        // aForm.text = 'Забыл пароль';
-        // divParent.appendChild(aForm);
 
-        createElementButtonBase(divParent, 'Войти','btn btnPrimary', 'signInButton', 'submit');
-        createElementButtonBase(divParent, 'Зарегистрироваться','btn btnSecondary', 'registration', 'button');
+        const primBtn = new Button({
+            type: 'submit',
+            text: 'Войти',
+            id: 'signInButton',
+            className: 'btn'
+        });
+        divParent.insertAdjacentHTML('beforeend', primBtn.render());
+        const secBtn = new Button({
+            variant: 'Secondary',
+            text: 'Зарегистрироваться',
+            id: 'registration',
+            className: 'btn',
+        });
+        divParent.insertAdjacentHTML('beforeend', secBtn.render());
 
         const goRegistration = document.getElementById('registration');
 

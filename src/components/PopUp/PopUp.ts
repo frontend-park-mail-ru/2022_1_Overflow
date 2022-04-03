@@ -1,18 +1,18 @@
 import {createElementDiv, createElementImg} from '../../modules/CreateElement/createElement';
 import doorSvg from '../../image/door.svg'
 
-export class PopUp {
-    private parent: Element;
+export class PopUp<T extends Element> {
+    private parent: T;
     private style: Element | null;
 
-    constructor(parent: Element) {
+    constructor(parent: T) {
         this.parent = parent;
     }
 
     render() {
         createElementDiv(this.parent, '', 'openFolder');
         const openFolder = document.querySelector('.openFolder');
-        this.style= openFolder;
+        this.style = openFolder;
         createElementDiv(openFolder!, '', 'exit');
         const exit = document.querySelector('.exit');
         createElementImg(exit!, 'door', doorSvg, 'iconPoint');

@@ -1,0 +1,38 @@
+.btnS{
+    width: 80px;
+    height: 40px;
+}
+
+.btnL{
+    width: 320px;
+    height: 40px;
+}
+
+.btnXL{
+    width: 500px;
+    height: 40px;
+}
+
+.btnPrimary{
+    border-radius: 5px;
+    border: 0;
+    background: #2E6395;
+    color: #FFFFFF;
+}
+
+.btnPrimary:hover{
+    cursor: pointer;
+    background: #275682;
+}
+
+.btnSecondary{
+    border-radius: 5px;
+    border: 0;
+    background: #EBEBEB;
+    color: #000000;
+}
+
+.btnSecondary:hover{
+    cursor: pointer;
+    background: #DBDBDB;
+}

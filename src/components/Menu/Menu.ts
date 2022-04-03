@@ -14,10 +14,10 @@ const itemsMenu = {
     ]
 };
 
-export class Menu {
-    private readonly parent: Element;
+export class Menu<T extends Element> {
+    private readonly parent: T;
 
-    constructor(parent: Element) {
+    constructor(parent: T) {
         this.parent = parent;
     }
 

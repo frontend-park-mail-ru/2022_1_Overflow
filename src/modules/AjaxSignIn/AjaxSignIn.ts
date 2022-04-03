@@ -1,4 +1,4 @@
-const noop = (status: number, responseText: string) => {}; // tslint:disable-line
+const noop = (status: number, responseText: string) => {}; // eslint-disable-line
 
 export class Ajax {
     post(url: string, callback: any, data: any) {

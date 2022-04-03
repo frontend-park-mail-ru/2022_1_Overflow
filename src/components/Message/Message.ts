@@ -1,13 +1,14 @@
-import {createElementDiv, createElementP, createElementImg} from '../../modules/CreateElement/createElement';
+import {createElementDiv, createElementImg} from '../../modules/CreateElement/createElement';
 import {SignInRender} from '../../pages/SignIn/SignIn';
 import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn';
 import './Message.css';
 import avatarSvg from '../../image/avatar.svg';
+import {Text} from "../../ui-kit/Text/Text";
 
-export class Message {
-    private readonly parent: Element;
+export class Message<T extends Element> {
+    private readonly parent: T;
 
-    constructor(parent: Element) {
+    constructor(parent: T) {
         this.parent = parent;
     }
 
@@ -23,7 +24,14 @@ export class Message {
             if (parsed === null) {
                 createElementDiv(message!, '', 'messageText');
                 const parent = document.querySelector('.messageText');
-                createElementP(parent!, 'Список писем пуст', 'messageEmpty');
+
+                const emptyText = new Text({
+                    color: 'Grey',
+                    text: 'Список писем пуст',
+                    size: 'L',
+                    className: 'messageEmpty'
+                });
+                parent!.insertAdjacentHTML('beforeend', emptyText.render());
                 return;
             }
 
@@ -52,10 +60,36 @@ export class Message {
             createElementDiv(message!, '', 'messageText');
             const parent = document.getElementsByClassName('messageText')[index];
             createElementImg(parent, item.avatar, avatarSvg, 'avatarMassage');
-            createElementP(parent, item.title, 'messageTextText');
-            createElementP(parent, item.subTitle, 'messageTextSub');
-            createElementP(parent, '', 'messageTextBlock');
-            createElementP(parent, item.time, 'messageTextTime');
+
+            const titleText = new Text({
+                text: item.title,
+                size: 'L',
+                className: 'messageTextText'
+            });
+            parent!.insertAdjacentHTML('beforeend', titleText.render());
+
+            const subText = new Text({
+                text: item.subTitle,
+                size: 'L',
+                color: 'Grey',
+                className: 'messageTextSub'
+            });
+            parent!.insertAdjacentHTML('beforeend', subText.render());
+
+            const emptyText = new Text({
+                text: '',
+                size: 'L',
+                className: 'messageTextBlock'
+            });
+            parent!.insertAdjacentHTML('beforeend', emptyText.render());
+
+            const timeText = new Text({
+                text: item.time,
+                size: 'L',
+                className: 'messageTextSub'
+            });
+            parent!.insertAdjacentHTML('beforeend', timeText.render());
+
             if (itemsMassage.input.length - 1 !== index) {
                 const hr = document.createElement('hr');
                 hr.color = 'EBEBEB';

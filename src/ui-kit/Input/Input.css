@@ -1,0 +1,74 @@
+.inputS{
+    width: 150px;
+    height: 40px;
+
+    font-size: 17px;
+
+    padding-left: 5px;
+    padding-right: 5px;
+
+    background: #FFFFFF;
+    border: 1px solid #EBEBEB;
+    border-radius: 5px;
+}
+
+.inputL{
+    width: 310px;
+    height: 40px;
+
+    font-size: 17px;
+
+    padding-left: 5px;
+    padding-right: 5px;
+
+    background: #FFFFFF;
+    border: 1px solid #EBEBEB;
+    border-radius: 5px;
+}
+
+.inputXL{
+    width: 400px;
+    height: 40px;
+
+    font-size: 17px;
+
+    padding-left: 5px;
+    padding-right: 5px;
+
+    background: #FFFFFF;
+    border: 1px solid #EBEBEB;
+    border-radius: 5px;
+
+    -moz-border-radius: 0.5vh;
+    -webkit-border-radius: 0.5vh;
+}
+
+.inputS:focus{
+    outline: none;
+    border-color: #2E6395 !important;
+}
+
+.inputL:focus{
+    outline: none;
+    border-color: #2E6395 !important;
+}
+
+.inputXL:focus{
+    outline: none;
+    border-color: #2E6395 !important;
+}
+
+.inputS::placeholder{
+    font-size: 17px;
+    color: #D8D8D8;
+}
+
+.inputL::placeholder{
+    font-size: 17px;
+    color: #D8D8D8;
+}
+
+.inputXL::placeholder{
+    font-size: 17px;
+    color: #D8D8D8;
+}

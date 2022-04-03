@@ -1,36 +1,45 @@
-import {createElementDiv, createElementP, createElementImg} from '../../modules/CreateElement/createElement';
 import {SignInRender} from '../../pages/SignIn/SignIn';
 import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn';
 import './Header.css';
 import logoSvg from '../../image/Logo.svg';
 import avatarSvg from '../../image/avatar.svg';
 import arrowSvg from '../../image/arrow.svg';
+import {Text} from '../../ui-kit/Text/Text';
+import * as headerHBS from './Header.hbs'
+import * as handlebars from 'handlebars';
 
-export class Header {
-    private readonly parent;
 
-    constructor(parent: any) {
+export class Header<T extends Element> {
+    private readonly parent: T;
+
+    constructor(parent: T) {
         this.parent = parent;
     }
 
     render = () => {
-        const head = document.createElement('header');
-        this.parent.appendChild(head);
+        const logoText = new Text({
+            color: 'White',
+            text: 'OverMail',
+            size: 'XL',
+            className: 'logoTitle'
+        });
+        handlebars.registerPartial('./logoText', logoText.render);
 
-        createElementDiv(head, '', 'parentHead');
-        const divParentObject = document.querySelector('.parentHead');
-        const aHref = document.createElement('a');
-        aHref.href = '/';
-        aHref.className = 'linked';
-        createElementImg(aHref, 'Logo', logoSvg, 'logoLogo');
-        createElementP(aHref, 'OverMail', 'logoTitle');
-        divParentObject!.appendChild(aHref);
-        createElementDiv(divParentObject!, '', 'spaseBox');
-        createElementDiv(divParentObject!, '', 'profile');
-        const divProfile = document.getElementsByClassName('profile')[0];
-        createElementImg(divProfile, 'avatar', avatarSvg, 'avatar');
-        createElementP(divProfile, '', 'email');
-        createElementImg(divProfile, 'arrow', arrowSvg, 'arrow');
+        const login = new Text({
+            id: 'profileLogin',
+            text: '',
+            size: 'S',
+            className: 'email'
+        });
+        handlebars.registerPartial('./login', login.render);
+
+        const header = headerHBS({
+            logoLink: '/',
+            logoSvg: logoSvg,
+            profileAvatar: avatarSvg,
+            arrow: arrowSvg,
+        })
+
         const ajaxGetEmail = new Ajax();
         let jsonProfile;
         ajaxGetEmail.get(
@@ -46,10 +55,10 @@ export class Header {
                     return ;
                 }
                 jsonProfile = JSON.parse(responseText);
-                const email = document.querySelector('.email');
-                const username = 'Username';
-                email!.textContent = jsonProfile[username];
+                document.querySelector('.email')!.textContent = jsonProfile['Username'];
             },
         );
+
+        this.parent.insertAdjacentHTML('beforeend', header);
     };
 }

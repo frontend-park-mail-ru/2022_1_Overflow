@@ -26,3 +26,11 @@ header{
     display: flex;
     align-items: center;
 }
+
+.logoTitle{
+    margin-left: 30px;
+}
+
+.email{
+    font-size: 12px;
+}

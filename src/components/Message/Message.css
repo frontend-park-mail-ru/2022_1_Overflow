@@ -14,8 +14,6 @@
 .messageEmpty{
     text-align: center;
     width: 100%;
-    font-size: 20px;
-    color: #D8D8D8;
 }
 
 .messageText{
@@ -39,7 +37,6 @@
     white-space: nowrap;
     overflow: hidden;
     padding-left: 30px;
-    font-size: 20px;
 }
 
 .messageTextSub{
@@ -48,8 +45,6 @@
     white-space: nowrap;
     overflow: hidden;
     padding-left: 30px;
-    font-size: 20px;
-    color: #D8D8D8;
 }
 
 .messageTextBlock{
@@ -58,6 +53,4 @@
 
 .messageTextTime{
     padding-right: 20px;
-    font-family: 'Roboto', sans-serif;
-    font-size: 20px;
 }
