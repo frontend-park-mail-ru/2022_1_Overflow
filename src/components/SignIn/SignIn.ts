@@ -1,7 +1,3 @@
-import {
-    createElementDiv,
-    createElementImg,
-} from '../../modules/CreateElement/createElement';
 import {MainPage} from '../../pages/MainPage/MainPage';
 import {SignUpRender} from '../../pages/SignUp/SignUp';
 import {CheckInput} from '../../modules/CheckInput/CheckInput';
@@ -11,6 +7,7 @@ import './SignIn.css';
 import logoSvg from '../../image/Logo.svg';
 import {Button} from "../../ui-kit/Button/Button";
 import {Input} from "../../ui-kit/Input/Input";
+import * as signInMain from './SignIn.hbs';
 
 export class SignIn<T extends Element> {
     private readonly parent : T;
@@ -62,38 +59,17 @@ export class SignIn<T extends Element> {
     }
 
     render() {
-        createElementDiv(this.parent, '', 'container');
-        const container = document.querySelector('.container');
-
-        const form = document.createElement('form');
-        form.className = 'showbox showboxCenter showboxSelfCenter shadow';
-        form.onsubmit = (event) => {
-            event.preventDefault();
-            return this.getForm(this.parent);
-        };
-        container!.appendChild(form);
-
-        createElementImg(form, 'LogoSigin', logoSvg, 'mb2');
         const loginInput = new Input({
             text: 'Логин',
             id: 'inputEmail',
             type: 'text'
         });
-        form.insertAdjacentHTML('beforeend', loginInput.render());
 
         const passwordInput = new Input({
             text: 'Пароль',
             id: 'inputPassword',
             type: 'password'
         });
-        form.insertAdjacentHTML('beforeend', passwordInput.render());
-
-        createElementDiv(form, 'Не верное имя пользователя или пароль.', 'invalidMsg');
-        const invalidMsg = document.querySelector('.invalidMsg') as HTMLElement;
-        invalidMsg!.style.visibility = 'hidden';
-        createElementDiv(form, '', 'buttonGrid mt4');
-
-        const divParent = document.getElementsByClassName('buttonGrid mt4')[0];
 
         const primBtn = new Button({
             type: 'submit',
@@ -101,16 +77,34 @@ export class SignIn<T extends Element> {
             id: 'signInButton',
             className: 'btn'
         });
-        divParent.insertAdjacentHTML('beforeend', primBtn.render());
+
         const secBtn = new Button({
             variant: 'Secondary',
             text: 'Зарегистрироваться',
             id: 'registration',
             className: 'btn',
         });
-        divParent.insertAdjacentHTML('beforeend', secBtn.render());
+
+        const signIn = signInMain({
+            logo: logoSvg,
+            loginInput: loginInput.render(),
+            passwordInput: passwordInput.render(),
+            primBtn: primBtn.render(),
+            secBtn: secBtn.render(),
+        })
+
+        this.parent.insertAdjacentHTML('beforeend', signIn);
 
         const goRegistration = document.getElementById('registration');
+        const form = document.getElementById('formSignIn');
+
+        if (form === null)
+            return;
+
+        form.onsubmit = (event) => {
+            event.preventDefault();
+            return this.getForm(this.parent);
+        };
 
         goRegistration!.addEventListener('click', () => {
             const signUp = new SignUpRender(this.parent);

@@ -15,6 +15,10 @@
     text-decoration: none;
 }
 
+.spaseBox{
+    flex: 1;
+}
+
 header{
     display: inline;
     top: 0;
@@ -33,4 +37,18 @@ header{
 
 .email{
     font-size: 12px;
+}
+
+.logoLogo{
+    margin: 10px 0 10px 35px;
+}
+
+.avatar{
+    margin-right: 10px;
+}
+
+.arrow {
+    padding: 20px 20px 20px 5px;
+    margin-right: 30px;
+    cursor: pointer;
 }

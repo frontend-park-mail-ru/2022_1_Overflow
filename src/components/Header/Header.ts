@@ -5,8 +5,8 @@ import logoSvg from '../../image/Logo.svg';
 import avatarSvg from '../../image/avatar.svg';
 import arrowSvg from '../../image/arrow.svg';
 import {Text} from '../../ui-kit/Text/Text';
-import * as headerHBS from './Header.hbs'
-import * as handlebars from 'handlebars';
+import * as headerHBS from './Header.hbs';
+import {PopUp} from "../PopUp/PopUp";
 
 
 export class Header<T extends Element> {
@@ -23,7 +23,6 @@ export class Header<T extends Element> {
             size: 'XL',
             className: 'logoTitle'
         });
-        handlebars.registerPartial('./logoText', logoText.render);
 
         const login = new Text({
             id: 'profileLogin',
@@ -31,14 +30,17 @@ export class Header<T extends Element> {
             size: 'S',
             className: 'email'
         });
-        handlebars.registerPartial('./login', login.render);
 
         const header = headerHBS({
             logoLink: '/',
             logoSvg: logoSvg,
+            login: login.render(),
+            logoText: logoText.render(),
             profileAvatar: avatarSvg,
             arrow: arrowSvg,
         })
+
+        this.parent.insertAdjacentHTML('beforeend', header);
 
         const ajaxGetEmail = new Ajax();
         let jsonProfile;
@@ -59,6 +61,43 @@ export class Header<T extends Element> {
             },
         );
 
-        this.parent.insertAdjacentHTML('beforeend', header);
+        const profile = document.querySelector('.profile');
+        let profileEvent: EventListenerOrEventListenerObject;
+        profile!.addEventListener('click', profileEvent = (event: any) => {
+            const popUp = new PopUp(this.parent);
+            popUp.render();
+            event.stopPropagation();
+            profile!.removeEventListener('click', profileEvent);
+            let docEvent: EventListenerOrEventListenerObject;
+            document.addEventListener('click', docEvent = (event2: any) => {
+                if (event2.target.className !== 'menuText' && event2.target.className !== 'iconPoint'
+                    && event2.target.className !== 'exit') {
+                    if (document.getElementsByClassName('openFolder')[0]) {
+                        document.querySelector('.openFolder')!.remove();
+                        document.removeEventListener('click', docEvent);
+                        profile!.addEventListener('click', profileEvent);
+                    }
+                }
+                if (event2.target.className === 'menuText' || event2.target.className === 'iconPoint'
+                    || event2.target.className === 'exit') {
+                    const ajaxSignIn = new Ajax();
+                    ajaxSignIn.get(
+                        `http://${window.location.hostname}:8080/logout`,
+                        // eslint-disable-next-line
+                        (status: number) => {
+                            const signIn = new SignInRender(this.parent);
+                            if (status === 401)
+                            {
+                                signIn.render();
+                            }
+                            if (status !== 200)
+                                return;
+                            document.removeEventListener('click', docEvent);
+                            signIn.render();
+                        },
+                    );
+                }
+            });
+        });
     };
 }

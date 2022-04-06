@@ -28,26 +28,7 @@
     border-radius: 15px;
 }
 
-.manuPoint{
-    user-select: none;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 10px;
-    cursor: pointer;
-}
-
-.manuPoint:hover{
-    background: #F1F1F1;
-    border-radius: 15px;
-}
-
 .iconPoint{
-    cursor: pointer;
-    padding-right: 10px;
-}
-
-.iconPoint1{
     cursor: pointer;
     padding-right: 10px;
 }
@@ -55,41 +36,4 @@
 .menuText{
     margin-left: 10px;
     font-size: 18px;
-}
-
-.menuText1{
-    cursor: pointer;
-    margin-left: 10px;
-    font-size: 18px;
-}
-
-.openFolder{
-    float: right;
-    position: fixed;
-    display: flex;
-    flex-direction: column;
-    width: 250px;
-    padding: 10px;
-    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.25);
-    border-radius: 15px;
-    background: #FFFFFF;
-    right: 0px;
-    top: 60px;
-}
-.openFolder > * {
-    cursor: pointer;
-}
-
-.exit{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-}
-
-.exit:hover{
-    background: #F1F1F1;
-    border-radius: 15px;
 }

@@ -1,7 +1,3 @@
-import {
-    createElementDiv,
-    createElementImg,
-} from '../../modules/CreateElement/createElement';
 import {SignInRender} from '../../pages/SignIn/SignIn';
 import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn';
 import {LenghtCheck} from '../../modules/LenghtCheck/LenghtCheck';
@@ -10,6 +6,7 @@ import './SignUp.css';
 import logoSvg from '../../image/LogoSigin.svg';
 import {Button} from "../../ui-kit/Button/Button";
 import {Input} from "../../ui-kit/Input/Input";
+import * as signUpMain from './SignUp.hbs'
 
 export class SignUp<T extends Element> {
     private readonly parent: T;
@@ -37,27 +34,27 @@ export class SignUp<T extends Element> {
             return;
         }
 
-        const lastName : string = (document.getElementById('inputLastName') as HTMLInputElement).value;
+        const lastName: string = (document.getElementById('inputLastName') as HTMLInputElement).value;
         const errorLastName = LenghtCheck(lastName, 'фамилии');
         if (errorLastName !== '') {
             this.setError(errorLastName);
             return;
         }
 
-        const email : string = (document.getElementById('inputEmail') as HTMLInputElement).value;
+        const email: string = (document.getElementById('inputEmail') as HTMLInputElement).value;
         const errorEmail = LenghtCheck(email, 'логина');
         if (errorEmail !== '') {
             this.setError(errorEmail);
             return;
         }
 
-        const password : string = (document.getElementById('inputPassword') as HTMLInputElement).value;
+        const password: string = (document.getElementById('inputPassword') as HTMLInputElement).value;
         const errorPassword = LenghtCheck(password, 'пароля');
         if (errorPassword !== '') {
             this.setError(errorPassword);
             return;
         }
-        const passwordConfirmation : string = (document.getElementById('inputPasswordRepeat') as HTMLInputElement).value;
+        const passwordConfirmation: string = (document.getElementById('inputPasswordRepeat') as HTMLInputElement).value;
         const errorPasswordConfirmation = LenghtCheck(passwordConfirmation, 'повтора пароля');
         if (errorPasswordConfirmation !== '') {
             this.setError(errorPasswordConfirmation);
@@ -96,74 +93,76 @@ export class SignUp<T extends Element> {
     }
 
     render() {
-        createElementDiv(this.parent, '', 'container');
-        const container = document.querySelector('.container');
-        const form = document.createElement('form');
-        form.onsubmit = (event) => {
-            event.preventDefault();
-            return this.getForm();
-        };
-        form.className = 'showbox showboxCenter showboxSelfCenter shadow';
-        container!.appendChild(form);
-
-        createElementImg(form, 'LogoSigin', logoSvg, 'mb2');
-
         const firstNameInput = new Input({
             text: 'Имя',
             id: 'inputFirstName',
             type: 'text'
         });
-        form.insertAdjacentHTML('beforeend', firstNameInput.render());
 
         const lastNameInput = new Input({
             text: 'Фамилия',
             id: 'inputLastName',
             type: 'text'
         });
-        form.insertAdjacentHTML('beforeend', lastNameInput.render());
 
         const loginInput = new Input({
             text: 'Логин',
             id: 'inputEmail',
             type: 'text'
         });
-        form.insertAdjacentHTML('beforeend', loginInput.render());
 
         const passwordInput = new Input({
             text: 'Пароль',
             id: 'inputPassword',
             type: 'password'
         });
-        form.insertAdjacentHTML('beforeend', passwordInput.render());
 
         const passwordRepeatInput = new Input({
             text: 'Повторить пароль',
             id: 'inputPasswordRepeat',
             type: 'password'
         });
-        form.insertAdjacentHTML('beforeend', passwordRepeatInput.render());
-        createElementDiv(form, 'Не верное имя пользователя или пароль.', 'invalidMsg');
-        const invalidMsg = document.querySelector('.invalidMsg') as HTMLElement;
-        invalidMsg.style.visibility = 'hidden';
-        createElementDiv(form, '', 'buttonGrid mt4');
-        const divParent = document.getElementsByClassName('buttonGrid mt4')[0];
+
         const primBtn = new Button({
             type: 'submit',
             text: 'Создать',
             id: 'signupButton',
             className: 'btn',
         });
-        divParent.insertAdjacentHTML('beforeend', primBtn.render());
+
         const secBtn = new Button({
             variant: 'Secondary',
             text: 'Назад',
             id: 'backButton',
             className: 'btn',
         });
-        divParent.insertAdjacentHTML('beforeend', secBtn.render());
+
+        const signUp = signUpMain({
+            logo: logoSvg,
+            firstNameInput: firstNameInput.render(),
+            lastNameInput:lastNameInput.render(),
+            loginInput: loginInput.render(),
+            passwordInput: passwordInput.render(),
+            passwordRepeatInput: passwordRepeatInput.render(),
+            primBtn: primBtn.render(),
+            secBtn: secBtn.render(),
+        })
+
+        this.parent.insertAdjacentHTML('beforeend', signUp);
+
+        const form = document.getElementById('formSignUp');
         const goSignIn = document.getElementById('backButton');
 
-        goSignIn!.addEventListener('click', () => {
+        if (form === null || goSignIn === null) {
+            return;
+        }
+
+        form.onsubmit = (event) => {
+            event.preventDefault();
+            return this.getForm();
+        };
+
+        goSignIn.addEventListener('click', () => {
             const signIn = new SignInRender(this.parent);
             signIn.render();
         });

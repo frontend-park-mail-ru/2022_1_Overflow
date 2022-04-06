@@ -1,21 +1,29 @@
-import {createElementDiv, createElementImg} from '../../modules/CreateElement/createElement';
-import doorSvg from '../../image/door.svg'
+import doorSvg from '../../image/door.svg';
+import * as PopUpItem from './PopUpItem/PopUpItem.hbs';
+import * as PopUpMain from './PopUp.hbs';
+import './PopUp.css';
+import './PopUpItem/PopUpItem.css'
 
 export class PopUp<T extends Element> {
-    private parent: T;
-    private style: Element | null;
+    private readonly parent: T;
 
     constructor(parent: T) {
         this.parent = parent;
     }
 
     render() {
-        createElementDiv(this.parent, '', 'openFolder');
-        const openFolder = document.querySelector('.openFolder');
-        this.style = openFolder;
-        createElementDiv(openFolder!, '', 'exit');
-        const exit = document.querySelector('.exit');
-        createElementImg(exit!, 'door', doorSvg, 'iconPoint');
-        createElementDiv(exit!, 'Выход', 'menuText');
+        const popUpItems: any[] = [];
+
+        popUpItems.push(PopUpItem({
+            img: doorSvg,
+            text: 'Выход',
+        }));
+
+        const popUp = PopUpMain({
+            items: popUpItems
+        })
+
+
+        this.parent.insertAdjacentHTML('beforeend', popUp);
     }
 }

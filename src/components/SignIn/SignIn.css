@@ -69,6 +69,7 @@ svg {
     display: flex;
     font-style: normal;
     margin-left: 30px;
+    visibility: hidden;
     color: #FF0000;
     font-weight: 300;
     line-height: 26px;

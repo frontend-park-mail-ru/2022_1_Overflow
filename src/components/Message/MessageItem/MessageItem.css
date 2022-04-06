@@ -1,0 +1,49 @@
+.hrClass{
+    width: 100%;
+    size: 1px;
+    color: #EBEBEB;
+}
+
+.messageEmpty{
+    text-align: center;
+    width: 100%;
+}
+
+.messageText{
+    user-select: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
+.avatarMassage{
+    margin-left: 10px;
+    margin-right: 15px;
+    width: 40px;
+    height: 40px;
+}
+
+.messageTextText{
+    width: 200px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-left: 30px;
+}
+
+.messageTextSub{
+    width: 900px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    padding-left: 30px;
+}
+
+.messageTextBlock{
+    flex: 1;
+}
+
+.messageTextTime{
+    padding-right: 20px;
+}

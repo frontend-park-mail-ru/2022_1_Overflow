@@ -15,8 +15,10 @@ export class MainPage {
         handler.render();
         const menu = new Menu(this.parent);
         menu.render();
-        const main = document.querySelector('.parentMain');
-        const message = new Message(main!);
+        const main = document.getElementById('main');
+        if (main === null)
+            return
+        const message = new Message(main);
         message.render();
     };
 }
