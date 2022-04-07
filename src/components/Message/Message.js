@@ -32,7 +32,7 @@ export class Message {
             parsed.forEach((pars) => {
                 const date = new Date(pars['mail']['date']);
                 itemsMassage.input.push({
-                    avatar: pars['sender_avatar'],
+                    avatar: `http://${window.location.hostname}:8080/${pars['sender_avatar']}`,
                     title: pars['mail']['theme'],
                     subTitle: pars['mail']['text'],
                     time: (('0' + date.getDate()).slice(-2) + ':' + ('0' + (date.getMonth() + 1)).slice(-2)),

@@ -5,7 +5,7 @@ export class ImageAndClass {
     #html;
 
     constructor(parent) {
-        this.#html = '<img class="{{class}}" src="./image/{{name}}.svg" alt="{{name}}">';
+        this.#html = '<img class="{{class}}" src="{{name}}" alt="{{name}}">';
         this.#parent = parent;
     }
 

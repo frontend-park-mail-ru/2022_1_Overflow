@@ -55,8 +55,8 @@ export class Header {
                 if (status !== 200) {
                     return ;
                 }
-                const tmp = JSON.parse(responseText)
-                avatar.src = tmp['message'];
+                const tmp = JSON.parse(responseText);
+                avatar.src = `http://${window.location.hostname}:8080/${tmp['message']}`;
             },
         );
     };
