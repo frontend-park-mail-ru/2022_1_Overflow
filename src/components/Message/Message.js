@@ -50,6 +50,8 @@ export class Message {
             createElementDiv(message, '', 'messageText');
             const parent = document.getElementsByClassName('messageText')[index];
             createElementImg(parent, item.avatar, 'avatarMassage');
+            const avatar = document.getElementsByClassName('avatarMassage')[index];
+            avatar.src = item.avatar;
             createElementP(parent, item.title, 'messageTextText');
             createElementP(parent, item.subTitle, 'messageTextSub');
             createElementP(parent, '', 'messageTextBlock');
