@@ -1,9 +1,10 @@
-import {SignInRender} from './pages/SignIn/SignIn';
-import {MainPage} from './pages/MainPage/MainPage';
-import {Ajax} from './modules/AjaxSignIn/AjaxSignIn';
+import {SignInRender} from './Presenter/pages/SignIn/SignIn';
+import {MainPage} from './Presenter/pages/MainPage/MainPage';
+import {Ajax} from './Model/Network/Ajax';
 import './index.css';
 
 const root = document.getElementsByTagName('body')[0];
+
 const ajaxGetEmail = new Ajax();
 ajaxGetEmail.get(
     `http://${window.location.hostname}:8080/profile`,
