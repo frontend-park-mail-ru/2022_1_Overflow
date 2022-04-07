@@ -27,6 +27,8 @@ export class Header {
         createElementImg(divProfile, 'avatar', 'avatar');
         createElementP(divProfile, '', 'email');
         createElementImg(divProfile, 'arrow', 'arrow');
+
+        const avatar = document.querySelector('.avatar');
         const ajaxGetEmail = new Ajax();
         let jsonProfile;
         ajaxGetEmail.get(
@@ -44,6 +46,17 @@ export class Header {
                 jsonProfile = JSON.parse(responseText);
                 const email = document.querySelector('.email');
                 email.textContent = jsonProfile['Username'];
+            },
+        );
+        ajaxGetEmail.get(
+            `http://${window.location.hostname}:8080/profile/avatar`,
+            // eslint-disable-next-line
+            (status, responseText) => {
+                if (status !== 200) {
+                    return ;
+                }
+                const tmp = JSON.parse(responseText)
+                avatar.src = tmp['message'];
             },
         );
     };

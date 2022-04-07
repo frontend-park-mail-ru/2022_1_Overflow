@@ -30,11 +30,11 @@ export class Message {
             };
 
             parsed.forEach((pars) => {
-                const date = new Date(pars['date']);
+                const date = new Date(pars['mail']['date']);
                 itemsMassage.input.push({
-                    avatar: 'avatar',
-                    title: pars['theme'],
-                    subTitle: pars['text'],
+                    avatar: pars['sender_avatar'],
+                    title: pars['mail']['theme'],
+                    subTitle: pars['mail']['text'],
                     time: (('0' + date.getDate()).slice(-2) + ':' + ('0' + (date.getMonth() + 1)).slice(-2)),
                 });
             });
