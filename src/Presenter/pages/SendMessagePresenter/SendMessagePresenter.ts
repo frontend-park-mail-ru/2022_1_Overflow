@@ -5,14 +5,16 @@ import {eventEmitter} from "../../EventEmitter/EventEmitter";
 import {Ajax} from "../../../Model/Network/Ajax";
 import {HeaderModel} from "../../../Model/HeaderModel/HeaderModel";
 import {MessageModel} from "../../../Model/MessageModel/MessageModel";
+import {SendMessage} from "../../../View/SendMessage/SendMessage";
+import {SendMessageModel} from "../../../Model/SendMessageModel/SendMessageModel";
 
-export class MainPage {
+export class SendMessagePresenter {
     private readonly parent: Element;
     private headerView: Header<Element>;
     private menuView: Menu<Element>;
     private headerModel: HeaderModel;
-    private messageModel: MessageModel;
-    private messageView: Message<Element>;
+    private sendMessageModel: SendMessageModel;
+    private sendMessageView: SendMessage<Element>;
 
     constructor(parent: Element) {
         this.parent = parent;
@@ -34,10 +36,10 @@ export class MainPage {
         if (main === null)
             return
 
-        this.messageModel = new MessageModel();
-        await this.messageModel.getMessage();
-        this.messageView = new Message(main, this.messageModel.outputData());
+        this.sendMessageModel = new SendMessageModel();
+        this.sendMessageView = new SendMessage(main);
+        this.sendMessageView.render();
 
-        this.messageView.render();
+        this.sendMessageView.send(this.sendMessageModel.checkInput);
     };
 }

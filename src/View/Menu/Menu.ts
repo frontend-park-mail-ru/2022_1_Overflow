@@ -3,13 +3,19 @@ import inputSvg from '../image/input.svg';
 import * as menuItem from './MenuItem/MenuItem.hbs';
 import './MenuItem/MenuItem.css';
 import * as mainHBS from './Menu.hbs';
+import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 
 const itemsMenu = [
-        {
-            iconName: inputSvg,
-            textText: 'Входящие',
-            id: 'input'
-        },
+    {
+        iconName: inputSvg,
+        textText: 'Написать',
+        id: 'send'
+    },
+    {
+        iconName: inputSvg,
+        textText: 'Входящие',
+        id: 'input'
+    },
 ];
 
 export class Menu<T extends Element> {
@@ -36,5 +42,12 @@ export class Menu<T extends Element> {
         });
 
         this.parent.insertAdjacentHTML('beforeend', main);
+
+        document.getElementById('send')!.addEventListener('click', () => {
+            eventEmitter.goToSendMessage();
+        });
+        document.getElementById('input')!.addEventListener('click', () => {
+            eventEmitter.goToMainPage();
+        } )
     };
 }

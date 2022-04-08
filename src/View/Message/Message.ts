@@ -1,5 +1,3 @@
-import {SignInRender} from '../../Presenter/pages/SignIn/SignIn';
-import {Ajax} from '../../Model/Network/Ajax';
 import './Message.css';
 import avatarSvg from '../image/avatar.svg';
 import {Text} from "../../ui-kit/Text/Text";
@@ -36,13 +34,13 @@ export class Message<T extends Element> {
             return;
         }
 
-        const itemsMassage = [{}];
+        const itemsMassage: {avatar: string, title: string, subTitle: string, time: string}[] = [];
         this.data.forEach((pars: any) => {
-            const date = new Date(pars.date);
+            const date = new Date(pars['mail']['date']);
             itemsMassage.push({
-                avatar: avatarSvg,
-                title: pars.theme,
-                subTitle: pars.text,
+                avatar: `http://${window.location.hostname}:8080/${pars['sender_avatar']}`,
+                title: pars['mail']['theme'],
+                subTitle: pars['mail']['text'],
                 time: (('0' + date.getDate()).slice(-2) + ':' + ('0' + (date.getMonth() + 1)).slice(-2)),
             });
         });
@@ -56,6 +54,7 @@ export class Message<T extends Element> {
     }
 
     renderMassage(itemsMassage: any) {
+        console.log(itemsMassage);
         const messageText: { avatar: string; title: string; subTitle: string; time: string; }[] = [];
         itemsMassage.forEach((item: { avatar: string; title: string; subTitle: string; time: string; }, index: number) => {
             const titleText = new Text({
@@ -80,14 +79,15 @@ export class Message<T extends Element> {
             const timeText = new Text({
                 text: item.time,
                 size: 'L',
-                className: 'messageTextSub'
+                className: 'messageTextTime'
             });
             let flag: number = 1;
 
-            if (itemsMassage.length === index) {
+            if (itemsMassage.length === index + 1) {
                 flag = 0;
             }
             messageText.push(messageItem({
+                id: index,
                 avatar: item.avatar,
                 titleText: titleText.render(),
                 subText: subText.render(),

@@ -1,5 +1,3 @@
-import {SignInRender} from '../../Presenter/pages/SignIn/SignIn';
-import {Ajax} from '../../Model/Network/Ajax';
 import './Header.css';
 import logoSvg from '../image/Logo.svg';
 import avatarSvg from '../image/avatar.svg';
@@ -71,7 +69,7 @@ export class Header<T extends Element> {
             logoSvg: logoSvg,
             login: login.render(),
             logoText: logoText.render(),
-            profileAvatar: avatarSvg,
+            profileAvatar: `http://${window.location.hostname}:8080/${this.data.avatar}`,
             arrow: arrowSvg,
         })
 

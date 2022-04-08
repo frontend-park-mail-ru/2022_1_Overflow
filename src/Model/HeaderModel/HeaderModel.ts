@@ -33,6 +33,25 @@ export class HeaderModel {
         }
     }
 
+    async getAvatar() {
+        try {
+            const res = await fetch(`http://${window.location.hostname}:8080/profile/avatar`, {
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include'
+            });
+            if (res.ok) {
+                const json = await res.json();
+                this.avatar = json['message'];
+            }
+        } catch (e) {
+            console.log(e);
+            eventEmitter.goToSignIn();
+        }
+    }
+
     async logout() {
         await fetch(`http://${window.location.hostname}:8080/logout`, {
             mode: 'cors',

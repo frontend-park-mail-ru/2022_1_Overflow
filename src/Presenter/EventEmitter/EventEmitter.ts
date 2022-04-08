@@ -1,6 +1,7 @@
 import {MainPage} from "../pages/MainPage/MainPage";
 import {SignInRender} from "../pages/SignIn/SignIn";
 import {SignUpRender} from "../pages/SignUp/SignUp";
+import {SendMessagePresenter} from "../pages/SendMessagePresenter/SendMessagePresenter";
 
 class EventEmitter {
     private readonly events: Record<string, any>;
@@ -18,6 +19,11 @@ class EventEmitter {
     goToMainPage() {
         const mainPage = new MainPage(this.root);
         mainPage.render();
+    }
+
+    goToSendMessage() {
+        const sendMessage = new SendMessagePresenter(this.root);
+        sendMessage.render();
     }
 
     goToSignIn() {
