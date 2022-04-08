@@ -1,4 +1,3 @@
-import {Ajax} from "../Network/Ajax";
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 
 
@@ -16,33 +15,33 @@ export class HeaderModel {
     }
 
     async getProfile() {
-        await fetch(`http://${window.location.hostname}:8080/profile`, {
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            credentials: 'include'
-        }).then((res) => {
+        try {
+            const res = await fetch(`http://${window.location.hostname}:8080/profile`, {
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include'
+            });
             if (res.ok) {
-                return res.json();
+                const json = await res.json();
+                this.name = json['Username'];
             }
-        }).then((body) => {
-            this.name = body['Username'];
-        }).catch(() => {
+        } catch (e) {
+            console.log(e);
             eventEmitter.goToSignIn();
-        });
+        }
     }
 
-    logout() {
-        fetch(`http://${window.location.hostname}:8080/logout`, {
+    async logout() {
+        await fetch(`http://${window.location.hostname}:8080/logout`, {
             mode: 'cors',
             headers: {
                 'Content-Type': 'application/json',
             },
             credentials: 'include'
-        }).then(() => {
-            eventEmitter.goToSignIn();
-        })
+        });
+        eventEmitter.goToSignIn();
     }
 
 }

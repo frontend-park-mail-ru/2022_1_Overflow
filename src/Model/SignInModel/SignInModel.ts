@@ -10,7 +10,7 @@ export class SignInModel {
         this.text = {Username: '', password: ''};
     }
 
-    checkInput(text: {Username: string, password: string}) {
+    checkInput = async (text: {Username: string, password: string}) => {
         const errLogin = LenghtCheck(text.Username, 'логина');
         if (errLogin !== '') {
             eventEmitter.emit('error', errLogin);
@@ -21,25 +21,28 @@ export class SignInModel {
             eventEmitter.emit('error', errPassword);
             return;
         }
+        await this.fetchSignIn(text);
+    }
 
-        fetch(`http://${window.location.hostname}:8080/signin`, {
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            method: 'POST',
-            credentials: 'include',
-            body: JSON.stringify(text),
-        }).then((res) => {
-            console.log(res);
+    fetchSignIn = async (text: {Username: string, password: string}) => {
+        try {
+            const res = await fetch(`http://${window.location.hostname}:8080/signin`, {
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'POST',
+                credentials: 'include',
+                body: JSON.stringify(text),
+            })
             if (res.ok) {
                 eventEmitter.goToMainPage();
+                return;
             }
-            return res.json();
-        }).then((body) => {
+            const body = await res.json();
             eventEmitter.emit('error', checkStatus(body['status'], text.Username));
-        }).catch((body) => {
-            eventEmitter.emit('error', checkStatus(body['status'], text.Username));
-        });
+        } catch (e) {
+            console.log(e);
+        }
     }
 }

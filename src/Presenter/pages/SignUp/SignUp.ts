@@ -1,4 +1,4 @@
-import {SignUp} from '../../../View/components/SignUp/SignUp';
+import {SignUp} from '../../../View/SignUp/SignUp';
 import {eventEmitter} from "../../EventEmitter/EventEmitter";
 import {SignUpModel} from "../../../Model/SignUpModel/SignUpModel";
 

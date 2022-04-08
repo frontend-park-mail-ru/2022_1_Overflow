@@ -1,7 +1,7 @@
-import {SignInRender} from '../../../Presenter/pages/SignIn/SignIn';
-import {Ajax} from '../../../Model/Network/Ajax';
+import {SignInRender} from '../../Presenter/pages/SignIn/SignIn';
+import {Ajax} from '../../Model/Network/Ajax';
 import './Message.css';
-import avatarSvg from '../../image/avatar.svg';
+import avatarSvg from '../image/avatar.svg';
 import {Text} from "../../ui-kit/Text/Text";
 import * as messageItem from './MessageItem/MessageItem.hbs';
 import * as mainMessage from './Message.hbs';
@@ -17,7 +17,6 @@ export class Message<T extends Element> {
     }
 
     render() {
-        console.log(this.data);
         if (this.data === null) {
             const emptyText = new Text({
                 color: 'Grey',

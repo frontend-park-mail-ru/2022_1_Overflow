@@ -1,14 +1,14 @@
-import {MainPage} from '../../../Presenter/pages/MainPage/MainPage';
-import {SignUpRender} from '../../../Presenter/pages/SignUp/SignUp';
-import {checkInput} from '../../../Model/CheckInput/CheckInput';
-import {Ajax} from '../../../Model/Network/Ajax';
-import {LenghtCheck} from '../../../Model/LenghtCheck/LenghtCheck';
+import {MainPage} from '../../Presenter/pages/MainPage/MainPage';
+import {SignUpRender} from '../../Presenter/pages/SignUp/SignUp';
+import {checkInput} from '../../Model/CheckInput/CheckInput';
+import {Ajax} from '../../Model/Network/Ajax';
+import {LenghtCheck} from '../../Model/LenghtCheck/LenghtCheck';
 import './SignIn.css';
-import logoSvg from '../../image/Logo.svg';
+import logoSvg from '../image/Logo.svg';
 import {Button} from "../../ui-kit/Button/Button";
 import {Input} from "../../ui-kit/Input/Input";
 import * as signInMain from './SignIn.hbs';
-import {eventEmitter} from "../../../Presenter/EventEmitter/EventEmitter";
+import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 
 export class SignIn<T extends Element> {
     private readonly parent : T;
@@ -28,7 +28,7 @@ export class SignIn<T extends Element> {
         inputEmail.style.borderColor = 'red';
         inputPassword.style.borderColor = 'red';
 
-        const error = document.querySelector('.invalidMsg') as HTMLElement
+        const error = document.querySelector('.invalidMsg') as HTMLElement;
         error.style.visibility = 'visible';
         error.textContent = text;
     }
@@ -44,10 +44,10 @@ export class SignIn<T extends Element> {
         if (form === null)
             return;
 
-        form.onsubmit = (event) => {
+        form.addEventListener('submit', async (event) => {
             event.preventDefault();
-            handler(this.getForm());
-        };
+            await handler(this.getForm());
+        });
     }
 
     render() {
@@ -83,7 +83,7 @@ export class SignIn<T extends Element> {
             passwordInput: passwordInput.render(),
             primBtn: primBtn.render(),
             secBtn: secBtn.render(),
-        })
+        });
 
         this.parent.insertAdjacentHTML('beforeend', signIn);
 

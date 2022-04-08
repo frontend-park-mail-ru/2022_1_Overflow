@@ -1,13 +1,13 @@
-import {SignInRender} from '../../../Presenter/pages/SignIn/SignIn';
-import {Ajax} from '../../../Model/Network/Ajax';
-import {LenghtCheck} from '../../../Model/LenghtCheck/LenghtCheck';
-import {MainPage} from '../../../Presenter/pages/MainPage/MainPage';
+import {SignInRender} from '../../Presenter/pages/SignIn/SignIn';
+import {Ajax} from '../../Model/Network/Ajax';
+import {LenghtCheck} from '../../Model/LenghtCheck/LenghtCheck';
+import {MainPage} from '../../Presenter/pages/MainPage/MainPage';
 import './SignUp.css';
-import logoSvg from '../../image/LogoSigin.svg';
+import logoSvg from '../image/LogoSigin.svg';
 import {Button} from "../../ui-kit/Button/Button";
 import {Input} from "../../ui-kit/Input/Input";
 import * as signUpMain from './SignUp.hbs'
-import {eventEmitter} from "../../../Presenter/EventEmitter/EventEmitter";
+import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 
 export class SignUp<T extends Element> {
     private readonly parent: T;

@@ -1,10 +1,10 @@
-import doorSvg from '../../image/door.svg';
+import doorSvg from '../image/door.svg';
 import * as PopUpItem from './PopUpItem/PopUpItem.hbs';
 import * as PopUpMain from './PopUp.hbs';
 import './PopUp.css';
 import './PopUpItem/PopUpItem.css'
-import {Ajax} from "../../../Model/Network/Ajax";
-import {SignInRender} from "../../../Presenter/pages/SignIn/SignIn";
+import {Ajax} from "../../Model/Network/Ajax";
+import {SignInRender} from "../../Presenter/pages/SignIn/SignIn";
 
 export class PopUp<T extends Element> {
     private readonly parent: T;
@@ -26,5 +26,10 @@ export class PopUp<T extends Element> {
         });
 
         this.parent.insertAdjacentHTML('beforeend', popUp);
+
+        // const folder = document.querySelector('.openFolder');
+        // folder!.addEventListener('click', (event3) => {
+        //     event3.stopPropagation();
+        // });
     }
 }

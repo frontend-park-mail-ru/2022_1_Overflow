@@ -7,49 +7,49 @@ export const checkInput = (str: string | null) => {
 };
 
 export const checkStatus = (status: number, user: string) => {
-    if (status === 0){
+    if (status === 0) {
         return '';
     }
-    if (status === 1){
+    if (status === 1) {
         return 'Внутренняя ошибка сервера';
     }
-    if (status === 2){
+    if (status === 2) {
         return 'Внутренняя ошибка сервера';
     }
-    if (status === 3){
+    if (status === 3) {
         return 'Внутренняя ошибка сервера';
     }
-    if (status === 4){
+    if (status === 4) {
         return 'Внутренняя ошибка сервера';
     }
-    if (status === 5){
+    if (status === 5) {
         return 'Внутренняя ошибка сервера';
     }
-    if (status === 6){
+    if (status === 6) {
         return 'Внутренняя ошибка сервера';
     }
-    if (status === 7){
+    if (status === 7) {
         return 'Отказано в доступе';
     }
-    if (status === 8){
+    if (status === 8) {
         return 'Внутренняя ошибка сервера';
     }
-    if (status === 9){
+    if (status === 9) {
         return 'Внутренняя ошибка сервера';
     }
-    if (status === 10){
+    if (status === 10) {
         return `Пользователь ${user} уже существует`;
     }
-    if (status === 11){
+    if (status === 11) {
         return 'Внутренняя ошибка сервера';
     }
-    if (status === 12){
+    if (status === 12) {
         return 'Внутренняя ошибка сервера';
     }
-    if (status === 13){
+    if (status === 13) {
         return 'Неверная пара логин/пароль';
     }
-    if (status === 14){
+    if (status === 14) {
         return 'Пользователь уже выполнил вход';
     }
 };

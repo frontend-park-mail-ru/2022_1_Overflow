@@ -15,17 +15,17 @@ class EventEmitter {
         this.events[event] = callback;
     }
 
-    goToMainPage(){
+    goToMainPage() {
         const mainPage = new MainPage(this.root);
         mainPage.render();
     }
 
-    goToSignIn(){
+    goToSignIn() {
         const signIn = new SignInRender(this.root);
         signIn.render();
     }
 
-    goToSignUp(){
+    goToSignUp() {
         const signUp = new SignUpRender(this.root);
         signUp.render();
     }

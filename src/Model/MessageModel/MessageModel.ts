@@ -1,4 +1,3 @@
-import {Ajax} from "../Network/Ajax";
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 
 
@@ -14,20 +13,20 @@ export class MessageModel {
     }
 
     async getMessage() {
-        await fetch(`http://${window.location.hostname}:8080/mail/income`, {
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            credentials: 'include'
-        }).then((res) => {
+        try {
+            const res = await fetch(`http://${window.location.hostname}:8080/mail/income`, {
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include'
+            });
             if (res.ok) {
-                return res.json();
+                this.message = await res.json();
             }
-        }).then((body) => {
-            this.message = body;
-        }).catch(() => {
+        } catch (e) {
+            console.log(e);
             eventEmitter.goToSignIn();
-        });
+        }
     }
 }

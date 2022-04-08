@@ -1,4 +1,4 @@
-import {SignIn} from '../../../View/components/SignIn/SignIn';
+import {SignIn} from '../../../View/SignIn/SignIn';
 import {eventEmitter} from "../../EventEmitter/EventEmitter";
 import {SignInModel} from "../../../Model/SignInModel/SignInModel";
 

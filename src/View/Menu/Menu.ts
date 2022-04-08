@@ -1,5 +1,5 @@
 import './Menu.css';
-import inputSvg from '../../image/input.svg';
+import inputSvg from '../image/input.svg';
 import * as menuItem from './MenuItem/MenuItem.hbs';
 import './MenuItem/MenuItem.css';
 import * as mainHBS from './Menu.hbs';

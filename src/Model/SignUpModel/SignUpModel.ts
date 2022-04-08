@@ -1,6 +1,7 @@
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 import {LenghtCheck} from "../LenghtCheck/LenghtCheck";
 import {checkStatus} from "../CheckInput/CheckInput";
+import {SignInModel} from "../SignInModel/SignInModel";
 
 
 export class SignUpModel {
@@ -10,7 +11,7 @@ export class SignUpModel {
         this.text = {firstName: '', lastName: '', Username: '', password: '', passwordConfirmation: ''};
     }
 
-    checkInput(text: {firstName: string, lastName: string, Username: string, password: string, passwordConfirmation: string}) {
+    checkInput = async(text: {firstName: string, lastName: string, Username: string, password: string, passwordConfirmation: string}) => {
         const errFirstName = LenghtCheck(text.firstName, 'имени');
         if (errFirstName !== '') {
             eventEmitter.emit('error', errFirstName);
@@ -47,48 +48,56 @@ export class SignUpModel {
             return;
         }
 
+        await this.fetchSignUp(text);
+    }
 
-        fetch(`http://${window.location.hostname}:8080/signup`, {
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            method: 'POST',
-            credentials: 'include',
-            body: JSON.stringify({
-                'first_name': text.firstName,
-                'last_name': text.lastName,
-                'username': text.Username,
-                'password': text.password,
-                'password_confirmation': text.passwordConfirmation,
-            }),
-        }).then((res) => {
+    fetchSignUp = async (text: {firstName: string, lastName: string, Username: string, password: string, passwordConfirmation: string}) => {
+        try {
+            const res = await fetch(`http://${window.location.hostname}:8080/signup`, {
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'POST',
+                credentials: 'include',
+                body: JSON.stringify({
+                    'first_name': text.firstName,
+                    'last_name': text.lastName,
+                    'username': text.Username,
+                    'password': text.password,
+                    'password_confirmation': text.passwordConfirmation,
+                }),
+            });
             if (res.ok) {
-                fetch(`http://${window.location.hostname}:8080/signin`, {
-                    mode: 'cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    method: 'POST',
-                    credentials: 'include',
-                    body: JSON.stringify(text),
-                }).then((res) => {
-                    console.log(res);
-                    if (res.ok) {
-                        eventEmitter.goToMainPage();
-                    }
-                    return res.json();
-                }).then((body) => {
-                    eventEmitter.emit('error', checkStatus(body['status'], text.Username));
-                }).catch((body) => {
-                    eventEmitter.emit('error', checkStatus(body['status'], text.Username));
-                });
+                await this.fetchSignIn({Username: text.Username, password: text.password});
+                return;
             }
-            return res.json();
-        }).then((body) => {
+            const json = await res.json();
+            eventEmitter.emit('error', checkStatus(json['status'], text.Username));
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    fetchSignIn = async (text: {Username: string, password: string}) => {
+        try {
+            const res = await fetch(`http://${window.location.hostname}:8080/signin`, {
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                method: 'POST',
+                credentials: 'include',
+                body: JSON.stringify(text),
+            })
+            if (res.ok) {
+                eventEmitter.goToMainPage();
+                return;
+            }
+            const body = await res.json();
             eventEmitter.emit('error', checkStatus(body['status'], text.Username));
-        }).catch((body) => {
-            eventEmitter.emit('error', checkStatus(body['status'], text.Username));
-        });
+        } catch (e) {
+            console.log(e);
+        }
     }
 }
