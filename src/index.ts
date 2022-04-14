@@ -12,14 +12,12 @@ ajaxGetEmail.get(
     (status: number) => {
         if (status === 401)
         {
-            console.log('1');
             const signIn = new SignInRender(root);
             signIn.render();
         }
         if (status !== 200) {
             return ;
         }
-        console.log('2');
         const main = new MainPage(root, 1);
         main.render();
     },

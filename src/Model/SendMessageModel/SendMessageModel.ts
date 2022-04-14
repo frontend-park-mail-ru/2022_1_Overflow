@@ -67,6 +67,9 @@ export class SendMessageModel {
                 return;
             }
             const body = await res.json();
+            if (body['status'] === 11){
+                alert('Пользователя не существует')
+            }
         } catch (e) {
             console.log(e);
         }

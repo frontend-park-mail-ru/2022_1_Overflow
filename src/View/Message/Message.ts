@@ -55,6 +55,12 @@ export class Message<T extends Element> {
         }
 
         const itemsMassage: {avatar: string, id: number, title: string, subTitle: string, time: string, read: boolean}[] = [];
+        this.data.sort((a: any, b: any) => {
+            const date1 = new Date(a['mail']['date']);
+            const date2 = new Date(b['mail']['date']);
+            return date1 < date2 ? 1 : -1;
+        });
+        console.log(this.data);
         this.data.forEach((pars: any) => {
             const date = new Date(pars['mail']['date']);
             itemsMassage.push({

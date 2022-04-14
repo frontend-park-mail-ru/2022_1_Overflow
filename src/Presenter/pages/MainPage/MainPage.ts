@@ -23,7 +23,6 @@ export class MainPage {
     render = async () => {
         eventEmitter.cleanEvents();
         this.parent.innerHTML = '';
-        console.log('clear');
         this.headerModel = new HeaderModel();
         await this.headerModel.getProfile();
         await this.headerModel.getAvatar();
