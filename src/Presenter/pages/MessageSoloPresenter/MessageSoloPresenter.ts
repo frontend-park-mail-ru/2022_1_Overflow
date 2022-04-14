@@ -13,9 +13,9 @@ export class MessageSoloPresenter {
     private headerModel: HeaderModel;
     private messageSoloModel: MessageSoloModel;
     private messageSoloView: MessageSolo<Element>;
-    private data: {avatar: any, login: string, theme: string, date: any, text: string}
+    private data: {avatar: any, id: number, login: string, theme: string, date: any, text: string};
 
-    constructor(parent: Element, data: {avatar: any, login: string, theme: string, date: any, text: string}) {
+    constructor(parent: Element, data: {avatar: any, id: number, login: string, theme: string, date: any, text: string}) {
         this.parent = parent;
         this.data = data;
     }
@@ -36,7 +36,8 @@ export class MessageSoloPresenter {
         if (main === null)
             return
 
-        this.messageSoloModel = new MessageSoloModel();
+        this.messageSoloModel = new MessageSoloModel(this.data.id);
+        await this.messageSoloModel.getMessage();
         this.messageSoloView = new MessageSolo(main, this.data);
         this.messageSoloView.render();
         this.messageSoloView.otvet();

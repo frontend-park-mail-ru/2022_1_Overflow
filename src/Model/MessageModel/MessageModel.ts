@@ -12,6 +12,24 @@ export class MessageModel {
         return this.message;
     }
 
+    async getOutMessage() {
+        try {
+            const res = await fetch(`http://${window.location.hostname}:8080/mail/outcome`, {
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include'
+            });
+            if (res.ok) {
+                this.message = await res.json();
+            }
+        } catch (e) {
+            console.log(e);
+            eventEmitter.goToSignIn();
+        }
+    }
+
     async getMessage() {
         try {
             const res = await fetch(`http://${window.location.hostname}:8080/mail/income`, {

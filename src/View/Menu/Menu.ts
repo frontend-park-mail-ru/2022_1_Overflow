@@ -16,6 +16,11 @@ const itemsMenu = [
         textText: 'Входящие',
         id: 'input'
     },
+    {
+        iconName: inputSvg,
+        textText: 'Исходящие',
+        id: 'output'
+    },
 ];
 
 export class Menu<T extends Element> {
@@ -47,7 +52,10 @@ export class Menu<T extends Element> {
             eventEmitter.goToSendMessage(null, 1);
         });
         document.getElementById('input')!.addEventListener('click', () => {
-            eventEmitter.goToMainPage();
-        } )
+            eventEmitter.goToMainPage(1);
+        } );
+        document.getElementById('output')!.addEventListener('click', () => {
+            eventEmitter.goToMainPage(2);
+        } );
     };
 }

@@ -18,8 +18,8 @@ class EventEmitter {
         this.events[event] = callback;
     }
 
-    goToMainPage() {
-        const mainPage = new MainPage(this.root);
+    goToMainPage(type: number) {
+        const mainPage = new MainPage(this.root, type);
         mainPage.render();
     }
 

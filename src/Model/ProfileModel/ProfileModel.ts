@@ -104,7 +104,7 @@ export class ProfileModel {
                 body: JSON.stringify(text),
             })
             if (res.ok) {
-                eventEmitter.goToMainPage();
+                eventEmitter.goToMainPage(1);
                 return;
             }
             const body = await res.json();

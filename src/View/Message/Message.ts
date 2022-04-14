@@ -16,14 +16,15 @@ export class Message<T extends Element> {
     }
 
     goToSoloList(){
-        this.data.forEach((list: any, idx: number) => {
-            const getElem = document.getElementById(idx.toString());
+        this.data.forEach((list: any) => {
+            const getElem = document.getElementById(list['mail']['id']);
             if (getElem === null) {
                 return;
             }
             getElem.addEventListener('click', () => {
                 eventEmitter.goToSoloMessage({
                     avatar: list['sender_avatar'],
+                    id: list['mail']['id'],
                     login: list['mail']['sender'],
                     theme: list['mail']['theme'],
                     date: list['mail']['date'],
@@ -53,12 +54,13 @@ export class Message<T extends Element> {
             return;
         }
 
-        const itemsMassage: {avatar: string, title: string, subTitle: string, time: string, read: boolean}[] = [];
+        const itemsMassage: {avatar: string, id: number, title: string, subTitle: string, time: string, read: boolean}[] = [];
         this.data.forEach((pars: any) => {
             const date = new Date(pars['mail']['date']);
             itemsMassage.push({
                 avatar: `http://${window.location.hostname}:8080/${pars['sender_avatar']}`,
                 read: pars['mail']['read'],
+                id: pars['mail']['id'],
                 title: pars['mail']['theme'],
                 subTitle: pars['mail']['text'],
                 time: (('0' + date.getDate()).slice(-2) + ':' + ('0' + (date.getMonth() + 1)).slice(-2)),
@@ -73,9 +75,9 @@ export class Message<T extends Element> {
         this.parent.insertAdjacentHTML('beforeend', render);
     }
 
-    renderMassage(itemsMassage: {avatar: string, title: string, subTitle: string, time: string, read: boolean}[]) {
-        const messageText: { avatar: string; title: string; subTitle: string; time: string; read: boolean}[] = [];
-        itemsMassage.forEach((item: { avatar: string; title: string; subTitle: string; time: string; read: boolean}, index: number) => {
+    renderMassage(itemsMassage: {avatar: string, id: number, title: string, subTitle: string, time: string, read: boolean}[]) {
+        const messageText: { avatar: string; id: number; title: string; subTitle: string; time: string; read: boolean}[] = [];
+        itemsMassage.forEach((item: { avatar: string; id: number; title: string; subTitle: string; time: string; read: boolean}, index: number) => {
             const titleText = new Text({
                 text: item.title,
                 size: 'L',
@@ -106,7 +108,7 @@ export class Message<T extends Element> {
                 flag = 0;
             }
             messageText.push(messageItem({
-                id: index,
+                id: item.id,
                 avatar: item.avatar,
                 read: !item.read,
                 titleText: titleText.render(),

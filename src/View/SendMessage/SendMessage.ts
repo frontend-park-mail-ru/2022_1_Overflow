@@ -66,7 +66,7 @@ export class SendMessage<T extends Element> {
 
         const send = new Button({
             id: 'sendButton',
-            text: 'Отправит',
+            text: 'Отправить',
             type: 'button',
             size: 'S',
             className: 'btnClassOutput',

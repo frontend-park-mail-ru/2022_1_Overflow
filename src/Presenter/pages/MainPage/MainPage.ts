@@ -13,9 +13,11 @@ export class MainPage {
     private headerModel: HeaderModel;
     private messageModel: MessageModel;
     private messageView: Message<Element>;
+    private type: number;
 
-    constructor(parent: Element) {
+    constructor(parent: Element, type: number) {
         this.parent = parent;
+        this.type = type;
     }
 
     render = async () => {
@@ -35,7 +37,12 @@ export class MainPage {
             return
 
         this.messageModel = new MessageModel();
-        await this.messageModel.getMessage();
+        if (this.type === 1){
+            await this.messageModel.getMessage();
+        }
+        if (this.type === 2){
+            await this.messageModel.getOutMessage();
+        }
         this.messageView = new Message(main, this.messageModel.outputData());
         this.messageView.render();
         this.messageView.goToSoloList();

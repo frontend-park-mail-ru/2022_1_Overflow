@@ -103,7 +103,7 @@ export class Profile<T extends Element> {
         });
 
         const inputProfilePassword = new Input({
-            text: this.data.password,
+            text: 'Пароль',
             id: 'password',
             size: 'XL',
             type: 'password',
@@ -140,37 +140,59 @@ export class Profile<T extends Element> {
         this.parent.insertAdjacentHTML('beforeend', template);
 
         const set = document.getElementById('set');
-        const photos: any = document.getElementById('file');
-
-        const formData = new FormData();
-
-        formData.append('file', photos.files);
 
         set!.addEventListener('click', async () => {
-            await fetch(`http://${window.location.hostname}:8080/profile/avatar/set`, {
+
+            const file: any = document.getElementById('file');
+
+            const formData = new FormData();
+
+            formData.append('file', file.files[0]);
+
+            const response = await fetch(`http://${window.location.hostname}:8080/profile/avatar/set`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+            });
+
+
+            await fetch(`http://${window.location.hostname}:8080/profile/avatar/set`, {
+                mode: 'cors',
+                headers: {
+                    'X-CSRF-token': response.headers.get('x-csrf-token')!,
                 },
                 method: 'POST',
                 credentials: 'include',
                 body: formData,
             });
+
+            const response2 = await fetch(`http://${window.location.hostname}:8080/profile/set`, {
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+            });
+
+
             await fetch(`http://${window.location.hostname}:8080/profile/set`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
+                    'X-CSRF-token': response2.headers.get('x-csrf-token')!,
                 },
                 method: 'POST',
                 credentials: 'include',
                 body: JSON.stringify(this.getForm()),
             });
-            eventEmitter.goToMainPage();
+            eventEmitter.goToMainPage(1);
         });
 
         const prev = document.getElementById('prev');
         prev!.addEventListener('click', () => {
-            eventEmitter.goToMainPage();
+            eventEmitter.goToMainPage(1);
         })
     }
 }

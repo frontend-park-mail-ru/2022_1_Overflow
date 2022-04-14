@@ -52,11 +52,20 @@ export class SignUpModel {
     }
 
     fetchSignUp = async (text: {firstName: string, lastName: string, Username: string, password: string, passwordConfirmation: string}) => {
+        const response = await fetch(`http://${window.location.hostname}:8080/signin`, {
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+        });
+
         try {
             const res = await fetch(`http://${window.location.hostname}:8080/signup`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
+                    'X-CSRF-token': response.headers.get('x-csrf-token')!,
                 },
                 method: 'POST',
                 credentials: 'include',
@@ -80,18 +89,27 @@ export class SignUpModel {
     }
 
     fetchSignIn = async (text: {Username: string, password: string}) => {
+        const response = await fetch(`http://${window.location.hostname}:8080/signin`, {
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+        });
+
         try {
             const res = await fetch(`http://${window.location.hostname}:8080/signin`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
+                    'X-CSRF-token': response.headers.get('x-csrf-token')!,
                 },
                 method: 'POST',
                 credentials: 'include',
                 body: JSON.stringify(text),
             })
             if (res.ok) {
-                eventEmitter.goToMainPage();
+                eventEmitter.goToMainPage(1);
                 return;
             }
             const body = await res.json();
