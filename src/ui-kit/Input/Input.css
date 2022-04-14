@@ -31,7 +31,7 @@
 }
 
 .inputXL{
-    width: 400px;
+    width: 390px;
     height: 40px;
 
     font-size: 17px;
@@ -50,9 +50,9 @@
 }
 
 .inputEmpty{
-    font-size: 17px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
     font-weight: 300;
-    font-family: Roboto, 'sans-serif';
 
     width: 100%;
     background: #FFFFFF;

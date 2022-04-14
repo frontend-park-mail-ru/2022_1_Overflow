@@ -9,6 +9,7 @@ export class Input {
         {
             type = 'text',
             size = 'L',
+            realText = '',
             text,
             id,
             className = '',
@@ -17,6 +18,7 @@ export class Input {
             type,
             size,
             text,
+            realText,
             id,
             className
         };

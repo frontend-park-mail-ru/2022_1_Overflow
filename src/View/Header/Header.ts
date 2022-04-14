@@ -1,10 +1,10 @@
 import './Header.css';
 import logoSvg from '../image/Logo.svg';
-import avatarSvg from '../image/avatar.svg';
 import arrowSvg from '../image/arrow.svg';
 import {Text} from '../../ui-kit/Text/Text';
 import * as headerHBS from './Header.hbs';
 import {PopUp} from "../PopUp/PopUp";
+import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 
 
 export class Header<T extends Element> {
@@ -29,10 +29,11 @@ export class Header<T extends Element> {
             let docEvent: EventListenerOrEventListenerObject;
             document.addEventListener('click', docEvent = (event2: MouseEvent) => {
                 const target = event2.target as HTMLDivElement;
+                console.log(target.id);
+                console.log(target.className);
                 if (!target)
                     return;
-                if (target.className !== 'menuText' && target.className !== 'iconPoint'
-                    && target.className !== 'exit') {
+                if (target.id !== 'exit' && target.id !== 'profile') {
                     const target = document.querySelector('.openFolder');
                     if (target === null)
                         return;
@@ -40,10 +41,13 @@ export class Header<T extends Element> {
                     document.removeEventListener('click', docEvent);
                     profile.addEventListener('click', profileEvent);
                 }
-                if (target.className === 'menuText' || target.className === 'iconPoint'
-                    || target.className === 'exit') {
+                if (target.id === 'exit') {
                     document.removeEventListener('click', docEvent);
                     handler();
+                }
+                if (target.id === 'profile') {
+                    document.removeEventListener('click', docEvent);
+                    eventEmitter.goToProfile();
                 }
             });
         });

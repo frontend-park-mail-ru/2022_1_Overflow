@@ -7,7 +7,7 @@ export class Text {
 
     constructor({
                     color = 'Black',
-                    size = '300',
+                    size = 'L',
                     text,
                     id,
                     className = '',

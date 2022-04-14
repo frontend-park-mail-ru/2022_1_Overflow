@@ -2,6 +2,8 @@ import {MainPage} from "../pages/MainPage/MainPage";
 import {SignInRender} from "../pages/SignIn/SignIn";
 import {SignUpRender} from "../pages/SignUp/SignUp";
 import {SendMessagePresenter} from "../pages/SendMessagePresenter/SendMessagePresenter";
+import {MessageSoloPresenter} from "../pages/MessageSoloPresenter/MessageSoloPresenter";
+import {ProfilePresenter} from "../pages/ProfilePresenter/ProfilePresenter";
 
 class EventEmitter {
     private readonly events: Record<string, any>;
@@ -21,8 +23,22 @@ class EventEmitter {
         mainPage.render();
     }
 
-    goToSendMessage() {
+    goToSendMessage(data: any, type: number) {
         const sendMessage = new SendMessagePresenter(this.root);
+        if (data !== null) {
+            data.flag = type;
+            sendMessage.context = data;
+        }
+        sendMessage.render();
+    }
+
+    goToProfile() {
+        const profile = new ProfilePresenter(this.root);
+        profile.render();
+    }
+
+    goToSoloMessage(data: any) {
+        const sendMessage = new MessageSoloPresenter(this.root, data);
         sendMessage.render();
     }
 

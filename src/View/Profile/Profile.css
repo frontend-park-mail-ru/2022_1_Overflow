@@ -1,0 +1,88 @@
+.displayForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.containerProfile {
+    background-color: #C0DAF3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+
+
+.blockProfileMenu{
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px 0 0 15px;
+    background: #FFFFFF;
+    border-right: 1px solid #cccccc;
+    width: 13%;
+    height: 70%;
+}
+
+.blockProfileMain{
+    border-radius: 0 15px 15px 0;
+    background: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    width: 35%;
+    height: 70%;
+}
+
+.LogoProfile {
+    width: 70px;
+    margin-bottom: 40px;
+}
+
+.marginForm{
+    margin: 10px;
+}
+
+.avatarProfile{
+    margin-top: 20px;
+    border-radius: 50%;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100px;
+}
+
+.avatarReduct{
+    cursor: pointer;
+    position: absolute;
+    margin-top: 20px;
+    opacity: 0;
+    width: 50px;
+    padding: 25px;
+    z-index: 1;
+    top: 0px;
+    left: 0px;
+}
+
+.avatarReduct:hover{
+    opacity: 1;
+}
+
+.showboxLeft {
+    box-shadow: -7px 0px 15px rgba(0,0,0,0.25);
+}
+
+.showboxRight {
+    box-shadow: 7px 0px 15px rgba(0,0,0,0.25);
+}
+
+.inputProfile{
+    margin-top: 20px;
+}
+
+.profileSet{
+    position: relative;
+}

@@ -7,21 +7,19 @@ import {Button} from "../../ui-kit/Button/Button";
 
 export class SendMessage<T extends Element> {
     private readonly parent: T;
+    private readonly data: {avatar: any, login: string, theme: string, date: any, text: string} | null;
 
-    constructor(parent: T) {
+    constructor(parent: T, data: {avatar: any, login: string, theme: string, date: any, text: string} | null) {
         this.parent = parent;
+        this.data = data;
     }
 
     send(handler: any) {
-        console.log(1);
         const sendMessage = document.getElementById('sendButton');
-        console.log(sendMessage);
         if (!sendMessage) {
             return;
         }
-        console.log(sendMessage);
         sendMessage.addEventListener('click', async () => {
-            console.log(2);
             const inputLoginText: string = (document.getElementById('inputLogin') as HTMLInputElement).value;
             const themeInputText: string = (document.getElementById('themeInput') as HTMLInputElement).value;
             const textareaMainText: string = (document.getElementById('textareaMain') as HTMLTextAreaElement).value;
@@ -49,6 +47,7 @@ export class SendMessage<T extends Element> {
             id: 'inputLogin',
             size: 'Empty',
             text: 'Кому',
+            realText: this.data !== null ? this.data.login : ''
         });
 
         const theme = new Text({
@@ -62,6 +61,7 @@ export class SendMessage<T extends Element> {
             id: 'themeInput',
             size: 'Empty',
             text: 'Тема',
+            realText: this.data !== null ? this.data.theme : ''
         });
 
         const send = new Button({
@@ -70,7 +70,7 @@ export class SendMessage<T extends Element> {
             type: 'button',
             size: 'S',
             className: 'btnClassOutput',
-        })
+        });
 
         const template = sendMessageHbs({
             avatar: avatar,
@@ -78,6 +78,7 @@ export class SendMessage<T extends Element> {
             login: inputLogin.render(),
             theme: theme.render(),
             themeInput: themeInput.render(),
+            text: this.data !== null ? this.data.text : '',
             send: send.render(),
         });
 

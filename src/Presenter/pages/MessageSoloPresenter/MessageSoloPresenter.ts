@@ -1,21 +1,23 @@
 import {Header} from '../../../View/Header/Header';
 import {Menu} from '../../../View/Menu/Menu';
-import {Message} from '../../../View/Message/Message';
 import {eventEmitter} from "../../EventEmitter/EventEmitter";
-import {Ajax} from "../../../Model/Network/Ajax";
 import {HeaderModel} from "../../../Model/HeaderModel/HeaderModel";
-import {MessageModel} from "../../../Model/MessageModel/MessageModel";
+import {SendMessage} from "../../../View/SendMessage/SendMessage";
+import {MessageSoloModel} from "../../../Model/MessageSoloModel/MessageSoloModel";
+import {MessageSolo} from '../../../View/MessageSolo/MessageSolo'
 
-export class MainPage {
+export class MessageSoloPresenter {
     private readonly parent: Element;
     private headerView: Header<Element>;
     private menuView: Menu<Element>;
     private headerModel: HeaderModel;
-    private messageModel: MessageModel;
-    private messageView: Message<Element>;
+    private messageSoloModel: MessageSoloModel;
+    private messageSoloView: MessageSolo<Element>;
+    private data: {avatar: any, login: string, theme: string, date: any, text: string}
 
-    constructor(parent: Element) {
+    constructor(parent: Element, data: {avatar: any, login: string, theme: string, date: any, text: string}) {
         this.parent = parent;
+        this.data = data;
     }
 
     render = async () => {
@@ -34,10 +36,10 @@ export class MainPage {
         if (main === null)
             return
 
-        this.messageModel = new MessageModel();
-        await this.messageModel.getMessage();
-        this.messageView = new Message(main, this.messageModel.outputData());
-        this.messageView.render();
-        this.messageView.goToSoloList();
+        this.messageSoloModel = new MessageSoloModel();
+        this.messageSoloView = new MessageSolo(main, this.data);
+        this.messageSoloView.render();
+        this.messageSoloView.otvet();
+        this.messageSoloView.reMail();
     };
 }

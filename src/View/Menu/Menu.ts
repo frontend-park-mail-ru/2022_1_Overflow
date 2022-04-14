@@ -44,7 +44,7 @@ export class Menu<T extends Element> {
         this.parent.insertAdjacentHTML('beforeend', main);
 
         document.getElementById('send')!.addEventListener('click', () => {
-            eventEmitter.goToSendMessage();
+            eventEmitter.goToSendMessage(null, 1);
         });
         document.getElementById('input')!.addEventListener('click', () => {
             eventEmitter.goToMainPage();

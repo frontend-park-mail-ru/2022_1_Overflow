@@ -1,0 +1,23 @@
+<div class="containerProfile">
+    <div class="blockProfileMenu showboxLeft">
+        {{#each items}}
+            {{{this}}}
+        {{/each}}
+    </div>
+    <div class="blockProfileMain showboxRight">
+        <img src="{{logo}}" class="LogoProfile">
+        <form class="displayForm">
+            {{{inputProfileName}}}
+            {{{inputProfileName}}}
+            {{{inputProfileLastName}}}
+            <!--        <input class="inputProfile" placeholder="Имя">-->
+            <!--        <input class="inputProfile" placeholder="Фамилия">-->
+            <!--        <input class="inputProfile" placeholder="Логин">-->
+            <div id="error" class="invalidMsg marginForm">Не верное имя пользователя или пароль</div>
+            {{{nextBtn}}}
+        </form>
+        {{{prevBtn}}}
+        <!--        <button class="inputProfile">Изменить</button>-->
+        <!--        <button class="inputProfile">Назад</button>-->
+    </div>
+</div>

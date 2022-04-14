@@ -1,16 +1,28 @@
 .btnS{
     width: 100px;
     height: 40px;
+
+    font-size: 17px;
+    font-weight: 300;
+    font-family: Roboto, 'sans-serif';
 }
 
 .btnL{
     width: 320px;
     height: 40px;
+
+    font-size: 17px;
+    font-weight: 300;
+    font-family: Roboto, 'sans-serif';
 }
 
 .btnXL{
-    width: 500px;
+    width: 400px;
     height: 40px;
+
+    font-size: 17px;
+    font-weight: 300;
+    font-family: Roboto, 'sans-serif';
 }
 
 .btnPrimary{

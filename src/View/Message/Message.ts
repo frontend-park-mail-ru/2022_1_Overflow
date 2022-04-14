@@ -4,6 +4,7 @@ import {Text} from "../../ui-kit/Text/Text";
 import * as messageItem from './MessageItem/MessageItem.hbs';
 import * as mainMessage from './Message.hbs';
 import './MessageItem/MessageItem.css'
+import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 
 export class Message<T extends Element> {
     private readonly parent: T;
@@ -12,6 +13,24 @@ export class Message<T extends Element> {
     constructor(parent: T, data: any) {
         this.parent = parent;
         this.data = data;
+    }
+
+    goToSoloList(){
+        this.data.forEach((list: any, idx: number) => {
+            const getElem = document.getElementById(idx.toString());
+            if (getElem === null) {
+                return;
+            }
+            getElem.addEventListener('click', () => {
+                eventEmitter.goToSoloMessage({
+                    avatar: list['sender_avatar'],
+                    login: list['mail']['sender'],
+                    theme: list['mail']['theme'],
+                    date: list['mail']['date'],
+                    text: list['mail']['text'],
+                });
+            });
+        })
     }
 
     render() {
@@ -34,11 +53,12 @@ export class Message<T extends Element> {
             return;
         }
 
-        const itemsMassage: {avatar: string, title: string, subTitle: string, time: string}[] = [];
+        const itemsMassage: {avatar: string, title: string, subTitle: string, time: string, read: boolean}[] = [];
         this.data.forEach((pars: any) => {
             const date = new Date(pars['mail']['date']);
             itemsMassage.push({
                 avatar: `http://${window.location.hostname}:8080/${pars['sender_avatar']}`,
+                read: pars['mail']['read'],
                 title: pars['mail']['theme'],
                 subTitle: pars['mail']['text'],
                 time: (('0' + date.getDate()).slice(-2) + ':' + ('0' + (date.getMonth() + 1)).slice(-2)),
@@ -53,10 +73,9 @@ export class Message<T extends Element> {
         this.parent.insertAdjacentHTML('beforeend', render);
     }
 
-    renderMassage(itemsMassage: any) {
-        console.log(itemsMassage);
-        const messageText: { avatar: string; title: string; subTitle: string; time: string; }[] = [];
-        itemsMassage.forEach((item: { avatar: string; title: string; subTitle: string; time: string; }, index: number) => {
+    renderMassage(itemsMassage: {avatar: string, title: string, subTitle: string, time: string, read: boolean}[]) {
+        const messageText: { avatar: string; title: string; subTitle: string; time: string; read: boolean}[] = [];
+        itemsMassage.forEach((item: { avatar: string; title: string; subTitle: string; time: string; read: boolean}, index: number) => {
             const titleText = new Text({
                 text: item.title,
                 size: 'L',
@@ -89,6 +108,7 @@ export class Message<T extends Element> {
             messageText.push(messageItem({
                 id: index,
                 avatar: item.avatar,
+                read: !item.read,
                 titleText: titleText.render(),
                 subText: subText.render(),
                 emptyText: emptyText.render(),

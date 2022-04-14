@@ -25,6 +25,13 @@ export class SignInModel {
     }
 
     fetchSignIn = async (text: {Username: string, password: string}) => {
+        await fetch(`http://${window.location.hostname}:8080/signin`, {
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+        })
         try {
             const res = await fetch(`http://${window.location.hostname}:8080/signin`, {
                 mode: 'cors',
