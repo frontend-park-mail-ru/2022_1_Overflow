@@ -2,6 +2,20 @@ import {SignInRender} from './pages/SignIn/SignIn.js';
 import {MainPage} from './pages/MainPage/MainPage.js';
 import {Ajax} from '../../modules/AjaxSignIn/AjaxSignIn.js';
 
+
+/***
+ * Register service worker
+ *  */
+ if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service_worker.js', {scope: '/'})
+        .then(() => {
+            console.log('Service Worker registered.');
+        }).catch((error) => {
+        console.log(`Error while register service worker:${error}`);
+    });
+}
+
+
 const root = document.getElementsByTagName('body')[0];
 
 
