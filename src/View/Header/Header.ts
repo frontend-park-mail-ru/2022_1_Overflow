@@ -29,8 +29,6 @@ export class Header<T extends Element> {
             let docEvent: EventListenerOrEventListenerObject;
             document.addEventListener('click', docEvent = (event2: MouseEvent) => {
                 const target = event2.target as HTMLDivElement;
-                console.log(target.id);
-                console.log(target.className);
                 if (!target)
                     return;
                 if (target.id !== 'exit' && target.id !== 'profile') {

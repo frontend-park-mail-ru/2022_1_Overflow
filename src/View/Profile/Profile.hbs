@@ -6,23 +6,17 @@
     </div>
     <div class="blockProfileMain showboxRight">
         <img src="{{logo}}" class="LogoProfile">
-        <div class="profileSet">
-            <img id="img" src="{{profileSvg}}" class="avatarProfile">
+        <div class="profileSet" id="img">
+            <img id="profileSvg" src="{{profileSvg}}" class="avatarProfile">
             <img src="{{editSvg}}" class="avatarReduct">
         </div>
-        <form class="displayForm">
+        <form class="displayForm" id="form">
             {{{inputFile}}}
             {{{inputProfileName}}}
             {{{inputProfileLastName}}}
-            {{{inputProfilePassword}}}
-            <!--        <input class="inputProfile" placeholder="Имя">-->
-            <!--        <input class="inputProfile" placeholder="Фамилия">-->
-            <!--        <input class="inputProfile" placeholder="Логин">-->
             <div id="error" class="invalidMsg marginForm">Не верное имя пользователя или пароль</div>
             {{{nextBtn}}}
         </form>
         {{{prevBtn}}}
-        <!--        <button class="inputProfile">Изменить</button>-->
-        <!--        <button class="inputProfile">Назад</button>-->
     </div>
 </div>

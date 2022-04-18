@@ -51,18 +51,51 @@ export class Profile<T extends Element> {
     getForm() {
         const name: string = (document.getElementById('name') as HTMLInputElement).value;
         const lastName: string = (document.getElementById('lastName') as HTMLInputElement).value;
-        const password: string = (document.getElementById('password') as HTMLInputElement).value;
-        return {first_name: name, last_name: lastName, password: password};
+        const avatar: any = document.getElementById('file');
+        return {first_name: name, last_name: lastName, avatar: avatar.files[0]};
     }
 
     submitForm(handler: any) {
-        const form = document.getElementById('displayForm');
+        const prev = document.getElementById('prev');
+        if (prev === null) {
+            return;
+        }
+        prev.addEventListener('click', () => {
+            eventEmitter.goToMainPage(1);
+        });
+
+        const file = (document.getElementById('file') as HTMLInputElement);
+        if (file === null) {
+            return;
+        }
+
+        const avatar = document.getElementById('img');
+        if (avatar === null) {
+            return;
+        }
+
+        avatar.addEventListener('click', () => {
+            file.click();
+        });
+        file.addEventListener('change', (event: Event) => {
+            const target = event.target as HTMLInputElement;
+            const profileSvg = (document.getElementById('profileSvg') as HTMLImageElement)
+            if (profileSvg === null) {
+                return;
+            }
+            // export const makeBlobUrl = (file: File): string | undefined => {
+            //     if (!file) return undefined;
+            //
+            //     return URL.createObjectURL(file);
+            // };
+            // profileSvg.src = make
+        })
+
+        const form = document.getElementById('form');
         if (form === null)
             return;
-
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
-            console.log(1);
             await handler(this.getForm());
         });
     }
@@ -83,11 +116,12 @@ export class Profile<T extends Element> {
             id: 'file',
             size: 'XL',
             type: 'file',
-            className: 'marginForm',
+            className: 'marginForm hiddenFrom',
         });
 
         const inputProfileName = new Input({
-            text: this.data.FirstName,
+            realText: this.data.FirstName,
+            text: 'Имя',
             size: 'XL',
             id: 'name',
             type: 'text',
@@ -95,18 +129,11 @@ export class Profile<T extends Element> {
         });
 
         const inputProfileLastName = new Input({
-            text: this.data.LastName,
+            realText: this.data.LastName,
+            text: 'Фамиля',
             id: 'lastName',
             size: 'XL',
             type: 'text',
-            className: 'marginForm',
-        });
-
-        const inputProfilePassword = new Input({
-            text: 'Пароль',
-            id: 'password',
-            size: 'XL',
-            type: 'password',
             className: 'marginForm',
         });
 
@@ -114,6 +141,7 @@ export class Profile<T extends Element> {
             text: 'Изменить',
             size: 'XL',
             id: 'set',
+            type: 'submit',
             className: 'marginForm',
         });
 
@@ -132,67 +160,10 @@ export class Profile<T extends Element> {
             editSvg: editSvg,
             inputProfileName: inputProfileName.render(),
             inputProfileLastName: inputProfileLastName.render(),
-            inputProfilePassword: inputProfilePassword.render(),
             nextBtn: primBtn.render(),
             prevBtn: secBtn.render(),
         });
 
         this.parent.insertAdjacentHTML('beforeend', template);
-
-        const set = document.getElementById('set');
-
-        set!.addEventListener('click', async () => {
-
-            const file: any = document.getElementById('file');
-
-            const formData = new FormData();
-
-            formData.append('file', file.files[0]);
-
-            const response = await fetch(`http://${window.location.hostname}:8080/profile/avatar/set`, {
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'include',
-            });
-
-
-            await fetch(`http://${window.location.hostname}:8080/profile/avatar/set`, {
-                mode: 'cors',
-                headers: {
-                    'X-CSRF-token': response.headers.get('x-csrf-token')!,
-                },
-                method: 'POST',
-                credentials: 'include',
-                body: formData,
-            });
-
-            const response2 = await fetch(`http://${window.location.hostname}:8080/profile/set`, {
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'include',
-            });
-
-
-            await fetch(`http://${window.location.hostname}:8080/profile/set`, {
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRF-token': response2.headers.get('x-csrf-token')!,
-                },
-                method: 'POST',
-                credentials: 'include',
-                body: JSON.stringify(this.getForm()),
-            });
-            eventEmitter.goToMainPage(1);
-        });
-
-        const prev = document.getElementById('prev');
-        prev!.addEventListener('click', () => {
-            eventEmitter.goToMainPage(1);
-        })
     }
 }

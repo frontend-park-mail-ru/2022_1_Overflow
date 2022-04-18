@@ -62,8 +62,6 @@ export class MessageSolo<T extends Element> {
             className: 'timeIncome',
         });
 
-        console.log(this.data.text);
-
         const text = new Text({
             color: 'Black',
             size: 'L',

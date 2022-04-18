@@ -4,7 +4,7 @@ import {checkStatus} from "../CheckInput/CheckInput";
 
 
 export class ProfileModel {
-    private data: {Username: string, FirstName: string, LastName: string, avatar: any, password: string};
+    private data: { Username: string, FirstName: string, LastName: string, avatar: any, password: string };
 
     constructor() {
         this.data = {Username: '', FirstName: '', LastName: '', avatar: '', password: ''};
@@ -14,18 +14,19 @@ export class ProfileModel {
         return this.data;
     }
 
-    checkInput = async (data: {first_name: string, last_name: string}) => {
-        const errFirstName = LenghtCheck(data.first_name, 'логина');
+    checkInput = async (data: { first_name: string, last_name: string, avatar: any }) => {
+        console.log(data)
+        const errFirstName = LenghtCheck(data.first_name, 'Имени');
         if (errFirstName !== '') {
             eventEmitter.emit('error', errFirstName);
             return;
         }
-        const errLastName = LenghtCheck(data.last_name, 'пароля');
+        const errLastName = LenghtCheck(data.last_name, 'Фамилии');
         if (errLastName !== '') {
             eventEmitter.emit('error', errLastName);
             return;
         }
-        await this.fetchSetProfile(data);
+        await this.fetchSetAvatar(data);
     }
 
     fetchProfile = async () => {
@@ -50,65 +51,83 @@ export class ProfileModel {
         }
     }
 
-    fetchSetAvatar = async () => {
+    fetchGetAvatar = async () => {
         try {
-            const res = await fetch(`http://${window.location.hostname}:8080/profile/avatar`, {
+            const getAvatar = await fetch(`http://${window.location.hostname}:8080/profile/avatar`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                credentials: 'include'
+                credentials: 'include',
             });
-            if (res.ok) {
-                const json = await res.json();
+            if (getAvatar.ok) {
+                const json = await getAvatar.json();
                 this.data.avatar = json['message'];
             }
         } catch (e) {
             console.log(e);
-            eventEmitter.goToSignIn();
         }
     }
 
-    fetchSetProfile = async (data: {first_name: string, last_name: string}) => {
-        console.log('fetchSetProfile');
+    fetchSetAvatar = async (data: { first_name: string, last_name: string, avatar: any }) => {
         try {
-            const res = await fetch(`http://${window.location.hostname}:8080/profile/set`, {
+            if (data.avatar !== undefined) {
+                const formData = new FormData();
+                formData.append('file', data.avatar);
+
+                const getAvatar = await fetch(`http://${window.location.hostname}:8080/profile/avatar/set`, {
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include',
+                });
+
+                if (getAvatar.status !== 405) {
+                    return;
+                }
+
+                const postAvatarSet = await fetch(`http://${window.location.hostname}:8080/profile/avatar/set`, {
+                    mode: 'cors',
+                    headers: {
+                        'X-CSRF-token': getAvatar.headers.get('x-csrf-token')!,
+                    },
+                    method: 'POST',
+                    credentials: 'include',
+                    body: formData,
+                });
+
+                if (!postAvatarSet.ok) {
+                    return;
+                }
+            }
+
+            const getSetProfile = await fetch(`http://${window.location.hostname}:8080/profile/set`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+            });
+
+            if (getSetProfile.status !== 405) {
+                return;
+            }
+
+            const postSetProfile = await fetch(`http://${window.location.hostname}:8080/profile/set`, {
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-token': getSetProfile.headers.get('x-csrf-token')!,
                 },
                 method: 'POST',
                 credentials: 'include',
                 body: JSON.stringify(data),
-            })
-            if (res.ok) {
-                //eventEmitter.goToMainPage();
-                return;
-            }
-            const body = await res.json();
-            eventEmitter.emit('error', checkStatus(body['status'], this.data.Username));
-        } catch (e) {
-            console.log(e);
-        }
-    }
+            });
 
-    fetchSignIn = async (text: {Username: string, password: string}) => {
-        try {
-            const res = await fetch(`http://${window.location.hostname}:8080/signin`, {
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                method: 'POST',
-                credentials: 'include',
-                body: JSON.stringify(text),
-            })
-            if (res.ok) {
+            if (postSetProfile.ok) {
                 eventEmitter.goToMainPage(1);
-                return;
             }
-            const body = await res.json();
-            eventEmitter.emit('error', checkStatus(body['status'], text.Username));
         } catch (e) {
             console.log(e);
         }

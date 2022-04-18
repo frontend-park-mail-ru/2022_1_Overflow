@@ -15,10 +15,10 @@ export class ProfilePresenter {
         this.parent.innerHTML = '';
         const profileModel = new ProfileModel();
         await profileModel.fetchProfile();
-        await profileModel.fetchSetAvatar();
+        await profileModel.fetchGetAvatar();
         const profileView = new Profile(this.parent, profileModel.outPutData());
         profileView.render();
         eventEmitter.on('error', profileView.setError);
-        // profileView.submitForm(profileModel.fetchSetProfile);
+        profileView.submitForm(profileModel.checkInput);
     };
 }
