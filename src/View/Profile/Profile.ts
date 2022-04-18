@@ -55,6 +55,26 @@ export class Profile<T extends Element> {
         return {first_name: name, last_name: lastName, avatar: avatar.files[0]};
     }
 
+    navigateBar() {
+        const profile = document.getElementById('profile');
+        if (profile === null) {
+            return;
+        }
+
+        profile.addEventListener('click', () => {
+            eventEmitter.goToProfile()
+        });
+
+        const security = document.getElementById('security');
+        if (security === null) {
+            return;
+        }
+
+        security.addEventListener('click', () => {
+            eventEmitter.goToSecurity()
+        });
+    }
+
     submitForm(handler: any) {
         const prev = document.getElementById('prev');
         if (prev === null) {
@@ -77,19 +97,15 @@ export class Profile<T extends Element> {
         avatar.addEventListener('click', () => {
             file.click();
         });
+
         file.addEventListener('change', (event: Event) => {
-            const target = event.target as HTMLInputElement;
+            const target = (event.target as HTMLInputElement);
             const profileSvg = (document.getElementById('profileSvg') as HTMLImageElement)
-            if (profileSvg === null) {
+            if (profileSvg === null || target.files === null) {
                 return;
             }
-            // export const makeBlobUrl = (file: File): string | undefined => {
-            //     if (!file) return undefined;
-            //
-            //     return URL.createObjectURL(file);
-            // };
-            // profileSvg.src = make
-        })
+            profileSvg.src = URL.createObjectURL(target.files[0]);
+        });
 
         const form = document.getElementById('form');
         if (form === null)
@@ -102,13 +118,24 @@ export class Profile<T extends Element> {
 
     render() {
         let items: any = [];
-        itemsMenu.forEach((item) => {
-            items.push(profileItemsHbs(
-                {
-                    svg: item.iconName,
-                    text: item.textText,
-                    id: item.id,
-                }));
+        itemsMenu.forEach((item, idx) => {
+            if (idx === 0) {
+                items.push(profileItemsHbs(
+                    {
+                        svg: item.iconName,
+                        text: item.textText,
+                        id: item.id,
+                        empty: true,
+                    }));
+            } else {
+                items.push(profileItemsHbs(
+                    {
+                        svg: item.iconName,
+                        text: item.textText,
+                        id: item.id,
+                        empty: false,
+                    }));
+            }
         });
 
         const inputFile = new Input({

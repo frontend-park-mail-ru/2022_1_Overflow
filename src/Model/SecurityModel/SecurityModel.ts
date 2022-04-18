@@ -3,7 +3,7 @@ import {LenghtCheck} from "../LenghtCheck/LenghtCheck";
 import {checkStatus} from "../CheckInput/CheckInput";
 
 
-export class ProfileModel {
+export class SecurityModel {
     private data: { Username: string, FirstName: string, LastName: string, avatar: any, password: string };
 
     constructor() {
@@ -14,19 +14,33 @@ export class ProfileModel {
         return this.data;
     }
 
-    checkInput = async (data: { first_name: string, last_name: string, avatar: any }) => {
+    checkInput = async (data: {last_password: string, password: string, password_repeat: string}) => {
         console.log(data)
-        const errFirstName = LenghtCheck(data.first_name, 'Имени');
-        if (errFirstName !== '') {
-            eventEmitter.emit('error', errFirstName);
+        const errLastPassword = LenghtCheck(data.last_password, 'старого пароль');
+        if (errLastPassword !== '') {
+            eventEmitter.emit('error', errLastPassword);
             return;
         }
-        const errLastName = LenghtCheck(data.last_name, 'Фамилии');
-        if (errLastName !== '') {
-            eventEmitter.emit('error', errLastName);
+        console.log(data.last_password, this.data.password)
+        if (data.last_password !== this.data.password) {
+            eventEmitter.emit('error', 'Старый пароль не верный');
             return;
         }
-        await this.fetchSetAvatar(data);
+        const errPassword = LenghtCheck(data.password, 'пароля');
+        if (errPassword !== '') {
+            eventEmitter.emit('error', errPassword);
+            return;
+        }
+        const errPasswordRepeat = LenghtCheck(data.password_repeat, 'пароля');
+        if (errPasswordRepeat !== '') {
+            eventEmitter.emit('error', errPasswordRepeat);
+            return;
+        }
+        if (data.password !== data.password_repeat) {
+            eventEmitter.emit('error', 'Поля пароля и повтора пароля не совпадают');
+            return;
+        }
+        await this.fetchSetPassword({password: data.password});
     }
 
     fetchProfile = async () => {
@@ -51,57 +65,8 @@ export class ProfileModel {
         }
     }
 
-    fetchGetAvatar = async () => {
+    fetchSetPassword = async (data: {password: string}) => {
         try {
-            const getAvatar = await fetch(`http://${window.location.hostname}:8080/profile/avatar`, {
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'include',
-            });
-            if (getAvatar.ok) {
-                const json = await getAvatar.json();
-                this.data.avatar = json['message'];
-            }
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
-    fetchSetAvatar = async (data: { first_name: string, last_name: string, avatar: any }) => {
-        try {
-            if (data.avatar !== undefined) {
-                const formData = new FormData();
-                formData.append('file', data.avatar);
-
-                const getAvatar = await fetch(`http://${window.location.hostname}:8080/profile/avatar/set`, {
-                    mode: 'cors',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    credentials: 'include',
-                });
-
-                if (getAvatar.status !== 405) {
-                    return;
-                }
-
-                const postAvatarSet = await fetch(`http://${window.location.hostname}:8080/profile/avatar/set`, {
-                    mode: 'cors',
-                    headers: {
-                        'X-CSRF-token': getAvatar.headers.get('x-csrf-token')!,
-                    },
-                    method: 'POST',
-                    credentials: 'include',
-                    body: formData,
-                });
-
-                if (!postAvatarSet.ok) {
-                    return;
-                }
-            }
-
             const getSetProfile = await fetch(`http://${window.location.hostname}:8080/profile/set`, {
                 mode: 'cors',
                 headers: {

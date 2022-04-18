@@ -4,6 +4,7 @@ import {SignUpRender} from "../pages/SignUp/SignUp";
 import {SendMessagePresenter} from "../pages/SendMessagePresenter/SendMessagePresenter";
 import {MessageSoloPresenter} from "../pages/MessageSoloPresenter/MessageSoloPresenter";
 import {ProfilePresenter} from "../pages/ProfilePresenter/ProfilePresenter";
+import {SecurityPresenter} from "../pages/SecurityPresenter/SecurityPresenter";
 
 class EventEmitter {
     private readonly events: Record<string, any>;
@@ -30,6 +31,11 @@ class EventEmitter {
             sendMessage.context = data;
         }
         sendMessage.render();
+    }
+
+    goToSecurity() {
+        const profile = new SecurityPresenter(this.root);
+        profile.render();
     }
 
     goToProfile() {

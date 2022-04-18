@@ -1,5 +1,8 @@
 .sizeGap{
-    margin-left: 20px;
-    margin-right: 20px;
-    margin-bottom: 2px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.topGap{
+    margin-top: 15px;
 }
