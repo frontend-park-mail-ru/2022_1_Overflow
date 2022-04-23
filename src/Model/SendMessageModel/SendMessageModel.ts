@@ -34,7 +34,7 @@ export class SendMessageModel {
             splitText[idx] = '>>' + text;
         });
 
-        data.text = `\n\n\n\n` + splitText.reduce((text, cur) => {
+        data.text = `\n\n\n` + splitText.reduce((text, cur) => {
             return text + `${cur}\n`;
         }, '');
     }
@@ -73,6 +73,26 @@ export class SendMessageModel {
                 if (body['status'] === 11) {
                     eventEmitter.emit('error', null);
                 }
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    fetchGetUserAvatar = async (name: string) => {
+        try {
+            const res = await fetch(`http://${window.location.hostname}:8080/profile/avatar?username=${name}`, {
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+            });
+
+            if (res.ok) {
+                const body = await res.json();
+                eventEmitter.emit('setAvatar', body['message']);
+                return;
             }
         } catch (e) {
             console.log(e);

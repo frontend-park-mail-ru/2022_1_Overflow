@@ -2,10 +2,11 @@ import './SendMessage.scss';
 import './SendMessageError.scss'
 import * as sendMessageHbs from './SendMessage.hbs';
 import * as sendMessageErrorHbs from './SendMessageError.hbs'
-import avatar from '../image/avatar.svg';
+import avatar from '../image/dummy.svg';
 import {Text} from '../../ui-kit/Text/Text'
 import {Input} from '../../ui-kit/Input/Input'
 import {Button} from "../../ui-kit/Button/Button";
+import {PopUpSendMessageError} from "../PopUpSendMessageError/PopUpSendMessageError";
 
 export class SendMessage<T extends Element> {
     private readonly parent: T;
@@ -17,43 +18,32 @@ export class SendMessage<T extends Element> {
     }
 
     setError() {
-        const errorDivExist = document.getElementById('messageErrorId');
-        if (errorDivExist) {
-            return;
-        }
-        const textError = new Text({
-            color: 'Grey',
-            text: ' Пользователя с таким логином не существует',
-            size: 'XS',
-        });
-
-        const error = sendMessageErrorHbs({
-            text: textError.render()
-        });
-
-        const main = document.getElementById('main');
-        if (!main) {
+        const root = document.getElementsByTagName('body')[0];
+        if (!root) {
             return;
         }
 
-        main.insertAdjacentHTML('beforeend', error);
+        const popUpError = new PopUpSendMessageError(root);
+        popUpError.render();
+        popUpError.emitClose();
+    }
 
-        const errorDiv = document.getElementById('messageErrorId');
-        if (!errorDiv) {
+    eventsLoginChange(handler: any) {
+        const inputLogin = document.getElementById('inputLogin') as HTMLInputElement;
+        if (!inputLogin) {
             return;
         }
-
-        let errorEvent: EventListenerOrEventListenerObject;
-        errorDiv.addEventListener('click', errorEvent = () => {
-            errorDiv.remove();
+        inputLogin.addEventListener('blur', () => {
+            handler(inputLogin.value);
         })
+    }
 
-        setTimeout(() => {
-            errorDiv.removeEventListener('click', errorEvent);
-            if (errorDiv) {
-                errorDiv.remove();
-            }
-        }, 5000)
+    setAvatar(path: string) {
+        const avatar = document.getElementById('sendAvatar') as HTMLImageElement;
+        if (!avatar) {
+            return;
+        }
+        avatar.src = `http://${window.location.hostname}:8080/${path}`
     }
 
     send(handler: any) {

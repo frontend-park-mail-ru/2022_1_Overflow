@@ -8,36 +8,47 @@ import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 
 export class Message<T extends Element> {
     private readonly parent: T;
-    private readonly data: any;
+    private readonly messages:
+        {
+            id: number,
+            client_id: number,
+            sender: string,
+            title: string,
+            subTitle: string,
+            files: string,
+            time: any,
+            read: boolean,
+            avatar: string
+        }[];
     private readonly type: any;
 
     constructor(parent: T, data: any, type: number) {
         this.parent = parent;
-        this.data = data;
+        this.messages = data;
         this.type = type;
     }
 
-    goToSoloList() {
-        this.data.forEach((list: any) => {
-            const getElem = document.getElementById(list['mail']['id']);
+    goToMessagePage() {
+        this.messages.forEach((list) => {
+            const getElem = document.getElementById(list.id.toString());
             if (getElem === null) {
                 return;
             }
             getElem.addEventListener('click', () => {
-                eventEmitter.goToSoloMessage({
-                    avatar: list['sender_avatar'],
-                    id: list['mail']['id'],
-                    login: list['mail']['sender'],
-                    theme: list['mail']['theme'],
-                    date: list['mail']['date'],
-                    text: list['mail']['text'],
+                eventEmitter.goToMessagePage({
+                    avatar: list.avatar,
+                    id: list.id,
+                    login: list.sender,
+                    theme: list.title,
+                    date: list.time,
+                    text: list.subTitle,
                 });
             });
         })
     }
 
     render() {
-        if (this.data === null) {
+        if (this.messages === null) {
             const emptyText = new Text({
                 color: 'Grey',
                 text: 'Список писем пуст',
@@ -56,26 +67,7 @@ export class Message<T extends Element> {
             return;
         }
 
-        const itemsMassage: { avatar: string, id: number, title: string, subTitle: string, time: string, read: boolean, sender: string }[] = [];
-        this.data.sort((a: any, b: any) => {
-            const date1 = new Date(a['mail']['date']);
-            const date2 = new Date(b['mail']['date']);
-            return date1 < date2 ? 1 : -1;
-        });
-        this.data.forEach((pars: any) => {
-            const date = new Date(pars['mail']['date']);
-            itemsMassage.push({
-                avatar: `http://${window.location.hostname}:8080/${pars['sender_avatar']}`,
-                read: pars['mail']['read'],
-                sender: (pars['mail']['sender'] !== '') ? pars['mail']['sender'] : pars['mail']['addressee'],
-                id: pars['mail']['id'],
-                title: pars['mail']['theme'],
-                subTitle: pars['mail']['text'],
-                time: (('0' + date.getDate()).slice(-2) + ':' + ('0' + (date.getMonth() + 1)).slice(-2)),
-            });
-        });
-
-        const messageText = this.renderMassage(itemsMassage);
+        const messageText = this.renderMassage(this.messages);
         const render = mainMessage({
             items: messageText,
         });
@@ -83,7 +75,7 @@ export class Message<T extends Element> {
         this.parent.insertAdjacentHTML('beforeend', render);
     }
 
-    renderMassage(itemsMassage: { avatar: string, id: number, title: string, subTitle: string, time: string, read: boolean, sender: string }[]) {
+    renderMassage(itemsMassage: { id: number, client_id: number, sender: string, title: string, subTitle: string, files: string, time: any, read: boolean, avatar: string }[]) {
         const messageText: { avatar: string; id: number; title: string; subTitle: string; time: string; read: boolean, sender: string }[] = [];
         itemsMassage.forEach((item: { avatar: string; id: number; title: string; subTitle: string; time: string; read: boolean, sender: string }, index: number) => {
             if (this.type === 2) {

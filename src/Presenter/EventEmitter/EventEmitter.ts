@@ -43,7 +43,7 @@ class EventEmitter {
         profile.render();
     }
 
-    goToSoloMessage(data: any) {
+    goToMessagePage(data: any) {
         const sendMessage = new MessagePagePresenter(this.root, data);
         sendMessage.render();
     }
