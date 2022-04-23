@@ -1,11 +1,3 @@
-import {safe} from '../Safe/safe';
-
-export const checkInput = (str: string | null) => {
-    str = safe(str);
-    str.trim();
-    return str;
-};
-
 export const checkStatus = (status: number, user: string) => {
     if (status === 0) {
         return '';

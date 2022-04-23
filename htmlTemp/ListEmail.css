@@ -220,8 +220,8 @@ header{
 }
 
 .avatarOutput{
-    width: 35px;
-    height: 35px;
+    width: 50px;
+    height: 50px;
     border-radius: 50%;
 }
 
@@ -443,6 +443,21 @@ header{
 
 .profileSet{
     position: relative;
+}
+
+/*error*/
+.messageError{
+    position: fixed;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    right: 10px;
+    height: 30px;
+    padding: 10px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.25);
+    border-radius: 15px;
+    background: #FFFFFF;
+    top: calc(100vh - 60px);
 }
 
 

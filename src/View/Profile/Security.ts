@@ -1,4 +1,4 @@
-import './Profile.css';
+import './Profile.scss';
 import logoSvg from '../image/Logo.svg';
 import {Button} from "../../ui-kit/Button/Button";
 import {Input} from "../../ui-kit/Input/Input";
@@ -6,7 +6,7 @@ import * as securityHbs from './Security.hbs';
 import * as profileItemsHbs from './ProfileItem/ProfileItem.hbs';
 import lockSvg from "../image/lock.svg";
 import profileSvg from "../image/profile.svg";
-import './ProfileItem/ProfileItem.css'
+import './ProfileItem/ProfileItem.scss'
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 
 const itemsMenu = [
@@ -38,9 +38,12 @@ export class Security<T extends Element> {
             return;
         }
 
-        lastPassword.style.borderColor = 'red';
-        password.style.borderColor = 'red';
-        passwordRepeat.style.borderColor = 'red';
+        lastPassword.classList.remove('inputXL');
+        lastPassword.classList.add('inputXLError');
+        password.classList.remove('inputXL');
+        password.classList.add('inputXLError');
+        passwordRepeat.classList.remove('inputXL');
+        passwordRepeat.classList.add('inputXLError');
 
         const error = document.getElementById('error') as HTMLElement;
         error.style.visibility = 'visible';
@@ -59,7 +62,6 @@ export class Security<T extends Element> {
         if (profile === null) {
             return;
         }
-
         profile.addEventListener('click', () => {
             eventEmitter.goToProfile()
         });
@@ -68,7 +70,6 @@ export class Security<T extends Element> {
         if (security === null) {
             return;
         }
-
         security.addEventListener('click', () => {
             eventEmitter.goToSecurity()
         });

@@ -1,0 +1,26 @@
+.manuPoint{
+    user-select: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 6px;
+    cursor: pointer;
+
+    &:hover{
+        background: #F1F1F1;
+        border-radius: 15px;
+    }
+
+    .menuText1{
+        cursor: pointer;
+        margin-left: 10px;
+        font-size: 18px;
+    }
+
+    .iconPoint1{
+        cursor: pointer;
+        padding-right: 10px;
+        width: 15px;
+        height: 15px;
+    }
+}

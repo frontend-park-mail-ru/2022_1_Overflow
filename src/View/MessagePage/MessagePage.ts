@@ -1,16 +1,16 @@
-import * as messageSoloHbs from './MessageSolo.hbs';
+import * as messageSoloHbs from './MessagePage.hbs';
 import otvet from '../image/otvet.svg';
 import reMail from '../image/reMail.svg';
 import {Text} from '../../ui-kit/Text/Text'
-import './MessageSolo.css';
+import './MessagePage.scss';
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 
 
-export class MessageSolo<T extends Element> {
+export class MessagePage<T extends Element> {
     private readonly parent: T;
-    private readonly data: {avatar: any, login: string, theme: string, date: any, text: string};
+    private readonly data: {avatar: any, login: string, theme: string, date: any, text: string, id: number};
 
-    constructor(parent: T, data: {avatar: any, login: string, theme: string, date: any, text: string}) {
+    constructor(parent: T, data: {avatar: any, login: string, theme: string, date: any, text: string, id: number}) {
         this.parent = parent;
         this.data = data;
     }
@@ -21,18 +21,18 @@ export class MessageSolo<T extends Element> {
             return;
         }
         reMailElem.addEventListener('click', () => {
-            eventEmitter.goToSendMessage(this.data, 2);
+            eventEmitter.goToSendMessage(this.data, 'reSend');
         })
     }
 
-    otvet() {
-        const otvetElem = document.getElementById('otvet');
-        if (otvetElem === null) {
+    forward() {
+        const forwardElem = document.getElementById('forward');
+        if (forwardElem === null) {
             return;
         }
-        otvetElem.addEventListener('click', () => {
-            eventEmitter.goToSendMessage(this.data, 1);
-        })
+        forwardElem.addEventListener('click', () => {
+            eventEmitter.goToSendMessage(this.data, 'forward');
+        });
     }
 
     render() {

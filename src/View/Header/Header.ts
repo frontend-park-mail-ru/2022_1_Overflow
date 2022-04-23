@@ -1,4 +1,4 @@
-import './Header.css';
+import './Header.scss';
 import logoSvg from '../image/Logo.svg';
 import arrowSvg from '../image/arrow.svg';
 import {Text} from '../../ui-kit/Text/Text';

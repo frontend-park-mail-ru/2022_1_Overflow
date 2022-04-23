@@ -1,4 +1,4 @@
-import './Input.css';
+import './Input.scss';
 import * as templateHBS from './Input.hbs';
 import {IInput} from './IInput';
 

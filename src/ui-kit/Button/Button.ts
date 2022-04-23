@@ -1,4 +1,4 @@
-import './Button.css';
+import './Button.scss';
 import * as templateHBS from './Button.hbs';
 import {IButton} from './iButton'
 

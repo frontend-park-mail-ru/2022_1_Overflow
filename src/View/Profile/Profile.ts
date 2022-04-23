@@ -1,4 +1,4 @@
-import './Profile.css';
+import './Profile.scss';
 import logoSvg from '../image/Logo.svg';
 import {Button} from "../../ui-kit/Button/Button";
 import {Input} from "../../ui-kit/Input/Input";
@@ -7,7 +7,7 @@ import * as profileHbs from './Profile.hbs';
 import * as profileItemsHbs from './ProfileItem/ProfileItem.hbs';
 import lockSvg from "../image/lock.svg";
 import profileSvg from "../image/profile.svg";
-import './ProfileItem/ProfileItem.css'
+import './ProfileItem/ProfileItem.scss'
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 
 const itemsMenu = [
@@ -40,8 +40,10 @@ export class Profile<T extends Element> {
             return;
         }
 
-        name.style.borderColor = 'red';
-        lastName.style.borderColor = 'red';
+        name.classList.remove('inputXL');
+        name.classList.add('inputXLError');
+        lastName.classList.remove('inputXL');
+        lastName.classList.add('inputXLError');
 
         const error = document.getElementById('error') as HTMLElement;
         error.style.visibility = 'visible';

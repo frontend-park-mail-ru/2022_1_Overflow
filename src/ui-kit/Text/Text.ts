@@ -1,4 +1,4 @@
-import './Text.css';
+import './Text.scss';
 import * as templateHBS from './Text.hbs';
 import {IText} from './IText'
 

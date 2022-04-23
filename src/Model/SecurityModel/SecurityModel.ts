@@ -1,6 +1,5 @@
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
-import {LenghtCheck} from "../LenghtCheck/LenghtCheck";
-import {checkStatus} from "../CheckInput/CheckInput";
+import {LengthCheckPasswordAndName} from "../LengthCheck/LengthCheck";
 
 
 export class SecurityModel {
@@ -16,7 +15,7 @@ export class SecurityModel {
 
     checkInput = async (data: {last_password: string, password: string, password_repeat: string}) => {
         console.log(data)
-        const errLastPassword = LenghtCheck(data.last_password, 'старого пароль');
+        const errLastPassword = LengthCheckPasswordAndName(data.last_password, 'старого пароль');
         if (errLastPassword !== '') {
             eventEmitter.emit('error', errLastPassword);
             return;
@@ -26,12 +25,12 @@ export class SecurityModel {
             eventEmitter.emit('error', 'Старый пароль не верный');
             return;
         }
-        const errPassword = LenghtCheck(data.password, 'пароля');
+        const errPassword = LengthCheckPasswordAndName(data.password, 'пароля');
         if (errPassword !== '') {
             eventEmitter.emit('error', errPassword);
             return;
         }
-        const errPasswordRepeat = LenghtCheck(data.password_repeat, 'пароля');
+        const errPasswordRepeat = LengthCheckPasswordAndName(data.password_repeat, 'пароля');
         if (errPasswordRepeat !== '') {
             eventEmitter.emit('error', errPasswordRepeat);
             return;
@@ -61,7 +60,6 @@ export class SecurityModel {
             }
         } catch (e) {
             console.log(e);
-            eventEmitter.goToSignIn();
         }
     }
 

@@ -1,8 +1,4 @@
-import {SignInRender} from '../../Presenter/pages/SignIn/SignIn';
-import {Ajax} from '../../Model/Network/Ajax';
-import {LenghtCheck} from '../../Model/LenghtCheck/LenghtCheck';
-import {MainPage} from '../../Presenter/pages/MainPage/MainPage';
-import './SignUp.css';
+import './SignUp.scss';
 import logoSvg from '../image/LogoSigin.svg';
 import {Button} from "../../ui-kit/Button/Button";
 import {Input} from "../../ui-kit/Input/Input";
@@ -26,11 +22,16 @@ export class SignUp<T extends Element> {
             || inputPassword === null || inputPasswordRepeat === null) {
             return;
         }
-        inputFirstName.style.borderColor = 'red';
-        inputLastName.style.borderColor = 'red';
-        inputEmail.style.borderColor = 'red';
-        inputPassword.style.borderColor = 'red';
-        inputPasswordRepeat.style.borderColor = 'red';
+        inputFirstName.classList.remove('inputL');
+        inputFirstName.classList.add('inputLError');
+        inputLastName.classList.remove('inputL');
+        inputLastName.classList.add('inputLError');
+        inputEmail.classList.remove('inputL');
+        inputEmail.classList.add('inputLError');
+        inputPassword.classList.remove('inputL');
+        inputPassword.classList.add('inputLError');
+        inputPasswordRepeat.classList.remove('inputL');
+        inputPasswordRepeat.classList.add('inputLError');
 
         const error: HTMLElement = document.querySelector('.invalidMsg') as HTMLElement
         error.style.visibility = 'visible';

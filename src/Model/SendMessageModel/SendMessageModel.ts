@@ -8,11 +8,11 @@ export class SendMessageModel {
         this.text = {addressee: '', files: '', text: '', theme: ''};
     }
 
-    cleanRe = (data: { avatar: any, login: string, theme: string, date: any, text: string }) => {
+    cleanLogin = (data: { avatar: any, login: string, theme: string, date: any, text: string }) => {
         data.login = '';
     }
 
-    clean = (data: { avatar: any, login: string, theme: string, date: any, text: string }) => {
+    cleanRe = (data: { avatar: any, login: string, theme: string, date: any, text: string }) => {
         if (data === null) {
             return;
         }
@@ -44,14 +44,15 @@ export class SendMessageModel {
     }
 
     fetchSend = async (text: { addressee: string, files: string, text: string, theme: string }) => {
-        const response = await fetch(`http://${window.location.hostname}:8080/mail/send`, {
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            credentials: 'include',
-        });
         try {
+            const response = await fetch(`http://${window.location.hostname}:8080/mail/send`, {
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+            });
+
             const res = await fetch(`http://${window.location.hostname}:8080/mail/send`, {
                 mode: 'cors',
                 headers: {
@@ -66,9 +67,12 @@ export class SendMessageModel {
                 eventEmitter.goToMainPage(1);
                 return;
             }
-            const body = await res.json();
-            if (body['status'] === 11){
-                alert('Пользователя не существует')
+
+            if (!res.ok) {
+                const body = await res.json();
+                if (body['status'] === 11) {
+                    eventEmitter.emit('error', null);
+                }
             }
         } catch (e) {
             console.log(e);

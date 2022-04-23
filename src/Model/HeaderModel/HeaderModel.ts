@@ -26,12 +26,13 @@ export class HeaderModel {
             if (res.ok) {
                 const json = await res.json();
                 this.name = json['Username'];
-                return;
             }
-            eventEmitter.goToSignIn();
+
+            if (!res.ok) {
+                eventEmitter.goToSignIn();
+            }
         } catch (e) {
             console.log(e);
-            eventEmitter.goToSignIn();
         }
     }
 

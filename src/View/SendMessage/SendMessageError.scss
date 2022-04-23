@@ -1,16 +1,14 @@
-.openFolder{
-    float: right;
+.messageError{
+    cursor: pointer;
     position: fixed;
     display: flex;
-    flex-direction: column;
-    width: 250px;
+    flex-direction: row;
+    align-items: center;
+    right: 10px;
+    height: 30px;
     padding: 10px;
     box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.25);
     border-radius: 15px;
     background: #FFFFFF;
-    right: 0px;
-    top: 60px;
-}
-.openFolder > * {
-    cursor: pointer;
+    top: calc(100vh - 60px);
 }

@@ -2,7 +2,7 @@ import {MainPage} from "../pages/MainPage/MainPage";
 import {SignInRender} from "../pages/SignIn/SignIn";
 import {SignUpRender} from "../pages/SignUp/SignUp";
 import {SendMessagePresenter} from "../pages/SendMessagePresenter/SendMessagePresenter";
-import {MessageSoloPresenter} from "../pages/MessageSoloPresenter/MessageSoloPresenter";
+import {MessagePagePresenter} from "../pages/MessagePagePresenter/MessagePagePresenter";
 import {ProfilePresenter} from "../pages/ProfilePresenter/ProfilePresenter";
 import {SecurityPresenter} from "../pages/SecurityPresenter/SecurityPresenter";
 
@@ -24,7 +24,7 @@ class EventEmitter {
         mainPage.render();
     }
 
-    goToSendMessage(data: any, type: number) {
+    goToSendMessage(data: any, type: string) {
         const sendMessage = new SendMessagePresenter(this.root);
         if (data !== null) {
             data.flag = type;
@@ -44,7 +44,7 @@ class EventEmitter {
     }
 
     goToSoloMessage(data: any) {
-        const sendMessage = new MessageSoloPresenter(this.root, data);
+        const sendMessage = new MessagePagePresenter(this.root, data);
         sendMessage.render();
     }
 

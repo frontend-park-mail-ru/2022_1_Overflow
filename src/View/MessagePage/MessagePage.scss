@@ -41,11 +41,11 @@
     height: 30px;
     display: flex;
     align-items: center;
-}
 
-.otvet:hover{
-    background-color: #cccccc;
-    border-radius: 10px;
+    &:hover{
+        background-color: #cccccc;
+        border-radius: 10px;
+    }
 }
 
 .otvetText{

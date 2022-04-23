@@ -2,7 +2,6 @@ import {Header} from '../../../View/Header/Header';
 import {Menu} from '../../../View/Menu/Menu';
 import {Message} from '../../../View/Message/Message';
 import {eventEmitter} from "../../EventEmitter/EventEmitter";
-import {Ajax} from "../../../Model/Network/Ajax";
 import {HeaderModel} from "../../../Model/HeaderModel/HeaderModel";
 import {MessageModel} from "../../../Model/MessageModel/MessageModel";
 
@@ -39,11 +38,12 @@ export class MainPage {
         this.messageModel = new MessageModel();
         if (this.type === 1){
             await this.messageModel.getMessage();
+            this.messageView = new Message(main, this.messageModel.outputData(), 1);
         }
         if (this.type === 2){
             await this.messageModel.getOutMessage();
+            this.messageView = new Message(main, this.messageModel.outputData(), 2);
         }
-        this.messageView = new Message(main, this.messageModel.outputData());
         this.messageView.render();
         this.messageView.goToSoloList();
     };

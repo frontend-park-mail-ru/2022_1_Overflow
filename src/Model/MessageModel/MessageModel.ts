@@ -26,7 +26,6 @@ export class MessageModel {
             }
         } catch (e) {
             console.log(e);
-            eventEmitter.goToSignIn();
         }
     }
 
@@ -44,7 +43,6 @@ export class MessageModel {
             }
         } catch (e) {
             console.log(e);
-            eventEmitter.goToSignIn();
         }
     }
 }

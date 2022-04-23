@@ -1,7 +1,6 @@
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
-import {LenghtCheck} from "../LenghtCheck/LenghtCheck";
-import {checkStatus} from "../CheckInput/CheckInput";
-import {SignInModel} from "../SignInModel/SignInModel";
+import {LengthCheckPasswordAndName, LengthCheckUsername} from "../LengthCheck/LengthCheck";
+import {checkStatus} from "../CheckStatus/CheckStatus";
 
 
 export class SignUpModel {
@@ -12,31 +11,31 @@ export class SignUpModel {
     }
 
     checkInput = async(text: {firstName: string, lastName: string, Username: string, password: string, passwordConfirmation: string}) => {
-        const errFirstName = LenghtCheck(text.firstName, 'имени');
+        const errFirstName = LengthCheckPasswordAndName(text.firstName, 'имени');
         if (errFirstName !== '') {
             eventEmitter.emit('error', errFirstName);
             return;
         }
 
-        const errLastName = LenghtCheck(text.lastName, 'фамилии');
+        const errLastName = LengthCheckPasswordAndName(text.lastName, 'фамилии');
         if (errLastName !== '') {
             eventEmitter.emit('error', errLastName);
             return;
         }
 
-        const errUsername = LenghtCheck(text.Username, 'логина');
+        const errUsername = LengthCheckUsername(text.Username, 'логина');
         if (errUsername !== '') {
             eventEmitter.emit('error', errUsername);
             return;
         }
 
-        const errPassword = LenghtCheck(text.password, 'пароля');
+        const errPassword = LengthCheckPasswordAndName(text.password, 'пароля');
         if (errPassword !== '') {
             eventEmitter.emit('error', errPassword);
             return;
         }
 
-        const errPasswordConfirmation = LenghtCheck(text.passwordConfirmation, 'повтора пароля');
+        const errPasswordConfirmation = LengthCheckPasswordAndName(text.passwordConfirmation, 'повтора пароля');
         console.log(errPasswordConfirmation);
         if (errPasswordConfirmation !== '') {
             eventEmitter.emit('error', errPasswordConfirmation);

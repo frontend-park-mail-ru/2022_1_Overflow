@@ -1,13 +1,15 @@
-import './Menu.css';
+import './Menu.scss';
 import inputSvg from '../image/input.svg';
+import outSvg from '../image/out.svg';
+import editSvg from '../image/edit.svg';
 import * as menuItem from './MenuItem/MenuItem.hbs';
-import './MenuItem/MenuItem.css';
+import './MenuItem/MenuItem.scss';
 import * as mainHBS from './Menu.hbs';
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 
 const itemsMenu = [
     {
-        iconName: inputSvg,
+        iconName: editSvg,
         textText: 'Написать',
         id: 'send'
     },
@@ -17,8 +19,8 @@ const itemsMenu = [
         id: 'input'
     },
     {
-        iconName: inputSvg,
-        textText: 'Исходящие',
+        iconName: outSvg,
+        textText: 'Отправленные',
         id: 'output'
     },
 ];
@@ -49,7 +51,7 @@ export class Menu<T extends Element> {
         this.parent.insertAdjacentHTML('beforeend', main);
 
         document.getElementById('send')!.addEventListener('click', () => {
-            eventEmitter.goToSendMessage(null, 1);
+            eventEmitter.goToSendMessage(null, 'default');
         });
         document.getElementById('input')!.addEventListener('click', () => {
             eventEmitter.goToMainPage(1);

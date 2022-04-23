@@ -1,9 +1,4 @@
-import {MainPage} from '../../Presenter/pages/MainPage/MainPage';
-import {SignUpRender} from '../../Presenter/pages/SignUp/SignUp';
-import {checkInput} from '../../Model/CheckInput/CheckInput';
-import {Ajax} from '../../Model/Network/Ajax';
-import {LenghtCheck} from '../../Model/LenghtCheck/LenghtCheck';
-import './SignIn.css';
+import './SignIn.scss';
 import logoSvg from '../image/Logo.svg';
 import {Button} from "../../ui-kit/Button/Button";
 import {Input} from "../../ui-kit/Input/Input";
@@ -25,8 +20,10 @@ export class SignIn<T extends Element> {
             return;
         }
 
-        inputEmail.style.borderColor = 'red';
-        inputPassword.style.borderColor = 'red';
+        inputEmail.classList.remove('inputL');
+        inputEmail.classList.add('inputLError');
+        inputPassword.classList.remove('inputL');
+        inputPassword.classList.add('inputLError');
 
         const error = document.querySelector('.invalidMsg') as HTMLElement;
         error.style.visibility = 'visible';

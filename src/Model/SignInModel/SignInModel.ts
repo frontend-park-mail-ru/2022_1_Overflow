@@ -1,6 +1,6 @@
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
-import {LenghtCheck} from "../LenghtCheck/LenghtCheck";
-import {checkStatus} from "../CheckInput/CheckInput";
+import {LengthCheckPasswordAndName, LengthCheckUsername} from "../LengthCheck/LengthCheck";
+import {checkStatus} from "../CheckStatus/CheckStatus";
 
 
 export class SignInModel {
@@ -11,12 +11,12 @@ export class SignInModel {
     }
 
     checkInput = async (text: {Username: string, password: string}) => {
-        const errLogin = LenghtCheck(text.Username, 'логина');
+        const errLogin = LengthCheckUsername(text.Username, 'логина');
         if (errLogin !== '') {
             eventEmitter.emit('error', errLogin);
             return;
         }
-        const errPassword = LenghtCheck(text.password, 'пароля');
+        const errPassword = LengthCheckPasswordAndName(text.password, 'пароля');
         if (errPassword !== '') {
             eventEmitter.emit('error', errPassword);
             return;
@@ -42,7 +42,7 @@ export class SignInModel {
                 method: 'POST',
                 credentials: 'include',
                 body: JSON.stringify(text),
-            })
+            });
             if (res.ok) {
                 eventEmitter.goToMainPage(1);
                 return;

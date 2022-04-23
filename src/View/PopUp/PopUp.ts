@@ -2,8 +2,8 @@ import doorSvg from '../image/door.svg';
 import profileSvg from '../image/profile.svg'
 import * as PopUpItem from './PopUpItem/PopUpItem.hbs';
 import * as PopUpMain from './PopUp.hbs';
-import './PopUp.css';
-import './PopUpItem/PopUpItem.css'
+import './PopUp.scss';
+import './PopUpItem/PopUpItem.scss'
 
 export class PopUp<T extends Element> {
     private readonly parent: T;

@@ -4,13 +4,15 @@
     </div>
 {{else}}
     <div id="{{id}}" class="messageText">
-        <img class="avatarMassage" src="{{{avatar}}}" alt="avatar">
         {{#if read}}
-            <span>&#183;</span>
+            <img class="dot" src="{{{dot}}}" alt="avatar">
+        {{else}}
+            <img class="dotHidden" src="{{{dot}}}" alt="avatar">
         {{/if}}
+        <img class="avatarMassage" src="{{{avatar}}}" alt="avatar">
+        {{{name}}}
         {{{titleText}}}
         {{{subText}}}
-        {{{emptyText}}}
         {{{timeText}}}
     </div>
 {{/if}}

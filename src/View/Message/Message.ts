@@ -1,21 +1,23 @@
-import './Message.css';
-import avatarSvg from '../image/avatar.svg';
+import './Message.scss';
+import dotSVG from '../image/dot.svg'
 import {Text} from "../../ui-kit/Text/Text";
 import * as messageItem from './MessageItem/MessageItem.hbs';
 import * as mainMessage from './Message.hbs';
-import './MessageItem/MessageItem.css'
+import './MessageItem/MessageItem.scss'
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 
 export class Message<T extends Element> {
     private readonly parent: T;
     private readonly data: any;
+    private readonly type: any;
 
-    constructor(parent: T, data: any) {
+    constructor(parent: T, data: any, type: number) {
         this.parent = parent;
         this.data = data;
+        this.type = type;
     }
 
-    goToSoloList(){
+    goToSoloList() {
         this.data.forEach((list: any) => {
             const getElem = document.getElementById(list['mail']['id']);
             if (getElem === null) {
@@ -54,7 +56,7 @@ export class Message<T extends Element> {
             return;
         }
 
-        const itemsMassage: {avatar: string, id: number, title: string, subTitle: string, time: string, read: boolean}[] = [];
+        const itemsMassage: { avatar: string, id: number, title: string, subTitle: string, time: string, read: boolean, sender: string }[] = [];
         this.data.sort((a: any, b: any) => {
             const date1 = new Date(a['mail']['date']);
             const date2 = new Date(b['mail']['date']);
@@ -65,6 +67,7 @@ export class Message<T extends Element> {
             itemsMassage.push({
                 avatar: `http://${window.location.hostname}:8080/${pars['sender_avatar']}`,
                 read: pars['mail']['read'],
+                sender: (pars['mail']['sender'] !== '') ? pars['mail']['sender'] : pars['mail']['addressee'],
                 id: pars['mail']['id'],
                 title: pars['mail']['theme'],
                 subTitle: pars['mail']['text'],
@@ -80,26 +83,35 @@ export class Message<T extends Element> {
         this.parent.insertAdjacentHTML('beforeend', render);
     }
 
-    renderMassage(itemsMassage: {avatar: string, id: number, title: string, subTitle: string, time: string, read: boolean}[]) {
-        const messageText: { avatar: string; id: number; title: string; subTitle: string; time: string; read: boolean}[] = [];
-        itemsMassage.forEach((item: { avatar: string; id: number; title: string; subTitle: string; time: string; read: boolean}, index: number) => {
-            const titleText = new Text({
-                text: item.title,
+    renderMassage(itemsMassage: { avatar: string, id: number, title: string, subTitle: string, time: string, read: boolean, sender: string }[]) {
+        const messageText: { avatar: string; id: number; title: string; subTitle: string; time: string; read: boolean, sender: string }[] = [];
+        itemsMassage.forEach((item: { avatar: string; id: number; title: string; subTitle: string; time: string; read: boolean, sender: string }, index: number) => {
+            if (this.type === 2) {
+                item.read = true;
+
+            }
+
+            const senderText = new Text({
+                text: item.sender,
                 size: 'L',
-                className: 'messageTextText'
             });
+
+            const titleText = (item.read) ? new Text({
+                    text: item.title,
+                    size: 'L',
+                    className: 'messageTextText'
+                }) :
+                new Text({
+                    text: item.title,
+                    size: 'L',
+                    className: 'messageTextText bold'
+                });
 
             const subText = new Text({
                 text: item.subTitle,
                 size: 'L',
                 color: 'Grey',
                 className: 'messageTextSub'
-            });
-
-            const emptyText = new Text({
-                text: '',
-                size: 'L',
-                className: 'messageTextBlock'
             });
 
             const timeText = new Text({
@@ -116,9 +128,10 @@ export class Message<T extends Element> {
                 id: item.id,
                 avatar: item.avatar,
                 read: !item.read,
+                dot: dotSVG,
+                name: senderText.render(),
                 titleText: titleText.render(),
                 subText: subText.render(),
-                emptyText: emptyText.render(),
                 timeText: timeText.render(),
                 flag: flag,
                 empty: 0,

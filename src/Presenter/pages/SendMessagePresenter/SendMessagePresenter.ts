@@ -1,10 +1,7 @@
 import {Header} from '../../../View/Header/Header';
 import {Menu} from '../../../View/Menu/Menu';
-import {Message} from '../../../View/Message/Message';
 import {eventEmitter} from "../../EventEmitter/EventEmitter";
-import {Ajax} from "../../../Model/Network/Ajax";
 import {HeaderModel} from "../../../Model/HeaderModel/HeaderModel";
-import {MessageModel} from "../../../Model/MessageModel/MessageModel";
 import {SendMessage} from "../../../View/SendMessage/SendMessage";
 import {SendMessageModel} from "../../../Model/SendMessageModel/SendMessageModel";
 
@@ -15,17 +12,18 @@ export class SendMessagePresenter {
     private headerModel: HeaderModel;
     private sendMessageModel: SendMessageModel;
     private sendMessageView: SendMessage<Element>;
-    private data: { avatar: any, login: string, theme: string, date: any, text: string } | null;
-    private flag: number;
+    private data: { avatar: any, login: string, theme: string, date: any, id: number, text: string } | null;
+    private flag: string;
 
     constructor(parent: Element) {
         this.parent = parent;
+        this.flag = 'default';
         this.data = null;
     }
 
-    set context(data: { avatar: any, login: string, theme: string, date: any, text: string, flag: number } | null) {
+    set context(data: { avatar: any, login: string, theme: string, date: any, text: string, id: number, flag: string } | null) {
         if (data !== null) {
-            this.data = {avatar: data.avatar, login: data.login, theme: data.theme, date: data.date, text: data.text};
+            this.data = {avatar: data.avatar, login: data.login, theme: data.theme, date: data.date, id: data.id, text: data.text};
             this.flag = data.flag;
         }
     }
@@ -47,16 +45,19 @@ export class SendMessagePresenter {
             return
 
         this.sendMessageModel = new SendMessageModel();
-        if (this.data !== null) {
-            if (this.flag === 1) {
-                this.sendMessageModel.clean(this.data);
-            }
-            if (this.flag === 2){
-                this.sendMessageModel.cleanRe(this.data)
+        this.sendMessageView = new SendMessage(main, this.data);
+        if (this.flag === 'reSend') {
+            if (this.data !== null) {
+                this.sendMessageModel.cleanRe(this.data);
             }
         }
-        this.sendMessageView = new SendMessage(main, this.data);
+        if (this.flag === 'forward') {
+            if (this.data !== null) {
+                this.sendMessageModel.cleanLogin(this.data);
+            }
+        }
         this.sendMessageView.render();
+        eventEmitter.on('error', this.sendMessageView.setError);
         this.sendMessageView.send(this.sendMessageModel.checkInput);
     };
 }

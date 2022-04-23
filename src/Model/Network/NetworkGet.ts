@@ -1,0 +1,3 @@
+const networkGet = (url: string) => {
+
+}

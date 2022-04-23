@@ -1,6 +1,5 @@
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
-import {LenghtCheck} from "../LenghtCheck/LenghtCheck";
-import {checkStatus} from "../CheckInput/CheckInput";
+import {LengthCheckPasswordAndName} from "../LengthCheck/LengthCheck";
 
 
 export class ProfileModel {
@@ -15,13 +14,12 @@ export class ProfileModel {
     }
 
     checkInput = async (data: { first_name: string, last_name: string, avatar: any }) => {
-        console.log(data)
-        const errFirstName = LenghtCheck(data.first_name, 'Имени');
+        const errFirstName = LengthCheckPasswordAndName(data.first_name, 'Имени');
         if (errFirstName !== '') {
             eventEmitter.emit('error', errFirstName);
             return;
         }
-        const errLastName = LenghtCheck(data.last_name, 'Фамилии');
+        const errLastName = LengthCheckPasswordAndName(data.last_name, 'Фамилии');
         if (errLastName !== '') {
             eventEmitter.emit('error', errLastName);
             return;
@@ -47,7 +45,6 @@ export class ProfileModel {
             }
         } catch (e) {
             console.log(e);
-            eventEmitter.goToSignIn();
         }
     }
 

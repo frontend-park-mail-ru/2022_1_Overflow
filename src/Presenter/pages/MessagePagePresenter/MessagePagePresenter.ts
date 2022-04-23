@@ -3,17 +3,17 @@ import {Menu} from '../../../View/Menu/Menu';
 import {eventEmitter} from "../../EventEmitter/EventEmitter";
 import {HeaderModel} from "../../../Model/HeaderModel/HeaderModel";
 import {SendMessage} from "../../../View/SendMessage/SendMessage";
-import {MessageSoloModel} from "../../../Model/MessageSoloModel/MessageSoloModel";
-import {MessageSolo} from '../../../View/MessageSolo/MessageSolo'
+import {MessagePageModel} from "../../../Model/MessagePageModel/MessagePageModel";
+import {MessagePage} from '../../../View/MessagePage/MessagePage'
 
-export class MessageSoloPresenter {
+export class MessagePagePresenter {
     private readonly parent: Element;
     private headerView: Header<Element>;
     private menuView: Menu<Element>;
     private headerModel: HeaderModel;
-    private messageSoloModel: MessageSoloModel;
-    private messageSoloView: MessageSolo<Element>;
-    private data: {avatar: any, id: number, login: string, theme: string, date: any, text: string};
+    private messagePageModel: MessagePageModel;
+    private messagePageView: MessagePage<Element>;
+    private readonly data: {avatar: any, id: number, login: string, theme: string, date: any, text: string};
 
     constructor(parent: Element, data: {avatar: any, id: number, login: string, theme: string, date: any, text: string}) {
         this.parent = parent;
@@ -36,11 +36,11 @@ export class MessageSoloPresenter {
         if (main === null)
             return
 
-        this.messageSoloModel = new MessageSoloModel(this.data.id);
-        await this.messageSoloModel.getMessage();
-        this.messageSoloView = new MessageSolo(main, this.data);
-        this.messageSoloView.render();
-        this.messageSoloView.otvet();
-        this.messageSoloView.reMail();
+        this.messagePageModel = new MessagePageModel(this.data.id);
+        await this.messagePageModel.getMessage();
+        this.messagePageView = new MessagePage(main, this.data);
+        this.messagePageView.render();
+        this.messagePageView.forward();
+        this.messagePageView.reMail();
     };
 }

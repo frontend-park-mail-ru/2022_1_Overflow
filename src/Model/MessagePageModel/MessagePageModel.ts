@@ -1,11 +1,9 @@
-export class MessageSoloModel {
-    private messageInfo: any;
-    private id: number;
+export class MessagePageModel {
+    private readonly id: number;
     private body: any;
 
     constructor(id: number) {
         this.id = id;
-        this.messageInfo = '';
     }
 
     async getMessage() {
