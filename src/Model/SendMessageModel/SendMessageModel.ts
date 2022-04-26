@@ -20,11 +20,10 @@ export class SendMessageModel {
         data.login = '';
     }
 
-    cleanRe = async (data: { avatar: any, login: string, theme: string, date: any, text: string }) => {
+    cleanRe = (data: { avatar: any, login: string, theme: string, date: any, text: string }) => {
         if (data === null) {
             return;
         }
-        await this.fetchGetUserAvatar(data.login);
         let i: number;
         let splitText: string[];
         const r = /Re\(\d+\)/g;

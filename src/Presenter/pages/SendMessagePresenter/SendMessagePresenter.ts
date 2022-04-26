@@ -65,6 +65,9 @@ export class SendMessagePresenter {
             }
         }
         this.sendMessageView.render();
+        if (this.flag === 'reSend') {
+            await this.sendMessageModel.fetchGetUserAvatar(this.data.login);
+        }
         this.sendMessageView.send(this.sendMessageModel.checkInput);
         this.sendMessageView.eventsLoginChange(this.sendMessageModel.fetchGetUserAvatar)
     };
