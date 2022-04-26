@@ -2,7 +2,6 @@ import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 
 
 export class MessageModel {
-// {"id":1,"client_id":0,"sender":"123","addressee":"","theme":"123","text":"123","files":"","date":"2022-04-23T15:55:17.295892Z","read":true},"sender_avatar":"/static/1916298011_2366730844.jpeg"},{"mail":{"id":5,"client_id":0,"sender":"123456","addressee":"","theme":"123","text":"123","files":"","date":"2022-04-23T21:22:57.1378Z","read":true},"sender_avatar":"/static/dummy.png"}
     private messages:
         {
             id: number,
@@ -13,7 +12,8 @@ export class MessageModel {
             files: string,
             time: any,
             read: boolean,
-            avatar: string
+            avatar: string,
+            timeReal: string,
         }[];
 
     private json: any;
@@ -44,6 +44,7 @@ export class MessageModel {
                 files: pars['mail']['file'],
                 subTitle: pars['mail']['text'],
                 time: dateSet,
+                timeReal: pars['mail']['date'],
             });
         });
         return this.messages;

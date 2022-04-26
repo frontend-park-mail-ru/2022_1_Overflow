@@ -12,16 +12,16 @@ export class SendMessagePresenter {
     private headerModel: HeaderModel;
     private sendMessageModel: SendMessageModel;
     private sendMessageView: SendMessage<Element>;
-    private data: { avatar: any, login: string, theme: string, date: any, id: number, text: string } | null;
+    private data: { avatar: any, login: string, theme: string, date: any, id: number, text: string };
     private flag: string;
 
     constructor(parent: Element) {
         this.parent = parent;
         this.flag = 'default';
-        this.data = null;
+        this.data = { avatar: '', login: '', theme: '', date: '', text: '', id: -1 };
     }
 
-    set context(data: { avatar: any, login: string, theme: string, date: any, text: string, id: number, flag: string } | null) {
+    set context(data: { avatar: any, login: string, theme: string, date: any, text: string, id: number, flag: string }) {
         if (data !== null) {
             this.data = {avatar: data.avatar, login: data.login, theme: data.theme, date: data.date, id: data.id, text: data.text};
             this.flag = data.flag;
@@ -45,7 +45,13 @@ export class SendMessagePresenter {
             return
 
         this.sendMessageModel = new SendMessageModel();
+        await this.sendMessageModel.fetchGetProfile();
         this.sendMessageView = new SendMessage(main, this.data);
+        if (this.flag === 'default') {
+            if (this.data !== null) {
+                this.sendMessageModel.cleanDefault(this.data);
+            }
+        }
         if (this.flag === 'reSend') {
             if (this.data !== null) {
                 this.sendMessageModel.cleanRe(this.data);

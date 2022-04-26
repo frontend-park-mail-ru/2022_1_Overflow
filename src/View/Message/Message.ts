@@ -18,7 +18,8 @@ export class Message<T extends Element> {
             files: string,
             time: any,
             read: boolean,
-            avatar: string
+            avatar: string,
+            timeReal: string,
         }[];
     private readonly type: any;
 
@@ -40,7 +41,7 @@ export class Message<T extends Element> {
                     id: list.id,
                     login: list.sender,
                     theme: list.title,
-                    date: list.time,
+                    date: list.timeReal,
                     text: list.subTitle,
                 });
             });
@@ -83,9 +84,14 @@ export class Message<T extends Element> {
 
             }
 
-            const senderText = new Text({
+            const senderText = (item.read) ? new Text({
                 text: item.sender,
                 size: 'L',
+            }) :
+            new Text({
+                text: item.sender,
+                size: 'L',
+                className: 'bold',
             });
 
             const titleText = (item.read) ? new Text({

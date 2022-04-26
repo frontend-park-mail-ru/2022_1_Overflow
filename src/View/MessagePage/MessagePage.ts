@@ -52,12 +52,10 @@ export class MessagePage<T extends Element> {
             className: 'bolt',
         });
 
-        const dat = new Date(this.data.date);
-
         const time = new Text({
             color: 'Black',
             size: 'L',
-            text: (('0' + dat.getDate()).slice(-2) + ':' + ('0' + (dat.getMonth() + 1)).slice(-2)),
+            text: this.data.date,
             id: 'date',
             className: 'timeIncome',
         });
@@ -72,7 +70,7 @@ export class MessagePage<T extends Element> {
 
         const template = messageSoloHbs({
             theme: theme.render(),
-            avatar: `http://${window.location.hostname}:8080/${this.data.avatar}`,
+            avatar: this.data.avatar,
             login: login.render(),
             time: time.render(),
             text: text.render(),

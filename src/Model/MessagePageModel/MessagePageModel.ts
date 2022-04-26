@@ -6,6 +6,18 @@ export class MessagePageModel {
         this.id = id;
     }
 
+    setTime(time: string) {
+        const today = new Date();
+        const date = new Date(time);
+        if (date.getDate() === today.getDate() &&
+            date.getMonth() === today.getMonth() &&
+            date.getFullYear() === today.getFullYear()) {
+            return `Сегодня в ${('0' + date.getUTCHours()).slice(-2) + ':' + ('0' + (date.getUTCMinutes() + 1)).slice(-2)}`;
+        } else {
+            return `${('0' + date.getDate()).slice(-2) + '.' + ('0' + (date.getMonth() + 1)).slice(-2)} в ${('0' + date.getUTCHours()).slice(-2) + ':' + ('0' + (date.getUTCMinutes() + 1)).slice(-2)}`;
+        }
+    }
+
     async getMessage() {
         const response = await fetch(`http://${window.location.hostname}:8080/mail/read`, {
             mode: 'cors',

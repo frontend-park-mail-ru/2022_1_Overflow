@@ -38,6 +38,7 @@ export class MessagePagePresenter {
 
         this.messagePageModel = new MessagePageModel(this.data.id);
         await this.messagePageModel.getMessage();
+        this.data.date = this.messagePageModel.setTime(this.data.date);
         this.messagePageView = new MessagePage(main, this.data);
         this.messagePageView.render();
         this.messagePageView.forward();

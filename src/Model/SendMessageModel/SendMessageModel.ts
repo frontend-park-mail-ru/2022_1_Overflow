@@ -3,12 +3,20 @@ import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 
 export class SendMessageModel {
     private text: { addressee: string, files: string, text: string, theme: string };
+    private infoProfile: { lastName: string, firstName: string, login: string };
 
     constructor() {
-        this.text = {addressee: '', files: '', text: '', theme: ''};
+        this.text = { addressee: '', files: '', text: '', theme: '' };
+        this.infoProfile = { lastName: '', firstName: '', login: '' };
+    }
+
+    cleanDefault = (data: { avatar: any, login: string, theme: string, date: any, text: string }) => {
+        console.log(this.infoProfile.lastName, this.infoProfile.firstName);
+        data.text = `\n\n\nС уважением ${this.infoProfile.lastName} ${this.infoProfile.firstName}`;
     }
 
     cleanLogin = (data: { avatar: any, login: string, theme: string, date: any, text: string }) => {
+        data.text = `Переслано от ${data.login}:\n${data.text}`;
         data.login = '';
     }
 
@@ -16,6 +24,7 @@ export class SendMessageModel {
         if (data === null) {
             return;
         }
+        console.log(data.date);
         let i: number;
         let splitText: string[];
         const r = /Re\(\d+\)/g;
@@ -25,7 +34,6 @@ export class SendMessageModel {
             data.theme = `Re(${i}): ${data.theme}`;
         } else {
             i = Number(data.theme.match(r)![0].match(r_dec)![0]) + 1;
-            console.log(i);
             data.theme = data.theme.replace(r, `Re(${i})`);
         }
 
@@ -34,9 +42,12 @@ export class SendMessageModel {
             splitText[idx] = '>>' + text;
         });
 
-        data.text = `\n\n\n` + splitText.reduce((text, cur) => {
+        data.text = `\n\n\nС уважением ${this.infoProfile.lastName} ${this.infoProfile.firstName}\n\n>>В ответ ${data.login} на:\n${splitText.reduce((text, cur, idx) => {
+            if (idx === splitText.length - 1) {
+                return text + `${cur}`;
+            }
             return text + `${cur}\n`;
-        }, '');
+        }, '')}`
     }
 
     checkInput = async (text: { addressee: string, files: string, text: string, theme: string }) => {
@@ -73,6 +84,31 @@ export class SendMessageModel {
                 if (body['status'] === 11) {
                     eventEmitter.emit('error', null);
                 }
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    fetchGetProfile = async () => {
+        try {
+            const res = await fetch(`http://${window.location.hostname}:8080/profile`, {
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include'
+            });
+            if (res.ok) {
+                const json = await res.json();
+                console.log(json['Username'], json['LastName'], json['FirstName']);
+                this.infoProfile.login = json['Username'];
+                this.infoProfile.lastName = json['LastName'];
+                this.infoProfile.firstName = json['FirstName'];
+            }
+
+            if (!res.ok) {
+                eventEmitter.goToSignIn();
             }
         } catch (e) {
             console.log(e);
