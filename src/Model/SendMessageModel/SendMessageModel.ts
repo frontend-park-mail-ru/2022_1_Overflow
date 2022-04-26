@@ -100,7 +100,6 @@ export class SendMessageModel {
             });
             if (res.ok) {
                 const json = await res.json();
-                console.log(json['Username'], json['LastName'], json['FirstName']);
                 this.infoProfile.login = json['Username'];
                 this.infoProfile.lastName = json['LastName'];
                 this.infoProfile.firstName = json['FirstName'];

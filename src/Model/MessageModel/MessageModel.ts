@@ -17,6 +17,9 @@ export class MessageModel {
 
     outputData() {
         this.messages = [];
+        if (this.json === null) {
+            return null;
+        }
         this.json = this.json.sort((a: any, b: any) => {
             return a['mail']['date'] < b['mail']['date'] ? 1 : -1;
         });

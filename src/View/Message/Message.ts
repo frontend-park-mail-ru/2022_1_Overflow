@@ -87,11 +87,12 @@ export class Message<T extends Element> {
             const senderText = (item.read) ? new Text({
                 text: item.sender,
                 size: 'L',
+                className: 'widthName',
             }) :
             new Text({
                 text: item.sender,
                 size: 'L',
-                className: 'bold',
+                className: 'bold widthName',
             });
 
             const titleText = (item.read) ? new Text({

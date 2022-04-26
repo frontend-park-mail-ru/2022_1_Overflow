@@ -20,12 +20,18 @@
         border-radius: 50%;
     }
 
+    .widthName{
+        width: 100px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
     .bold{
         font-weight: bold;
     }
 
     .messageTextText{
-        width: 200px;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
