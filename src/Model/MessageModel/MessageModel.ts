@@ -1,6 +1,3 @@
-import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
-
-
 export class MessageModel {
     private messages:
         {

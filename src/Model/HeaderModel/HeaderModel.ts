@@ -63,12 +63,14 @@ export class HeaderModel {
             },
             credentials: 'include'
         });
+
         await fetch(`http://${window.location.hostname}:8080/logout`, {
             mode: 'cors',
             method: 'POST',
+            // @ts-ignore
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-token': response.headers.get('x-csrf-token')!,
+                'X-CSRF-token': response.headers.get('x-csrf-token'),
             },
             credentials: 'include'
         });

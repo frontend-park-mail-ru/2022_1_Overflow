@@ -9,6 +9,7 @@ import lockSvg from "../image/lock.svg";
 import profileSvg from "../image/profile.svg";
 import './ProfileItem/ProfileItem.scss'
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
+import {Text} from "../../ui-kit/Text/Text";
 
 const itemsMenu = [
     {
@@ -121,11 +122,17 @@ export class Profile<T extends Element> {
     render() {
         let items: any = [];
         itemsMenu.forEach((item, idx) => {
+            const text = new Text({
+                color: 'Black',
+                text: item.textText,
+                size: 'L',
+                className: 'menuText1'
+            });
             if (idx === 0) {
                 items.push(profileItemsHbs(
                     {
                         svg: item.iconName,
-                        text: item.textText,
+                        text: text.render(),
                         id: item.id,
                         empty: true,
                     }));
@@ -133,7 +140,7 @@ export class Profile<T extends Element> {
                 items.push(profileItemsHbs(
                     {
                         svg: item.iconName,
-                        text: item.textText,
+                        text: text.render(),
                         id: item.id,
                         empty: false,
                     }));

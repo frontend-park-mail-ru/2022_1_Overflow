@@ -6,6 +6,7 @@ import * as menuItem from './MenuItem/MenuItem.hbs';
 import './MenuItem/MenuItem.scss';
 import * as mainHBS from './Menu.hbs';
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
+import {Text} from "../../ui-kit/Text/Text";
 
 const itemsMenu = [
     {
@@ -36,10 +37,16 @@ export class Menu<T extends Element> {
         const items: string[] = [];
 
         itemsMenu.forEach((item) => {
+            const text = new Text({
+                color: 'Black',
+                text: item.textText,
+                size: 'L',
+                className: 'menuText1'
+            });
             items.push(menuItem({
                 icon: item.iconName,
                 id: item.id,
-                text: item.textText,
+                text: text.render(),
             }));
         });
 

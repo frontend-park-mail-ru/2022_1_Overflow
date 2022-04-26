@@ -39,7 +39,7 @@ export class MessagePage<T extends Element> {
         const login = new Text({
             color: 'Black',
             size: 'L',
-            text: this.data.login,
+            text: `От: ${this.data.login}`,
             id: 'login',
             className: 'loginIncome',
         });
@@ -47,7 +47,7 @@ export class MessagePage<T extends Element> {
         const theme = new Text({
             color: 'Black',
             size: 'XL',
-            text: this.data.theme,
+            text: `Тема: ${this.data.theme}`,
             id: 'theme',
             className: 'bolt',
         });

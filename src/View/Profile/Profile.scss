@@ -36,6 +36,7 @@
 
 
 .avatarProfile{
+    object-fit: cover;
     margin-top: 20px;
     border-radius: 50%;
     top: 0;
@@ -90,5 +91,9 @@
 }
 
 .marginForm{
-    margin: 10px;
+    margin: 10px 10px 10px 10px;
+}
+
+.marginError{
+    width: 390px;
 }

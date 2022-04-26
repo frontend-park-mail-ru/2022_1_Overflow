@@ -47,6 +47,8 @@ export class SendMessagePresenter {
         this.sendMessageModel = new SendMessageModel();
         await this.sendMessageModel.fetchGetProfile();
         this.sendMessageView = new SendMessage(main, this.data);
+        eventEmitter.on('error', this.sendMessageView.setError);
+        eventEmitter.on('setAvatar', this.sendMessageView.setAvatar);
         if (this.flag === 'default') {
             if (this.data !== null) {
                 this.sendMessageModel.cleanDefault(this.data);
@@ -63,8 +65,6 @@ export class SendMessagePresenter {
             }
         }
         this.sendMessageView.render();
-        eventEmitter.on('error', this.sendMessageView.setError);
-        eventEmitter.on('setAvatar', this.sendMessageView.setAvatar);
         this.sendMessageView.send(this.sendMessageModel.checkInput);
         this.sendMessageView.eventsLoginChange(this.sendMessageModel.fetchGetUserAvatar)
     };
