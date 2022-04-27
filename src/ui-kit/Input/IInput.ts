@@ -5,4 +5,5 @@ export interface IInput {
     text: string,
     id: string,
     className?: string,
+    classNameDiv?: string,
 }

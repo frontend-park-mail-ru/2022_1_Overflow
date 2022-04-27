@@ -1,5 +1,5 @@
 import './SignIn.scss';
-import logoSvg from '../image/Logo.svg';
+import logoSvg from '../image/logoAndTitle.svg';
 import {Button} from "../../ui-kit/Button/Button";
 import {Input} from "../../ui-kit/Input/Input";
 import * as signInMain from './SignIn.hbs';
@@ -12,26 +12,24 @@ export class SignIn<T extends Element> {
         this.parent = parent;
     }
 
-    setError(text: string) {
-        const inputEmail = document.getElementById('inputEmail');
-        const inputPassword = document.getElementById('inputPassword');
-
-        if (inputEmail === null || inputPassword === null) {
+    setError(data: {text: string, type: string}) {
+        const input = document.getElementById(`input${data.type}`);
+        if (!input) {
             return;
         }
+        input.classList.remove('inputL');
+        input.classList.add('inputLError');
 
-        inputEmail.classList.remove('inputL');
-        inputEmail.classList.add('inputLError');
-        inputPassword.classList.remove('inputL');
-        inputPassword.classList.add('inputLError');
-
-        const error = document.querySelector('.invalidMsg') as HTMLElement;
+        const error = document.getElementById(`error${data.type}`) as HTMLDivElement;
+        if (!error) {
+            return;
+        }
         error.style.visibility = 'visible';
-        error.textContent = text;
+        error.textContent = data.text;
     }
 
     getForm() {
-        const Username: string = (document.getElementById('inputEmail') as HTMLInputElement).value;
+        const Username: string = (document.getElementById('inputLogin') as HTMLInputElement).value;
         const password : string = (document.getElementById('inputPassword') as HTMLInputElement).value;
         return {Username: Username, password: password};
     }
@@ -50,7 +48,7 @@ export class SignIn<T extends Element> {
     render() {
         const loginInput = new Input({
             text: 'Логин',
-            id: 'inputEmail',
+            id: 'inputLogin',
             type: 'text'
         });
 
@@ -85,13 +83,17 @@ export class SignIn<T extends Element> {
         this.parent.insertAdjacentHTML('beforeend', signIn);
 
         const goRegistration = document.getElementById('registration');
-
-        if (goRegistration === null) {
+        if (!goRegistration) {
             return;
         }
 
         goRegistration.addEventListener('click', () => {
-            eventEmitter.goToSignUp();
+            const Username: string = (document.getElementById('inputLogin') as HTMLInputElement).value;
+            if (Username) {
+                eventEmitter.goToSignUp(Username);
+            } else {
+                eventEmitter.goToSignUp();
+            }
         });
     }
 }

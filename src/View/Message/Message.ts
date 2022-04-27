@@ -29,6 +29,19 @@ export class Message<T extends Element> {
         this.type = type;
     }
 
+    eventRightClickMessage() {
+        this.messages.forEach((list) => {
+            const getElem = document.getElementById(list.id.toString());
+            if (getElem === null) {
+                return;
+            }
+            getElem.addEventListener('contextmenu', (event) => {
+                event.preventDefault();
+                console.log(event.clientX, event.clientY);
+            });
+        });
+    }
+
     goToMessagePage() {
         this.messages.forEach((list) => {
             const getElem = document.getElementById(list.id.toString());
@@ -45,7 +58,7 @@ export class Message<T extends Element> {
                     text: list.subTitle,
                 });
             });
-        })
+        });
     }
 
     render() {

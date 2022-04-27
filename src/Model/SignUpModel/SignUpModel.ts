@@ -13,41 +13,39 @@ export class SignUpModel {
     checkInput = async(text: {firstName: string, lastName: string, Username: string, password: string, passwordConfirmation: string}) => {
         const errFirstName = LengthCheckPasswordAndName(text.firstName, 'имени');
         if (errFirstName !== '') {
-            eventEmitter.emit('error', errFirstName);
-            return;
+            eventEmitter.emit('error', {text: errFirstName, type: 'FirstName'});
         }
 
         const errLastName = LengthCheckPasswordAndName(text.lastName, 'фамилии');
         if (errLastName !== '') {
-            eventEmitter.emit('error', errLastName);
-            return;
+            eventEmitter.emit('error', {text: errLastName, type: 'LastName'});
         }
 
         const errUsername = LengthCheckUsername(text.Username, 'логина');
         if (errUsername !== '') {
-            eventEmitter.emit('error', errUsername);
-            return;
+            eventEmitter.emit('error', {text: errUsername, type: 'Login'});
         }
 
         const errPassword = LengthCheckPasswordAndName(text.password, 'пароля');
         if (errPassword !== '') {
-            eventEmitter.emit('error', errPassword);
-            return;
+            eventEmitter.emit('error', {text: errPassword, type: 'Password'});
         }
 
         const errPasswordConfirmation = LengthCheckPasswordAndName(text.passwordConfirmation, 'повтора пароля');
-        console.log(errPasswordConfirmation);
         if (errPasswordConfirmation !== '') {
-            eventEmitter.emit('error', errPasswordConfirmation);
-            return;
+            eventEmitter.emit('error', {text: errPasswordConfirmation, type: 'PasswordRepeat'});
         }
 
         if (text.password !== text.passwordConfirmation) {
-            eventEmitter.emit('error', 'Поля пароля и повтора пароля не совпадают');
+            eventEmitter.emit('error', {text: '', type: 'Password'});
+            eventEmitter.emit('error', {text: 'Поля пароля и повтора пароля не совпадают', type: 'PasswordRepeat'});
             return;
         }
 
-        await this.fetchSignUp(text);
+        if (errFirstName === '' && errLastName === '' && errUsername === '' &&
+            errPassword === '' && errPasswordConfirmation === '') {
+            await this.fetchSignUp(text);
+        }
     }
 
     fetchSignUp = async (text: {firstName: string, lastName: string, Username: string, password: string, passwordConfirmation: string}) => {
@@ -81,7 +79,7 @@ export class SignUpModel {
                 return;
             }
             const json = await res.json();
-            eventEmitter.emit('error', checkStatus(json['status'], text.Username));
+            eventEmitter.emit('error', { text: checkStatus(json['status'], text.Username), type: 'Login'});
         } catch (e) {
             console.log(e);
         }

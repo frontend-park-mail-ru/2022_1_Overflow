@@ -1,5 +1,5 @@
 import './SignUp.scss';
-import logoSvg from '../image/LogoSigin.svg';
+import logoSvg from '../image/logoAndTitle.svg';
 import {Button} from "../../ui-kit/Button/Button";
 import {Input} from "../../ui-kit/Input/Input";
 import * as signUpMain from './SignUp.hbs'
@@ -7,35 +7,27 @@ import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 
 export class SignUp<T extends Element> {
     private readonly parent: T;
+    private readonly login: string;
 
-    constructor(parent: T) {
+    constructor(parent: T, login: string) {
         this.parent = parent;
+        this.login = login;
     }
 
-    setError(text: string) {
-        const inputFirstName = document.getElementById('inputFirstName');
-        const inputLastName = document.getElementById('inputLastName');
-        const inputEmail = document.getElementById('inputEmail');
-        const inputPassword = document.getElementById('inputPassword');
-        const inputPasswordRepeat = document.getElementById('inputPasswordRepeat');
-        if (inputFirstName === null || inputLastName === null || inputEmail === null
-            || inputPassword === null || inputPasswordRepeat === null) {
+    setError(data: {text: string, type: string}) {
+        const input = document.getElementById(`input${data.type}`);
+        if (!input) {
             return;
         }
-        inputFirstName.classList.remove('inputL');
-        inputFirstName.classList.add('inputLError');
-        inputLastName.classList.remove('inputL');
-        inputLastName.classList.add('inputLError');
-        inputEmail.classList.remove('inputL');
-        inputEmail.classList.add('inputLError');
-        inputPassword.classList.remove('inputL');
-        inputPassword.classList.add('inputLError');
-        inputPasswordRepeat.classList.remove('inputL');
-        inputPasswordRepeat.classList.add('inputLError');
+        input.classList.remove('inputL');
+        input.classList.add('inputLError');
 
-        const error: HTMLElement = document.querySelector('.invalidMsg') as HTMLElement
+        const error = document.getElementById(`error${data.type}`) as HTMLDivElement;
+        if (!error) {
+            return;
+        }
         error.style.visibility = 'visible';
-        error.textContent = text;
+        error.textContent = data.text;
     }
 
     submitForm(handler: any) {
@@ -52,7 +44,7 @@ export class SignUp<T extends Element> {
     getForm() {
         const firstName: string = (document.getElementById('inputFirstName') as HTMLInputElement).value;
         const lastName: string = (document.getElementById('inputLastName') as HTMLInputElement).value;
-        const email: string = (document.getElementById('inputEmail') as HTMLInputElement).value;
+        const email: string = (document.getElementById('inputLogin') as HTMLInputElement).value;
         const password: string = (document.getElementById('inputPassword') as HTMLInputElement).value;
         const passwordConfirmation: string = (document.getElementById('inputPasswordRepeat') as HTMLInputElement).value;
         return {firstName: firstName, lastName: lastName, Username: email, password: password, passwordConfirmation: passwordConfirmation};
@@ -73,8 +65,9 @@ export class SignUp<T extends Element> {
 
         const loginInput = new Input({
             text: 'Логин',
-            id: 'inputEmail',
-            type: 'text'
+            id: 'inputLogin',
+            type: 'text',
+            realText: this.login,
         });
 
         const passwordInput = new Input({

@@ -13,15 +13,15 @@ export class SignInModel {
     checkInput = async (text: {Username: string, password: string}) => {
         const errLogin = LengthCheckUsername(text.Username, 'логина');
         if (errLogin !== '') {
-            eventEmitter.emit('error', errLogin);
-            return;
+            eventEmitter.emit('error', {text: errLogin, type: 'Login'});
         }
         const errPassword = LengthCheckPasswordAndName(text.password, 'пароля');
         if (errPassword !== '') {
-            eventEmitter.emit('error', errPassword);
-            return;
+            eventEmitter.emit('error', {text: errPassword, type: 'Password'});
         }
-        await this.fetchSignIn(text);
+        if (errLogin === '' && errPassword === '') {
+            await this.fetchSignIn(text);
+        }
     }
 
     fetchSignIn = async (text: {Username: string, password: string}) => {
@@ -48,7 +48,8 @@ export class SignInModel {
                 return;
             }
             const body = await res.json();
-            eventEmitter.emit('error', checkStatus(body['status'], text.Username));
+            eventEmitter.emit('error', {text: '\n', type: 'Login'});
+            eventEmitter.emit('error', {text: checkStatus(body['status'], text.Username), type: 'Password'});
         } catch (e) {
             console.log(e);
         }

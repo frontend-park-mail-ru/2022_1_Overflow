@@ -134,3 +134,12 @@
 
     @extend %tplInputSizeError;
 }
+
+.subText{
+    margin-left: 3px;
+    font-size: 14px;
+    font-family: 'Roboto', sans-serif;
+    color: #858585;
+    margin-top: 0;
+    margin-bottom: 5px;
+}

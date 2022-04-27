@@ -46,5 +46,6 @@ export class MainPage {
         }
         this.messageView.render();
         this.messageView.goToMessagePage();
+        this.messageView.eventRightClickMessage();
     };
 }

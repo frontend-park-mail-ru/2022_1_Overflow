@@ -86,13 +86,15 @@
     flex-direction: column;
     align-items: center;
 
-    .hiddenFrom{
-        visibility: collapse;
+    .hiddenForm{
+        display: none;
     }
 }
 
 .marginForm{
-    margin: 10px 10px 10px 10px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
 }
 
 .marginError{

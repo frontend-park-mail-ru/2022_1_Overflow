@@ -53,8 +53,8 @@ class EventEmitter {
         signIn.render();
     }
 
-    goToSignUp() {
-        const signUp = new SignUpRender(this.root);
+    goToSignUp(login: string = '') {
+        const signUp = new SignUpRender(this.root, login);
         signUp.render();
     }
 

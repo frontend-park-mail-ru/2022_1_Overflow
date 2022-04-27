@@ -24,7 +24,7 @@ export const LengthCheckPasswordAndName = (text: string | null, type: string) =>
     }
 
     if (text.length > 45) {
-        return `Поле ${type} не должно быть более 45 символов и содержать только строчные и заглавные латинские буквы, либо цифры`;
+        return `Поле ${type} не должно быть более 45 символов`;
     }
     return '';
 };

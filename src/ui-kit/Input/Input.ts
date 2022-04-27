@@ -13,6 +13,7 @@ export class Input {
             text,
             id,
             className = '',
+            classNameDiv = '',
         }: IInput) {
         this.props = {
             type,
@@ -20,7 +21,8 @@ export class Input {
             text,
             realText,
             id,
-            className
+            className,
+            classNameDiv
         };
     }
 

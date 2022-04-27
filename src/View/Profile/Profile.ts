@@ -152,7 +152,7 @@ export class Profile<T extends Element> {
             id: 'file',
             size: 'XL',
             type: 'file',
-            className: 'marginForm hiddenFrom',
+            classNameDiv: 'marginForm hiddenForm',
         });
 
         const inputProfileName = new Input({
@@ -161,7 +161,7 @@ export class Profile<T extends Element> {
             size: 'XL',
             id: 'name',
             type: 'text',
-            className: 'marginForm',
+            classNameDiv: 'marginForm',
         });
 
         const inputProfileLastName = new Input({
@@ -170,7 +170,7 @@ export class Profile<T extends Element> {
             id: 'lastName',
             size: 'XL',
             type: 'text',
-            className: 'marginForm',
+            classNameDiv: 'marginForm',
         });
 
         const primBtn = new Button({

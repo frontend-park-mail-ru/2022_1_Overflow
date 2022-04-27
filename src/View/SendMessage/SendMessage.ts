@@ -55,9 +55,11 @@ export class SendMessage<T extends Element> {
             const inputLoginText: string = (document.getElementById('inputLogin') as HTMLInputElement).value;
             const themeInputText: string = (document.getElementById('themeInput') as HTMLInputElement).value;
             const textareaMainText: string = (document.getElementById('textareaMain') as HTMLTextAreaElement).value;
+            console.log(inputLoginText, themeInputText, textareaMainText);
             if (!inputLoginText || !themeInputText || !textareaMainText) {
-                return
+                return;
             }
+            console.log(inputLoginText, themeInputText, textareaMainText);
             await handler({
                 addressee: inputLoginText,
                 files: '',
@@ -78,7 +80,7 @@ export class SendMessage<T extends Element> {
             type: 'text',
             id: 'inputLogin',
             size: 'Empty',
-            text: 'Введите почту получателя',
+            text: '',
             realText: this.data !== null ? this.data.login : ''
         });
 
@@ -92,7 +94,7 @@ export class SendMessage<T extends Element> {
             type: 'text',
             id: 'themeInput',
             size: 'Empty',
-            text: 'Напишите тему письма',
+            text: '',
             realText: this.data !== null ? this.data.theme : ''
         });
 

@@ -16,6 +16,9 @@ export class MessageModel {
     private json: any;
 
     outputData() {
+        const monthNames = ["Янв", "Фев", "Мар", "Апр", "Май", "Июн",
+            "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"
+        ];
         this.messages = [];
         if (this.json === null) {
             return null;
@@ -32,7 +35,7 @@ export class MessageModel {
                 date.getFullYear() === today.getFullYear()) {
                 dateSet = ('0' + date.getUTCHours()).slice(-2) + ':' + ('0' + (date.getUTCMinutes() + 1)).slice(-2);
             } else {
-                dateSet = ('0' + date.getDate()).slice(-2) + '.' + ('0' + (date.getMonth() + 1)).slice(-2);
+                dateSet = ('0' + date.getDate()).slice(-2) + ' ' + (monthNames[date.getMonth()]);
             }
             this.messages.push({
                 id: pars['mail']['id'],

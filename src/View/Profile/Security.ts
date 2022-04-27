@@ -129,7 +129,7 @@ export class Security<T extends Element> {
             size: 'XL',
             id: 'lastPassword',
             type: 'password',
-            className: 'marginForm',
+            classNameDiv: 'marginForm',
         });
 
         const password = new Input({
@@ -137,7 +137,7 @@ export class Security<T extends Element> {
             id: 'password',
             size: 'XL',
             type: 'password',
-            className: 'marginForm',
+            classNameDiv: 'marginForm',
         });
 
         const passwordRepeat = new Input({
@@ -145,7 +145,7 @@ export class Security<T extends Element> {
             id: 'passwordRepeat',
             size: 'XL',
             type: 'password',
-            className: 'marginForm',
+            classNameDiv: 'marginForm',
         });
 
         const primBtn = new Button({

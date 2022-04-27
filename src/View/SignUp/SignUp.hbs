@@ -2,11 +2,15 @@
     <form id="formSignUp" class="showbox showboxCenter showboxSelfCenter shadow">
         <img class="mb2" src="{{logo}}" alt="LogoSigin">
         {{{firstNameInput}}}
+        <p id="errorFirstName" class="invalidMsg">Не верное имя пользователя или пароль.</p>
         {{{lastNameInput}}}
+        <p id="errorLastName" class="invalidMsg">Не верное имя пользователя или пароль.</p>
         {{{loginInput}}}
+        <p id="errorLogin" class="invalidMsg">Не верное имя пользователя или пароль.</p>
         {{{passwordInput}}}
+        <p id="errorPassword" class="invalidMsg">Не верное имя пользователя или пароль.</p>
         {{{passwordRepeatInput}}}
-        <div class="invalidMsg">Не верное имя пользователя или пароль.</div>
+        <p id="errorPasswordRepeat" class="invalidMsg">Не верное имя пользователя или пароль.</p>
         <div class="buttonGrid mt4">
             {{{primBtn}}}
             {{{secBtn}}}
