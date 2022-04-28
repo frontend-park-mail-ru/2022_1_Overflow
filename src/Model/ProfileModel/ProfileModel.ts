@@ -1,5 +1,5 @@
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
-import {LengthCheckPasswordAndName} from "../LengthCheck/LengthCheck";
+import {LengthCheckPasswordAndName, LengthCheckUsername} from "../LengthCheck/LengthCheck";
 
 
 export class ProfileModel {
@@ -16,15 +16,17 @@ export class ProfileModel {
     checkInput = async (data: { first_name: string, last_name: string, avatar: any }) => {
         const errFirstName = LengthCheckPasswordAndName(data.first_name, 'Имени');
         if (errFirstName !== '') {
-            eventEmitter.emit('error', errFirstName);
-            return;
+            eventEmitter.emit('error', {text: errFirstName, type: 'FirstName'});
         }
+
         const errLastName = LengthCheckPasswordAndName(data.last_name, 'Фамилии');
         if (errLastName !== '') {
-            eventEmitter.emit('error', errLastName);
-            return;
+            eventEmitter.emit('error', {text: errLastName, type: 'LastName'});
         }
-        await this.fetchSetAvatar(data);
+
+        if (errFirstName === '' && errLastName === '') {
+            await this.fetchSetAvatar(data);
+        }
     }
 
     fetchProfile = async () => {

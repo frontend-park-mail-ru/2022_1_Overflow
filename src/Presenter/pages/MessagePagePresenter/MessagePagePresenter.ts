@@ -28,7 +28,7 @@ export class MessagePagePresenter {
         await this.headerModel.getAvatar();
         this.headerView = new Header(this.parent, this.headerModel.outputData());
         this.headerView.render();
-        this.headerView.evenPopUpExit(this.headerModel.logout);
+        this.headerView.evenPopUp(this.headerModel.logout);
 
         this.menuView = new Menu(this.parent);
         this.menuView.render();

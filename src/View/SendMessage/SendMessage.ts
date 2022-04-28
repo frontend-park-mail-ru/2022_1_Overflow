@@ -81,7 +81,8 @@ export class SendMessage<T extends Element> {
             id: 'inputLogin',
             size: 'Empty',
             text: '',
-            realText: this.data !== null ? this.data.login : ''
+            realText: this.data !== null ? this.data.login : '',
+            classNameDiv: 'divWidth',
         });
 
         const theme = new Text({
@@ -95,7 +96,8 @@ export class SendMessage<T extends Element> {
             id: 'themeInput',
             size: 'Empty',
             text: '',
-            realText: this.data !== null ? this.data.theme : ''
+            realText: this.data !== null ? this.data.theme : '',
+            classNameDiv: 'divWidth',
         });
 
         const send = new Button({

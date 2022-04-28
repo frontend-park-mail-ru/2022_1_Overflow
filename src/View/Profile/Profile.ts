@@ -1,5 +1,6 @@
 import './Profile.scss';
-import logoSvg from '../image/Logo.svg';
+import logoSvg from '../image/logoAndTitle.svg';
+import strokeSvg from '../image/stroke.svg';
 import {Button} from "../../ui-kit/Button/Button";
 import {Input} from "../../ui-kit/Input/Input";
 import editSvg from '../image/edit.svg';
@@ -33,27 +34,25 @@ export class Profile<T extends Element> {
         this.data = data;
     }
 
-    setError(text: string) {
-        const name = document.getElementById('name');
-        const lastName = document.getElementById('lastName');
-
-        if (name === null || lastName === null) {
+    setError(data: {text: string, type: string}) {
+        const input = document.getElementById(`input${data.type}`);
+        if (!input) {
             return;
         }
+        input.classList.remove('inputXL');
+        input.classList.add('inputXLError');
 
-        name.classList.remove('inputXL');
-        name.classList.add('inputXLError');
-        lastName.classList.remove('inputXL');
-        lastName.classList.add('inputXLError');
-
-        const error = document.getElementById('error') as HTMLElement;
+        const error = document.getElementById(`error${data.type}`) as HTMLDivElement;
+        if (!error) {
+            return;
+        }
         error.style.visibility = 'visible';
-        error.textContent = text;
+        error.textContent = data.text;
     }
 
     getForm() {
-        const name: string = (document.getElementById('name') as HTMLInputElement).value;
-        const lastName: string = (document.getElementById('lastName') as HTMLInputElement).value;
+        const name: string = (document.getElementById('inputFirstName') as HTMLInputElement).value;
+        const lastName: string = (document.getElementById('inputLastName') as HTMLInputElement).value;
         const avatar: any = document.getElementById('file');
         return {first_name: name, last_name: lastName, avatar: avatar.files[0]};
     }
@@ -65,7 +64,7 @@ export class Profile<T extends Element> {
         }
 
         profile.addEventListener('click', () => {
-            eventEmitter.goToProfile()
+            eventEmitter.goToProfile();
         });
 
         const security = document.getElementById('security');
@@ -74,7 +73,7 @@ export class Profile<T extends Element> {
         }
 
         security.addEventListener('click', () => {
-            eventEmitter.goToSecurity()
+            eventEmitter.goToSecurity();
         });
     }
 
@@ -159,7 +158,7 @@ export class Profile<T extends Element> {
             realText: this.data.FirstName,
             text: 'Имя',
             size: 'XL',
-            id: 'name',
+            id: 'inputFirstName',
             type: 'text',
             classNameDiv: 'marginForm',
         });
@@ -167,7 +166,7 @@ export class Profile<T extends Element> {
         const inputProfileLastName = new Input({
             realText: this.data.LastName,
             text: 'Фамиля',
-            id: 'lastName',
+            id: 'inputLastName',
             size: 'XL',
             type: 'text',
             classNameDiv: 'marginForm',
@@ -186,6 +185,7 @@ export class Profile<T extends Element> {
             text: 'Назад',
             size: 'XL',
             id: 'prev',
+            className: 'btnMarginTop',
         });
 
         const template = profileHbs({
@@ -198,8 +198,18 @@ export class Profile<T extends Element> {
             inputProfileLastName: inputProfileLastName.render(),
             nextBtn: primBtn.render(),
             prevBtn: secBtn.render(),
+            strokeSvg: strokeSvg,
         });
 
         this.parent.insertAdjacentHTML('beforeend', template);
+
+        const stroke = document.getElementById('exit');
+        if (!stroke) {
+            return;
+        }
+
+        stroke.addEventListener('click', () => {
+            eventEmitter.goToMainPage(1);
+        });
     }
 }

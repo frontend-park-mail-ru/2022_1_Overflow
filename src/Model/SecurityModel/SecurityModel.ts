@@ -17,29 +17,26 @@ export class SecurityModel {
         console.log(data)
         const errLastPassword = LengthCheckPasswordAndName(data.last_password, 'старого пароль');
         if (errLastPassword !== '') {
-            eventEmitter.emit('error', errLastPassword);
-            return;
+            eventEmitter.emit('error', {text: errLastPassword, type: 'LastPassword'});
         }
-        console.log(data.last_password, this.data.password)
         if (data.last_password !== this.data.password) {
-            eventEmitter.emit('error', 'Старый пароль не верный');
-            return;
+            eventEmitter.emit('error', {text: 'Старый пароль не верный', type: 'LastPassword'});
         }
         const errPassword = LengthCheckPasswordAndName(data.password, 'пароля');
         if (errPassword !== '') {
-            eventEmitter.emit('error', errPassword);
-            return;
+            eventEmitter.emit('error', {text: errPassword, type: 'Password'});
         }
         const errPasswordRepeat = LengthCheckPasswordAndName(data.password_repeat, 'пароля');
         if (errPasswordRepeat !== '') {
-            eventEmitter.emit('error', errPasswordRepeat);
-            return;
+            eventEmitter.emit('error', {text: errPassword, type: 'PasswordRepeat'});
         }
         if (data.password !== data.password_repeat) {
-            eventEmitter.emit('error', 'Поля пароля и повтора пароля не совпадают');
+            eventEmitter.emit('error', {text: 'Поля пароля и повтора пароля не совпадают', type: 'PasswordRepeat'});
             return;
         }
-        await this.fetchSetPassword({password: data.password});
+        if (errLastPassword === '' && errPassword === '' && errPasswordRepeat === '') {
+            await this.fetchSetPassword({password: data.password});
+        }
     }
 
     fetchProfile = async () => {

@@ -23,21 +23,31 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
 
     width: 35%;
     height: 70%;
 }
 
 .LogoProfile {
-    width: 70px;
-    margin-bottom: 40px;
+    margin-top: 20px;
+    width: 150px;
+    margin-bottom: 20px;
 }
 
+.exitArrow {
+    cursor: pointer;
+    width: 10px;
+    align-self: flex-end;
+    padding: 15px;
+}
+
+.btnMarginTop{
+    margin-top: 10px;
+}
 
 .avatarProfile{
     object-fit: cover;
-    margin-top: 20px;
+    margin-top: 25px;
     border-radius: 50%;
     top: 0;
     left: 0;
@@ -94,9 +104,26 @@
 .marginForm{
     margin-left: 10px;
     margin-right: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 2px;
 }
 
 .marginError{
     width: 390px;
+}
+
+.invalidMsgProfile {
+    display: flex;
+    font-style: normal;
+    visibility: hidden;
+    color: #FF0000;
+    font-weight: 300;
+    align-content: center;
+    flex-direction: row;
+    text-align: start;
+    width: 320px;
+    font-size: 14px;
+    margin-top: 2px;
+    margin-bottom: 5px;
+    min-height: 14px;
+    margin-left: -75px;
 }

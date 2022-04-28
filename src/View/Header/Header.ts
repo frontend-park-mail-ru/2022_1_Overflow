@@ -3,49 +3,74 @@ import logoSvg from '../image/Logo.svg';
 import arrowSvg from '../image/arrow.svg';
 import {Text} from '../../ui-kit/Text/Text';
 import * as headerHBS from './Header.hbs';
-import {PopUp} from "../PopUp/PopUp";
+import {PopUp} from "../../ui-kit/PopUp/PopUp";
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
+import doorSvg from "../image/door.svg";
+import profileSvg from "../image/profile.svg";
 
 
 export class Header<T extends Element> {
     private readonly parent: T;
     private readonly data: any;
+    private readonly popUp;
 
     constructor(parent: T, data: any) {
         this.parent = parent;
         this.data = data;
+        this.popUp = {
+            id: 'popUp',
+            content: [
+                {
+                    icon: profileSvg,
+                    text: 'Профиль',
+                    id: 'profile',
+                },
+                {
+                    icon: doorSvg,
+                    text: 'Выход',
+                    id: 'exit',
+                },
+            ],
+            classNameDiv: 'positionPopUpExit',
+        }
     }
 
-    evenPopUpExit(handler: any) {
+    evenPopUp(handler: any) {
         const profile = document.querySelector('.profile');
         if (profile === null)
             return;
         let profileEvent: EventListenerOrEventListenerObject;
         profile.addEventListener('click', profileEvent = (event: any) => {
-            const popUp = new PopUp(this.parent);
-            popUp.render();
+            const popUpNew = new PopUp(this.popUp);
+            this.parent.insertAdjacentHTML('beforeend', popUpNew.render());
             event.stopPropagation();
             profile.removeEventListener('click', profileEvent);
             let docEvent: EventListenerOrEventListenerObject;
-            document.addEventListener('click', docEvent = (event2: MouseEvent) => {
-                const target = event2.target as HTMLDivElement;
-                if (!target)
-                    return;
-                if (target.id !== 'exit' && target.id !== 'profile') {
-                    const target = document.querySelector('.openFolder');
-                    if (target === null)
+            document.addEventListener('click', docEvent = (event2: any) => {
+                let target: HTMLElement | null = event2.target as HTMLElement;
+                while (target) {
+                    if (target?.id === 'exit') {
+                        document.removeEventListener('click', docEvent);
+                        handler();
                         return;
-                    target.remove();
-                    document.removeEventListener('click', docEvent);
-                    profile.addEventListener('click', profileEvent);
-                }
-                if (target.id === 'exit') {
-                    document.removeEventListener('click', docEvent);
-                    handler();
-                }
-                if (target.id === 'profile') {
-                    document.removeEventListener('click', docEvent);
-                    eventEmitter.goToProfile();
+                    }
+
+                    if (target?.id === 'profile') {
+                        document.removeEventListener('click', docEvent);
+                        eventEmitter.goToProfile();
+                        return;
+                    }
+
+                    target = target.parentElement;
+                    if (target === null) {
+                        const popUpFolder = document.getElementById('popUp');
+                        if (popUpFolder === null)
+                            return;
+                        popUpFolder.remove();
+                        document.removeEventListener('click', docEvent);
+                        profile.addEventListener('click', profileEvent);
+                        return;
+                    }
                 }
             });
         });

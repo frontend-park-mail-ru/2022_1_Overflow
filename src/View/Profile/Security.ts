@@ -1,5 +1,5 @@
 import './Profile.scss';
-import logoSvg from '../image/Logo.svg';
+import logoSvg from '../image/logoAndTitle.svg';
 import {Button} from "../../ui-kit/Button/Button";
 import {Input} from "../../ui-kit/Input/Input";
 import * as securityHbs from './Security.hbs';
@@ -9,6 +9,7 @@ import profileSvg from "../image/profile.svg";
 import './ProfileItem/ProfileItem.scss'
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 import {Text} from "../../ui-kit/Text/Text";
+import strokeSvg from "../image/stroke.svg";
 
 const itemsMenu = [
     {
@@ -30,31 +31,26 @@ export class Security<T extends Element> {
         this.parent = parent;
     }
 
-    setError(text: string) {
-        const lastPassword = document.getElementById('lastPassword');
-        const password = document.getElementById('password');
-        const passwordRepeat = document.getElementById('passwordRepeat');
-
-        if (lastPassword === null || password === null || passwordRepeat === null) {
+    setError(data: {text: string, type: string}) {
+        const input = document.getElementById(`input${data.type}`);
+        if (!input) {
             return;
         }
+        input.classList.remove('inputXL');
+        input.classList.add('inputXLError');
 
-        lastPassword.classList.remove('inputXL');
-        lastPassword.classList.add('inputXLError');
-        password.classList.remove('inputXL');
-        password.classList.add('inputXLError');
-        passwordRepeat.classList.remove('inputXL');
-        passwordRepeat.classList.add('inputXLError');
-
-        const error = document.getElementById('error') as HTMLElement;
+        const error = document.getElementById(`error${data.type}`) as HTMLDivElement;
+        if (!error) {
+            return;
+        }
         error.style.visibility = 'visible';
-        error.textContent = text;
+        error.textContent = data.text;
     }
 
     getForm() {
-        const lastPassword: string = (document.getElementById('lastPassword') as HTMLInputElement).value;
-        const password: string = (document.getElementById('password') as HTMLInputElement).value;
-        const passwordRepeat: any = (document.getElementById('passwordRepeat') as HTMLInputElement).value;
+        const lastPassword: string = (document.getElementById('inputLastPassword') as HTMLInputElement).value;
+        const password: string = (document.getElementById('inputPassword') as HTMLInputElement).value;
+        const passwordRepeat: any = (document.getElementById('inputPasswordRepeat') as HTMLInputElement).value;
         return {last_password: lastPassword, password: password, password_repeat: passwordRepeat};
     }
 
@@ -127,14 +123,14 @@ export class Security<T extends Element> {
         const lastPassword = new Input({
             text: 'Старый пароль',
             size: 'XL',
-            id: 'lastPassword',
+            id: 'inputLastPassword',
             type: 'password',
             classNameDiv: 'marginForm',
         });
 
         const password = new Input({
             text: 'Новый пароль',
-            id: 'password',
+            id: 'inputPassword',
             size: 'XL',
             type: 'password',
             classNameDiv: 'marginForm',
@@ -142,7 +138,7 @@ export class Security<T extends Element> {
 
         const passwordRepeat = new Input({
             text: 'Повтор нового пароль',
-            id: 'passwordRepeat',
+            id: 'inputPasswordRepeat',
             size: 'XL',
             type: 'password',
             classNameDiv: 'marginForm',
@@ -161,6 +157,7 @@ export class Security<T extends Element> {
             text: 'Назад',
             size: 'XL',
             id: 'prev',
+            className: 'btnMarginTop',
         });
 
         const template = securityHbs({
@@ -171,8 +168,18 @@ export class Security<T extends Element> {
             inputPasswordRepeat: passwordRepeat.render(),
             nextBtn: primBtn.render(),
             prevBtn: secBtn.render(),
+            strokeSvg: strokeSvg,
         });
 
         this.parent.insertAdjacentHTML('beforeend', template);
+
+        const stroke = document.getElementById('exit');
+        if (!stroke) {
+            return;
+        }
+
+        stroke.addEventListener('click', () => {
+            eventEmitter.goToMainPage(1);
+        });
     }
 }

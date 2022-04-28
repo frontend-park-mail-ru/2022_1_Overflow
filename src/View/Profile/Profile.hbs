@@ -5,6 +5,7 @@
         {{/each}}
     </div>
     <div class="blockProfileMain showboxRight">
+        <img id="exit" src="{{strokeSvg}}" class="exitArrow">
         <img src="{{logo}}" class="LogoProfile">
         <div class="profileSet" id="img">
             <img id="profileSvg" src="{{profileSvg}}" class="avatarProfile">
@@ -13,8 +14,9 @@
         <form class="displayForm" id="form">
             {{{inputFile}}}
             {{{inputProfileName}}}
+            <p id="errorFirstName" class="invalidMsgProfile">Не верное имя пользователя или пароль</p>
             {{{inputProfileLastName}}}
-            <div id="error" class="invalidMsg marginForm marginError">Не верное имя пользователя или пароль</div>
+            <p id="errorLastName" class="invalidMsgProfile">Не верное имя пользователя или пароль</p>
             {{{nextBtn}}}
         </form>
         {{{prevBtn}}}
