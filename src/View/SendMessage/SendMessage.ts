@@ -1,12 +1,12 @@
 import './SendMessage.scss';
 import './SendMessageError.scss'
 import * as sendMessageHbs from './SendMessage.hbs';
-import * as sendMessageErrorHbs from './SendMessageError.hbs'
 import avatar from '../image/dummy.svg';
 import {Text} from '../../ui-kit/Text/Text'
 import {Input} from '../../ui-kit/Input/Input'
 import {Button} from "../../ui-kit/Button/Button";
-import {PopUpSendMessageError} from "../PopUpSendMessageError/PopUpSendMessageError";
+import {PopUpError} from "../../ui-kit/PopUpError/PopUpError";
+import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 
 export class SendMessage<T extends Element> {
     private readonly parent: T;
@@ -17,33 +17,138 @@ export class SendMessage<T extends Element> {
         this.data = data;
     }
 
-    setError() {
+    setErrorTheme = (obj: {text: string, handler: any}) => {
         const root = document.getElementsByTagName('body')[0];
         if (!root) {
             return;
         }
 
-        const popUpError = new PopUpSendMessageError(root);
-        popUpError.render();
-        popUpError.emitClose();
+        const primBtn = new Button({
+            size: 'S',
+            id: 'primBtn',
+            text: 'Отправить',
+            type: 'button',
+        });
+
+        const secBtn = new Button({
+            size: 'S',
+            variant: 'Secondary',
+            id: 'secBtn',
+            text: 'Закрыть',
+            type: 'button',
+        });
+
+        const popUpError = new PopUpError({
+            secBtn: secBtn.render(),
+            primBtn: primBtn.render(),
+            text: obj.text,
+            id: 'popUpError',
+        });
+        root.insertAdjacentHTML('beforeend', popUpError.render());
+
+        const btnClose = document.getElementById('secBtn');
+        if (!btnClose) {
+            return;
+        }
+
+        btnClose.addEventListener('click', () => {
+            const popUp = document.getElementById('popUpError');
+            if (!popUp) {
+                return;
+            }
+            popUp.remove();
+        });
+
+        const btnSend = document.getElementById('primBtn');
+        if (!btnSend) {
+            return;
+        }
+
+        btnSend.addEventListener('click', async () => {
+            console.log(1);
+            const popUp = document.getElementById('popUpError');
+            if (!popUp) {
+                return;
+            }
+            let form = this.getForm();
+            if (!form) {
+                return;
+            }
+            form.theme = 'Без темы';
+            await obj.handler(form);
+        });
     }
 
-    eventsLoginChange(handler: any) {
+    setError = (text: string) => {
+        const root = document.getElementsByTagName('body')[0];
+        if (!root) {
+            return;
+        }
+
+        const secBtn = new Button({
+            size: 'S',
+            variant: 'Secondary',
+            id: 'secBtn',
+            text: 'Закрыть',
+            type: 'button',
+        });
+
+        const popUpError = new PopUpError({
+            secBtn: secBtn.render(),
+            text: text,
+            id: 'popUpError',
+        });
+        root.insertAdjacentHTML('beforeend', popUpError.render());
+
+        const btnClose = document.getElementById('secBtn');
+        if (!btnClose) {
+            return;
+        }
+
+        btnClose.addEventListener('click', () => {
+            const popUp = document.getElementById('popUpError');
+            if (!popUp) {
+                return;
+            }
+            popUp.remove();
+        });
+    }
+
+    eventsLoginChange = (handler: (value: string) => void) => {
         const inputLogin = document.getElementById('inputLogin') as HTMLInputElement;
         if (!inputLogin) {
             return;
         }
+
         inputLogin.addEventListener('blur', () => {
-            handler(inputLogin.value);
+            if (inputLogin.value !== '') {
+                handler(inputLogin.value);
+            }
         })
     }
 
-    setAvatar(path: string) {
+    setAvatar = (path: string) => {
         const avatar = document.getElementById('sendAvatar') as HTMLImageElement;
         if (!avatar) {
             return;
         }
         avatar.src = `http://${window.location.hostname}:8080/${path}`
+    }
+
+    getForm = () => {
+        const inputLoginText = document.getElementById('inputLogin') as HTMLInputElement;
+        const themeInputText = document.getElementById('themeInput') as HTMLInputElement;
+        const textareaMainText = document.getElementById('textareaMain') as HTMLInputElement;
+        if (!inputLoginText || !themeInputText || !textareaMainText) {
+            return;
+        }
+
+        return {
+            addressee: inputLoginText.value,
+            files: '',
+            text: textareaMainText.value,
+            theme: themeInputText.value,
+        };
     }
 
     send(handler: any) {
@@ -52,20 +157,7 @@ export class SendMessage<T extends Element> {
             return;
         }
         sendMessage.addEventListener('click', async () => {
-            const inputLoginText: string = (document.getElementById('inputLogin') as HTMLInputElement).value;
-            const themeInputText: string = (document.getElementById('themeInput') as HTMLInputElement).value;
-            const textareaMainText: string = (document.getElementById('textareaMain') as HTMLTextAreaElement).value;
-            console.log(inputLoginText, themeInputText, textareaMainText);
-            if (!inputLoginText || !themeInputText || !textareaMainText) {
-                return;
-            }
-            console.log(inputLoginText, themeInputText, textareaMainText);
-            await handler({
-                addressee: inputLoginText,
-                files: '',
-                text: textareaMainText,
-                theme: themeInputText,
-            });
+            await handler(this.getForm());
         });
     }
 

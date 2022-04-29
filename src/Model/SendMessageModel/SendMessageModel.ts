@@ -11,7 +11,6 @@ export class SendMessageModel {
     }
 
     cleanDefault = (data: { avatar: any, login: string, theme: string, date: any, text: string }) => {
-        console.log(this.infoProfile.lastName, this.infoProfile.firstName);
         data.text = `\n\n\nС уважением ${this.infoProfile.lastName} ${this.infoProfile.firstName}`;
     }
 
@@ -41,7 +40,9 @@ export class SendMessageModel {
             splitText[idx] = '>>' + text;
         });
 
-        data.text = `\n\n\nС уважением ${this.infoProfile.lastName} ${this.infoProfile.firstName}\n\n>>В ответ ${data.login} на:\n${splitText.reduce((text, cur, idx) => {
+        data.text = `\n\n\nС уважением ${this.infoProfile.lastName} ${this.infoProfile.firstName}\n\n
+        >>В ответ ${data.login} на:\n
+        ${splitText.reduce((text, cur, idx) => {
             if (idx === splitText.length - 1) {
                 return text + `${cur}`;
             }
@@ -50,6 +51,18 @@ export class SendMessageModel {
     }
 
     checkInput = async (text: { addressee: string, files: string, text: string, theme: string }) => {
+        if (text.addressee === '') {
+            eventEmitter.emit('error', 'Укажите кому вы хотите отправить сообщение');
+            return;
+        }
+        if (text.text === '') {
+            eventEmitter.emit('error', 'Сообщение не может быть пустым');
+            return;
+        }
+        if (text.theme === '') {
+            eventEmitter.emit('errorTheme', {text: 'Хотите отправить сообщение без темы?', handler: this.fetchSend});
+            return;
+        }
         await this.fetchSend(text);
     }
 
@@ -81,7 +94,7 @@ export class SendMessageModel {
             if (!res.ok) {
                 const body = await res.json();
                 if (body['status'] === 11) {
-                    eventEmitter.emit('error', null);
+                    eventEmitter.emit('error', 'Вы пытаетесь отправить сообщение несуществующему пользователю');
                 }
             }
         } catch (e) {

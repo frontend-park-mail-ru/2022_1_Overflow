@@ -14,7 +14,6 @@ export class SecurityModel {
     }
 
     checkInput = async (data: {last_password: string, password: string, password_repeat: string}) => {
-        console.log(data)
         const errLastPassword = LengthCheckPasswordAndName(data.last_password, 'старого пароль');
         if (errLastPassword !== '') {
             eventEmitter.emit('error', {text: errLastPassword, type: 'LastPassword'});

@@ -47,27 +47,34 @@ export class SendMessagePresenter {
         this.sendMessageModel = new SendMessageModel();
         await this.sendMessageModel.fetchGetProfile();
         this.sendMessageView = new SendMessage(main, this.data);
+
         eventEmitter.on('error', this.sendMessageView.setError);
+        eventEmitter.on('errorTheme', this.sendMessageView.setErrorTheme);
         eventEmitter.on('setAvatar', this.sendMessageView.setAvatar);
+
         if (this.flag === 'default') {
             if (this.data !== null) {
                 this.sendMessageModel.cleanDefault(this.data);
             }
         }
+
         if (this.flag === 'reSend') {
             if (this.data !== null) {
                 this.sendMessageModel.cleanRe(this.data);
             }
         }
+
         if (this.flag === 'forward') {
             if (this.data !== null) {
                 this.sendMessageModel.cleanLogin(this.data);
             }
         }
         this.sendMessageView.render();
+
         if (this.flag === 'reSend') {
             await this.sendMessageModel.fetchGetUserAvatar(this.data.login);
         }
+
         this.sendMessageView.send(this.sendMessageModel.checkInput);
         this.sendMessageView.eventsLoginChange(this.sendMessageModel.fetchGetUserAvatar)
     };
