@@ -40,9 +40,7 @@ export class SendMessageModel {
             splitText[idx] = '>>' + text;
         });
 
-        data.text = `\n\n\nС уважением ${this.infoProfile.lastName} ${this.infoProfile.firstName}\n\n
-        >>В ответ ${data.login} на:\n
-        ${splitText.reduce((text, cur, idx) => {
+        data.text = `\n\n\nС уважением ${this.infoProfile.lastName} ${this.infoProfile.firstName}\n\n>>В ответ ${data.login} на:\n${splitText.reduce((text, cur, idx) => {
             if (idx === splitText.length - 1) {
                 return text + `${cur}`;
             }
