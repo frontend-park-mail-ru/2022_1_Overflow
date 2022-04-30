@@ -1,4 +1,6 @@
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
+import { frontUrls } from "../../Services/router/fronturls";
+import { router } from "../../Services/router/router";
 
 
 export class SendMessageModel {
@@ -63,7 +65,7 @@ export class SendMessageModel {
                 body: JSON.stringify(text),
             });
             if (res.ok) {
-                eventEmitter.goToMainPage(1);
+                router.redirect(frontUrls.main)
                 return;
             }
             const body = await res.json();

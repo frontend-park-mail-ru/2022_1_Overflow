@@ -1,4 +1,6 @@
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
+import { frontUrls } from "../../Services/router/fronturls";
+import { router } from "../../Services/router/router";
 
 
 export class HeaderModel {
@@ -28,10 +30,10 @@ export class HeaderModel {
                 this.name = json['Username'];
                 return;
             }
-            eventEmitter.goToSignIn();
+            router.redirect(frontUrls.login);
         } catch (e) {
             console.log(e);
-            eventEmitter.goToSignIn();
+            router.redirect(frontUrls.login);
         }
     }
 
@@ -50,7 +52,7 @@ export class HeaderModel {
             }
         } catch (e) {
             console.log(e);
-            eventEmitter.goToSignIn();
+            router.redirect(frontUrls.login);
         }
     }
 
@@ -71,7 +73,7 @@ export class HeaderModel {
             },
             credentials: 'include'
         });
-        eventEmitter.goToSignIn();
+        router.redirect(frontUrls.login);
     }
 
 }

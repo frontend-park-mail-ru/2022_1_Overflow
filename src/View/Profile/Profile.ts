@@ -9,6 +9,8 @@ import lockSvg from "../image/lock.svg";
 import profileSvg from "../image/profile.svg";
 import './ProfileItem/ProfileItem.css'
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
+import { router } from '../../Services/router/router';
+import { frontUrls } from '../../Services/router/fronturls';
 
 const itemsMenu = [
     {
@@ -62,7 +64,7 @@ export class Profile<T extends Element> {
         }
 
         profile.addEventListener('click', () => {
-            eventEmitter.goToProfile()
+            router.redirect(frontUrls.userProfile)
         });
 
         const security = document.getElementById('security');
@@ -71,7 +73,7 @@ export class Profile<T extends Element> {
         }
 
         security.addEventListener('click', () => {
-            eventEmitter.goToSecurity()
+            router.redirect(frontUrls.security)
         });
     }
 

@@ -1,4 +1,6 @@
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
+import { frontUrls } from "../../Services/router/fronturls";
+import { router } from "../../Services/router/router";
 
 
 export class MessageModel {
@@ -26,7 +28,7 @@ export class MessageModel {
             }
         } catch (e) {
             console.log(e);
-            eventEmitter.goToSignIn();
+            router.redirect(frontUrls.login);
         }
     }
 
@@ -44,7 +46,7 @@ export class MessageModel {
             }
         } catch (e) {
             console.log(e);
-            eventEmitter.goToSignIn();
+            router.redirect(frontUrls.login);
         }
     }
 }

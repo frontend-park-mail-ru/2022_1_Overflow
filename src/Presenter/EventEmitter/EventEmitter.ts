@@ -5,8 +5,11 @@ import {SendMessagePresenter} from "../pages/SendMessagePresenter/SendMessagePre
 import {MessageSoloPresenter} from "../pages/MessageSoloPresenter/MessageSoloPresenter";
 import {ProfilePresenter} from "../pages/ProfilePresenter/ProfilePresenter";
 import {SecurityPresenter} from "../pages/SecurityPresenter/SecurityPresenter";
+import { router } from "../../Services/router/router";
+import { frontUrls } from "../../Services/router/fronturls";
+import { root } from "../..";
 
-class EventEmitter {
+export class EventEmitter {
     private readonly events: Record<string, any>;
     private root: Element;
 
@@ -20,12 +23,12 @@ class EventEmitter {
     }
 
     goToMainPage(type: number) {
-        const mainPage = new MainPage(this.root, type);
+        const mainPage = new MainPage(root, type);
         mainPage.render();
     }
 
     goToSendMessage(data: any, type: number) {
-        const sendMessage = new SendMessagePresenter(this.root);
+        const sendMessage = new SendMessagePresenter(root);
         if (data !== null) {
             data.flag = type;
             sendMessage.context = data;
@@ -34,27 +37,27 @@ class EventEmitter {
     }
 
     goToSecurity() {
-        const profile = new SecurityPresenter(this.root);
+        const profile = new SecurityPresenter(root);
         profile.render();
     }
 
     goToProfile() {
-        const profile = new ProfilePresenter(this.root);
+        const profile = new ProfilePresenter(root);
         profile.render();
     }
 
     goToSoloMessage(data: any) {
-        const sendMessage = new MessageSoloPresenter(this.root, data);
+        const sendMessage = new MessageSoloPresenter(root, data);
         sendMessage.render();
     }
 
     goToSignIn() {
-        const signIn = new SignInRender(this.root);
+        const signIn = new SignInRender(root);
         signIn.render();
     }
 
     goToSignUp() {
-        const signUp = new SignUpRender(this.root);
+        const signUp = new SignUpRender(root);
         signUp.render();
     }
 
@@ -76,5 +79,5 @@ class EventEmitter {
     }
 }
 
-const root = document.getElementsByTagName('body')[0];
+//const root = document.getElementsByTagName('body')[0];
 export const eventEmitter = new EventEmitter(root);

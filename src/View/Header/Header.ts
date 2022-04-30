@@ -5,6 +5,8 @@ import {Text} from '../../ui-kit/Text/Text';
 import * as headerHBS from './Header.hbs';
 import {PopUp} from "../PopUp/PopUp";
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
+import { router } from '../../Services/router/router';
+import { frontUrls } from '../../Services/router/fronturls';
 
 
 export class Header<T extends Element> {
@@ -45,7 +47,7 @@ export class Header<T extends Element> {
                 }
                 if (target.id === 'profile') {
                     document.removeEventListener('click', docEvent);
-                    eventEmitter.goToProfile();
+                    router.redirect(frontUrls.userProfile)
                 }
             });
         });

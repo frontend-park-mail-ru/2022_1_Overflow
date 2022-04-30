@@ -4,6 +4,8 @@ import * as menuItem from './MenuItem/MenuItem.hbs';
 import './MenuItem/MenuItem.css';
 import * as mainHBS from './Menu.hbs';
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
+import { router } from '../../Services/router/router';
+import { frontUrls } from '../../Services/router/fronturls';
 
 const itemsMenu = [
     {
@@ -52,7 +54,7 @@ export class Menu<T extends Element> {
             eventEmitter.goToSendMessage(null, 1);
         });
         document.getElementById('input')!.addEventListener('click', () => {
-            eventEmitter.goToMainPage(1);
+            router.redirect(frontUrls.main)
         } );
         document.getElementById('output')!.addEventListener('click', () => {
             eventEmitter.goToMainPage(2);

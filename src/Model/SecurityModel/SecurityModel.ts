@@ -1,6 +1,8 @@
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 import {LenghtCheck} from "../LenghtCheck/LenghtCheck";
 import {checkStatus} from "../CheckInput/CheckInput";
+import { router } from "../../Services/router/router";
+import { frontUrls } from "../../Services/router/fronturls";
 
 
 export class SecurityModel {
@@ -61,7 +63,7 @@ export class SecurityModel {
             }
         } catch (e) {
             console.log(e);
-            eventEmitter.goToSignIn();
+            router.redirect(frontUrls.login)
         }
     }
 
@@ -91,7 +93,7 @@ export class SecurityModel {
             });
 
             if (postSetProfile.ok) {
-                eventEmitter.goToMainPage(1);
+                router.redirect(frontUrls.main)
             }
         } catch (e) {
             console.log(e);
