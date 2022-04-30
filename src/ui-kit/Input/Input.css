@@ -1,0 +1,105 @@
+.inputS{
+    width: 150px;
+    height: 40px;
+
+    font-size: 17px;
+    font-weight: 300;
+    font-family: Roboto, 'sans-serif';
+
+    padding-left: 5px;
+    padding-right: 5px;
+
+    background: #FFFFFF;
+    border: 1px solid #EBEBEB;
+    border-radius: 5px;
+}
+
+.inputL{
+    width: 310px;
+    height: 40px;
+
+    font-size: 17px;
+    font-weight: 300;
+    font-family: Roboto, 'sans-serif';
+
+    padding-left: 5px;
+    padding-right: 5px;
+
+    background: #FFFFFF;
+    border: 1px solid #EBEBEB;
+    border-radius: 5px;
+}
+
+.inputXL{
+    width: 390px;
+    height: 40px;
+
+    font-size: 17px;
+    font-weight: 300;
+    font-family: Roboto, 'sans-serif';
+
+    padding-left: 5px;
+    padding-right: 5px;
+
+    background: #FFFFFF;
+    border: 1px solid #EBEBEB;
+    border-radius: 5px;
+
+    -moz-border-radius: 0.5vh;
+    -webkit-border-radius: 0.5vh;
+}
+
+.inputEmpty{
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+
+    width: 100%;
+    background: #FFFFFF;
+    margin-left: 10px;
+    border: none;
+}
+
+.inputEmpty:focus, .inputEmpty:focus{
+    outline: none;
+}
+
+.inputEmpty:hover{
+    outline: none;
+    border-color: #FFFFFF;
+}
+
+.inputEmpty::placeholder{
+    font-size: 17px;
+    color: #D8D8D8;
+}
+
+.inputS:focus{
+    outline: none;
+    border-color: #2E6395 !important;
+}
+
+.inputL:focus{
+    outline: none;
+    border-color: #2E6395 !important;
+}
+
+.inputXL:focus{
+    outline: none;
+    border-color: #2E6395 !important;
+}
+
+.inputS::placeholder{
+    font-size: 17px;
+    color: #D8D8D8;
+}
+
+.inputL::placeholder{
+    font-size: 17px;
+    color: #D8D8D8;
+}
+
+.inputXL::placeholder{
+    font-size: 17px;
+    color: #D8D8D8;
+}

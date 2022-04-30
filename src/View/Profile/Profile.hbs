@@ -1,0 +1,22 @@
+<div class="containerProfile">
+    <div class="blockProfileMenu showboxLeft">
+        {{#each items}}
+            {{{this}}}
+        {{/each}}
+    </div>
+    <div class="blockProfileMain showboxRight">
+        <img src="{{logo}}" class="LogoProfile">
+        <div class="profileSet" id="img">
+            <img id="profileSvg" src="{{profileSvg}}" class="avatarProfile">
+            <img src="{{editSvg}}" class="avatarReduct">
+        </div>
+        <form class="displayForm" id="form">
+            {{{inputFile}}}
+            {{{inputProfileName}}}
+            {{{inputProfileLastName}}}
+            <div id="error" class="invalidMsg marginForm">Не верное имя пользователя или пароль</div>
+            {{{nextBtn}}}
+        </form>
+        {{{prevBtn}}}
+    </div>
+</div>

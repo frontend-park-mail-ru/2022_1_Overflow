@@ -1,0 +1,33 @@
+.textS{
+    font-family: 'Roboto', sans-serif;
+    font-size: 12px;
+    font-weight: 300;
+}
+
+.textL{
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: 300;
+}
+
+.textXL{
+    font-family: 'Roboto', sans-serif;
+    font-size: 34px;
+    font-weight: 400;
+}
+
+.colorRed{
+    color: #FF0000;
+}
+
+.colorWhite{
+    color: #FFFFFF;
+}
+
+.colorBlack{
+    color: #000000;
+}
+
+.colorGrey{
+    color: #D8D8D8;
+}
