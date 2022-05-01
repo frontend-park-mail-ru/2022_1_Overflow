@@ -1,5 +1,6 @@
 import './Header.scss';
 import logoSvg from '../image/Logo.svg';
+import menuSvg from '../image/menu.svg';
 import arrowSvg from '../image/arrow.svg';
 import {Text} from '../../ui-kit/Text/Text';
 import * as headerHBS from './Header.hbs';
@@ -7,6 +8,7 @@ import {PopUp} from "../../ui-kit/PopUp/PopUp";
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 import doorSvg from "../image/door.svg";
 import profileSvg from "../image/profile.svg";
+import {isMobile} from "../../Utils/IsMobile/IsMobile";
 
 
 export class Header<T extends Element> {
@@ -94,6 +96,7 @@ export class Header<T extends Element> {
         const header = headerHBS({
             logoLink: '/',
             logoSvg: logoSvg,
+            menuSvg: menuSvg,
             login: login.render(),
             logoText: logoText.render(),
             profileAvatar: `http://${window.location.hostname}:8080/${this.data.avatar}`,

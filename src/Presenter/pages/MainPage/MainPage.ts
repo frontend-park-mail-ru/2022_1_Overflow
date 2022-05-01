@@ -31,6 +31,7 @@ export class MainPage {
 
         this.menuView = new Menu(this.parent);
         this.menuView.render();
+        this.menuView.newFolderEvent();
         const main = document.getElementById('main');
         if (main === null)
             return

@@ -1,22 +1,42 @@
 .textS{
+    @media screen and (max-width: 1000px){
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 11px;
+    }
     font-family: 'Roboto', sans-serif;
     font-size: 12px;
     font-weight: 300;
 }
 
 .textXS{
+    @media screen and (max-width: 1000px){
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 15px;
+    }
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
     font-weight: 300;
 }
 
 .textL{
+    @media screen and (max-width: 1000px){
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 19px;
+    }
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
     font-weight: 300;
 }
 
 .textXL{
+    @media screen and (max-width: 1000px){
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 32px;
+    }
     font-family: 'Roboto', sans-serif;
     font-size: 34px;
     font-weight: 400;
@@ -35,5 +55,5 @@
 }
 
 .colorGrey{
-    color: #D8D8D8;
+    color: #858585;
 }

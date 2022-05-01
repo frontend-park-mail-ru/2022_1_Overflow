@@ -16,6 +16,9 @@
         margin-left: 10px;
         margin-bottom: 0px;
         margin-top: 0px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
     }
 
     .iconPoint1{

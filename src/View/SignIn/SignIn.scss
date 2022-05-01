@@ -6,8 +6,11 @@
 
 
 .showbox {
-    width: 350px;
+    @media screen and (max-width: 1000px){
+        padding: 50px 0;
+    }
 
+    width: 350px;
     background-color: white;
     border-radius: 1vh;
     display: flex;
@@ -62,6 +65,9 @@ svg {
 }
 
 .invalidMsg {
+    @media screen and (max-width: 1000px){
+        width: 280px;
+    }
     display: flex;
     font-style: normal;
     visibility: hidden;

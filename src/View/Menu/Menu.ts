@@ -11,46 +11,151 @@ import './MenuItem/MenuItem.scss';
 import * as mainHBS from './Menu.hbs';
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 import {Text} from "../../ui-kit/Text/Text";
-
-const itemsMenu = [
-    {
-        iconName: editSvg,
-        textText: 'Написать',
-        id: 'send'
-    },
-    {
-        iconName: inputSvg,
-        textText: 'Входящие',
-        id: 'input'
-    },
-    {
-        iconName: outSvg,
-        textText: 'Отправленные',
-        id: 'output'
-    },
-    {
-        iconName: draftSvg,
-        textText: 'Черновик',
-        id: 'draft'
-    },
-    {
-        iconName: spamSvg,
-        textText: 'Спам',
-        id: 'spam'
-    },
-];
+import {PopUp} from "../../ui-kit/PopUp/PopUp";
+import {PopUpError} from "../../ui-kit/PopUpError/PopUpError";
+import {Input} from "../../ui-kit/Input/Input";
+import {Button} from "../../ui-kit/Button/Button";
 
 export class Menu<T extends Element> {
     private readonly parent: T;
+    private readonly itemsMenu;
 
     constructor(parent: T) {
         this.parent = parent;
+        this.itemsMenu = [
+            {
+                iconName: editSvg,
+                textText: 'Написать',
+                id: 'send'
+            },
+            {
+                iconName: inputSvg,
+                textText: 'Входящие',
+                id: 'input'
+            },
+            {
+                iconName: outSvg,
+                textText: 'Отправленные',
+                id: 'output'
+            },
+            {
+                iconName: draftSvg,
+                textText: 'Черновик',
+                id: 'draft'
+            },
+            {
+                iconName: spamSvg,
+                textText: 'Спам',
+                id: 'spam'
+            },
+        ];
+    }
+
+    newFolderEvent() {
+        const newFolder = document.getElementById('plus');
+        if (!newFolder) {
+            return;
+        }
+
+        const createPopUpNewFolder = () => {
+            const inputNewFolderName = new Input({
+                size: 'L',
+                id: 'inputNewFolderName',
+                text: 'Имя папки',
+                classNameDiv: 'botMargin',
+            });
+
+            const primBtn = new Button({
+                size: 'S',
+                id: 'create',
+                text: 'Создать',
+                className: 'rightMargin'
+            });
+
+            const secBtn = new Button({
+                size: 'S',
+                variant: 'Secondary',
+                id: 'prev',
+                text: 'Закрыть',
+            })
+
+            const popUpNewFolder = new PopUpError({
+                size: 'Auto',
+                text: 'Создать папку',
+                input: inputNewFolderName.render(),
+                primBtn: primBtn.render(),
+                secBtn: secBtn.render(),
+                id: 'popUpNewFolder',
+                classNameDiv: 'sizePopUpNewFolder'
+            });
+
+            const root = document.getElementsByTagName('body')[0];
+            root.insertAdjacentHTML('beforeend', popUpNewFolder.render());
+
+            const rmPopUpNewFolder = () => {
+                const popUpNewFolder = document.getElementById('popUpNewFolder');
+                if (!popUpNewFolder) {
+                    return;
+                }
+
+                popUpNewFolder.remove();
+            }
+
+            const prevBtn = document.getElementById('prev');
+            if (!prevBtn) {
+                return;
+            }
+
+            prevBtn.addEventListener('click', rmPopUpNewFolder);
+
+            const btnNewFolder = document.getElementById('create');
+            if (!btnNewFolder) {
+                return;
+            }
+
+            btnNewFolder.addEventListener('click', this.addNewFolder);
+        }
+
+        newFolder.addEventListener('click', createPopUpNewFolder);
+    }
+
+    addNewFolder = () => {
+        const inputNewFolderName = document.getElementById('inputNewFolderName') as HTMLInputElement;
+        if (!inputNewFolderName) {
+            return;
+        }
+        const nameNewFoldr: string = inputNewFolderName.value;
+
+        const textDirectories = new Text({
+            color: 'Black',
+            text: nameNewFoldr,
+            size: 'L',
+            className: 'menuText1'
+        });
+
+        const itemMenuNewFoldr = menuItem({
+            icon: directoriesSvg,
+            id: 'directories',
+            text: textDirectories.render(),
+        });
+
+        const divMenu = document.getElementById('menu');
+        if (!divMenu) {
+            return;
+        }
+        divMenu.insertAdjacentHTML('beforeend', itemMenuNewFoldr);
+
+        const popUpNewFolder = document.getElementById('popUpNewFolder');
+        if (!popUpNewFolder) {
+            return;
+        }
+        popUpNewFolder.remove();
     }
 
     render = () => {
         const items: string[] = [];
 
-        itemsMenu.forEach((item) => {
+        this.itemsMenu.forEach((item) => {
             const text = new Text({
                 color: 'Black',
                 text: item.textText,

@@ -1,6 +1,9 @@
-<div id="{{id}}" class="messageErrorBigBox {{classNameDiv}}">
-    <div class="messageErrorBox">
+<div id="{{id}}" class="messageErrorBigBox">
+    <div class="messageErrorBox{{size}} {{classNameDiv}}">
         {{{text}}}
+        {{#if input}}
+            {{{input}}}
+        {{/if}}
         <div>
             {{#if primBtn}}
                 {{{primBtn}}}

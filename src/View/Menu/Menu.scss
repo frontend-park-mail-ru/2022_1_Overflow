@@ -4,6 +4,10 @@
     display: flex;
     flex: 1;
     .parentMain{
+        @media screen and (max-width: 1000px){
+            padding: 0;
+
+        }
         width: 100vw;
         display: flex;
         flex-direction: row;
@@ -11,6 +15,9 @@
         padding: 20px;
         background: #C0DAF3;
         .menu{
+            @media screen and (max-width: 1000px){
+                display: none;
+            }
             position: fixed;
             top: 80px;
             z-index: 1;
@@ -24,4 +31,16 @@
             border-radius: 15px;
         }
     }
+}
+
+.botMargin{
+    margin-bottom: 20px;
+}
+
+.rightMargin{
+    margin-right: 10px;
+}
+
+.sizePopUpNewFolder{
+    width: auto;
 }

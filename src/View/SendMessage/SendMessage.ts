@@ -28,6 +28,7 @@ export class SendMessage<T extends Element> {
             id: 'primBtn',
             text: 'Отправить',
             type: 'button',
+            className: 'rightMargin',
         });
 
         const secBtn = new Button({
@@ -77,6 +78,12 @@ export class SendMessage<T extends Element> {
             popUp.remove();
             await obj.handler(form);
         });
+
+        const sendMessage = document.getElementById('sendButton');
+        if (!sendMessage) {
+            return;
+        }
+        sendMessage.removeAttribute("disabled");
     }
 
     setError = (text: string) => {
@@ -112,6 +119,12 @@ export class SendMessage<T extends Element> {
             }
             popUp.remove();
         });
+
+        const sendMessage = document.getElementById('sendButton');
+        if (!sendMessage) {
+            return;
+        }
+        sendMessage.removeAttribute("disabled");
     }
 
     eventsLoginChange = (handler: (value: string) => void) => {
@@ -156,7 +169,9 @@ export class SendMessage<T extends Element> {
         if (!sendMessage) {
             return;
         }
+
         sendMessage.addEventListener('click', async () => {
+            sendMessage.setAttribute("disabled", "disabled");
             await handler(this.getForm());
         });
     }
