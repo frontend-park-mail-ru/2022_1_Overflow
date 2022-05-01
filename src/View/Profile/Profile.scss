@@ -8,6 +8,11 @@
 }
 
 .containerProfileAll{
+    @media screen and (max-width: 1000px){
+        flex-direction: column;
+        background: none;
+        box-shadow: none;
+    }
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -17,12 +22,28 @@
 }
 
 .blockProfileMenu{
+    @media screen and (max-width: 1000px){
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.25);
+        margin-bottom: 10px;
+        flex-direction: row;
+        background: #FFFFFF;
+        align-items: center;
+        justify-content: space-around;
+        height: 55px;
+    }
     display: flex;
     flex-direction: column;
     border-right: 1px solid #cccccc;
 }
 
-.blockProfileMain{;
+.blockProfileMain{
+    @media screen and (max-width: 1000px){
+        box-shadow: 0 0 15px rgba(0,0,0,0.25);
+        border-radius: 15px;
+        background: #FFFFFF;
+        padding: 50px 10px;
+    }
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -36,6 +57,10 @@
 }
 
 .exitArrow {
+    @media screen and (max-width: 1000px){
+        margin-right: 0px;
+        margin-top: -40px;
+    }
     cursor: pointer;
     width: 10px;
     align-self: flex-end;
@@ -107,6 +132,9 @@
 }
 
 .invalidMsgProfile {
+    @media screen and (max-width: 1000px){
+        margin-left: 25px;
+    }
     display: flex;
     font-style: normal;
     visibility: hidden;
