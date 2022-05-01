@@ -104,5 +104,27 @@ export class Header<T extends Element> {
         })
 
         this.parent.insertAdjacentHTML('beforeend', header);
+
+        if(isMobile()) {
+            const menuOpen = document.getElementById('menuOpen');
+            if (!menuOpen) {
+                return;
+            }
+
+            const evenMenuClick = () => {
+                const menu = document.getElementById('menu');
+                if (!menu) {
+                    return;
+                }
+
+                if (menu.style.display === 'flex') {
+                    menu.style.display = 'none';
+                } else {
+                    menu.style.display = 'flex';
+                }
+            }
+
+            menuOpen.addEventListener('click', evenMenuClick);
+        }
     }
 }
