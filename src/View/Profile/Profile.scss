@@ -42,7 +42,7 @@
         box-shadow: 0 0 15px rgba(0,0,0,0.25);
         border-radius: 15px;
         background: #FFFFFF;
-        padding: 50px 10px;
+        padding: 30px 10px;
     }
     display: flex;
     flex-direction: column;
@@ -51,6 +51,12 @@
 }
 
 .LogoProfile {
+    @media screen and (max-width: 1000px){
+        width: 100px;
+        margin-right: 0;
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
     margin-top: 20px;
     width: 150px;
     margin-bottom: 20px;
@@ -59,7 +65,7 @@
 .exitArrow {
     @media screen and (max-width: 1000px){
         margin-right: 0px;
-        margin-top: -40px;
+        margin-top: -20px;
     }
     cursor: pointer;
     width: 10px;
@@ -74,6 +80,11 @@
 }
 
 .avatarProfile{
+    @media screen and (max-width: 1000px){
+        width: 100px;
+        height: 100px;
+        margin-top: 10px;
+    }
     object-fit: cover;
     margin-top: 25px;
     border-radius: 50%;
@@ -84,6 +95,12 @@
 }
 
 .avatarReduct{
+    @media screen and (max-width: 1000px){
+        margin-top: 5px;
+        width: 50px;
+        height: 50px;
+        padding: 25px;
+    }
     object-fit: cover;
     cursor: pointer;
     position: absolute;
@@ -104,6 +121,9 @@
 }
 
 .profileSet{
+    @media screen and (max-width: 1000px){
+        margin-bottom: 10px;
+    }
     position: relative;
     margin-bottom: 30px;
     &:hover .avatarProfile{

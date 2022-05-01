@@ -1,9 +1,11 @@
 %tplMessageError{
+  @media screen and (max-width: 1000px){
+    padding-top: 20px;
+  }
   align-content: center;
   justify-content: center;
   box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.25);
   background-color: #FFFFFF;
-  width: 400px;
   border-radius: 15px;
   padding-right: 30px;
   padding-bottom: 20px;
@@ -11,6 +13,9 @@
   margin: auto;
 }
 
+.mobileMargin{
+  margin-top: 10px;
+}
 
 .messageErrorBigBox{
   position: fixed;
@@ -28,6 +33,9 @@
   }
 
   .messageErrorBoxL{
+    @media screen and (max-width: 1000px){
+      width: 250px;
+    }
     width: 400px;
 
     @extend %tplMessageError;
