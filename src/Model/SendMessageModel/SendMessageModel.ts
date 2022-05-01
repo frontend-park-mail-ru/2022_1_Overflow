@@ -58,6 +58,7 @@ export class SendMessageModel {
             return;
         }
         if (text.theme === '') {
+            console.log(1);
             eventEmitter.emit('errorTheme', {text: 'Хотите отправить сообщение без темы?', handler: this.fetchSend});
             return;
         }

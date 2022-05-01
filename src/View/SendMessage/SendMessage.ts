@@ -65,7 +65,6 @@ export class SendMessage<T extends Element> {
         }
 
         btnSend.addEventListener('click', async () => {
-            console.log(1);
             const popUp = document.getElementById('popUpError');
             if (!popUp) {
                 return;
@@ -75,6 +74,7 @@ export class SendMessage<T extends Element> {
                 return;
             }
             form.theme = 'Без темы';
+            popUp.remove();
             await obj.handler(form);
         });
     }

@@ -36,6 +36,6 @@ export class PopUp {
                 })
             )
         });
-        return templateHBS({id: this.props.id, items: popUpItemsHbs});
+        return templateHBS({id: this.props.id, classNameDiv: this.props.classNameDiv, items: popUpItemsHbs});
     };
 }

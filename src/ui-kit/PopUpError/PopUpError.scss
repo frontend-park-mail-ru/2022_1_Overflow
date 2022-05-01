@@ -5,6 +5,7 @@
   height: 100vh;
   margin: auto;
   display: flex;
+  z-index: 500;
 
   .messageErrorBox{
     align-content: center;
