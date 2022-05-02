@@ -1,0 +1,68 @@
+%tplFontSize{
+    font-size: 17px;
+    font-weight: 300;
+    font-family: Roboto, 'sans-serif';
+}
+.btn{
+    &S{
+        width: 100px;
+        height: 40px;
+
+        @extend %tplFontSize;
+    }
+    &L{
+
+    }
+}
+
+.btnS{
+    @media screen and (max-width: 1000px){
+        width: auto;
+    }
+    width: 100px;
+    height: 40px;
+
+    @extend %tplFontSize;
+}
+
+.btnL{
+    @media screen and (max-width: 1000px){
+        width: 280px;
+    }
+    width: 320px;
+    height: 40px;
+
+    @extend %tplFontSize;
+}
+
+.btnXL{
+    @media screen and (max-width: 1000px){
+        width: 300px;
+    }
+    width: 400px;
+    height: 40px;
+
+    @extend %tplFontSize;
+}
+
+.btnPrimary{
+    border-radius: 5px;
+    border: 0;
+    background: #2E6395;
+    color: #FFFFFF;
+    &:hover{
+        cursor: pointer;
+        background: #275682;
+    }
+}
+
+.btnSecondary{
+    border-radius: 5px;
+    border: 0;
+    background: #EBEBEB;
+    color: #000000;
+    &:hover{
+        cursor: pointer;
+        background: #DBDBDB;
+    }
+}

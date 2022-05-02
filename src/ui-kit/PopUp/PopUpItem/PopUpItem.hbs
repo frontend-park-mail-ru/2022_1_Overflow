@@ -1,0 +1,11 @@
+<div id="{{id}}" class="exit">
+    <img class="iconPoint" src="{{img}}" alt="door">
+    <div class="menuText">
+        {{{text}}}
+    </div>
+    {{#if type}}
+        <img id="{{type}}" class="iconPoint" src="{{arrowSvg}}" alt="arrow">
+    {{else}}
+        <img class="iconPoint iconPointHidden" src="{{arrowSvg}}" alt="arrow">
+    {{/if}}
+</div>

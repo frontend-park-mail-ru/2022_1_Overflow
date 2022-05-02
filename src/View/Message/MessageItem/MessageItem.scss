@@ -1,0 +1,113 @@
+.messageText{
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+
+    &:hover{
+        border-radius: 15px;
+        background: #EBEBEB;
+    }
+
+    .mobileText{
+        @media screen and (max-width: 1000px){
+            flex-direction: column;
+        }
+        display: flex;
+        flex-direction: row;
+        flex: 1;
+        width: 0;
+    }
+
+    .avatarMassage{
+        @media screen and (max-width: 1000px){
+            margin-right: 5px;
+        }
+        object-fit: cover;
+        margin-left: 10px;
+        margin-right: 15px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+    }
+
+    .widthName{
+        @media screen and (max-width: 1000px){
+            width: auto;
+            flex: 1;
+        }
+        width: 100px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+    }
+
+    .bold{
+        font-weight: bold;
+    }
+
+    .messageTextText{
+        @media screen and (max-width: 1000px){
+            padding-left: 0;
+            width: auto;
+            flex: 1;
+        }
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        padding-left: 30px;
+    }
+
+    .messageTextSub{
+        @media screen and (max-width: 1000px){
+            margin-right: 0;
+            margin-left: 0;
+            padding-left: 0;
+            color: #858585;
+            font-size: 15px;
+            width: auto;
+            flex: 1;
+        }
+        flex: 1;
+        margin-right: 30px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        padding-left: 30px;
+    }
+
+    .messageTextTime{
+        @media screen and (max-width: 1000px){
+            justify-self: flex-end;
+            padding-right: 5px;
+        }
+        justify-self: flex-end;
+        padding-right: 20px;
+    }
+}
+
+.dotHidden {
+    visibility: hidden;
+}
+
+.hrClass{
+    width: 100%;
+    border: none;
+    border-top: 1px solid #EBEBEB;
+}
+
+.messageEmpty{
+    text-align: center;
+    width: 100%;
+}
+
+.messageText1{
+    user-select: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+}
+
