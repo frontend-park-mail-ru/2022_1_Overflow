@@ -1,0 +1,95 @@
+.container {
+    background-color: #C0DAF3;
+    height: 100%;
+    width: 100%;
+}
+
+
+.showbox {
+    @media screen and (max-width: 1000px){
+        padding: 50px 0;
+    }
+
+    width: 350px;
+    background-color: white;
+    border-radius: 1vh;
+    display: flex;
+    flex-direction: column;
+    block-size: fit-content;
+    padding: 50px 60px;
+}
+
+.showboxSelfCenter {
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.showboxCenter {
+    align-items: center;
+    justify-content: center;
+}
+
+.buttonGrid {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: 1vh;
+}
+
+.shadow {
+    box-shadow: 0px 0px 12px 5px rgba(0, 0, 0, 0.09);
+}
+
+.btn {
+    display: inline;
+    align-self: center;
+    font-size: medium;
+}
+
+.mb2 {
+    width: 150px;
+    margin-bottom: 2vh;
+}
+
+svg {
+    height: auto;
+    width: 7vh;
+}
+
+.email{
+    margin-right: 10px;
+    font-size: 12px;
+}
+
+.invalidMsg {
+    @media screen and (max-width: 1000px){
+        width: 280px;
+    }
+    display: flex;
+    font-style: normal;
+    visibility: hidden;
+    color: #FF0000;
+    font-weight: 300;
+    align-content: center;
+    flex-direction: row;
+    text-align: start;
+    width: 320px;
+    font-size: 14px;
+    margin-top: 2px;
+    margin-bottom: 5px;
+    min-height: 14px;
+    margin-left: 3px;
+}
+
+.forgetPass {
+    display: flex;
+    font-style: normal;
+    font-weight: 300;
+    line-height: 26px;
+    color: #2E6395;
+    width: 100%;
+    text-align: start;
+}

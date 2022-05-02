@@ -1,0 +1,14 @@
+<main class="mainParent">
+    <div id="{{idMain}}" class="parentMain">
+        <div id="menu" class="menu">
+            {{#each items}}
+                {{{this}}}
+            {{/each}}
+            <hr class="hrClass">
+            {{{newDirectory}}}
+            {{#each directories}}
+                {{{this}}}
+            {{/each}}
+        </div>
+    </div>
+</main>
