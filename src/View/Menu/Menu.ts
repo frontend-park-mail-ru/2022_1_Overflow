@@ -18,8 +18,11 @@ import {Button} from "../../ui-kit/Button/Button";
 export class Menu<T extends Element> {
     private readonly parent: T;
     private readonly itemsMenu;
+    private isLoading: boolean;
+
 
     constructor(parent: T) {
+        this.isLoading = false;
         this.parent = parent;
         this.itemsMenu = [
             {
@@ -211,6 +214,10 @@ export class Menu<T extends Element> {
             return;
         }
         const sendEvent = () => {
+            if (this.isLoading) {
+                return;
+            }
+            this.isLoading = true;
             eventEmitter.goToSendMessage(null, 'default');
         }
         send.addEventListener('click', sendEvent);
@@ -220,6 +227,10 @@ export class Menu<T extends Element> {
             return;
         }
         const inputEvent = () => {
+            if (this.isLoading) {
+                return;
+            }
+            this.isLoading = true;
             eventEmitter.goToMainPage(1);
         }
         input.addEventListener('click', inputEvent);
@@ -229,6 +240,10 @@ export class Menu<T extends Element> {
             return;
         }
         const outputEvent = () => {
+            if (this.isLoading) {
+                return;
+            }
+            this.isLoading = true;
             eventEmitter.goToMainPage(2);
         }
         output.addEventListener('click', outputEvent);

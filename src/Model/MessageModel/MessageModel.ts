@@ -24,7 +24,7 @@ export class MessageModel {
             date: string,
             read: boolean,
         }
-        sender_avatar: string
+        avatar_url: string
     }];
 
     outputData = () => {
@@ -45,14 +45,16 @@ export class MessageModel {
             if (date.getDate() === today.getDate() &&
                 date.getMonth() === today.getMonth() &&
                 date.getFullYear() === today.getFullYear()) {
+                console.log(('0' + date.getUTCHours()).slice(-2) + ':' + ('0' + (date.getUTCMinutes())).slice(-2));
                 dateSet = ('0' + date.getUTCHours()).slice(-2) + ':' + ('0' + (date.getUTCMinutes())).slice(-2);
             } else {
                 dateSet = ('0' + date.getDate()).slice(-2) + ' ' + (monthNames[date.getMonth()]);
             }
+            console.log(pars['avatar_url']);
             this.messages.push({
                 id: pars['mail']['id'],
                 client_id: pars['mail']['client_id'],
-                avatar: `http://${window.location.hostname}:8080/${pars['sender_avatar']}`,
+                avatar: `http://${window.location.hostname}:8080/${pars['avatar_url']}`,
                 read: pars['mail']['read'],
                 sender: (pars['mail']['sender'] !== '') ? pars['mail']['sender'] : pars['mail']['addressee'],
                 title: pars['mail']['theme'],

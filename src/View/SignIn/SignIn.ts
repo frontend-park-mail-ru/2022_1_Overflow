@@ -44,6 +44,7 @@ export class SignIn<T extends Element> {
             return;
         }
         error.style.visibility = 'hidden';
+        error.textContent = '';
     }
 
     getForm = () => {

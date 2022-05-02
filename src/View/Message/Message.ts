@@ -167,9 +167,7 @@ export class Message<T extends Element> {
         if (!popUpReal) {
             return;
         }
-        console.log('calcFirstPositionXY', this.xPos, this.yPos);
         const {x, y} = calcSecondPositionXY(this.xPos, this.yPos, popUpReal, foldersDiv);
-        console.log('calcSecondPositionXY', x, y);
         foldersDiv.style.top = y.toString() + 'px';
         foldersDiv.style.left = x.toString() + 'px';
     }

@@ -104,9 +104,9 @@ export class SendMessageModel {
             });
             if (res.ok) {
                 const json = await res.json();
-                this.infoProfile.login = json['Username'];
-                this.infoProfile.lastName = json['LastName'];
-                this.infoProfile.firstName = json['FirstName'];
+                this.infoProfile.login = json['username'];
+                this.infoProfile.lastName = json['last_name'];
+                this.infoProfile.firstName = json['first_name'];
             }
 
             if (!res.ok) {

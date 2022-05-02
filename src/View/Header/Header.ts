@@ -15,6 +15,7 @@ export class Header<T extends Element> {
     private readonly parent: T;
     private readonly data: { name: string; avatar: string; };
     private readonly popUp;
+    private isLoading: boolean;
 
     constructor(parent: T, data: { name: string; avatar: string; }) {
         this.parent = parent;
@@ -35,6 +36,7 @@ export class Header<T extends Element> {
             ],
             classNameDiv: 'positionPopUpExit',
         }
+        this.isLoading = false;
     }
 
     evenPopUp = (handler: () => void) => {
@@ -52,12 +54,20 @@ export class Header<T extends Element> {
                 let target: HTMLElement | null = event2.target as HTMLElement;
                 while (target) {
                     if (target?.id === 'exit') {
+                        if (this.isLoading) {
+                            return;
+                        }
+                        this.isLoading = true;
                         document.removeEventListener('click', docEvent);
                         handler();
                         return;
                     }
 
                     if (target?.id === 'profile') {
+                        if (this.isLoading) {
+                            return;
+                        }
+                        this.isLoading = true;
                         document.removeEventListener('click', docEvent);
                         eventEmitter.goToProfile();
                         return;

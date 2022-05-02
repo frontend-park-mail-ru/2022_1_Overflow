@@ -26,7 +26,7 @@ export class HeaderModel {
             });
             if (res.ok) {
                 const json = await res.json();
-                this.name = json['Username'];
+                this.name = json['username'];
             }
 
             if (!res.ok) {
