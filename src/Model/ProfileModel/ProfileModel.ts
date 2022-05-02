@@ -41,10 +41,9 @@ export class ProfileModel {
             });
             if (res.ok) {
                 const json = await res.json();
-                this.data.Username = json['Username'];
-                this.data.LastName = json['LastName'];
-                this.data.FirstName = json['FirstName'];
-                this.data.password = json['Password'];
+                this.data.Username = json['username'];
+                this.data.LastName = json['last_name'];
+                this.data.FirstName = json['first_name'];
             }
         } catch (e) {
             console.error(e);
