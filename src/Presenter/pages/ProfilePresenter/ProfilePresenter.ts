@@ -4,7 +4,7 @@ import {Profile} from "../../../View/Profile/Profile";
 
 export class ProfilePresenter {
     private readonly parent: Element;
-    private data: {Username: string, FirstName: string, LastName: string, avatar: any, password: string};
+    private data: {Username: string, FirstName: string, LastName: string, avatar: string, password: string};
 
     constructor(parent: Element) {
         this.parent = parent;

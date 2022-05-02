@@ -1,6 +1,7 @@
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 import {LengthCheckPasswordAndName, LengthCheckUsername} from "../LengthCheck/LengthCheck";
 import {checkStatus} from "../CheckStatus/CheckStatus";
+import {getCSRFToken} from "../Network/NetworkGet";
 
 
 export class SignInModel {
@@ -25,19 +26,13 @@ export class SignInModel {
     }
 
     fetchSignIn = async (text: {Username: string, password: string}) => {
-        const response = await fetch(`http://${window.location.hostname}:8080/signin`, {
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            credentials: 'include',
-        });
         try {
+            const header = await getCSRFToken(`http://${window.location.hostname}:8080/signin`);
             const res = await fetch(`http://${window.location.hostname}:8080/signin`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-token': response.headers.get('x-csrf-token')!,
+                    'X-CSRF-token': header,
                 },
                 method: 'POST',
                 credentials: 'include',
@@ -51,7 +46,7 @@ export class SignInModel {
             eventEmitter.emit('error', {text: '\n', type: 'Login'});
             eventEmitter.emit('error', {text: checkStatus(body['status'], text.Username), type: 'Password'});
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     }
 }

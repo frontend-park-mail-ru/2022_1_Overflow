@@ -55,8 +55,8 @@ module.exports = {
             template: './src/index.html'
         }),
         new CleanWebpackPlugin(),
-        // new ESLintPlugin({
-        //     extensions: ['ts']
-        // })
+        new ESLintPlugin({
+            extensions: ['ts']
+        }),
     ],
 }

@@ -15,16 +15,16 @@ class EventEmitter {
         this.root = root;
     }
 
-    on(event: string, callback: any) {
+    on = (event: string, callback: any) => {
         this.events[event] = callback;
     }
 
-    goToMainPage(type: number) {
+    goToMainPage = (type: number) => {
         const mainPage = new MainPage(this.root, type);
         mainPage.render();
     }
 
-    goToSendMessage(data: any, type: string) {
+    goToSendMessage = (data: any, type: string) => {
         const sendMessage = new SendMessagePresenter(this.root);
         if (data !== null) {
             data.flag = type;
@@ -33,43 +33,43 @@ class EventEmitter {
         sendMessage.render();
     }
 
-    goToSecurity() {
+    goToSecurity = () => {
         const profile = new SecurityPresenter(this.root);
         profile.render();
     }
 
-    goToProfile() {
+    goToProfile = () => {
         const profile = new ProfilePresenter(this.root);
         profile.render();
     }
 
-    goToMessagePage(data: any) {
+    goToMessagePage = (data: any) => {
         const sendMessage = new MessagePagePresenter(this.root, data);
         sendMessage.render();
     }
 
-    goToSignIn() {
+    goToSignIn = () => {
         const signIn = new SignInRender(this.root);
         signIn.render();
     }
 
-    goToSignUp(login: string = '') {
+    goToSignUp = (login = '') => {
         const signUp = new SignUpRender(this.root, login);
         signUp.render();
     }
 
-    off(event: string) {
+    off = (event: string) => {
         this.events[event] = null;
     }
 
-    emit(event: string, obj: any) {
+    emit = (event: string, obj: any) => {
         if (!this.events[event]) {
             return;
         }
         this.events[event](obj);
     }
 
-    cleanEvents() {
+    cleanEvents = () => {
         Object.keys(this.events).forEach((event) => {
             this.events[event] = null;
         })

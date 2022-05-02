@@ -2,7 +2,6 @@ import {Header} from '../../../View/Header/Header';
 import {Menu} from '../../../View/Menu/Menu';
 import {eventEmitter} from "../../EventEmitter/EventEmitter";
 import {HeaderModel} from "../../../Model/HeaderModel/HeaderModel";
-import {SendMessage} from "../../../View/SendMessage/SendMessage";
 import {MessagePageModel} from "../../../Model/MessagePageModel/MessagePageModel";
 import {MessagePage} from '../../../View/MessagePage/MessagePage'
 
@@ -13,9 +12,9 @@ export class MessagePagePresenter {
     private headerModel: HeaderModel;
     private messagePageModel: MessagePageModel;
     private messagePageView: MessagePage<Element>;
-    private readonly data: {avatar: any, id: number, login: string, theme: string, date: any, text: string};
+    private readonly data: {avatar: string, id: number, login: string, theme: string, date: string, text: string};
 
-    constructor(parent: Element, data: {avatar: any, id: number, login: string, theme: string, date: any, text: string}) {
+    constructor(parent: Element, data: {avatar: string, id: number, login: string, theme: string, date: string, text: string}) {
         this.parent = parent;
         this.data = data;
     }

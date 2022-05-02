@@ -2,9 +2,8 @@ import * as PopUpSendMessageErrorHbs from './PopUpError.hbs';
 import './PopUpError.scss';
 import {Text} from "../Text/Text";
 import {IPopUpError} from "./IPopUpError";
-import {Input} from "../Input/Input";
 
-export class PopUpError<T extends Element> {
+export class PopUpError {
     private readonly props: IPopUpError;
 
     constructor(
@@ -29,7 +28,7 @@ export class PopUpError<T extends Element> {
     }
 
 
-    render() {
+    render = () => {
         const text = new Text({
             size: 'L',
             text: this.props.text,

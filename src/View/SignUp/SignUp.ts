@@ -8,13 +8,15 @@ import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 export class SignUp<T extends Element> {
     private readonly parent: T;
     private readonly login: string;
+    private isLoading: boolean;
 
     constructor(parent: T, login: string) {
         this.parent = parent;
         this.login = login;
+        this.isLoading = false;
     }
 
-    setError(data: {text: string, type: string}) {
+    setError = (data: {text: string, type: string}) => {
         const input = document.getElementById(`input${data.type}`);
         if (!input) {
             return;
@@ -28,20 +30,45 @@ export class SignUp<T extends Element> {
         }
         error.style.visibility = 'visible';
         error.textContent = data.text;
+        this.isLoading = false;
     }
 
-    submitForm(handler: any) {
+    cleanError = (type: string) => {
+        const input = document.getElementById(`input${type}`);
+        if (!input) {
+            return;
+        }
+        input.classList.remove('inputLError');
+        input.classList.add('inputL');
+
+        const error = document.getElementById(`error${type}`) as HTMLDivElement;
+        if (!error) {
+            return;
+        }
+        error.style.visibility = 'hidden';
+    }
+
+    submitForm = (handler: (form: {firstName: string, lastName: string, passwordConfirmation: string, password: string, Username: string}) => void) => {
         const form = document.getElementById('formSignUp');
         if (form === null)
             return;
 
         form.onsubmit = (event) => {
             event.preventDefault();
+            if (this.isLoading) {
+                return;
+            }
+            this.isLoading = true;
+            this.cleanError('FirstName');
+            this.cleanError('LastName');
+            this.cleanError('Login');
+            this.cleanError('Password');
+            this.cleanError('PasswordRepeat');
             handler(this.getForm());
         };
     }
 
-    getForm() {
+    getForm = () => {
         const firstName: string = (document.getElementById('inputFirstName') as HTMLInputElement).value;
         const lastName: string = (document.getElementById('inputLastName') as HTMLInputElement).value;
         const email: string = (document.getElementById('inputLogin') as HTMLInputElement).value;
@@ -50,7 +77,7 @@ export class SignUp<T extends Element> {
         return {firstName: firstName, lastName: lastName, Username: email, password: password, passwordConfirmation: passwordConfirmation};
     }
 
-    render() {
+    render = () => {
         const firstNameInput = new Input({
             text: 'Имя',
             id: 'inputFirstName',

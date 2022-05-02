@@ -8,14 +8,14 @@ import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 
 export class MessagePage<T extends Element> {
     private readonly parent: T;
-    private readonly data: {avatar: any, login: string, theme: string, date: any, text: string, id: number};
+    private readonly data: {avatar: string, login: string, theme: string, date: string, text: string, id: number};
 
-    constructor(parent: T, data: {avatar: any, login: string, theme: string, date: any, text: string, id: number}) {
+    constructor(parent: T, data: {avatar: string, login: string, theme: string, date: string, text: string, id: number}) {
         this.parent = parent;
         this.data = data;
     }
 
-    reMail() {
+    reMail = () => {
         const reMailElem = document.getElementById('reMail');
         if (reMailElem === null) {
             return;
@@ -25,7 +25,7 @@ export class MessagePage<T extends Element> {
         })
     }
 
-    forward() {
+    forward = () => {
         const forwardElem = document.getElementById('forward');
         if (forwardElem === null) {
             return;
@@ -35,7 +35,7 @@ export class MessagePage<T extends Element> {
         });
     }
 
-    render() {
+    render = () => {
         const login = new Text({
             color: 'Black',
             size: 'L',

@@ -1,4 +1,5 @@
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
+import {getCSRFToken} from "../Network/NetworkGet";
 
 
 export class SendMessageModel {
@@ -10,21 +11,20 @@ export class SendMessageModel {
         this.infoProfile = { lastName: '', firstName: '', login: '' };
     }
 
-    cleanDefault = (data: { avatar: any, login: string, theme: string, date: any, text: string }) => {
+    cleanDefault = (data: { avatar: string, login: string, theme: string, date: string, text: string }) => {
         data.text = `\n\n\nС уважением ${this.infoProfile.lastName} ${this.infoProfile.firstName}`;
     }
 
-    cleanLogin = (data: { avatar: any, login: string, theme: string, date: any, text: string }) => {
+    cleanLogin = (data: { avatar: string, login: string, theme: string, date: string, text: string }) => {
         data.text = `Переслано от ${data.login}:\n${data.text}`;
         data.login = '';
     }
 
-    cleanRe = (data: { avatar: any, login: string, theme: string, date: any, text: string }) => {
+    cleanRe = (data: { avatar: string, login: string, theme: string, date: string, text: string }) => {
         if (data === null) {
             return;
         }
         let i: number;
-        let splitText: string[];
         const r = /Re\(\d+\)/g;
         const r_dec = /\d+/g;
         if (data.theme.match(r) === null) {
@@ -35,7 +35,7 @@ export class SendMessageModel {
             data.theme = data.theme.replace(r, `Re(${i})`);
         }
 
-        splitText = data.text.split('\n');
+        const splitText: string[] = data.text.split('\n');
         splitText.forEach((text, idx) => {
             splitText[idx] = '>>' + text;
         });
@@ -66,19 +66,12 @@ export class SendMessageModel {
 
     fetchSend = async (text: { addressee: string, files: string, text: string, theme: string }) => {
         try {
-            const response = await fetch(`http://${window.location.hostname}:8080/mail/send`, {
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'include',
-            });
-
+            const header = await getCSRFToken(`http://${window.location.hostname}:8080/mail/send`);
             const res = await fetch(`http://${window.location.hostname}:8080/mail/send`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-token': response.headers.get('x-csrf-token')!,
+                    'X-CSRF-token': header,
                 },
                 method: 'POST',
                 credentials: 'include',
@@ -96,7 +89,7 @@ export class SendMessageModel {
                 }
             }
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     }
 
@@ -120,7 +113,7 @@ export class SendMessageModel {
                 eventEmitter.goToSignIn();
             }
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     }
 
@@ -140,7 +133,7 @@ export class SendMessageModel {
                 return;
             }
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     }
 }

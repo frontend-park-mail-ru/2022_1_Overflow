@@ -1,12 +1,14 @@
+import {getCSRFToken} from "../Network/NetworkGet";
+
 export class MessagePageModel {
     private readonly id: number;
-    private body: any;
+    private body: {id: number, message: string};
 
     constructor(id: number) {
         this.id = id;
     }
 
-    setTime(time: string) {
+    setTime = (time: string) => {
         const today = new Date();
         const date = new Date(time);
         if (date.getDate() === today.getDate() &&
@@ -18,21 +20,15 @@ export class MessagePageModel {
         }
     }
 
-    async getMessage() {
-        const response = await fetch(`http://${window.location.hostname}:8080/mail/read`, {
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            credentials: 'include',
-        });
+    getMessage = async () => {
+        const header = await getCSRFToken(`http://${window.location.hostname}:8080/mail/read`);
 
         try {
             const res = await fetch(`http://${window.location.hostname}:8080/mail/read?id=${this.id}`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-token': response.headers.get('x-csrf-token')!,
+                    'X-CSRF-token': header,
                 },
                 method: 'POST',
                 credentials: 'include',
@@ -42,7 +38,7 @@ export class MessagePageModel {
                 return;
             }
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     }
 }

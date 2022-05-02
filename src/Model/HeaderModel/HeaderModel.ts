@@ -1,4 +1,5 @@
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
+import {getCSRFToken} from "../Network/NetworkGet";
 
 
 export class HeaderModel {
@@ -10,11 +11,11 @@ export class HeaderModel {
         this.avatar = '';
     }
 
-    outputData() {
+    outputData = () => {
         return {name: this.name, avatar: this.avatar}
     }
 
-    async getProfile() {
+    getProfile = async () => {
         try {
             const res = await fetch(`http://${window.location.hostname}:8080/profile`, {
                 mode: 'cors',
@@ -36,7 +37,7 @@ export class HeaderModel {
         }
     }
 
-    async getAvatar() {
+    getAvatar = async() => {
         try {
             const res = await fetch(`http://${window.location.hostname}:8080/profile/avatar`, {
                 mode: 'cors',
@@ -50,27 +51,20 @@ export class HeaderModel {
                 this.avatar = json['message'];
             }
         } catch (e) {
-            console.log(e);
+            console.error(e);
             eventEmitter.goToSignIn();
         }
     }
 
-    async logout() {
-        const response = await fetch(`http://${window.location.hostname}:8080/logout`, {
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            credentials: 'include'
-        });
+    logout = async () => {
+        const header = await getCSRFToken(`http://${window.location.hostname}:8080/logout`);
 
         await fetch(`http://${window.location.hostname}:8080/logout`, {
             mode: 'cors',
             method: 'POST',
-            // @ts-ignore
             headers: {
                 'Content-Type': 'application/json',
-                'X-CSRF-token': response.headers.get('x-csrf-token'),
+                'X-CSRF-token': header,
             },
             credentials: 'include'
         });

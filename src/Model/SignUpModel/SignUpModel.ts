@@ -1,6 +1,7 @@
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 import {LengthCheckPasswordAndName, LengthCheckUsername} from "../LengthCheck/LengthCheck";
 import {checkStatus} from "../CheckStatus/CheckStatus";
+import {getCSRFToken} from "../Network/NetworkGet";
 
 
 export class SignUpModel {
@@ -49,20 +50,13 @@ export class SignUpModel {
     }
 
     fetchSignUp = async (text: {firstName: string, lastName: string, Username: string, password: string, passwordConfirmation: string}) => {
-        const response = await fetch(`http://${window.location.hostname}:8080/signin`, {
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            credentials: 'include',
-        });
-
         try {
+            const header = await getCSRFToken(`http://${window.location.hostname}:8080/signup`);
             const res = await fetch(`http://${window.location.hostname}:8080/signup`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-token': response.headers.get('x-csrf-token')!,
+                    'X-CSRF-token': header,
                 },
                 method: 'POST',
                 credentials: 'include',
@@ -81,25 +75,18 @@ export class SignUpModel {
             const json = await res.json();
             eventEmitter.emit('error', { text: checkStatus(json['status'], text.Username), type: 'Login'});
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     }
 
     fetchSignIn = async (text: {Username: string, password: string}) => {
-        const response = await fetch(`http://${window.location.hostname}:8080/signin`, {
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            credentials: 'include',
-        });
-
         try {
+            const header = await getCSRFToken(`http://${window.location.hostname}:8080/signin`);
             const res = await fetch(`http://${window.location.hostname}:8080/signin`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-token': response.headers.get('x-csrf-token')!,
+                    'X-CSRF-token': header,
                 },
                 method: 'POST',
                 credentials: 'include',
@@ -112,7 +99,7 @@ export class SignUpModel {
             const body = await res.json();
             eventEmitter.emit('error', checkStatus(body['status'], text.Username));
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     }
 }

@@ -15,25 +15,35 @@ import {calcSecondPositionXY} from "../../Utils/CalcPositionXY/CalcSecondPositio
 
 export class Message<T extends Element> {
     private readonly parent: T;
-    private readonly messages:
-        {
-            id: number,
-            client_id: number,
-            sender: string,
-            title: string,
-            subTitle: string,
-            files: string,
-            time: any,
-            read: boolean,
-            avatar: string,
-            timeReal: string,
-        }[];
-    private readonly type: any;
+    private readonly messages: {
+        id: number;
+        client_id: number;
+        sender: string;
+        title: string;
+        subTitle: string;
+        files: string;
+        time: string;
+        read: boolean;
+        avatar: string;
+        timeReal: string
+    }[];
+    private readonly type: number;
     private readonly popUpMessage;
     private xPos: number;
     private yPos: number;
 
-    constructor(parent: T, data: any, type: number) {
+    constructor(parent: T, data: {
+        id: number,
+        client_id: number,
+        sender: string,
+        title: string,
+        subTitle: string,
+        files: string,
+        time: string,
+        read: boolean,
+        avatar: string,
+        timeReal: string,
+    }[], type: number) {
         this.parent = parent;
         this.messages = data;
         this.type = type;
@@ -62,7 +72,7 @@ export class Message<T extends Element> {
         }
     }
 
-    eventRightClickMessage() {
+    eventRightClickMessage = () => {
         this.messages.forEach((list) => {
             const getElem = document.getElementById(list.id.toString());
             if (getElem === null) {
@@ -164,7 +174,7 @@ export class Message<T extends Element> {
         foldersDiv.style.left = x.toString() + 'px';
     }
 
-    goToMessagePage() {
+    goToMessagePage = () => {
         this.messages.forEach((list) => {
             const getElem = document.getElementById(list.id.toString());
             if (getElem === null) {
@@ -183,7 +193,7 @@ export class Message<T extends Element> {
         });
     }
 
-    render() {
+    render = () => {
         if (this.messages === null) {
             const emptyText = new Text({
                 color: 'Grey',
@@ -211,7 +221,7 @@ export class Message<T extends Element> {
         this.parent.insertAdjacentHTML('beforeend', render);
     }
 
-    renderMassage(itemsMassage: { id: number, client_id: number, sender: string, title: string, subTitle: string, files: string, time: any, read: boolean, avatar: string }[]) {
+    renderMassage = (itemsMassage: { id: number, client_id: number, sender: string, title: string, subTitle: string, files: string, time: string, read: boolean, avatar: string }[]) => {
         const messageText: { avatar: string; id: number; title: string; subTitle: string; time: string; read: boolean, sender: string }[] = [];
         itemsMassage.forEach((item: { avatar: string; id: number; title: string; subTitle: string; time: string; read: boolean, sender: string }, index: number) => {
             if (this.type === 2) {
@@ -252,7 +262,7 @@ export class Message<T extends Element> {
                 size: 'L',
                 className: 'messageTextTime'
             });
-            let flag: number = 1;
+            let flag = 1;
 
             if (itemsMassage.length === index + 1) {
                 flag = 0;

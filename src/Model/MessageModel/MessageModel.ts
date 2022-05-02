@@ -7,15 +7,27 @@ export class MessageModel {
             title: string,
             subTitle: string,
             files: string,
-            time: any,
+            time: string,
             read: boolean,
             avatar: string,
             timeReal: string,
         }[];
 
-    private json: any;
+    private json: [{mail: {
+            id: number,
+            client_id: number,
+            sender: string,
+            addressee: string,
+            theme: string,
+            text: string,
+            file: string,
+            date: string,
+            read: boolean,
+        }
+        sender_avatar: string
+    }];
 
-    outputData() {
+    outputData = () => {
         const monthNames = ["Янв", "Фев", "Мар", "Апр", "Май", "Июн",
             "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"
         ];
@@ -23,10 +35,10 @@ export class MessageModel {
         if (this.json === null) {
             return null;
         }
-        this.json = this.json.sort((a: any, b: any) => {
+        this.json = this.json.sort((a, b) => {
             return a['mail']['date'] < b['mail']['date'] ? 1 : -1;
         });
-        this.json.forEach((pars: any) => {
+        this.json.forEach((pars) => {
             const date = new Date(pars['mail']['date']);
             let dateSet: string;
             const today = new Date();
@@ -53,7 +65,7 @@ export class MessageModel {
         return this.messages;
     }
 
-    async getOutComeMessage() {
+    getOutComeMessage = async () => {
         try {
             const res = await fetch(`http://${window.location.hostname}:8080/mail/outcome`, {
                 mode: 'cors',
@@ -66,11 +78,11 @@ export class MessageModel {
                 this.json = await res.json();
             }
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     }
 
-    async getMessage() {
+    getMessage = async () => {
         try {
             const res = await fetch(`http://${window.location.hostname}:8080/mail/income`, {
                 mode: 'cors',
@@ -83,7 +95,7 @@ export class MessageModel {
                 this.json = await res.json();
             }
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     }
 }

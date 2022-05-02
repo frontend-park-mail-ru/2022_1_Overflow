@@ -24,7 +24,7 @@ export class PopUp {
     }
 
     render = () => {
-        let popUpItemsHbs: any = [];
+        const popUpItemsHbs: string[] = [];
         this.props.content.forEach((item) => {
             popUpItemsHbs.push(
                 templateItemHBS({

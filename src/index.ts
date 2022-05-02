@@ -1,4 +1,3 @@
-import {MainPage} from './Presenter/pages/MainPage/MainPage';
 import './index.scss';
 import {eventEmitter} from "./Presenter/EventEmitter/EventEmitter";
 

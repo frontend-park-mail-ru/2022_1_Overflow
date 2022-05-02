@@ -1,15 +1,16 @@
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 import {LengthCheckPasswordAndName} from "../LengthCheck/LengthCheck";
+import {getCSRFToken} from "../Network/NetworkGet";
 
 
 export class SecurityModel {
-    private data: { Username: string, FirstName: string, LastName: string, avatar: any, password: string };
+    private readonly data: { Username: string, FirstName: string, LastName: string, avatar: string, password: string };
 
     constructor() {
         this.data = {Username: '', FirstName: '', LastName: '', avatar: '', password: ''};
     }
 
-    outPutData() {
+    outPutData = () => {
         return this.data;
     }
 
@@ -55,29 +56,18 @@ export class SecurityModel {
                 this.data.password = json['Password'];
             }
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     }
 
     fetchSetPassword = async (data: {password: string}) => {
         try {
-            const getSetProfile = await fetch(`http://${window.location.hostname}:8080/profile/set`, {
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'include',
-            });
-
-            if (getSetProfile.status !== 405) {
-                return;
-            }
-
+            const header = await getCSRFToken(`http://${window.location.hostname}:8080/profile/set`);
             const postSetProfile = await fetch(`http://${window.location.hostname}:8080/profile/set`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
-                    'X-CSRF-token': getSetProfile.headers.get('x-csrf-token')!,
+                    'X-CSRF-token': header,
                 },
                 method: 'POST',
                 credentials: 'include',
@@ -88,7 +78,7 @@ export class SecurityModel {
                 eventEmitter.goToMainPage(1);
             }
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     }
 }

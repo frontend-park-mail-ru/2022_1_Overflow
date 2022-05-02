@@ -13,10 +13,10 @@ import {isMobile} from "../../Utils/IsMobile/IsMobile";
 
 export class Header<T extends Element> {
     private readonly parent: T;
-    private readonly data: any;
+    private readonly data: { name: string; avatar: string; };
     private readonly popUp;
 
-    constructor(parent: T, data: any) {
+    constructor(parent: T, data: { name: string; avatar: string; }) {
         this.parent = parent;
         this.data = data;
         this.popUp = {
@@ -37,18 +37,18 @@ export class Header<T extends Element> {
         }
     }
 
-    evenPopUp(handler: any) {
+    evenPopUp = (handler: () => void) => {
         const profile = document.querySelector('.profile');
         if (profile === null)
             return;
         let profileEvent: EventListenerOrEventListenerObject;
-        profile.addEventListener('click', profileEvent = (event: any) => {
+        profile.addEventListener('click', profileEvent = (event) => {
             const popUpNew = new PopUp(this.popUp);
             this.parent.insertAdjacentHTML('beforeend', popUpNew.render());
             event.stopPropagation();
             profile.removeEventListener('click', profileEvent);
             let docEvent: EventListenerOrEventListenerObject;
-            document.addEventListener('click', docEvent = (event2: any) => {
+            document.addEventListener('click', docEvent = (event2) => {
                 let target: HTMLElement | null = event2.target as HTMLElement;
                 while (target) {
                     if (target?.id === 'exit') {
@@ -78,7 +78,7 @@ export class Header<T extends Element> {
         });
     }
 
-    render() {
+    render = () => {
         const logoText = new Text({
             color: 'White',
             text: 'OverMail',

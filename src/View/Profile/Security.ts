@@ -31,7 +31,7 @@ export class Security<T extends Element> {
         this.parent = parent;
     }
 
-    setError(data: {text: string, type: string}) {
+    setError = (data: {text: string, type: string}) => {
         const input = document.getElementById(`input${data.type}`);
         if (!input) {
             return;
@@ -47,14 +47,14 @@ export class Security<T extends Element> {
         error.textContent = data.text;
     }
 
-    getForm() {
+    getForm = () => {
         const lastPassword: string = (document.getElementById('inputLastPassword') as HTMLInputElement).value;
         const password: string = (document.getElementById('inputPassword') as HTMLInputElement).value;
-        const passwordRepeat: any = (document.getElementById('inputPasswordRepeat') as HTMLInputElement).value;
+        const passwordRepeat: string = (document.getElementById('inputPasswordRepeat') as HTMLInputElement).value;
         return {last_password: lastPassword, password: password, password_repeat: passwordRepeat};
     }
 
-    navigateBar() {
+    navigateBar = () => {
         const profile = document.getElementById('profile');
         if (profile === null) {
             return;
@@ -72,7 +72,7 @@ export class Security<T extends Element> {
         });
     }
 
-    submitForm(handler: any) {
+    submitForm = (handler: (form: {password: string; last_password: string; password_repeat: string}) => void) => {
         const prev = document.getElementById('prev');
         if (prev === null) {
             return;
@@ -90,8 +90,8 @@ export class Security<T extends Element> {
         });
     }
 
-    render() {
-        let items: any = [];
+    render = () => {
+        const items: string[] = [];
         itemsMenu.forEach((item, idx) => {
             const text = new Text({
                 color: 'Black',

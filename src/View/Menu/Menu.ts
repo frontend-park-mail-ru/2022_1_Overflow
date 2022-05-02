@@ -11,7 +11,6 @@ import './MenuItem/MenuItem.scss';
 import * as mainHBS from './Menu.hbs';
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 import {Text} from "../../ui-kit/Text/Text";
-import {PopUp} from "../../ui-kit/PopUp/PopUp";
 import {PopUpError} from "../../ui-kit/PopUpError/PopUpError";
 import {Input} from "../../ui-kit/Input/Input";
 import {Button} from "../../ui-kit/Button/Button";
@@ -51,7 +50,7 @@ export class Menu<T extends Element> {
         ];
     }
 
-    newFolderEvent() {
+    newFolderEvent = () => {
         const newFolder = document.getElementById('plus');
         if (!newFolder) {
             return;
@@ -207,14 +206,31 @@ export class Menu<T extends Element> {
 
         this.parent.insertAdjacentHTML('beforeend', main);
 
-        document.getElementById('send')!.addEventListener('click', () => {
+        const send = document.getElementById('send');
+        if (send === null) {
+            return;
+        }
+        const sendEvent = () => {
             eventEmitter.goToSendMessage(null, 'default');
-        });
-        document.getElementById('input')!.addEventListener('click', () => {
+        }
+        send.addEventListener('click', sendEvent);
+
+        const input = document.getElementById('input');
+        if (input === null) {
+            return;
+        }
+        const inputEvent = () => {
             eventEmitter.goToMainPage(1);
-        } );
-        document.getElementById('output')!.addEventListener('click', () => {
+        }
+        input.addEventListener('click', inputEvent);
+
+        const output = document.getElementById('output');
+        if (output === null) {
+            return;
+        }
+        const outputEvent = () => {
             eventEmitter.goToMainPage(2);
-        } );
+        }
+        output.addEventListener('click', outputEvent);
     };
 }

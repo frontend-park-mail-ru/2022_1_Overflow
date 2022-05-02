@@ -7,12 +7,14 @@ import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 
 export class SignIn<T extends Element> {
     private readonly parent : T;
+    private isLoading: boolean;
 
     constructor(parent: T) {
         this.parent = parent;
+        this.isLoading = false;
     }
 
-    setError(data: {text: string, type: string}) {
+    setError = (data: {text: string, type: string}) => {
         const input = document.getElementById(`input${data.type}`);
         if (!input) {
             return;
@@ -26,26 +28,48 @@ export class SignIn<T extends Element> {
         }
         error.style.visibility = 'visible';
         error.textContent = data.text;
+        this.isLoading = false;
     }
 
-    getForm() {
+    cleanError = (type: string) => {
+        const input = document.getElementById(`input${type}`);
+        if (!input) {
+            return;
+        }
+        input.classList.remove('inputLError');
+        input.classList.add('inputL');
+
+        const error = document.getElementById(`error${type}`) as HTMLDivElement;
+        if (!error) {
+            return;
+        }
+        error.style.visibility = 'hidden';
+    }
+
+    getForm = () => {
         const Username: string = (document.getElementById('inputLogin') as HTMLInputElement).value;
         const password : string = (document.getElementById('inputPassword') as HTMLInputElement).value;
         return {Username: Username, password: password};
     }
 
-    submitForm(handler: any) {
+    submitForm = (handler: (form: {password: string, Username: string}) => void) => {
         const form = document.getElementById('formSignIn');
         if (form === null)
             return;
-
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
+            if (this.isLoading) {
+                return;
+            }
+
+            this.isLoading = true;
+            this.cleanError('Login');
+            this.cleanError('Password');
             await handler(this.getForm());
         });
     }
 
-    render() {
+    render = () => {
         const loginInput = new Input({
             text: 'Логин',
             id: 'inputLogin',

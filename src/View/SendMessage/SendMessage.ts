@@ -6,18 +6,17 @@ import {Text} from '../../ui-kit/Text/Text'
 import {Input} from '../../ui-kit/Input/Input'
 import {Button} from "../../ui-kit/Button/Button";
 import {PopUpError} from "../../ui-kit/PopUpError/PopUpError";
-import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 
 export class SendMessage<T extends Element> {
     private readonly parent: T;
-    private readonly data: {avatar: any, login: string, theme: string, date: any, id: number, text: string} | null;
+    private readonly data: {avatar: string, login: string, theme: string, date: string, id: number, text: string} | null;
 
-    constructor(parent: T, data: {avatar: any, login: string, theme: string, date: any, id: number, text: string} | null) {
+    constructor(parent: T, data: {avatar: string, login: string, theme: string, date: string, id: number, text: string} | null) {
         this.parent = parent;
         this.data = data;
     }
 
-    setErrorTheme = (obj: {text: string, handler: any}) => {
+    setErrorTheme = (obj: {text: string, handler: (form: {addressee: string, files: string, text: string, theme: string}) => void}) => {
         const root = document.getElementsByTagName('body')[0];
         if (!root) {
             return;
@@ -70,7 +69,7 @@ export class SendMessage<T extends Element> {
             if (!popUp) {
                 return;
             }
-            let form = this.getForm();
+            const form = this.getForm();
             if (!form) {
                 return;
             }
@@ -153,7 +152,12 @@ export class SendMessage<T extends Element> {
         const themeInputText = document.getElementById('themeInput') as HTMLInputElement;
         const textareaMainText = document.getElementById('textareaMain') as HTMLInputElement;
         if (!inputLoginText || !themeInputText || !textareaMainText) {
-            return;
+            return {
+                addressee: '',
+                files: '',
+                text: '',
+                theme: '',
+            };
         }
 
         return {
@@ -164,7 +168,7 @@ export class SendMessage<T extends Element> {
         };
     }
 
-    send(handler: any) {
+    send = (handler: (form: {addressee: string, files: string, theme: string, text: string}) => void) => {
         const sendMessage = document.getElementById('sendButton');
         if (!sendMessage) {
             return;
@@ -176,7 +180,7 @@ export class SendMessage<T extends Element> {
         });
     }
 
-    render() {
+    render = () => {
         const who = new Text({
             color: 'Black',
             text: 'Кому:',

@@ -39,11 +39,11 @@ export class MainPage {
         this.messageModel = new MessageModel();
         if (this.type === 1){
             await this.messageModel.getMessage();
-            this.messageView = new Message(main, this.messageModel.outputData(), 1);
+            this.messageView = new Message(main, this.messageModel.outputData()!, 1);
         }
         if (this.type === 2){
             await this.messageModel.getOutComeMessage();
-            this.messageView = new Message(main, this.messageModel.outputData(), 2);
+            this.messageView = new Message(main, this.messageModel.outputData()!, 2);
         }
         this.messageView.render();
         this.messageView.goToMessagePage();

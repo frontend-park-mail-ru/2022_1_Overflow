@@ -27,14 +27,14 @@ const itemsMenu = [
 
 export class Profile<T extends Element> {
     private readonly parent: T;
-    private readonly data: {Username: string, FirstName: string, LastName: string, avatar: any, password: string};
+    private readonly data: {Username: string, FirstName: string, LastName: string, avatar: string, password: string};
 
-    constructor(parent: T, data: {Username: string, FirstName: string, LastName: string, avatar: any, password: string}) {
+    constructor(parent: T, data: {Username: string, FirstName: string, LastName: string, avatar: string, password: string}) {
         this.parent = parent;
         this.data = data;
     }
 
-    setError(data: {text: string, type: string}) {
+    setError = (data: {text: string, type: string}) => {
         const input = document.getElementById(`input${data.type}`);
         if (!input) {
             return;
@@ -50,14 +50,14 @@ export class Profile<T extends Element> {
         error.textContent = data.text;
     }
 
-    getForm() {
+    getForm = () => {
         const name: string = (document.getElementById('inputFirstName') as HTMLInputElement).value;
         const lastName: string = (document.getElementById('inputLastName') as HTMLInputElement).value;
-        const avatar: any = document.getElementById('file');
+        const avatar: any = (document.getElementById('file') as HTMLInputElement);
         return {first_name: name, last_name: lastName, avatar: avatar.files[0]};
     }
 
-    navigateBar() {
+    navigateBar = () => {
         const profile = document.getElementById('profile');
         if (profile === null) {
             return;
@@ -77,7 +77,7 @@ export class Profile<T extends Element> {
         });
     }
 
-    submitForm(handler: any) {
+    submitForm = (handler: any) => {
         const prev = document.getElementById('prev');
         if (prev === null) {
             return;
@@ -118,8 +118,8 @@ export class Profile<T extends Element> {
         });
     }
 
-    render() {
-        let items: any = [];
+    render = () => {
+        const items: string[] = [];
         itemsMenu.forEach((item, idx) => {
             const text = new Text({
                 color: 'Black',
