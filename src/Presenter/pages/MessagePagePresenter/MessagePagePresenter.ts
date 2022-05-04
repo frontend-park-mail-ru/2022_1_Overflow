@@ -4,11 +4,13 @@ import {eventEmitter} from "../../EventEmitter/EventEmitter";
 import {HeaderModel} from "../../../Model/HeaderModel/HeaderModel";
 import {MessagePageModel} from "../../../Model/MessagePageModel/MessagePageModel";
 import {MessagePage} from '../../../View/MessagePage/MessagePage'
+import {MenuModel} from "../../../Model/MenuModel/MenuModel";
 
 export class MessagePagePresenter {
     private readonly parent: Element;
     private headerView: Header<Element>;
     private menuView: Menu<Element>;
+    private menuModel: MenuModel;
     private headerModel: HeaderModel;
     private messagePageModel: MessagePageModel;
     private messagePageView: MessagePage<Element>;
@@ -29,9 +31,11 @@ export class MessagePagePresenter {
         this.headerView.render();
         this.headerView.evenPopUp(this.headerModel.logout);
 
-        this.menuView = new Menu(this.parent);
+        this.menuModel = new MenuModel();
+        await this.menuModel.getFolders();
+        this.menuView = new Menu(this.parent, this.menuModel.outPutFoldersName());
         this.menuView.render();
-        this.menuView.newFolderEvent();
+        this.menuView.newFolderEvent(this.menuModel.addNewFolder);
         const main = document.getElementById('main');
         if (main === null)
             return

@@ -13,6 +13,7 @@ export class PopUpError {
             input = '',
             primBtn = '',
             secBtn = '',
+            error = '',
             id,
             classNameDiv = '',
         }: IPopUpError) {
@@ -21,6 +22,7 @@ export class PopUpError {
             id,
             input,
             text,
+            error,
             primBtn,
             secBtn,
             classNameDiv
@@ -40,6 +42,7 @@ export class PopUpError {
             id: this.props.id,
             text: text.render(),
             input: this.props.input,
+            error: this.props.error,
             primBtn: this.props.primBtn,
             secBtn: this.props.secBtn,
             classNameDiv: this.props.classNameDiv,

@@ -1,7 +1,6 @@
 export const calcSecondPositionXY = (x: number, y: number, popUpReal: HTMLElement, popUpFolder: HTMLElement) => {
     const popUpWidth = popUpReal.offsetWidth;
     let xRes: number = x + popUpWidth;
-    console.log('popUpWidth', popUpWidth);
     let yRes: number = y;
     const screenWidth = document.documentElement.clientWidth;
     const screenHeight = document.documentElement.clientHeight;

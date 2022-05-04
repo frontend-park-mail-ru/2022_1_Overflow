@@ -45,3 +45,23 @@
     align-content: flex-start;
   }
 }
+
+.invalidMsgPopUpError {
+  @media screen and (max-width: 1000px){
+    width: 280px;
+  }
+  display: flex;
+  font-style: normal;
+  visibility: hidden;
+  color: #FF0000;
+  font-weight: 300;
+  align-content: center;
+  flex-direction: row;
+  text-align: start;
+  width: 320px;
+  font-size: 14px;
+  margin-top: -15px;
+  margin-bottom: 5px;
+  min-height: 14px;
+  margin-left: 3px;
+}

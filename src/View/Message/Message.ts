@@ -31,6 +31,7 @@ export class Message<T extends Element> {
     private readonly popUpMessage;
     private xPos: number;
     private yPos: number;
+    private isLoading: boolean;
 
     constructor(parent: T, data: {
         id: number,
@@ -49,6 +50,7 @@ export class Message<T extends Element> {
         this.type = type;
         this.xPos = 0;
         this.yPos = 0;
+        this.isLoading = false;
         this.popUpMessage = {
             id: 'popUpMessage',
             content: [
@@ -72,9 +74,9 @@ export class Message<T extends Element> {
         }
     }
 
-    eventRightClickMessage = () => {
-        this.messages.forEach((list) => {
-            const getElem = document.getElementById(list.id.toString());
+    eventRightClickMessage = (handlers: {handlerGetFolders: () => void, handlerRm: (id: string) => void, handlerSpam: (id: string) => void, handlerAddInFolder: (id: string) => void}) => {
+        this.messages.forEach((list, idx) => {
+            const getElem = document.getElementById(`message${list.id.toString()}`);
             if (getElem === null) {
                 return;
             }
@@ -84,10 +86,12 @@ export class Message<T extends Element> {
                 if (popUpPrev) {
                     popUpPrev.remove();
                 }
+
                 const popUpFolders = document.getElementById('popUpFolders');
                 if (popUpFolders) {
                     popUpFolders.remove();
                 }
+
                 const popUp = new PopUp(this.popUpMessage);
                 const root = document.getElementsByTagName('body')[0];
                 root.insertAdjacentHTML('beforeend', popUp.render());
@@ -99,34 +103,58 @@ export class Message<T extends Element> {
                 const {x, y} = calcPositionXY(event.clientX, event.clientY, popUpReal);
                 this.xPos = x;
                 this.yPos = y;
-                console.log(event.clientX, event.clientY)
                 popUpReal.style.top = this.yPos.toString() + 'px';
                 popUpReal.style.left = this.xPos.toString() + 'px';
 
-                const docEvent: EventListenerOrEventListenerObject = (event2) => {
+                const docEvent: EventListenerOrEventListenerObject = async (event2) => {
                     let target: HTMLElement | null = event2.target as HTMLElement;
                     while (target) {
                         if (target?.id === 'spam') {
+                            if (this.isLoading) {
+                                return;
+                            }
+                            this.isLoading = true;
+                            popUpReal.remove();
                             document.removeEventListener('click', docEvent);
-                            // toDo spam
+                            await handlers.handlerSpam('1');
+                            this.isLoading = false;
                             return;
                         }
 
                         if (target?.id === 'folder') {
+                            if (this.isLoading) {
+                                return;
+                            }
+                            this.isLoading = true;
+                            handlers.handlerGetFolders();
                             const isFoldersDiv = document.getElementById('popUpFolders');
                             if (isFoldersDiv) {
-                                console.log('skip');
                                 return;
                             }
                             this.createFolders();
+                            // await handlers.handlerAddInFolder('1');
                             // toDo folder
+                            this.isLoading = false;
                             return;
                         }
 
                         if (target?.id === 'remove') {
+                            if (this.isLoading) {
+                                return;
+                            }
+                            this.isLoading = true;
                             document.removeEventListener('click', docEvent);
                             popUpReal.remove();
-                            // toDo remove
+                            if (getElem.nextElementSibling) {
+                                getElem.nextElementSibling.remove();
+                            } else {
+                                if (getElem.previousElementSibling) {
+                                    getElem.previousElementSibling.remove();
+                                }
+                            }
+                            getElem.remove();
+                            await handlers.handlerRm(list.id.toString());
+                            this.isLoading = false;
                             return;
                         }
 
@@ -147,7 +175,7 @@ export class Message<T extends Element> {
         });
     }
 
-    createFolders = () => {
+    createFolders = async () => {
         //handler();
         //mock
         const foldersName: {id: string, text: string, icon: string}[] = [{id: '123', text: '123', icon: folderSVG}, {id: '1234', text: '1234', icon: folderSVG},{id: '1234', text: '1234', icon: folderSVG},{id: '1234', text: '1234', icon: folderSVG},{id: '1234', text: '1234', icon: folderSVG},{id: '1234', text: '1234', icon: folderSVG},{id: '1234', text: '1234', icon: folderSVG}];
@@ -174,7 +202,7 @@ export class Message<T extends Element> {
 
     goToMessagePage = () => {
         this.messages.forEach((list) => {
-            const getElem = document.getElementById(list.id.toString());
+            const getElem = document.getElementById(`message${list.id.toString()}`);
             if (getElem === null) {
                 return;
             }
@@ -191,24 +219,28 @@ export class Message<T extends Element> {
         });
     }
 
+    renderEmpty = () => {
+        const emptyText = new Text({
+            color: 'Grey',
+            text: 'Список писем пуст',
+            size: 'L',
+            className: 'messageEmpty'
+        });
+        const emptyTextText = [messageItem({
+            emptyTextText: emptyText.render(),
+            empty: 1,
+            flag: 0,
+        })];
+        const renderEmpty = mainMessage({
+            items: emptyTextText,
+        })
+        this.parent.insertAdjacentHTML('beforeend', renderEmpty);
+        return;
+    }
+
     render = () => {
         if (this.messages === null) {
-            const emptyText = new Text({
-                color: 'Grey',
-                text: 'Список писем пуст',
-                size: 'L',
-                className: 'messageEmpty'
-            });
-            const emptyTextText = [messageItem({
-                emptyTextText: emptyText.render(),
-                empty: 1,
-                flag: 0,
-            })];
-            const renderEmpty = mainMessage({
-                items: emptyTextText,
-            })
-            this.parent.insertAdjacentHTML('beforeend', renderEmpty);
-            return;
+            this.renderEmpty();
         }
 
         const messageText = this.renderMassage(this.messages);
@@ -262,11 +294,11 @@ export class Message<T extends Element> {
             });
             let flag = 1;
 
-            if (itemsMassage.length === index + 1) {
+            if (index === 0) {
                 flag = 0;
             }
             messageText.push(messageItem({
-                id: item.id,
+                id: `message${item.id}`,
                 avatar: item.avatar,
                 read: !item.read,
                 dot: dotSVG,

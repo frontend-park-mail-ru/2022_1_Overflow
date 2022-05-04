@@ -24,7 +24,7 @@ export class MessagePageModel {
         const header = await getCSRFToken(`http://${window.location.hostname}:8080/mail/read`);
 
         try {
-            const res = await fetch(`http://${window.location.hostname}:8080/mail/read?id=${this.id}`, {
+            const res = await fetch(`http://${window.location.hostname}:8080/mail/read`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -32,6 +32,7 @@ export class MessagePageModel {
                 },
                 method: 'POST',
                 credentials: 'include',
+                body: JSON.stringify({id: this.id, isread: true})
             })
             if (res.ok) {
                 this.body = await res.json();

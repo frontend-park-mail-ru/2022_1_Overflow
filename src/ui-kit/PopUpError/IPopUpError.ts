@@ -4,6 +4,7 @@ export interface IPopUpError {
     primBtn?: string,
     secBtn?: string,
     input?: string,
+    error?: string,
     id: string,
     classNameDiv?: string,
 }

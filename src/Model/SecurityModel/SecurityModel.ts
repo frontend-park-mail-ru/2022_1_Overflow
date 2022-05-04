@@ -10,17 +10,10 @@ export class SecurityModel {
         this.data = {Username: '', FirstName: '', LastName: '', avatar: '', password: ''};
     }
 
-    outPutData = () => {
-        return this.data;
-    }
-
     checkInput = async (data: {last_password: string, password: string, password_repeat: string}) => {
         const errLastPassword = LengthCheckPasswordAndName(data.last_password, 'старого пароль');
         if (errLastPassword !== '') {
             eventEmitter.emit('error', {text: errLastPassword, type: 'LastPassword'});
-        }
-        if (data.last_password !== this.data.password) {
-            eventEmitter.emit('error', {text: 'Старый пароль не верный', type: 'LastPassword'});
         }
         const errPassword = LengthCheckPasswordAndName(data.password, 'пароля');
         if (errPassword !== '') {
@@ -31,11 +24,12 @@ export class SecurityModel {
             eventEmitter.emit('error', {text: errPassword, type: 'PasswordRepeat'});
         }
         if (data.password !== data.password_repeat) {
+            eventEmitter.emit('error', {text: '', type: 'Password'});
             eventEmitter.emit('error', {text: 'Поля пароля и повтора пароля не совпадают', type: 'PasswordRepeat'});
             return;
         }
         if (errLastPassword === '' && errPassword === '' && errPasswordRepeat === '') {
-            await this.fetchSetPassword({password: data.password});
+            await this.fetchSetPassword({password_old: data.last_password, password_new: data.password, password_new_confirmation: data.password_repeat});
         }
     }
 
@@ -59,10 +53,10 @@ export class SecurityModel {
         }
     }
 
-    fetchSetPassword = async (data: {password: string}) => {
+    fetchSetPassword = async (data: {password_old: string, password_new: string, password_new_confirmation: string}) => {
         try {
-            const header = await getCSRFToken(`http://${window.location.hostname}:8080/profile/set`);
-            const postSetProfile = await fetch(`http://${window.location.hostname}:8080/profile/set`, {
+            const header = await getCSRFToken(`http://${window.location.hostname}:8080/profile/change_password`);
+            const postSetProfile = await fetch(`http://${window.location.hostname}:8080/profile/change_password`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -75,7 +69,20 @@ export class SecurityModel {
 
             if (postSetProfile.ok) {
                 eventEmitter.goToMainPage(1);
+                return;
             }
+            const json: {message: string, status: number} = await postSetProfile.json();
+            if (json.status === 2) {
+                eventEmitter.emit('error', {text: '', type: 'LastPassword'});
+                eventEmitter.emit('error', {text: '', type: 'Password'});
+                eventEmitter.emit('error', {text: 'Старый и новый пароли не должны совпадать', type: 'PasswordRepeat'});
+                return;
+            }
+            if (json.status === 13) {
+                eventEmitter.emit('error', {text: 'Старый пароль не верный', type: 'LastPassword'});
+                return;
+            }
+            eventEmitter.emit('error', {text: json.message, type: 'LastPassword'});
         } catch (e) {
             console.error(e);
         }

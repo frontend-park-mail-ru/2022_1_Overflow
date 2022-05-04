@@ -3,6 +3,9 @@
         {{{emptyTextText}}}
     </div>
 {{else}}
+    {{#if flag}}
+        <hr class="hrClass">
+    {{/if}}
     <div id="{{id}}" class="messageText">
         {{#if read}}
             <img class="dot" src="{{{dot}}}" alt="avatar">
@@ -17,7 +20,4 @@
         </div>
         {{{timeText}}}
     </div>
-{{/if}}
-{{#if flag}}
-    <hr class="hrClass">
 {{/if}}

@@ -3,6 +3,9 @@
         {{{text}}}
         {{#if input}}
             {{{input}}}
+            {{#if error}}
+                <p id="{{error}}" class="invalidMsgPopUpError">Не верное имя пользователя или пароль</p>
+            {{/if}}
         {{/if}}
         <div class="mobileMargin">
             {{#if primBtn}}

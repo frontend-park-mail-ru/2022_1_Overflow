@@ -72,6 +72,22 @@ export class Security<T extends Element> {
         });
     }
 
+    cleanError = (type: string) => {
+        const input = document.getElementById(`input${type}`);
+        if (!input) {
+            return;
+        }
+        input.classList.remove('inputXLError');
+        input.classList.add('inputXL');
+
+        const error = document.getElementById(`error${type}`) as HTMLDivElement;
+        if (!error) {
+            return;
+        }
+        error.style.visibility = 'hidden';
+        error.textContent = '';
+    }
+
     submitForm = (handler: (form: {password: string; last_password: string; password_repeat: string}) => void) => {
         const prev = document.getElementById('prev');
         if (prev === null) {
@@ -86,6 +102,9 @@ export class Security<T extends Element> {
             return;
         form.addEventListener('submit', async (event) => {
             event.preventDefault();
+            this.cleanError('LastPassword');
+            this.cleanError('Password');
+            this.cleanError('PasswordRepeat');
             await handler(this.getForm());
         });
     }
