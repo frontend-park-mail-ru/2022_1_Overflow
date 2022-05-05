@@ -38,7 +38,7 @@ export class MenuModel {
         }
     }
 
-    rmFolder = async (id: string) => {
+    rmFolder = async (name: string) => {
         try {
             const header = await getCSRFToken(`http://${window.location.hostname}:8080/folder/delete`);
             const res = await fetch(`http://${window.location.hostname}:8080/folder/delete`, {
@@ -49,15 +49,14 @@ export class MenuModel {
                     'X-CSRF-token': header,
                 },
                 credentials: 'include',
-                body: JSON.stringify({folder_name: id}),
+                body: JSON.stringify({folder_name: name}),
             });
-            console.log(res);
         } catch (e) {
             console.error(e);
         }
     }
 
-    reName = async (id: number, name: string) => {
+    reName = async (folder_name: string, new_folder_name: string, id: number) => {
         try {
             const header = await getCSRFToken(`http://${window.location.hostname}:8080/folder/rename`);
             const res = await fetch(`http://${window.location.hostname}:8080/folder/rename`, {
@@ -68,10 +67,10 @@ export class MenuModel {
                     'X-CSRF-token': header,
                 },
                 credentials: 'include',
-                body: JSON.stringify({  folder_id: id, new_folder_name: name}),
+                body: JSON.stringify({folder_name, new_folder_name}),
             });
             if (res.ok) {
-                eventEmitter.emit('reNameFolder', {name, id});
+                eventEmitter.emit('reNameFolder', {name: new_folder_name, id});
                 return;
             }
             const json: {status: number, message: string} = await res.json();
@@ -93,8 +92,8 @@ export class MenuModel {
                 credentials: 'include'
             });
             if (res.ok) {
-                const json: {id: number, name: string, user_id: number, created_at: string}[] = await res.json();
-                json.forEach((item) => {
+                const json: {amount: number , folders:[{id: number, name: string, user_id: number, created_at: string}]} = await res.json();
+                json.folders.forEach((item) => {
                     this.folderItems.push({id: item.id, name: item.name, userId: item.user_id, date: item.created_at});
                 });
             }

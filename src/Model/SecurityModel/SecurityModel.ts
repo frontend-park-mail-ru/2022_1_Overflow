@@ -68,7 +68,7 @@ export class SecurityModel {
             });
 
             if (postSetProfile.ok) {
-                eventEmitter.goToMainPage(1);
+                eventEmitter.goToMainPage('input', '');
                 return;
             }
             const json: {message: string, status: number} = await postSetProfile.json();

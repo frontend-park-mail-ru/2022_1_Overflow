@@ -94,7 +94,7 @@ export class Security<T extends Element> {
             return;
         }
         prev.addEventListener('click', () => {
-            eventEmitter.goToMainPage(1);
+            eventEmitter.goToMainPage('input', '');
         });
 
         const form = document.getElementById('form');
@@ -198,7 +198,7 @@ export class Security<T extends Element> {
         }
 
         stroke.addEventListener('click', () => {
-            eventEmitter.goToMainPage(1);
+            eventEmitter.goToMainPage('input', '');
         });
     }
 }

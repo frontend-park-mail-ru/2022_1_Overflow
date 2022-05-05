@@ -75,6 +75,7 @@ export class SendMessagePresenter {
             }
         }
         this.sendMessageView.render();
+        this.sendMessageView.eventDraft(this.sendMessageModel.fetchDraft);
 
         if (this.flag === 'reSend') {
             await this.sendMessageModel.fetchGetUserAvatar(this.data.login);

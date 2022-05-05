@@ -11,7 +11,7 @@ const getProfile = async () => {
             credentials: 'include'
         });
         if (res.ok) {
-            eventEmitter.goToMainPage(1);
+            eventEmitter.goToMainPage('input', '');
         }
 
         if (!res.ok) {

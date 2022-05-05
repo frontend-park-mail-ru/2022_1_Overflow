@@ -74,8 +74,11 @@ export class Message<T extends Element> {
         }
     }
 
-    eventRightClickMessage = (handlers: {handlerGetFolders: () => void, handlerRm: (id: string) => void, handlerSpam: (id: string) => void, handlerAddInFolder: (id: string) => void}) => {
-        this.messages.forEach((list, idx) => {
+    eventRightClickMessage = (handlers: {handlerGetFolders: () => any, handlerRm: (name: number) => void, handlerSpam: (foldr_id: string, mail_id: number) => void, handlerAddInFolder: (foldr_id: string, mail_id: number) => void, handlerGetFoldersMove: (folder_name_dest: string, folder_name_src: string, mail_id: number) => void}, folderName: string) => {
+        if (!this.messages) {
+            return;
+        }
+        this.messages.forEach((list) => {
             const getElem = document.getElementById(`message${list.id.toString()}`);
             if (getElem === null) {
                 return;
@@ -116,7 +119,20 @@ export class Message<T extends Element> {
                             this.isLoading = true;
                             popUpReal.remove();
                             document.removeEventListener('click', docEvent);
-                            await handlers.handlerSpam('1');
+                            if (getElem.nextElementSibling) {
+                                getElem.nextElementSibling.remove();
+                            } else {
+                                if (getElem.previousElementSibling) {
+                                    getElem.previousElementSibling.remove();
+                                }
+                            }
+                            getElem.remove();
+                            if (folderName) {
+                                await handlers.handlerGetFoldersMove('Спам', folderName, list.id);
+                            } else {
+                                await handlers.handlerSpam('Спам', list.id);
+                            }
+                            await handlers.handlerSpam('Спам', list.id);
                             this.isLoading = false;
                             return;
                         }
@@ -126,14 +142,12 @@ export class Message<T extends Element> {
                                 return;
                             }
                             this.isLoading = true;
-                            handlers.handlerGetFolders();
                             const isFoldersDiv = document.getElementById('popUpFolders');
                             if (isFoldersDiv) {
                                 return;
                             }
-                            this.createFolders();
-                            // await handlers.handlerAddInFolder('1');
-                            // toDo folder
+                            const folders = await handlers.handlerGetFolders();
+                            this.createFolders(folders, handlers.handlerGetFoldersMove, handlers.handlerAddInFolder, getElem, list, folderName);
                             this.isLoading = false;
                             return;
                         }
@@ -153,7 +167,7 @@ export class Message<T extends Element> {
                                 }
                             }
                             getElem.remove();
-                            await handlers.handlerRm(list.id.toString());
+                            await handlers.handlerRm(list.id);
                             this.isLoading = false;
                             return;
                         }
@@ -175,10 +189,12 @@ export class Message<T extends Element> {
         });
     }
 
-    createFolders = async () => {
-        //handler();
-        //mock
-        const foldersName: {id: string, text: string, icon: string}[] = [{id: '123', text: '123', icon: folderSVG}, {id: '1234', text: '1234', icon: folderSVG},{id: '1234', text: '1234', icon: folderSVG},{id: '1234', text: '1234', icon: folderSVG},{id: '1234', text: '1234', icon: folderSVG},{id: '1234', text: '1234', icon: folderSVG},{id: '1234', text: '1234', icon: folderSVG}];
+    createFolders = async (folders: { id: number; name: string; userId: number; date: string }[], handlerGetFoldersMove: (folder_name_dest: string, folder_name_src: string, mail_id: number) => void, handlerAddInFolder: (foldr_id: string, mail_id: number) => void, getElem: HTMLElement, list: { id: number; client_id: number; sender: string; title: string; subTitle: string; files: string; time: string; read: boolean; avatar: string; timeReal: string }, folderName: string) => {
+        const foldersName: { id: string, text: string, icon: string }[] = [];
+
+        folders.forEach((item) => {
+            foldersName.push({id: item.id.toString() + 'popUp', icon: folderSVG, text: item.name});
+        })
 
         const popUpFolders = new PopUp({
             id: 'popUpFolders',
@@ -198,9 +214,57 @@ export class Message<T extends Element> {
         const {x, y} = calcSecondPositionXY(this.xPos, this.yPos, popUpReal, foldersDiv);
         foldersDiv.style.top = y.toString() + 'px';
         foldersDiv.style.left = x.toString() + 'px';
+
+        folders.forEach((item) => {
+            const eventFolderClick = () => {
+                if (getElem.nextElementSibling) {
+                    getElem.nextElementSibling.remove();
+                } else {
+                    if (getElem.previousElementSibling) {
+                        getElem.previousElementSibling.remove();
+                    }
+                }
+                if (folderName) {
+                    handlerGetFoldersMove(item.name, folderName, list.id);
+                } else {
+                    handlerAddInFolder(item.name, list.id);
+                }
+                getElem.remove();
+            }
+            const elem = document.getElementById(item.id.toString() + 'popUp');
+            if (!elem)
+                return;
+            elem.addEventListener('click', eventFolderClick);
+        });
+    }
+
+    goToMessageEdit = () => {
+        if (!this.messages) {
+            return;
+        }
+        this.messages.forEach((list) => {
+            const getElem = document.getElementById(`message${list.id.toString()}`);
+            if (getElem === null) {
+                return;
+            }
+            console.log(1);
+            getElem.addEventListener('click', () => {
+                eventEmitter.goToSendMessage({
+                    avatar: list.avatar,
+                    login: list.sender,
+                    theme: list.title,
+                    date: list.time,
+                    text: list.subTitle,
+                    id: list.id
+                }, '');
+            });
+        });
     }
 
     goToMessagePage = () => {
+        if (!this.messages) {
+            return;
+        }
         this.messages.forEach((list) => {
             const getElem = document.getElementById(`message${list.id.toString()}`);
             if (getElem === null) {
@@ -241,6 +305,7 @@ export class Message<T extends Element> {
     render = () => {
         if (this.messages === null) {
             this.renderEmpty();
+            return;
         }
 
         const messageText = this.renderMassage(this.messages);
@@ -259,15 +324,15 @@ export class Message<T extends Element> {
             }
 
             const senderText = (item.read) ? new Text({
-                text: item.sender,
-                size: 'L',
-                className: 'widthName',
-            }) :
-            new Text({
-                text: item.sender,
-                size: 'L',
-                className: 'bold widthName',
-            });
+                    text: item.sender,
+                    size: 'L',
+                    className: 'widthName',
+                }) :
+                new Text({
+                    text: item.sender,
+                    size: 'L',
+                    className: 'bold widthName',
+                });
 
             const titleText = (item.read) ? new Text({
                     text: item.title,

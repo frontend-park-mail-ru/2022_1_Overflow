@@ -26,6 +26,8 @@ export class Menu<T extends Element> {
     private xPos: number;
     private yPos: number;
     private popUpFolderOpen;
+    private handlerRm: (name: string) => void;
+    private handlerRename: (folderName: string, newFolderName: string, id: number) => void
 
 
     constructor(parent: T, folders: {id: number, name: string, userId: number, date: string}[]) {
@@ -103,6 +105,7 @@ export class Menu<T extends Element> {
             return;
         }
         popUpNewFolder.remove();
+        this.setEventRightClickFolder({id: data.id, name: data.name, userId: data.user_id, date: data.created_at});
         this.isLoading = false;
     }
 
@@ -123,7 +126,7 @@ export class Menu<T extends Element> {
         this.isLoading = false;
     }
 
-    renderPopUpReNameFolder = (handler: (id: number, name: string) => void, id: number) => {
+    renderPopUpReNameFolder = (handler: (folderName: string, newFolderName: string, id: number) => void, name: string, id: number) => {
         const inputNewFolderName = new Input({
             size: 'L',
             id: 'inputReNameFolder',
@@ -180,7 +183,7 @@ export class Menu<T extends Element> {
                 return;
             }
             this.isLoading = true;
-            await handler(id, input.value)
+            await handler(name, input.value, id);
         }
         const primBtnEvent = document.getElementById('createRename');
         if (!primBtnEvent) {
@@ -190,10 +193,17 @@ export class Menu<T extends Element> {
     }
 
     eventReNameFolder = (data: {name: string, id: number}) => {
+        console.log(data);
         const element = document.getElementById(data.id.toString()) as HTMLDivElement;
         if (!element) {
             return;
         }
+        const popReNameFolder = document.getElementById('popReNameFolder');
+        if (!popReNameFolder) {
+            return;
+        }
+        popReNameFolder.remove();
+        console.log(data.name);
         element.children.item(1)!.textContent = data.name;
         this.isLoading = false;
     }
@@ -283,6 +293,89 @@ export class Menu<T extends Element> {
         newFolder.addEventListener('click', createPopUpNewFolder);
     }
 
+    setEventRightClickFolder = (list: {id: number, name: string, userId: number, date: string}) => {
+        const getElem = document.getElementById(list.id.toString());
+        if (getElem === null) {
+            return;
+        }
+        const event = (event: MouseEvent) => {
+            event.preventDefault();
+            if (this.isLoading) {
+                return;
+            }
+            this.isLoading = true;
+            const popUpPrev = document.getElementById('popUpFolderOpen');
+            if (popUpPrev) {
+                popUpPrev.remove();
+            }
+
+            const popUp = new PopUp(this.popUpFolderOpen);
+            const root = document.getElementsByTagName('body')[0];
+            root.insertAdjacentHTML('beforeend', popUp.render());
+            const popUpReal = document.getElementById('popUpFolderOpen') as HTMLDivElement;
+            if (!popUpReal) {
+                return;
+            }
+
+            const {x, y} = calcPositionXY(event.clientX, event.clientY, popUpReal);
+            this.xPos = x;
+            this.yPos = y;
+            popUpReal.style.top = this.yPos.toString() + 'px';
+            popUpReal.style.left = this.xPos.toString() + 'px';
+
+            const docEvent: EventListenerOrEventListenerObject = async (event2) => {
+                let target: HTMLElement | null = event2.target as HTMLElement;
+                while (target) {
+                    if (target?.id === 'renameFolder') {
+                        if (this.isLoading) {
+                            return;
+                        }
+                        this.isLoading = true;
+                        popUpReal.remove();
+                        document.removeEventListener('click', docEvent);
+                        this.renderPopUpReNameFolder(this.handlerRename, list.name , list.id);
+                        return;
+                    }
+
+                    if (target?.id === 'rmFolder') {
+                        if (this.isLoading) {
+                            return;
+                        }
+                        this.isLoading = true;
+                        document.removeEventListener('click', docEvent);
+                        await this.handlerRm(list.name);
+                        popUpReal.remove();
+                        getElem.remove();
+                        this.isLoading = false;
+                        return;
+                    }
+
+                    target = target.parentElement;
+                    if (target === null) {
+                        document.removeEventListener('click', docEvent);
+                        popUpReal.remove();
+                        return;
+                    }
+                }
+            };
+            document.addEventListener('click', docEvent);
+            this.isLoading = false;
+        }
+
+        getElem.addEventListener('contextmenu', event);
+        getElem.addEventListener('click', () => {
+            eventEmitter.goToMainPage('folder', list.name);
+        });
+    }
+
+    eventRightClickMessage = (handlers: {handlerRm: (name: string) => void, handlerRename: (folderName: string, newFolderName: string, id: number) => void}) => {
+        this.handlerRm = handlers.handlerRm;
+        this.handlerRename = handlers.handlerRename;
+        this.itemsFolder.forEach((list) => {
+            this.setEventRightClickFolder(list);
+        });
+    }
+
     navigateBar = () => {
         const send = document.getElementById('send');
         if (send === null) {
@@ -306,7 +399,7 @@ export class Menu<T extends Element> {
                 return;
             }
             this.isLoading = true;
-            eventEmitter.goToMainPage(1);
+            eventEmitter.goToMainPage('input', '');
         }
         input.addEventListener('click', inputEvent);
 
@@ -319,81 +412,35 @@ export class Menu<T extends Element> {
                 return;
             }
             this.isLoading = true;
-            eventEmitter.goToMainPage(2);
+            eventEmitter.goToMainPage('output', '');
         }
         output.addEventListener('click', outputEvent);
-    }
 
-    eventRightClickMessage = (handlers: {handlerRm: (id: string) => void, handlerRename: (id: number, name: string) => void}) => {
-        this.itemsFolder.forEach((list, idx) => {
-            const getElem = document.getElementById(list.id.toString());
-            if (getElem === null) {
+        const draft = document.getElementById('draft');
+        if (!draft) {
+            return;
+        }
+        const draftEvent = () => {
+            if (this.isLoading) {
                 return;
             }
-            getElem.addEventListener('contextmenu', (event) => {
-                event.preventDefault();
-                if (this.isLoading) {
-                    return;
-                }
-                this.isLoading = true;
-                const popUpPrev = document.getElementById('popUpFolderOpen');
-                if (popUpPrev) {
-                    popUpPrev.remove();
-                }
+            this.isLoading = true;
+            eventEmitter.goToMainPage('draft', 'Черновики');
+        }
+        draft.addEventListener('click', draftEvent);
 
-                const popUp = new PopUp(this.popUpFolderOpen);
-                const root = document.getElementsByTagName('body')[0];
-                root.insertAdjacentHTML('beforeend', popUp.render());
-                const popUpReal = document.getElementById('popUpFolderOpen') as HTMLDivElement;
-                if (!popUpReal) {
-                    return;
-                }
-
-                const {x, y} = calcPositionXY(event.clientX, event.clientY, popUpReal);
-                this.xPos = x;
-                this.yPos = y;
-                popUpReal.style.top = this.yPos.toString() + 'px';
-                popUpReal.style.left = this.xPos.toString() + 'px';
-
-                const docEvent: EventListenerOrEventListenerObject = async (event2) => {
-                    let target: HTMLElement | null = event2.target as HTMLElement;
-                    while (target) {
-                        if (target?.id === 'renameFolder') {
-                            if (this.isLoading) {
-                                return;
-                            }
-                            this.isLoading = true;
-                            popUpReal.remove();
-                            document.removeEventListener('click', docEvent);
-                            this.renderPopUpReNameFolder(handlers.handlerRename, list.id);
-                            return;
-                        }
-
-                        if (target?.id === 'rmFolder') {
-                            if (this.isLoading) {
-                                return;
-                            }
-                            this.isLoading = true;
-                            document.removeEventListener('click', docEvent);
-                            popUpReal.remove();
-                            getElem.remove();
-                            await handlers.handlerRm(getElem.id);
-                            this.isLoading = false;
-                            return;
-                        }
-
-                        target = target.parentElement;
-                        if (target === null) {
-                            document.removeEventListener('click', docEvent);
-                            popUpReal.remove();
-                            return;
-                        }
-                    }
-                };
-                document.addEventListener('click', docEvent);
-                this.isLoading = false;
-            });
-        });
+        const spam = document.getElementById('spam');
+        if (!spam) {
+            return;
+        }
+        const spamEvent = () => {
+            if (this.isLoading) {
+                return;
+            }
+            this.isLoading = true;
+            eventEmitter.goToMainPage('folder', 'Спам');
+        }
+        spam.addEventListener('click', spamEvent);
     }
 
     render = () => {

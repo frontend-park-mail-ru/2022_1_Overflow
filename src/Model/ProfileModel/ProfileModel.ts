@@ -103,7 +103,7 @@ export class ProfileModel {
             });
 
             if (postSetProfile.ok) {
-                eventEmitter.goToMainPage(1);
+                eventEmitter.goToMainPage('input', '');
             }
         } catch (e) {
             console.error(e);

@@ -78,7 +78,7 @@ export class SendMessageModel {
                 body: JSON.stringify(text),
             });
             if (res.ok) {
-                eventEmitter.goToMainPage(1);
+                eventEmitter.goToMainPage('input', '');
                 return;
             }
 
@@ -88,6 +88,28 @@ export class SendMessageModel {
                     eventEmitter.emit('error', 'Вы пытаетесь отправить сообщение несуществующему пользователю');
                 }
             }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    fetchDraft = async (data: { folder_name: string, form: {
+        addressee: string,
+        files: string,
+        text: string,
+        theme: string}}) => {
+        try {
+            const header = await getCSRFToken(`http://${window.location.hostname}:8080/folder/mail/add_form`);
+            const res = await fetch(`http://${window.location.hostname}:8080/folder/mail/add_form`, {
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-token': header,
+                },
+                method: 'POST',
+                credentials: 'include',
+                body: JSON.stringify(data),
+            });
         } catch (e) {
             console.error(e);
         }

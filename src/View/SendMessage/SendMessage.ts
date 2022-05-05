@@ -6,6 +6,8 @@ import {Text} from '../../ui-kit/Text/Text'
 import {Input} from '../../ui-kit/Input/Input'
 import {Button} from "../../ui-kit/Button/Button";
 import {PopUpError} from "../../ui-kit/PopUpError/PopUpError";
+import {PopUp} from "../../ui-kit/PopUp/PopUp";
+import {calcPositionXY} from "../../Utils/CalcPositionXY/CalcPositionXY";
 
 export class SendMessage<T extends Element> {
     private readonly parent: T;
@@ -178,6 +180,99 @@ export class SendMessage<T extends Element> {
             sendMessage.setAttribute("disabled", "disabled");
             await handler(this.getForm());
         });
+    }
+
+    createPopUpDraft = (handler: (add: { folder_name: string; form: { addressee: string; files: string; text: string; theme: string } }) => void, form: { addressee: string; files: string; theme: string; text: string }) => {
+        const primBtn = new Button({
+            size: 'S',
+            id: 'create',
+            text: 'Да',
+            className: 'rightMargin'
+        });
+
+        const secBtn = new Button({
+            size: 'S',
+            variant: 'Secondary',
+            id: 'prev',
+            text: 'Нет',
+        })
+
+        const popUpNewFolder = new PopUpError({
+            size: 'Auto',
+            text: 'Вы не закончили писать сообщение, хотите сохранить в черновик?',
+            primBtn: primBtn.render(),
+            secBtn: secBtn.render(),
+            id: 'popUpNewFolder',
+            classNameDiv: 'sizePopUpNewFolder'
+        });
+
+        const root = document.getElementsByTagName('body')[0];
+        root.insertAdjacentHTML('beforeend', popUpNewFolder.render());
+
+        const eventDraftYes = async () => {
+            console.log(form);
+            await handler({
+                folder_name: 'Черновики',
+                form: {
+                    addressee: form.addressee,
+                    files: form.files,
+                    text: form.text,
+                    theme: form.theme,
+            }});
+            const popUp = document.getElementById('popUpNewFolder');
+            if (popUp) {
+                popUp.remove();
+            }
+        }
+        const yesDraft = document.getElementById('create');
+        if (!yesDraft) {
+            return;
+        }
+        yesDraft.addEventListener('click', eventDraftYes);
+
+        const eventDraftNo = () => {
+            const popUp = document.getElementById('popUpNewFolder');
+            if (popUp) {
+                popUp.remove();
+            }
+        }
+        const noDraft = document.getElementById('create');
+        if (!noDraft) {
+            return;
+        }
+        noDraft.addEventListener('click', eventDraftNo);
+    }
+
+    eventDraft = (handler: (add: { folder_name: string, form: {
+            addressee: string,
+            files: string,
+            text: string,
+            theme: string}}) => void) => {
+        const docEvent: EventListenerOrEventListenerObject = async (event2) => {
+            let target: HTMLElement | null = event2.target as HTMLElement;
+            while (target) {
+                if (target?.id === 'sendButton') {
+                    document.removeEventListener('click', docEvent);
+                    return;
+                }
+
+                if (target?.id === 'messageOutPut') {
+                    return;
+                }
+
+                target = target.parentElement;
+                if (target === null) {
+                    document.removeEventListener('click', docEvent);
+                    const form = this.getForm();
+                    if (form.theme === this.data?.theme && form.addressee === this.data.login && form.text.replace(/(\r\n|\n|\r)/gm,"") === this.data.text.replace(/(\r\n|\n|\r)/gm,"")) {
+                        return;
+                    }
+                    this.createPopUpDraft(handler, form);
+                    return;
+                }
+            }
+        };
+        document.addEventListener('click', docEvent);
     }
 
     render = () => {

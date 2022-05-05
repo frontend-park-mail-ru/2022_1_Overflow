@@ -83,7 +83,7 @@ export class Profile<T extends Element> {
             return;
         }
         prev.addEventListener('click', () => {
-            eventEmitter.goToMainPage(1);
+            eventEmitter.goToMainPage('input', '');
         });
 
         const file = (document.getElementById('file') as HTMLInputElement);
@@ -209,7 +209,7 @@ export class Profile<T extends Element> {
         }
 
         stroke.addEventListener('click', () => {
-            eventEmitter.goToMainPage(1);
+            eventEmitter.goToMainPage('input', '');
         });
     }
 }

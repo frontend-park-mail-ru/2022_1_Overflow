@@ -16,30 +16,32 @@ export class MessageModel {
             timeReal: string,
         }[];
 
-    private json: [{mail: {
-            id: number,
-            client_id: number,
-            sender: string,
-            addressee: string,
-            theme: string,
-            text: string,
-            file: string,
-            date: string,
-            read: boolean,
-        }
-        avatar_url: string
-    }];
+    private json: {amount: number, mails: [{
+            mail: {
+                id: number,
+                client_id: number,
+                sender: string,
+                addressee: string,
+                theme: string,
+                text: string,
+                file: string,
+                date: string,
+                read: boolean,
+            }
+            avatar_url: string
+        }]
+    };
 
     outputData = () => {
         const monthNames = ["Янв", "Фев", "Мар", "Апр", "Май", "Июн",
             "Июл", "Авг", "Сен", "Окт", "Ноя", "Дек"
         ];
         this.messages = [];
-        if (this.json === null) {
+        if (this.json.mails === null) {
             return null;
         }
 
-        this.json.forEach((pars) => {
+        this.json.mails.forEach((pars) => {
             const date = new Date(pars.mail.date);
             let dateSet: string;
             const today = new Date();
@@ -77,16 +79,17 @@ export class MessageModel {
             });
             if (res.ok) {
                 this.json = await res.json();
+                console.log(this.json);
             }
         } catch (e) {
             console.error(e);
         }
     }
 
-    rmMessage = async (id: string) => {
-        const header = await getCSRFToken(`http://${window.location.hostname}:8080/mail/delete`);
+    rmMessageInFolder = async (folder_name: string, mail_id: number) => {
+        const header = await getCSRFToken(`http://${window.location.hostname}:8080/folder/mail/delete`);
 
-        await fetch(`http://${window.location.hostname}:8080/mail/delete?id=${id}`, {
+        await fetch(`http://${window.location.hostname}:8080/folder/mail/delete`, {
             mode: 'cors',
             headers: {
                 'Content-Type': 'application/json',
@@ -94,7 +97,76 @@ export class MessageModel {
             },
             method: 'POST',
             credentials: 'include',
+            body: JSON.stringify({folder_name, mail_id, restore: false}),
         });
+    }
+
+    rmMessage = async (id: number) => {
+        const header = await getCSRFToken(`http://${window.location.hostname}:8080/mail/delete`);
+
+        await fetch(`http://${window.location.hostname}:8080/mail/delete`, {
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-token': header,
+            },
+            method: 'POST',
+            credentials: 'include',
+            body: JSON.stringify({id}),
+        });
+    }
+
+    selectFolderMessage = async (folder_name: string) => {
+        try {
+            const res = await fetch(`http://${window.location.hostname}:8080/folder/list?folder_name=${folder_name}`, {
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include'
+            });
+            if (res.ok) {
+                this.json = await res.json();
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    moveInFolderMessage = async (folder_name_dest: string, folder_name_src: string, mail_id: number) => {
+        try {
+            const header = await getCSRFToken(`http://${window.location.hostname}:8080/folder/mail/move`);
+            await fetch(`http://${window.location.hostname}:8080/folder/mail/move`, {
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-token': header,
+                },
+                method: 'POST',
+                credentials: 'include',
+                body: JSON.stringify({folder_name_dest, folder_name_src, mail_id}),
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    addInFolderMessage = async (folder_name: string, mail_id: number) => {
+        try {
+            const header = await getCSRFToken(`http://${window.location.hostname}:8080/folder/mail/add`);
+            await fetch(`http://${window.location.hostname}:8080/folder/mail/add`, {
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-token': header,
+                },
+                method: 'POST',
+                credentials: 'include',
+                body: JSON.stringify({folder_name: folder_name, mail_id: mail_id, move: true}),
+            });
+        } catch (e) {
+            console.error(e);
+        }
     }
 
     getFolders = async () => {
@@ -107,7 +179,15 @@ export class MessageModel {
                 credentials: 'include'
             });
             if (res.ok) {
-                const json = await res.json();
+                const json: {amount: number , folders:[{id: number, name: string, user_id: number, created_at: string}]} = await res.json();
+                if (!json.folders) {
+                    return [];
+                }
+                const folders: {id: number, name: string, userId: number, date: string}[] = [];
+                json.folders.forEach((item) => {
+                    folders.push({id: item.id, name: item.name, userId: item.user_id, date: item.created_at});
+                });
+                return folders;
             }
         } catch (e) {
             console.error(e);

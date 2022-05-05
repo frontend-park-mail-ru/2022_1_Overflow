@@ -93,7 +93,7 @@ export class SignUpModel {
                 body: JSON.stringify(text),
             })
             if (res.ok) {
-                eventEmitter.goToMainPage(1);
+                eventEmitter.goToMainPage('input', '');
                 return;
             }
             const body = await res.json();
