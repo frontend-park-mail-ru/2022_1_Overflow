@@ -55,6 +55,7 @@ export class MainPage {
             this.messageView.eventRightClickMessage({
                 handlerGetFolders: this.messageModel.getFolders,
                 handlerGetFoldersMove: this.messageModel.moveInFolderMessage,
+                handlerGoToIncome: this.messageModel.rmMessageInFolder,
                 handlerRm: this.messageModel.rmMessage,
                 handlerSpam: this.messageModel.addInFolderMessage,
                 handlerAddInFolder: this.messageModel.addInFolderMessage
@@ -69,6 +70,7 @@ export class MainPage {
             this.messageView.eventRightClickMessage({
                 handlerGetFolders: this.messageModel.getFolders,
                 handlerGetFoldersMove: this.messageModel.moveInFolderMessage,
+                handlerGoToIncome: this.messageModel.rmMessageInFolder,
                 handlerRm: this.messageModel.rmMessage,
                 handlerSpam: this.messageModel.addInFolderMessage,
                 handlerAddInFolder: this.messageModel.addInFolderMessage
@@ -84,6 +86,7 @@ export class MainPage {
                 handlerGetFolders: this.messageModel.getFolders,
                 handlerGetFoldersMove: this.messageModel.moveInFolderMessage,
                 handlerRm: this.messageModel.rmMessage,
+                handlerGoToIncome: this.messageModel.rmMessageInFolder,
                 handlerSpam: this.messageModel.addInFolderMessage,
                 handlerAddInFolder: this.messageModel.addInFolderMessage
             }, this.nameMessageFolder);
@@ -97,6 +100,7 @@ export class MainPage {
             this.messageView.eventRightClickMessage({
                 handlerGetFolders: this.messageModel.getFolders,
                 handlerGetFoldersMove: this.messageModel.moveInFolderMessage,
+                handlerGoToIncome: this.messageModel.rmMessageInFolder,
                 handlerRm: this.messageModel.rmMessage,
                 handlerSpam: this.messageModel.addInFolderMessage,
                 handlerAddInFolder: this.messageModel.addInFolderMessage

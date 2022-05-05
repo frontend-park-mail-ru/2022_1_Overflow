@@ -79,7 +79,6 @@ export class MessageModel {
             });
             if (res.ok) {
                 this.json = await res.json();
-                console.log(this.json);
             }
         } catch (e) {
             console.error(e);
@@ -97,7 +96,7 @@ export class MessageModel {
             },
             method: 'POST',
             credentials: 'include',
-            body: JSON.stringify({folder_name, mail_id, restore: false}),
+            body: JSON.stringify({folder_name, mail_id}),
         });
     }
 

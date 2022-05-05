@@ -210,7 +210,6 @@ export class SendMessage<T extends Element> {
         root.insertAdjacentHTML('beforeend', popUpNewFolder.render());
 
         const eventDraftYes = async () => {
-            console.log(form);
             await handler({
                 folder_name: 'Черновики',
                 form: {
@@ -232,11 +231,12 @@ export class SendMessage<T extends Element> {
 
         const eventDraftNo = () => {
             const popUp = document.getElementById('popUpNewFolder');
-            if (popUp) {
-                popUp.remove();
+            if (!popUp) {
+                return;
             }
+            popUp.remove();
         }
-        const noDraft = document.getElementById('create');
+        const noDraft = document.getElementById('prev');
         if (!noDraft) {
             return;
         }

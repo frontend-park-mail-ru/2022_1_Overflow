@@ -1,6 +1,7 @@
 import './Message.scss';
 import dotSVG from '../image/dot.svg';
 import spamSVG from '../image/spam.svg';
+import inputSVG from '../image/input.svg';
 import plusSVG from '../image/plus.svg';
 import rmSVG from '../image/remove.svg';
 import folderSVG from '../image/directories.svg'
@@ -74,7 +75,7 @@ export class Message<T extends Element> {
         }
     }
 
-    eventRightClickMessage = (handlers: {handlerGetFolders: () => any, handlerRm: (name: number) => void, handlerSpam: (foldr_id: string, mail_id: number) => void, handlerAddInFolder: (foldr_id: string, mail_id: number) => void, handlerGetFoldersMove: (folder_name_dest: string, folder_name_src: string, mail_id: number) => void}, folderName: string) => {
+    eventRightClickMessage = (handlers: {handlerGetFolders: () => any, handlerGoToIncome: (folder_name: string, mail_id: number) => void, handlerRm: (name: number) => void, handlerSpam: (foldr_id: string, mail_id: number) => void, handlerAddInFolder: (foldr_id: string, mail_id: number) => void, handlerGetFoldersMove: (folder_name_dest: string, folder_name_src: string, mail_id: number) => void}, folderName: string) => {
         if (!this.messages) {
             return;
         }
@@ -147,7 +148,7 @@ export class Message<T extends Element> {
                                 return;
                             }
                             const folders = await handlers.handlerGetFolders();
-                            this.createFolders(folders, handlers.handlerGetFoldersMove, handlers.handlerAddInFolder, getElem, list, folderName);
+                            this.createFolders(folders, handlers.handlerGetFoldersMove, handlers.handlerGoToIncome, handlers.handlerAddInFolder, getElem, list, folderName);
                             this.isLoading = false;
                             return;
                         }
@@ -189,8 +190,12 @@ export class Message<T extends Element> {
         });
     }
 
-    createFolders = async (folders: { id: number; name: string; userId: number; date: string }[], handlerGetFoldersMove: (folder_name_dest: string, folder_name_src: string, mail_id: number) => void, handlerAddInFolder: (foldr_id: string, mail_id: number) => void, getElem: HTMLElement, list: { id: number; client_id: number; sender: string; title: string; subTitle: string; files: string; time: string; read: boolean; avatar: string; timeReal: string }, folderName: string) => {
+    createFolders = async (folders: { id: number; name: string; userId: number; date: string }[], handlerGetFoldersMove: (folder_name_dest: string, folder_name_src: string, mail_id: number) => void, handlerGoToIncome: (foldr_id: string, mail_id: number) => void, handlerAddInFolder: (foldr_id: string, mail_id: number) => void, getElem: HTMLElement, list: { id: number; client_id: number; sender: string; title: string; subTitle: string; files: string; time: string; read: boolean; avatar: string; timeReal: string }, folderName: string) => {
         const foldersName: { id: string, text: string, icon: string }[] = [];
+
+        if (folderName) {
+            foldersName.push({id: 'incomePopUp', icon: inputSVG, text: 'Входящие'});
+        }
 
         folders.forEach((item) => {
             foldersName.push({id: item.id.toString() + 'popUp', icon: folderSVG, text: item.name});
@@ -231,6 +236,24 @@ export class Message<T extends Element> {
                 }
                 getElem.remove();
             }
+            if (folderName) {
+                const eventClickIncome = () => {
+                    if (getElem.nextElementSibling) {
+                        getElem.nextElementSibling.remove();
+                    } else {
+                        if (getElem.previousElementSibling) {
+                            getElem.previousElementSibling.remove();
+                        }
+                    }
+                    handlerGoToIncome(folderName, list.id);
+                    getElem.remove();
+                }
+                const income = document.getElementById('incomePopUp');
+                if (!income)
+                    return;
+                income.addEventListener('click', eventClickIncome);
+            }
+
             const elem = document.getElementById(item.id.toString() + 'popUp');
             if (!elem)
                 return;
@@ -247,7 +270,6 @@ export class Message<T extends Element> {
             if (getElem === null) {
                 return;
             }
-            console.log(1);
             getElem.addEventListener('click', () => {
                 eventEmitter.goToSendMessage({
                     avatar: list.avatar,

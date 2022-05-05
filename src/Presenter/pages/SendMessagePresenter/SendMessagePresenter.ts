@@ -43,7 +43,11 @@ export class SendMessagePresenter {
         this.menuModel = new MenuModel();
         await this.menuModel.getFolders();
         this.menuView = new Menu(this.parent, this.menuModel.outPutFoldersName());
+        eventEmitter.on('createFolder', this.menuView.renderNewFolder);
+        eventEmitter.on('errorFolder', this.menuView.setErrorFolderName);
+        eventEmitter.on('reNameFolder', this.menuView.eventReNameFolder);
         this.menuView.render();
+        this.menuView.eventRightClickMessage({handlerRm: this.menuModel.rmFolder, handlerRename: this.menuModel.reName});
         this.menuView.newFolderEvent(this.menuModel.addNewFolder);
         const main = document.getElementById('main');
         if (main === null)
