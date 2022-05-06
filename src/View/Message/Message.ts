@@ -5,12 +5,12 @@ import inputSVG from '../image/input.svg';
 import plusSVG from '../image/plus.svg';
 import rmSVG from '../image/remove.svg';
 import folderSVG from '../image/directories.svg'
-import {Text} from "../../ui-kit/Text/Text";
+import {Text} from "../../Ui-kit/Text/Text";
 import * as messageItem from './MessageItem/MessageItem.hbs';
 import * as mainMessage from './Message.hbs';
 import './MessageItem/MessageItem.scss';
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
-import {PopUp} from "../../ui-kit/PopUp/PopUp";
+import {PopUp} from "../../Ui-kit/PopUp/PopUp";
 import {calcPositionXY} from "../../Utils/CalcPositionXY/CalcPositionXY";
 import {calcSecondPositionXY} from "../../Utils/CalcPositionXY/CalcSecondPositionXY";
 

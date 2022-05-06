@@ -153,7 +153,7 @@ export class MessageModel {
     addInFolderMessage = async (folder_name: string, mail_id: number) => {
         try {
             const header = await getCSRFToken(`http://${window.location.hostname}:8080/folder/mail/add`);
-            await fetch(`http://${window.location.hostname}:8080/folder/mail/add`, {
+            const res = await fetch(`http://${window.location.hostname}:8080/folder/mail/add`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',

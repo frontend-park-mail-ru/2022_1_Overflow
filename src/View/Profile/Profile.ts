@@ -1,8 +1,8 @@
 import './Profile.scss';
 import logoSvg from '../image/logoAndTitle.svg';
 import strokeSvg from '../image/stroke.svg';
-import {Button} from "../../ui-kit/Button/Button";
-import {Input} from "../../ui-kit/Input/Input";
+import {Button} from "../../Ui-kit/Button/Button";
+import {Input} from "../../Ui-kit/Input/Input";
 import editSvg from '../image/edit.svg';
 import * as profileHbs from './Profile.hbs';
 import * as profileItemsHbs from './ProfileItem/ProfileItem.hbs';
@@ -10,7 +10,7 @@ import lockSvg from "../image/lock.svg";
 import profileSvg from "../image/profile.svg";
 import './ProfileItem/ProfileItem.scss'
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
-import {Text} from "../../ui-kit/Text/Text";
+import {Text} from "../../Ui-kit/Text/Text";
 
 const itemsMenu = [
     {

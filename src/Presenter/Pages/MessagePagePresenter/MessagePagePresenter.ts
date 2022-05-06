@@ -14,11 +14,13 @@ export class MessagePagePresenter {
     private headerModel: HeaderModel;
     private messagePageModel: MessagePageModel;
     private messagePageView: MessagePage<Element>;
-    private readonly data: {avatar: string, id: number, login: string, theme: string, date: string, text: string};
+    private readonly type: string;
+    private readonly idMsg: number;
 
-    constructor(parent: Element, data: {avatar: string, id: number, login: string, theme: string, date: string, text: string}) {
+    constructor(parent: Element, type: string, idMsg: number) {
         this.parent = parent;
-        this.data = data;
+        this.type = type;
+        this.idMsg = idMsg;
     }
 
     render = async () => {
@@ -44,10 +46,14 @@ export class MessagePagePresenter {
         if (main === null)
             return
 
-        this.messagePageModel = new MessagePageModel(this.data.id);
+        this.messagePageModel = new MessagePageModel(this.idMsg);
+
         await this.messagePageModel.getMessage();
-        this.data.date = this.messagePageModel.setTime(this.data.date);
-        this.messagePageView = new MessagePage(main, this.data);
+        await this.messagePageModel.readMessage();
+        await this.messagePageModel.getAvatar(this.type);
+        console.log(this.messagePageModel.outputData());
+        this.messagePageModel.setTime();
+        this.messagePageView = new MessagePage(main, this.messagePageModel.outputData());
         this.messagePageView.render();
         this.messagePageView.forward();
         this.messagePageView.reMail();

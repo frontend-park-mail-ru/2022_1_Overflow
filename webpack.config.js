@@ -8,6 +8,7 @@ module.exports = {
     entry: './src/index.ts',
     output: {
         filename: 'main.[contenthash].js',
+        publicPath: '/',
         path: path.resolve(__dirname, 'dist')
     },
     resolve: {

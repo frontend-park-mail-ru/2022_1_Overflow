@@ -14,6 +14,10 @@ app.use(cookie());
 
 const port = 3000;
 
+app.all('*', (req, res, next) => {
+    res.sendFile(path.resolve(__dirname, '..', 'dist/index.html'));
+});
+
 app.listen(port,  () => {
     console.log(`Server listening port ${port}`);
 });

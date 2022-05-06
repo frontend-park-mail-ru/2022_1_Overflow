@@ -1,16 +1,27 @@
 import * as messageSoloHbs from './MessagePage.hbs';
 import otvet from '../image/otvet.svg';
 import reMail from '../image/reMail.svg';
-import {Text} from '../../ui-kit/Text/Text'
+import {Text} from '../../Ui-kit/Text/Text'
 import './MessagePage.scss';
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 
 
 export class MessagePage<T extends Element> {
     private readonly parent: T;
-    private readonly data: {avatar: string, login: string, theme: string, date: string, text: string, id: number};
+    private readonly data: {
+        avatar: string,
+        addressee: string;
+        date: Date;
+        files: string;
+        id: number;
+        read: boolean;
+        sender: string;
+        text: string;
+        theme: string,
+        realDate: string
+    };
 
-    constructor(parent: T, data: {avatar: string, login: string, theme: string, date: string, text: string, id: number}) {
+    constructor(parent: T, data: {avatar: string, addressee: string; date: Date; files: string; id: number; read: boolean; sender: string; text: string; theme: string, realDate: string}) {
         this.parent = parent;
         this.data = data;
     }
@@ -39,7 +50,7 @@ export class MessagePage<T extends Element> {
         const login = new Text({
             color: 'Black',
             size: 'L',
-            text: `От: ${this.data.login}`,
+            text: `От: ${this.data.sender}`,
             id: 'login',
             className: 'loginIncome',
         });
@@ -55,7 +66,7 @@ export class MessagePage<T extends Element> {
         const time = new Text({
             color: 'Black',
             size: 'L',
-            text: this.data.date,
+            text: this.data.realDate,
             id: 'date',
             className: 'timeIncome',
         });

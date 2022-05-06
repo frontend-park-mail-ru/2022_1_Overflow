@@ -1,25 +1,22 @@
 import './index.scss';
 import {eventEmitter} from "./Presenter/EventEmitter/EventEmitter";
+import {router} from './Presenter/Router/Router';
+import {urlsRouter} from './Presenter/Router/UrlsRouter';
 
-const getProfile = async () => {
-    try {
-        const res = await fetch(`http://${window.location.hostname}:8080/profile`, {
-            mode: 'cors',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            credentials: 'include'
-        });
-        if (res.ok) {
-            eventEmitter.goToMainPage('input', '');
-        }
+router.register(urlsRouter.login, eventEmitter.goToSignIn);
+router.register(urlsRouter.registration, eventEmitter.goToSignUp);
+router.register(urlsRouter.send, eventEmitter.goToSendMessage);
+router.register(urlsRouter.income, eventEmitter.goToInCome);
+router.register(urlsRouter.incomeMessage, eventEmitter.goToIncomeMessage);
+router.register(urlsRouter.outcome, eventEmitter.goToOutcome);
+router.register(urlsRouter.outcomeMessage, eventEmitter.goToOutcomeMessage);
+router.register(urlsRouter.drafts, eventEmitter.goToDraft);
+router.register(urlsRouter.draftsMessage, eventEmitter.goToDraftMessage);
+router.register(urlsRouter.spam, eventEmitter.goToSpam);
+router.register(urlsRouter.spamMessage, eventEmitter.goToSpamMessage);
+router.register(urlsRouter.folder, eventEmitter.goToFolder);
+router.register(urlsRouter.folderMessage, eventEmitter.goToFolderMessage);
 
-        if (!res.ok) {
-            eventEmitter.goToSignIn();
-        }
-    } catch (e) {
-        console.log(e);
-    }
-}
+router.addNotFound(eventEmitter.goToMainPage);
 
-getProfile();
+router.start();

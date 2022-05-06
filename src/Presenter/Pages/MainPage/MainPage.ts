@@ -47,7 +47,7 @@ export class MainPage {
             return
 
         this.messageModel = new MessageModel();
-        if (this.type === 'input') {
+        if (this.type === 'income') {
             await this.messageModel.getMessage();
             this.messageView = new Message(main, this.messageModel.outputData()!, 1);
             this.messageView.render();

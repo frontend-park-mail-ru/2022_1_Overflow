@@ -1,10 +1,10 @@
-import {MainPage} from "../pages/MainPage/MainPage";
-import {SignInRender} from "../pages/SignIn/SignIn";
-import {SignUpRender} from "../pages/SignUp/SignUp";
-import {SendMessagePresenter} from "../pages/SendMessagePresenter/SendMessagePresenter";
-import {MessagePagePresenter} from "../pages/MessagePagePresenter/MessagePagePresenter";
-import {ProfilePresenter} from "../pages/ProfilePresenter/ProfilePresenter";
-import {SecurityPresenter} from "../pages/SecurityPresenter/SecurityPresenter";
+import {MainPage} from "../Pages/MainPage/MainPage";
+import {SignInRender} from "../Pages/SignIn/SignIn";
+import {SignUpRender} from "../Pages/SignUp/SignUp";
+import {SendMessagePresenter} from "../Pages/SendMessagePresenter/SendMessagePresenter";
+import {MessagePagePresenter} from "../Pages/MessagePagePresenter/MessagePagePresenter";
+import {ProfilePresenter} from "../Pages/ProfilePresenter/ProfilePresenter";
+import {SecurityPresenter} from "../Pages/SecurityPresenter/SecurityPresenter";
 
 class EventEmitter {
     private readonly events: Record<string, any>;
@@ -21,6 +21,57 @@ class EventEmitter {
 
     goToMainPage = (type: string, name: string) => {
         const mainPage = new MainPage(this.root, type, name);
+        mainPage.render();
+    }
+
+    goToInCome = () => {
+        const mainPage = new MainPage(this.root, 'income', '');
+        mainPage.render();
+    }
+
+    goToIncomeMessage = (data: {parameters: {message_id: number}}) => {
+        console.log(data);
+        const mainPage = new MessagePagePresenter(this.root, 'income', Number(data.parameters.message_id));
+        mainPage.render();
+    }
+
+    goToOutcome = () => {
+        const mainPage = new MainPage(this.root, 'output', '');
+        mainPage.render();
+    }
+
+    goToOutcomeMessage = (data: {parameters: {message_id: number}}) => {
+        const mainPage = new MessagePagePresenter(this.root, 'output', Number(data.parameters.message_id));
+        mainPage.render();
+    }
+
+    goToDraft = () => {
+        const mainPage = new MainPage(this.root, 'draft', '');
+        mainPage.render();
+    }
+
+    goToDraftMessage = (data: {parameters: {message_id: number}}) => {
+        const mainPage = new MessagePagePresenter(this.root, 'draft', Number(data.parameters.message_id));
+        mainPage.render();
+    }
+
+    goToSpam = () => {
+        const mainPage = new MainPage(this.root, 'spam', '');
+        mainPage.render();
+    }
+
+    goToSpamMessage = (data: {parameters: {message_id: number}}) => {
+        const mainPage = new MessagePagePresenter(this.root, 'spam', Number(data.parameters.message_id));
+        mainPage.render();
+    }
+
+    goToFolder = (data: {parameters: {folder_name: string}}) => {
+        const mainPage = new MainPage(this.root, data.parameters.folder_name, '');
+        mainPage.render();
+    }
+
+    goToFolderMessage = (data: {parameters: {folder_name: string, message_id: number}}) => {
+        const mainPage = new MessagePagePresenter(this.root, data.parameters.folder_name, Number(data.parameters.message_id));
         mainPage.render();
     }
 
@@ -44,7 +95,7 @@ class EventEmitter {
     }
 
     goToMessagePage = (data: any) => {
-        const sendMessage = new MessagePagePresenter(this.root, data);
+        const sendMessage = new MessagePagePresenter(this.root, data, 0);
         sendMessage.render();
     }
 

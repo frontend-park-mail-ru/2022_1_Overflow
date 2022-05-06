@@ -1,7 +1,7 @@
 import './SignIn.scss';
 import logoSvg from '../image/logoAndTitle.svg';
-import {Button} from "../../ui-kit/Button/Button";
-import {Input} from "../../ui-kit/Input/Input";
+import {Button} from "../../Ui-kit/Button/Button";
+import {Input} from "../../Ui-kit/Input/Input";
 import * as signInMain from './SignIn.hbs';
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 

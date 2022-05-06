@@ -10,11 +10,11 @@ import * as menuItem from './MenuItem/MenuItem.hbs';
 import './MenuItem/MenuItem.scss';
 import * as mainHBS from './Menu.hbs';
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
-import {Text} from "../../ui-kit/Text/Text";
-import {PopUpError} from "../../ui-kit/PopUpError/PopUpError";
-import {Input} from "../../ui-kit/Input/Input";
-import {Button} from "../../ui-kit/Button/Button";
-import {PopUp} from "../../ui-kit/PopUp/PopUp";
+import {Text} from "../../Ui-kit/Text/Text";
+import {PopUpError} from "../../Ui-kit/PopUpError/PopUpError";
+import {Input} from "../../Ui-kit/Input/Input";
+import {Button} from "../../Ui-kit/Button/Button";
+import {PopUp} from "../../Ui-kit/PopUp/PopUp";
 import {calcPositionXY} from "../../Utils/CalcPositionXY/CalcPositionXY";
 import rmSVG from "../image/remove.svg";
 

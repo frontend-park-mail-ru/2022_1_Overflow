@@ -1,0 +1,17 @@
+export const urlsRouter = {
+    income: '/income',
+    incomeMessage: '/income/{message_id}',
+    security: '/security',
+    registration: '/registration',
+    login: '/login',
+    profile: '/profile',
+    outcome: '/outcome',
+    outcomeMessage: '/outcome/{message_id}',
+    folder: '/folder/{folder_name}',
+    folderMessage: '/folder/{folder_name}/{message_id}',
+    send: '/send',
+    drafts: '/drafts',
+    draftsMessage: '/drafts/{message_id}',
+    spam: '/spam',
+    spamMessage: '/spam/{message_id}',
+}
