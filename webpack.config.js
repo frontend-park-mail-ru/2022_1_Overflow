@@ -1,7 +1,8 @@
-const path = require('path')
-const HTMLWebpackPlugin = require('html-webpack-plugin')
-const {CleanWebpackPlugin} = require('clean-webpack-plugin')
-const ESLintPlugin = require('eslint-webpack-plugin')
+const path = require('path');
+const HTMLWebpackPlugin = require('html-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
+const CopyPlugin = require("copy-webpack-plugin");
+const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
     mode: 'development',
@@ -46,9 +47,21 @@ module.exports = {
                     'file-loader',
                     {
                         loader: 'image-webpack-loader',
+                        options: {
+                            name: `/img/[name].[ext]`,
+                        }
                     },
                 ],
-            }
+            },
+            {
+                test: /\.(ttf|woff|woff2)$/,
+                use: {
+                    loader: "file-loader",
+                    options: {
+                        name: `./fonts/[name].[ext]`,
+                    }
+                }
+            },
         ]
     },
     plugins: [
@@ -58,6 +71,19 @@ module.exports = {
         new CleanWebpackPlugin(),
         new ESLintPlugin({
             extensions: ['ts']
+        }),
+        new CopyPlugin({
+            patterns: [
+                {
+                    context: 'src/View/image',
+                    from: '*',
+                    to: 'img/',
+                },
+                {
+                    from: 'src/sw.worker.js',
+                    to: '',
+                }
+            ],
         }),
     ],
 }

@@ -2,6 +2,8 @@ import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 import {LengthCheckPasswordAndName, LengthCheckUsername} from "../LengthCheck/LengthCheck";
 import {checkStatus} from "../CheckStatus/CheckStatus";
 import {getCSRFToken} from "../Network/NetworkGet";
+import {router} from "../../Presenter/Router/Router";
+import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
 
 
 export class SignUpModel {
@@ -93,7 +95,7 @@ export class SignUpModel {
                 body: JSON.stringify(text),
             })
             if (res.ok) {
-                eventEmitter.goToMainPage('input', '');
+                router.redirect(urlsRouter.income);
                 return;
             }
             const body = await res.json();

@@ -1,6 +1,8 @@
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 import {LengthCheckPasswordAndName} from "../LengthCheck/LengthCheck";
 import {getCSRFToken} from "../Network/NetworkGet";
+import {router} from "../../Presenter/Router/Router";
+import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
 
 
 export class SecurityModel {
@@ -68,7 +70,7 @@ export class SecurityModel {
             });
 
             if (postSetProfile.ok) {
-                eventEmitter.goToMainPage('input', '');
+                router.redirect(urlsRouter.income);
                 return;
             }
             const json: {message: string, status: number} = await postSetProfile.json();

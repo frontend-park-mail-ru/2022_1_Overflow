@@ -51,7 +51,6 @@ export class MessagePagePresenter {
         await this.messagePageModel.getMessage();
         await this.messagePageModel.readMessage();
         await this.messagePageModel.getAvatar(this.type);
-        console.log(this.messagePageModel.outputData());
         this.messagePageModel.setTime();
         this.messagePageView = new MessagePage(main, this.messagePageModel.outputData());
         this.messagePageView.render();

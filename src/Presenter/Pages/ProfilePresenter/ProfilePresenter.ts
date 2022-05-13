@@ -20,6 +20,5 @@ export class ProfilePresenter {
         profileView.render();
         eventEmitter.on('error', profileView.setError);
         profileView.submitForm(profileModel.checkInput);
-        profileView.navigateBar();
     };
 }

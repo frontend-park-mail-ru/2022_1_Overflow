@@ -62,7 +62,7 @@ export class MessagePageModel {
             name = this.data.sender;
         }
         try {
-            const res = await fetch(`http://${window.location.hostname}:8080/profile/avatar?${name}`, {
+            const res = await fetch(`http://${window.location.hostname}:8080/profile/avatar?username=${name}`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',

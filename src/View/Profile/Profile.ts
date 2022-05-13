@@ -11,16 +11,20 @@ import profileSvg from "../image/profile.svg";
 import './ProfileItem/ProfileItem.scss'
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 import {Text} from "../../Ui-kit/Text/Text";
+import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
+import {router} from "../../Presenter/Router/Router";
 
 const itemsMenu = [
     {
         iconName: profileSvg,
         textText: 'Профиль',
+        href: urlsRouter.profile,
         id: 'profile'
     },
     {
         iconName: lockSvg,
         textText: 'Безопасность',
+        href: urlsRouter.security,
         id: 'security'
     },
 ];
@@ -57,33 +61,13 @@ export class Profile<T extends Element> {
         return {first_name: name, last_name: lastName, avatar: avatar.files[0]};
     }
 
-    navigateBar = () => {
-        const profile = document.getElementById('profile');
-        if (profile === null) {
-            return;
-        }
-
-        profile.addEventListener('click', () => {
-            eventEmitter.goToProfile();
-        });
-
-        const security = document.getElementById('security');
-        if (security === null) {
-            return;
-        }
-
-        security.addEventListener('click', () => {
-            eventEmitter.goToSecurity();
-        });
-    }
-
     submitForm = (handler: any) => {
         const prev = document.getElementById('prev');
         if (prev === null) {
             return;
         }
         prev.addEventListener('click', () => {
-            eventEmitter.goToMainPage('input', '');
+            router.redirect(urlsRouter.income);
         });
 
         const file = (document.getElementById('file') as HTMLInputElement);
@@ -132,6 +116,7 @@ export class Profile<T extends Element> {
                     {
                         svg: item.iconName,
                         text: text.render(),
+                        href: item.href,
                         id: item.id,
                         empty: true,
                     }));
@@ -140,6 +125,7 @@ export class Profile<T extends Element> {
                     {
                         svg: item.iconName,
                         text: text.render(),
+                        href: item.href,
                         id: item.id,
                         empty: false,
                     }));
@@ -202,14 +188,5 @@ export class Profile<T extends Element> {
         });
 
         this.parent.insertAdjacentHTML('beforeend', template);
-
-        const stroke = document.getElementById('exit');
-        if (!stroke) {
-            return;
-        }
-
-        stroke.addEventListener('click', () => {
-            eventEmitter.goToMainPage('input', '');
-        });
     }
 }

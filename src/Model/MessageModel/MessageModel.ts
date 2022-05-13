@@ -193,20 +193,38 @@ export class MessageModel {
         }
     }
 
-    getMessage = async () => {
-        try {
-            const res = await fetch(`http://${window.location.hostname}:8080/mail/income`, {
-                mode: 'cors',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                credentials: 'include'
-            });
-            if (res.ok) {
-                this.json = await res.json();
+    getMessage = async (name: string) => {
+        if (name === 'income' || name === 'outcome') {
+            try {
+                const res = await fetch(`http://${window.location.hostname}:8080/mail/${name}`, {
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include'
+                });
+                if (res.ok) {
+                    this.json = await res.json();
+                }
+            } catch (e) {
+                console.error(e);
             }
-        } catch (e) {
-            console.error(e);
+        } else {
+            try {
+                const res = await fetch(`http://${window.location.hostname}:8080/folder/list?folder_name=${name}`, {
+                    mode: 'cors',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    credentials: 'include'
+                });
+                if (res.ok) {
+                    this.json = await res.json();
+                }
+            } catch (e) {
+                console.error(e);
+            }
         }
+
     }
 }

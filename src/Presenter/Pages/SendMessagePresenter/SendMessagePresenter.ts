@@ -23,9 +23,10 @@ export class SendMessagePresenter {
         this.data = {avatar: '', login: '', theme: '', date: '', text: '', id: -1};
     }
 
-    set context(data: {avatar: string, login: string, theme: string, date: string, text: string, id: number, flag: string}) {
+    set context(data: {avatar: string, sender: string, addressee: string, theme: string, date: string, text: string, id: number, flag: string}) {
+        console.log(data);
         if (data !== null) {
-            this.data = {avatar: data.avatar, login: data.login, theme: data.theme, date: data.date, id: data.id, text: data.text};
+            this.data = {avatar: data.avatar, login: data.sender, theme: data.theme, date: data.date, id: data.id, text: data.text};
             this.flag = data.flag;
         }
     }
@@ -61,6 +62,10 @@ export class SendMessagePresenter {
         eventEmitter.on('errorTheme', this.sendMessageView.setErrorTheme);
         eventEmitter.on('setAvatar', this.sendMessageView.setAvatar);
 
+        // if (this.flag === 'draft') {
+        //
+        // }
+
         if (this.flag === 'default') {
             if (this.data !== null) {
                 this.sendMessageModel.cleanDefault(this.data);
@@ -79,7 +84,6 @@ export class SendMessagePresenter {
             }
         }
         this.sendMessageView.render();
-        // this.sendMessageView.eventDraft(this.sendMessageModel.fetchDraft);
 
         if (this.flag === 'reSend') {
             await this.sendMessageModel.fetchGetUserAvatar(this.data.login);

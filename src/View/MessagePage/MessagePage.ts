@@ -4,6 +4,8 @@ import reMail from '../image/reMail.svg';
 import {Text} from '../../Ui-kit/Text/Text'
 import './MessagePage.scss';
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
+import {router} from "../../Presenter/Router/Router";
+import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
 
 
 export class MessagePage<T extends Element> {
@@ -32,7 +34,7 @@ export class MessagePage<T extends Element> {
             return;
         }
         reMailElem.addEventListener('click', () => {
-            eventEmitter.goToSendMessage(this.data, 'reSend');
+            router.redirect(urlsRouter.send, 'reSend', {dataSendMessage: {...this.data, flag: 'reSend'}});
         })
     }
 
@@ -42,7 +44,7 @@ export class MessagePage<T extends Element> {
             return;
         }
         forwardElem.addEventListener('click', () => {
-            eventEmitter.goToSendMessage(this.data, 'forward');
+            router.redirect(urlsRouter.send, 'forward', {dataSendMessage: {...this.data, flag: 'forward'}});
         });
     }
 

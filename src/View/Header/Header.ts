@@ -9,6 +9,7 @@ import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 import doorSvg from "../image/door.svg";
 import profileSvg from "../image/profile.svg";
 import {isMobile} from "../../Utils/IsMobile/IsMobile";
+import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
 
 
 export class Header<T extends Element> {
@@ -26,6 +27,7 @@ export class Header<T extends Element> {
                 {
                     icon: profileSvg,
                     text: 'Профиль',
+                    href: urlsRouter.profile,
                     id: 'profile',
                 },
                 {
@@ -69,7 +71,6 @@ export class Header<T extends Element> {
                         }
                         this.isLoading = true;
                         document.removeEventListener('click', docEvent);
-                        eventEmitter.goToProfile();
                         return;
                     }
 
@@ -115,26 +116,24 @@ export class Header<T extends Element> {
 
         this.parent.insertAdjacentHTML('beforeend', header);
 
-        if(isMobile()) {
-            const menuOpen = document.getElementById('menuOpen');
-            if (!menuOpen) {
+        const menuOpen = document.getElementById('menuOpen');
+        if (!menuOpen) {
+            return;
+        }
+
+        const evenMenuClick = () => {
+            const menu = document.getElementById('menu');
+            if (!menu) {
                 return;
             }
 
-            const evenMenuClick = () => {
-                const menu = document.getElementById('menu');
-                if (!menu) {
-                    return;
-                }
-
-                if (menu.style.display === 'flex') {
-                    menu.style.display = 'none';
-                } else {
-                    menu.style.display = 'flex';
-                }
+            if (menu.style.display === 'flex') {
+                menu.style.display = 'none';
+            } else {
+                menu.style.display = 'flex';
             }
-
-            menuOpen.addEventListener('click', evenMenuClick);
         }
+
+        menuOpen.addEventListener('click', evenMenuClick);
     }
 }

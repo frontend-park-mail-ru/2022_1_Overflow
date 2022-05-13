@@ -48,10 +48,9 @@ export class MainPage {
 
         this.messageModel = new MessageModel();
         if (this.type === 'income') {
-            await this.messageModel.getMessage();
-            this.messageView = new Message(main, this.messageModel.outputData()!, 1);
+            await this.messageModel.getMessage(this.type);
+            this.messageView = new Message(main, this.messageModel.outputData()!, this.type, '');
             this.messageView.render();
-            this.messageView.goToMessagePage();
             this.messageView.eventRightClickMessage({
                 handlerGetFolders: this.messageModel.getFolders,
                 handlerGetFoldersMove: this.messageModel.moveInFolderMessage,
@@ -62,11 +61,10 @@ export class MainPage {
             }, this.nameMessageFolder);
         }
 
-        if (this.type === 'output') {
-            await this.messageModel.getOutComeMessage();
-            this.messageView = new Message(main, this.messageModel.outputData()!, 2);
+        if (this.type === 'outcome') {
+            await this.messageModel.getMessage(this.type);
+            this.messageView = new Message(main, this.messageModel.outputData()!, this.type, '');
             this.messageView.render();
-            this.messageView.goToMessagePage();
             this.messageView.eventRightClickMessage({
                 handlerGetFolders: this.messageModel.getFolders,
                 handlerGetFoldersMove: this.messageModel.moveInFolderMessage,
@@ -78,8 +76,8 @@ export class MainPage {
         }
 
         if (this.type === 'draft') {
-            await this.messageModel.selectFolderMessage(this.nameMessageFolder);
-            this.messageView = new Message(main, this.messageModel.outputData()!, 2);
+            await this.messageModel.getMessage('Черновики');
+            this.messageView = new Message(main, this.messageModel.outputData()!, this.type, '');
             this.messageView.render();
             this.messageView.goToMessageEdit();
             this.messageView.eventRightClickMessage({
@@ -92,11 +90,24 @@ export class MainPage {
             }, this.nameMessageFolder);
         }
 
-        if (this.type === 'folder') {
-            await this.messageModel.selectFolderMessage(this.nameMessageFolder);
-            this.messageView = new Message(main, this.messageModel.outputData()!, 2);
+        if (this.type === 'spam') {
+            await this.messageModel.getMessage('Спам');
+            this.messageView = new Message(main, this.messageModel.outputData()!, this.type, '');
             this.messageView.render();
-            this.messageView.goToMessagePage();
+            this.messageView.eventRightClickMessage({
+                handlerGetFolders: this.messageModel.getFolders,
+                handlerGetFoldersMove: this.messageModel.moveInFolderMessage,
+                handlerRm: this.messageModel.rmMessage,
+                handlerGoToIncome: this.messageModel.rmMessageInFolder,
+                handlerSpam: this.messageModel.addInFolderMessage,
+                handlerAddInFolder: this.messageModel.addInFolderMessage
+            }, this.nameMessageFolder);
+        }
+
+        if (this.type === 'folder') {
+            await this.messageModel.getMessage(this.nameMessageFolder);
+            this.messageView = new Message(main, this.messageModel.outputData()!, this.type, this.nameMessageFolder);
+            this.messageView.render();
             this.messageView.eventRightClickMessage({
                 handlerGetFolders: this.messageModel.getFolders,
                 handlerGetFoldersMove: this.messageModel.moveInFolderMessage,

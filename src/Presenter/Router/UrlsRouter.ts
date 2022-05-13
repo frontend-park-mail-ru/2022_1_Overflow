@@ -1,4 +1,5 @@
 export const urlsRouter = {
+    root: '/',
     income: '/income',
     incomeMessage: '/income/{message_id}',
     security: '/security',
@@ -10,8 +11,8 @@ export const urlsRouter = {
     folder: '/folder/{folder_name}',
     folderMessage: '/folder/{folder_name}/{message_id}',
     send: '/send',
-    drafts: '/drafts',
-    draftsMessage: '/drafts/{message_id}',
+    draft: '/draft',
+    draftMessage: '/draft/{message_id}',
     spam: '/spam',
     spamMessage: '/spam/{message_id}',
 }

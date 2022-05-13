@@ -3,7 +3,8 @@ import './PopUpItem/PopUpItem.scss';
 import * as templateHBS from './PopUp.hbs';
 import * as templateItemHBS from './PopUpItem/PopUpItem.hbs';
 import arrowSvg from '../../View/image/arrow.svg'
-import {IPopUp} from './IPopUp';
+import {IPopUp} from "./IPopUp";
+
 
 export class PopUp {
     private readonly props: IPopUp;
@@ -11,7 +12,7 @@ export class PopUp {
     constructor(
         {
             size = 'L',
-            content = [{id: '', icon: '', type: '', text: ''}],
+            content = [{id: '', icon: '', type: '', text: '', href: ''}],
             id,
             classNameDiv = '',
         }: IPopUp) {
@@ -19,7 +20,7 @@ export class PopUp {
             size,
             content,
             id,
-            classNameDiv
+            classNameDiv,
         };
     }
 
@@ -29,6 +30,7 @@ export class PopUp {
             popUpItemsHbs.push(
                 templateItemHBS({
                     id: item.id,
+                    href: item.href,
                     img: item.icon,
                     text: item.text,
                     type: item.type,

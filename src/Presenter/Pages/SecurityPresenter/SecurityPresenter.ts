@@ -18,6 +18,5 @@ export class SecurityPresenter {
         securityView.render();
         eventEmitter.on('error', securityView.setError);
         securityView.submitForm(securityModel.checkInput);
-        securityView.navigateBar();
     };
 }

@@ -13,6 +13,8 @@ import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 import {PopUp} from "../../Ui-kit/PopUp/PopUp";
 import {calcPositionXY} from "../../Utils/CalcPositionXY/CalcPositionXY";
 import {calcSecondPositionXY} from "../../Utils/CalcPositionXY/CalcSecondPositionXY";
+import {router} from "../../Presenter/Router/Router";
+import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
 
 export class Message<T extends Element> {
     private readonly parent: T;
@@ -28,7 +30,8 @@ export class Message<T extends Element> {
         avatar: string;
         timeReal: string
     }[];
-    private readonly type: number;
+    private readonly type: string;
+    private readonly folderName: string;
     private readonly popUpMessage;
     private xPos: number;
     private yPos: number;
@@ -45,7 +48,8 @@ export class Message<T extends Element> {
         read: boolean,
         avatar: string,
         timeReal: string,
-    }[], type: number) {
+    }[], type: string, folderName: string) {
+        this.folderName = folderName;
         this.parent = parent;
         this.messages = data;
         this.type = type;
@@ -271,36 +275,7 @@ export class Message<T extends Element> {
                 return;
             }
             getElem.addEventListener('click', () => {
-                eventEmitter.goToSendMessage({
-                    avatar: list.avatar,
-                    login: list.sender,
-                    theme: list.title,
-                    date: list.time,
-                    text: list.subTitle,
-                    id: list.id
-                }, '');
-            });
-        });
-    }
-
-    goToMessagePage = () => {
-        if (!this.messages) {
-            return;
-        }
-        this.messages.forEach((list) => {
-            const getElem = document.getElementById(`message${list.id.toString()}`);
-            if (getElem === null) {
-                return;
-            }
-            getElem.addEventListener('click', () => {
-                eventEmitter.goToMessagePage({
-                    avatar: list.avatar,
-                    id: list.id,
-                    login: list.sender,
-                    theme: list.title,
-                    date: list.timeReal,
-                    text: list.subTitle,
-                });
+                router.redirect(urlsRouter.send, 'dif', {dataSendMessage: {avatar: list.avatar, sender: list.sender, addressee: list.sender, theme: list.title, date: list.time, text: list.subTitle, id: list.id, flag: 'draft'}})
             });
         });
     }
@@ -341,7 +316,7 @@ export class Message<T extends Element> {
     renderMassage = (itemsMassage: { id: number, client_id: number, sender: string, title: string, subTitle: string, files: string, time: string, read: boolean, avatar: string }[]) => {
         const messageText: { avatar: string; id: number; title: string; subTitle: string; time: string; read: boolean, sender: string }[] = [];
         itemsMassage.forEach((item: { avatar: string; id: number; title: string; subTitle: string; time: string; read: boolean, sender: string }, index: number) => {
-            if (this.type === 2) {
+            if (this.type === 'outcome') {
                 item.read = true;
             }
 
@@ -386,6 +361,7 @@ export class Message<T extends Element> {
             }
             messageText.push(messageItem({
                 id: `message${item.id}`,
+                href: (this.type === 'draft') ? '' : `${this.type}/${(this.folderName) ? this.folderName + '/' : ''}${item.id}`,
                 avatar: item.avatar,
                 read: !item.read,
                 dot: dotSVG,

@@ -60,12 +60,12 @@ export class Menu<T extends Element> {
             {
                 iconName: inputSvg,
                 textText: 'Входящие',
-                id: 'input'
+                id: 'income'
             },
             {
                 iconName: outSvg,
                 textText: 'Отправленные',
-                id: 'output'
+                id: 'outcome'
             },
             {
                 iconName: draftSvg,
@@ -90,6 +90,7 @@ export class Menu<T extends Element> {
 
         const itemMenuNewFoldr: string = menuItem({
             icon: directoriesSvg,
+            href: `folder/${data.name}`,
             id: data.id,
             text: textDirectories.render(),
         });
@@ -363,9 +364,6 @@ export class Menu<T extends Element> {
         }
 
         getElem.addEventListener('contextmenu', event);
-        getElem.addEventListener('click', () => {
-            eventEmitter.goToMainPage('folder', list.name);
-        });
     }
 
     eventRightClickMessage = (handlers: {handlerRm: (name: string) => void, handlerRename: (folderName: string, newFolderName: string, id: number) => void}) => {
@@ -374,73 +372,6 @@ export class Menu<T extends Element> {
         this.itemsFolder.forEach((list) => {
             this.setEventRightClickFolder(list);
         });
-    }
-
-    navigateBar = () => {
-        const send = document.getElementById('send');
-        if (send === null) {
-            return;
-        }
-        const sendEvent = () => {
-            if (this.isLoading) {
-                return;
-            }
-            this.isLoading = true;
-            eventEmitter.goToSendMessage(null, 'default');
-        }
-        send.addEventListener('click', sendEvent);
-
-        const input = document.getElementById('input');
-        if (input === null) {
-            return;
-        }
-        const inputEvent = () => {
-            if (this.isLoading) {
-                return;
-            }
-            this.isLoading = true;
-            eventEmitter.goToMainPage('input', '');
-        }
-        input.addEventListener('click', inputEvent);
-
-        const output = document.getElementById('output');
-        if (output === null) {
-            return;
-        }
-        const outputEvent = () => {
-            if (this.isLoading) {
-                return;
-            }
-            this.isLoading = true;
-            eventEmitter.goToMainPage('output', '');
-        }
-        output.addEventListener('click', outputEvent);
-
-        const draft = document.getElementById('draft');
-        if (!draft) {
-            return;
-        }
-        const draftEvent = () => {
-            if (this.isLoading) {
-                return;
-            }
-            this.isLoading = true;
-            eventEmitter.goToMainPage('draft', 'Черновики');
-        }
-        draft.addEventListener('click', draftEvent);
-
-        const spam = document.getElementById('spam');
-        if (!spam) {
-            return;
-        }
-        const spamEvent = () => {
-            if (this.isLoading) {
-                return;
-            }
-            this.isLoading = true;
-            eventEmitter.goToMainPage('folder', 'Спам');
-        }
-        spam.addEventListener('click', spamEvent);
     }
 
     render = () => {
@@ -455,6 +386,7 @@ export class Menu<T extends Element> {
             });
             items.push(menuItem({
                 icon: item.iconName,
+                href: item.id,
                 id: item.id,
                 text: text.render(),
             }));
@@ -486,6 +418,7 @@ export class Menu<T extends Element> {
             directories.push(menuItem({
                 icon: directoriesSvg,
                 id: item.id,
+                href: `folder/${item.name}`,
                 text: textDirectories.render(),
             }));
         })
@@ -498,6 +431,5 @@ export class Menu<T extends Element> {
         });
 
         this.parent.insertAdjacentHTML('beforeend', main);
-        this.navigateBar();
     }
 }

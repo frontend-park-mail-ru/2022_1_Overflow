@@ -10,16 +10,20 @@ import './ProfileItem/ProfileItem.scss'
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 import {Text} from "../../Ui-kit/Text/Text";
 import strokeSvg from "../image/stroke.svg";
+import {router} from "../../Presenter/Router/Router";
+import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
 
 const itemsMenu = [
     {
         iconName: profileSvg,
         textText: 'Профиль',
+        href: urlsRouter.profile,
         id: 'profile'
     },
     {
         iconName: lockSvg,
         textText: 'Безопасность',
+        href: urlsRouter.security,
         id: 'security'
     },
 ];
@@ -54,24 +58,6 @@ export class Security<T extends Element> {
         return {last_password: lastPassword, password: password, password_repeat: passwordRepeat};
     }
 
-    navigateBar = () => {
-        const profile = document.getElementById('profile');
-        if (profile === null) {
-            return;
-        }
-        profile.addEventListener('click', () => {
-            eventEmitter.goToProfile()
-        });
-
-        const security = document.getElementById('security');
-        if (security === null) {
-            return;
-        }
-        security.addEventListener('click', () => {
-            eventEmitter.goToSecurity()
-        });
-    }
-
     cleanError = (type: string) => {
         const input = document.getElementById(`input${type}`);
         if (!input) {
@@ -94,7 +80,7 @@ export class Security<T extends Element> {
             return;
         }
         prev.addEventListener('click', () => {
-            eventEmitter.goToMainPage('input', '');
+            router.redirect(urlsRouter.income);
         });
 
         const form = document.getElementById('form');
@@ -123,6 +109,7 @@ export class Security<T extends Element> {
                     {
                         svg: item.iconName,
                         text: text.render(),
+                        href: item.href,
                         id: item.id,
                         empty: true,
                     })
@@ -132,6 +119,7 @@ export class Security<T extends Element> {
                     {
                         svg: item.iconName,
                         text: text.render(),
+                        href: item.href,
                         id: item.id,
                         empty: false,
                     })
@@ -191,14 +179,5 @@ export class Security<T extends Element> {
         });
 
         this.parent.insertAdjacentHTML('beforeend', template);
-
-        const stroke = document.getElementById('exit');
-        if (!stroke) {
-            return;
-        }
-
-        stroke.addEventListener('click', () => {
-            eventEmitter.goToMainPage('input', '');
-        });
     }
 }

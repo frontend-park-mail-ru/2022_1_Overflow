@@ -4,6 +4,8 @@ import {Button} from "../../Ui-kit/Button/Button";
 import {Input} from "../../Ui-kit/Input/Input";
 import * as signUpMain from './SignUp.hbs'
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
+import {router} from "../../Presenter/Router/Router";
+import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
 
 export class SignUp<T extends Element> {
     private readonly parent: T;
@@ -144,7 +146,7 @@ export class SignUp<T extends Element> {
         }
 
         goSignIn.addEventListener('click', () => {
-            eventEmitter.goToSignIn();
+            router.redirect(urlsRouter.login);
         });
     }
 }

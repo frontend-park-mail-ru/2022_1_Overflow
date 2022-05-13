@@ -1,6 +1,8 @@
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 import {LengthCheckPasswordAndName} from "../LengthCheck/LengthCheck";
 import {getCSRFToken} from "../Network/NetworkGet";
+import {router} from "../../Presenter/Router/Router";
+import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
 
 
 export class ProfileModel {
@@ -103,7 +105,7 @@ export class ProfileModel {
             });
 
             if (postSetProfile.ok) {
-                eventEmitter.goToMainPage('input', '');
+                router.redirect(urlsRouter.income);
             }
         } catch (e) {
             console.error(e);

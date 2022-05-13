@@ -5,6 +5,7 @@ import {SendMessagePresenter} from "../Pages/SendMessagePresenter/SendMessagePre
 import {MessagePagePresenter} from "../Pages/MessagePagePresenter/MessagePagePresenter";
 import {ProfilePresenter} from "../Pages/ProfilePresenter/ProfilePresenter";
 import {SecurityPresenter} from "../Pages/SecurityPresenter/SecurityPresenter";
+import {router} from "../Router/Router";
 
 class EventEmitter {
     private readonly events: Record<string, any>;
@@ -30,18 +31,17 @@ class EventEmitter {
     }
 
     goToIncomeMessage = (data: {parameters: {message_id: number}}) => {
-        console.log(data);
         const mainPage = new MessagePagePresenter(this.root, 'income', Number(data.parameters.message_id));
         mainPage.render();
     }
 
     goToOutcome = () => {
-        const mainPage = new MainPage(this.root, 'output', '');
+        const mainPage = new MainPage(this.root, 'outcome', '');
         mainPage.render();
     }
 
     goToOutcomeMessage = (data: {parameters: {message_id: number}}) => {
-        const mainPage = new MessagePagePresenter(this.root, 'output', Number(data.parameters.message_id));
+        const mainPage = new MessagePagePresenter(this.root, 'outcome', Number(data.parameters.message_id));
         mainPage.render();
     }
 
@@ -66,7 +66,7 @@ class EventEmitter {
     }
 
     goToFolder = (data: {parameters: {folder_name: string}}) => {
-        const mainPage = new MainPage(this.root, data.parameters.folder_name, '');
+        const mainPage = new MainPage(this.root, 'folder', data.parameters.folder_name);
         mainPage.render();
     }
 
@@ -75,11 +75,10 @@ class EventEmitter {
         mainPage.render();
     }
 
-    goToSendMessage = (data: any, type: string) => {
+    goToSendMessage = () => {
         const sendMessage = new SendMessagePresenter(this.root);
-        if (data !== null) {
-            data.flag = type;
-            sendMessage.context = data;
+        if (router.getState() && router.getState().dataSendMessage) {
+            sendMessage.context = router.getState().dataSendMessage;
         }
         sendMessage.render();
     }
@@ -94,18 +93,14 @@ class EventEmitter {
         profile.render();
     }
 
-    goToMessagePage = (data: any) => {
-        const sendMessage = new MessagePagePresenter(this.root, data, 0);
-        sendMessage.render();
-    }
 
     goToSignIn = () => {
         const signIn = new SignInRender(this.root);
         signIn.render();
     }
 
-    goToSignUp = (login = '') => {
-        const signUp = new SignUpRender(this.root, login);
+    goToSignUp = () => {
+        const signUp = new SignUpRender(this.root, router.getState().Username);
         signUp.render();
     }
 

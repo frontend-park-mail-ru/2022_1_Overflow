@@ -1,5 +1,7 @@
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 import {getCSRFToken} from "../Network/NetworkGet";
+import {router} from "../../Presenter/Router/Router";
+import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
 
 
 export class HeaderModel {
@@ -68,7 +70,7 @@ export class HeaderModel {
             },
             credentials: 'include'
         });
-        eventEmitter.goToSignIn();
+        router.redirect(urlsRouter.login);
     }
 
 }
