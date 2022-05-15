@@ -5,6 +5,8 @@ import {HeaderModel} from "../../../Model/HeaderModel/HeaderModel";
 import {MessagePageModel} from "../../../Model/MessagePageModel/MessagePageModel";
 import {MessagePage} from '../../../View/MessagePage/MessagePage'
 import {MenuModel} from "../../../Model/MenuModel/MenuModel";
+import {MessageModel} from "../../../Model/MessageModel/MessageModel";
+import {Message} from "../../../View/Message/Message";
 
 export class MessagePagePresenter {
     private readonly parent: Element;
@@ -16,6 +18,7 @@ export class MessagePagePresenter {
     private messagePageView: MessagePage<Element>;
     private readonly type: string;
     private readonly idMsg: number;
+    private messageModel: MessageModel;
 
     constructor(parent: Element, type: string, idMsg: number) {
         this.parent = parent;
@@ -47,7 +50,6 @@ export class MessagePagePresenter {
             return
 
         this.messagePageModel = new MessagePageModel(this.idMsg);
-
         await this.messagePageModel.getMessage();
         await this.messagePageModel.readMessage();
         await this.messagePageModel.getAvatar(this.type);
@@ -56,5 +58,50 @@ export class MessagePagePresenter {
         this.messagePageView.render();
         this.messagePageView.forward();
         this.messagePageView.reMail();
+        this.messageModel = new MessageModel();
+        console.log(this.type);
+        if (this.type === 'income') {
+            this.messagePageView.eventSettings({
+                handlerGetFolders: this.messageModel.getFolders,
+                handlerGetFoldersMove: this.messageModel.moveInFolderMessage,
+                handlerGoToIncome: this.messageModel.rmMessageInFolder,
+                handlerRm: this.messageModel.rmMessage,
+                handlerSpam: this.messageModel.addInFolderMessage,
+                handlerAddInFolder: this.messageModel.addInFolderMessage,
+            }, '');
+            return;
+        }
+
+        if (this.type === 'outcome') {
+            this.messagePageView.eventSettings({
+                handlerGetFolders: this.messageModel.getFolders,
+                handlerGetFoldersMove: this.messageModel.moveInFolderMessage,
+                handlerGoToIncome: this.messageModel.rmMessageInFolder,
+                handlerRm: this.messageModel.rmMessage,
+                handlerSpam: this.messageModel.addInFolderMessage,
+                handlerAddInFolder: this.messageModel.addInFolderMessage,
+            }, '');
+            return;
+        }
+
+        if (this.type === 'spam') {
+            this.messagePageView.eventSettings({
+                handlerGetFolders: this.messageModel.getFolders,
+                handlerGetFoldersMove: this.messageModel.moveInFolderMessage,
+                handlerRm: this.messageModel.rmMessage,
+                handlerGoToIncome: this.messageModel.rmMessageInFolder,
+                handlerSpam: this.messageModel.addInFolderMessage,
+                handlerAddInFolder: this.messageModel.addInFolderMessage,
+            }, 'Спам');
+            return;
+        }
+        this.messagePageView.eventSettings({
+            handlerGetFolders: this.messageModel.getFolders,
+            handlerGetFoldersMove: this.messageModel.moveInFolderMessage,
+            handlerGoToIncome: this.messageModel.rmMessageInFolder,
+            handlerRm: this.messageModel.rmMessage,
+            handlerSpam: this.messageModel.addInFolderMessage,
+            handlerAddInFolder: this.messageModel.addInFolderMessage,
+        }, this.type);
     };
 }

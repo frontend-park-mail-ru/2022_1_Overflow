@@ -17,6 +17,8 @@ import {Button} from "../../Ui-kit/Button/Button";
 import {PopUp} from "../../Ui-kit/PopUp/PopUp";
 import {calcPositionXY} from "../../Utils/CalcPositionXY/CalcPositionXY";
 import rmSVG from "../image/remove.svg";
+import {router} from "../../Presenter/Router/Router";
+import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
 
 export class Menu<T extends Element> {
     private readonly parent: T;
@@ -374,6 +376,7 @@ export class Menu<T extends Element> {
         });
     }
 
+
     render = () => {
         const items: string[] = [];
 
@@ -431,5 +434,10 @@ export class Menu<T extends Element> {
         });
 
         this.parent.insertAdjacentHTML('beforeend', main);
+        // const send = document.getElementById('send');
+        // send!.addEventListener('click', (ev) => {
+        //     ev.preventDefault();
+        //     router.redirect(urlsRouter.send);
+        // });
     }
 }

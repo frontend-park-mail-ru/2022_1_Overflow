@@ -52,6 +52,38 @@
     }
 }
 
+.flexLine2{
+    flex: 1;
+}
+
+.settingsImg{
+    cursor: pointer;
+    padding: 10px;
+    margin-right: 25px;
+    &:hover{
+        background-color: #cccccc;
+        border-radius: 15px;
+    }
+}
+
 .otvetText{
     margin-left: 10px;
+}
+
+.positionPopUp{
+    @media screen and (max-width: 1000px) {
+        right: 5px;
+        bottom: 90px;
+    }
+    right: 40px;
+    bottom: 95px;
+}
+
+.classPopUpFolders{
+    @media screen and (max-width: 1000px) {
+        right: 180px;
+        bottom: 90px;
+    }
+    right: 310px;
+    bottom: 95px;
 }

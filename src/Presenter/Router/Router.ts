@@ -184,10 +184,18 @@ class Router {
     }
 
     redirectEvent(ev : MouseEvent) {
-        if (ev.target instanceof HTMLAnchorElement && ev.target.pathname !== '') {
-            ev.preventDefault();
+        let target: HTMLElement | null = ev.target as HTMLElement;
+        while (target) {
+            if (target instanceof HTMLAnchorElement && target.pathname !== '') {
+                ev.preventDefault();
+                if (this.getCurrentPath() === '/send') {
+                    this.redirect(urlsRouter.send, '123', {flag: true, urlNext: target.pathname});
+                }
 
-            this.redirect(ev.target.pathname, '', {title: document.title});
+                this.redirect(target.pathname, '', {title: document.title});
+                return;
+            }
+            target = target.parentElement;
         }
     }
 

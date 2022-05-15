@@ -1,6 +1,9 @@
 .openFolder{
+  @media screen and (max-width: 1000px) {
+    width: 150px;
+  }
   float: right;
-  position: fixed;
+  position: absolute;
   display: flex;
   flex-direction: column;
   width: 250px;

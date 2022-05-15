@@ -1,5 +1,7 @@
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 import {getCSRFToken} from "../Network/NetworkGet";
+import {router} from "../../Presenter/Router/Router";
+import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
 
 
 export class SendMessageModel {
@@ -78,7 +80,7 @@ export class SendMessageModel {
                 body: JSON.stringify(text),
             });
             if (res.ok) {
-                eventEmitter.goToMainPage('input', '');
+                router.redirect(urlsRouter.income);
                 return;
             }
 

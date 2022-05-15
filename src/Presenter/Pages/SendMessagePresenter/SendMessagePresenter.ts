@@ -24,7 +24,6 @@ export class SendMessagePresenter {
     }
 
     set context(data: {avatar: string, sender: string, addressee: string, theme: string, date: string, text: string, id: number, flag: string}) {
-        console.log(data);
         if (data !== null) {
             this.data = {avatar: data.avatar, login: data.sender, theme: data.theme, date: data.date, id: data.id, text: data.text};
             this.flag = data.flag;

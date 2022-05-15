@@ -47,9 +47,6 @@ module.exports = {
                     'file-loader',
                     {
                         loader: 'image-webpack-loader',
-                        options: {
-                            name: `/img/[name].[ext]`,
-                        }
                     },
                 ],
             },
@@ -74,11 +71,10 @@ module.exports = {
         }),
         new CopyPlugin({
             patterns: [
-                {
-                    context: 'src/View/image',
-                    from: '*',
-                    to: 'img/',
-                },
+                // {
+                //     from: 'src/View/fonts/',
+                //     to: 'fonts/'
+                // },
                 {
                     from: 'src/sw.worker.js',
                     to: '',

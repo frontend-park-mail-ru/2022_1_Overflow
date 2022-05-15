@@ -224,6 +224,24 @@ export class Message<T extends Element> {
         foldersDiv.style.top = y.toString() + 'px';
         foldersDiv.style.left = x.toString() + 'px';
 
+        if (folderName) {
+            const eventClickIncome = () => {
+                if (getElem.nextElementSibling) {
+                    getElem.nextElementSibling.remove();
+                } else {
+                    if (getElem.previousElementSibling) {
+                        getElem.previousElementSibling.remove();
+                    }
+                }
+                handlerGoToIncome(folderName, list.id);
+                getElem.remove();
+            }
+            const income = document.getElementById('incomePopUp');
+            if (!income)
+                return;
+            income.addEventListener('click', eventClickIncome);
+        }
+
         folders.forEach((item) => {
             const eventFolderClick = () => {
                 if (getElem.nextElementSibling) {
@@ -239,23 +257,6 @@ export class Message<T extends Element> {
                     handlerAddInFolder(item.name, list.id);
                 }
                 getElem.remove();
-            }
-            if (folderName) {
-                const eventClickIncome = () => {
-                    if (getElem.nextElementSibling) {
-                        getElem.nextElementSibling.remove();
-                    } else {
-                        if (getElem.previousElementSibling) {
-                            getElem.previousElementSibling.remove();
-                        }
-                    }
-                    handlerGoToIncome(folderName, list.id);
-                    getElem.remove();
-                }
-                const income = document.getElementById('incomePopUp');
-                if (!income)
-                    return;
-                income.addEventListener('click', eventClickIncome);
             }
 
             const elem = document.getElementById(item.id.toString() + 'popUp');
