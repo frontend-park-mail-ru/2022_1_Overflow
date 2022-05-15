@@ -7,6 +7,7 @@ import {SendMessageModel} from "../../../Model/SendMessageModel/SendMessageModel
 import {MenuModel} from "../../../Model/MenuModel/MenuModel";
 import {router} from "../../Router/Router";
 import {urlsRouter} from "../../Router/UrlsRouter";
+import {isMobile} from "../../../Utils/IsMobile/IsMobile";
 
 export class SendMessagePresenter {
     private readonly parent: Element;
@@ -34,7 +35,7 @@ export class SendMessagePresenter {
 
     render = async () => {
         const messagesOld = document.getElementById('messages');
-        if (!messagesOld) {
+        if (!messagesOld  || isMobile()) {
             eventEmitter.cleanEvents();
             this.parent.innerHTML = '';
             this.headerModel = new HeaderModel();

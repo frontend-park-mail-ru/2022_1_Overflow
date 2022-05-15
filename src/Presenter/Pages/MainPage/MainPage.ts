@@ -7,6 +7,7 @@ import {MessageModel} from "../../../Model/MessageModel/MessageModel";
 import {MenuModel} from "../../../Model/MenuModel/MenuModel";
 import {router} from "../../Router/Router";
 import {urlsRouter} from "../../Router/UrlsRouter";
+import {isMobile} from "../../../Utils/IsMobile/IsMobile";
 
 export class MainPage {
     private readonly parent: Element;
@@ -27,7 +28,7 @@ export class MainPage {
 
     render = async () => {
         const messagesOld = document.getElementById('messages');
-        if (!messagesOld) {
+        if (!messagesOld || isMobile()) {
             eventEmitter.cleanEvents();
             this.parent.innerHTML = '';
             this.headerModel = new HeaderModel();

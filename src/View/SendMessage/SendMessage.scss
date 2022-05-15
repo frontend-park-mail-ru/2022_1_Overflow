@@ -101,6 +101,9 @@
 }
 
 .sizePopUpNewFolder{
+    @media screen and (max-width: 1000px){
+        width: 280px;
+    }
     width: 350px;
 }
 

@@ -9,6 +9,7 @@ import {MessageModel} from "../../../Model/MessageModel/MessageModel";
 import {Message} from "../../../View/Message/Message";
 import {router} from "../../Router/Router";
 import {urlsRouter} from "../../Router/UrlsRouter";
+import {isMobile} from "../../../Utils/IsMobile/IsMobile";
 
 export class MessagePagePresenter {
     private readonly parent: Element;
@@ -30,7 +31,7 @@ export class MessagePagePresenter {
 
     render = async () => {
         const messagesOld = document.getElementById('messages');
-        if (!messagesOld) {
+        if (!messagesOld || isMobile()) {
             eventEmitter.cleanEvents();
             this.parent.innerHTML = '';
             this.headerModel = new HeaderModel();

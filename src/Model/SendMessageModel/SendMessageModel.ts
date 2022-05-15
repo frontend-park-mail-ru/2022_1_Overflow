@@ -14,7 +14,7 @@ export class SendMessageModel {
     }
 
     cleanDefault = (data: { avatar: string, login: string, theme: string, date: string, text: string }) => {
-        data.text = `\n\n\nС уважением ${this.infoProfile.lastName} ${this.infoProfile.firstName}`;
+        data.text = `\n\n\nС уважение,\n${this.infoProfile.lastName} ${this.infoProfile.firstName}`;
     }
 
     cleanLogin = (data: { avatar: string, login: string, theme: string, date: string, text: string }) => {
@@ -42,7 +42,7 @@ export class SendMessageModel {
             splitText[idx] = '>>' + text;
         });
 
-        data.text = `\n\n\nС уважением ${this.infoProfile.lastName} ${this.infoProfile.firstName}\n\n>>В ответ ${data.login} на:\n${splitText.reduce((text, cur, idx) => {
+        data.text = `\n\n\nС уважением,\n${this.infoProfile.lastName} ${this.infoProfile.firstName}\n\n>>В ответ ${data.login} на:\n${splitText.reduce((text, cur, idx) => {
             if (idx === splitText.length - 1) {
                 return text + `${cur}`;
             }

@@ -1,4 +1,4 @@
 <div class="{{classNameDiv}}">
-    <p class="subText">{{text}}</p>
+    {{#if text}}<p class="subText">{{text}}</p>{{/if}}
     <input type="{{type}}" id="{{id}}" class="input{{size}} {{className}}" value="{{realText}}">
 </div>
