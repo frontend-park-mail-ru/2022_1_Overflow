@@ -1,4 +1,5 @@
 import {urlsRouter} from './UrlsRouter';
+import {eventEmitter} from "../EventEmitter/EventEmitter";
 
 class Router {
     private routes : Array<any>;
@@ -189,7 +190,8 @@ class Router {
             if (target instanceof HTMLAnchorElement && target.pathname !== '') {
                 ev.preventDefault();
                 if (this.getCurrentPath() === '/send') {
-                    this.redirect(urlsRouter.send, '123', {flag: true, urlNext: target.pathname});
+                    eventEmitter.emit('createPopUpDraft', target.pathname);
+                    return;
                 }
 
                 this.redirect(target.pathname, '', {title: document.title});

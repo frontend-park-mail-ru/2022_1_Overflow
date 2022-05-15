@@ -5,6 +5,8 @@ import {eventEmitter} from "../../EventEmitter/EventEmitter";
 import {HeaderModel} from "../../../Model/HeaderModel/HeaderModel";
 import {MessageModel} from "../../../Model/MessageModel/MessageModel";
 import {MenuModel} from "../../../Model/MenuModel/MenuModel";
+import {router} from "../../Router/Router";
+import {urlsRouter} from "../../Router/UrlsRouter";
 
 export class MainPage {
     private readonly parent: Element;
@@ -24,24 +26,36 @@ export class MainPage {
     }
 
     render = async () => {
-        eventEmitter.cleanEvents();
-        this.parent.innerHTML = '';
-        this.headerModel = new HeaderModel();
-        await this.headerModel.getProfile();
-        await this.headerModel.getAvatar();
-        this.headerView = new Header(this.parent, this.headerModel.outputData());
-        this.headerView.render();
-        this.headerView.evenPopUp(this.headerModel.logout);
+        const messagesOld = document.getElementById('messages');
+        if (!messagesOld) {
+            eventEmitter.cleanEvents();
+            this.parent.innerHTML = '';
+            this.headerModel = new HeaderModel();
+            const status = await this.headerModel.getProfile();
+            if (status === 7) {
+                router.redirect(urlsRouter.login);
+                return;
+            }
+            await this.headerModel.getAvatar();
+            this.headerView = new Header(this.parent, this.headerModel.outputData());
+            this.headerView.render();
+            this.headerView.evenPopUp(this.headerModel.logout);
 
-        this.menuModel = new MenuModel();
-        await this.menuModel.getFolders();
-        this.menuView = new Menu(this.parent, this.menuModel.outPutFoldersName());
-        eventEmitter.on('createFolder', this.menuView.renderNewFolder);
-        eventEmitter.on('errorFolder', this.menuView.setErrorFolderName);
-        eventEmitter.on('reNameFolder', this.menuView.eventReNameFolder);
-        this.menuView.render();
-        this.menuView.eventRightClickMessage({handlerRm: this.menuModel.rmFolder, handlerRename: this.menuModel.reName});
-        this.menuView.newFolderEvent(this.menuModel.addNewFolder);
+            this.menuModel = new MenuModel();
+            await this.menuModel.getFolders();
+            this.menuView = new Menu(this.parent, this.menuModel.outPutFoldersName());
+            eventEmitter.on('createFolder', this.menuView.renderNewFolder);
+            eventEmitter.on('errorFolder', this.menuView.setErrorFolderName);
+            eventEmitter.on('reNameFolder', this.menuView.eventReNameFolder);
+            this.menuView.render();
+            this.menuView.eventRightClickMessage({
+                handlerRm: this.menuModel.rmFolder,
+                handlerRename: this.menuModel.reName
+            });
+            this.menuView.newFolderEvent(this.menuModel.addNewFolder);
+        } else {
+            messagesOld.remove();
+        }
         const main = document.getElementById('main');
         if (main === null)
             return

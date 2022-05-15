@@ -50,6 +50,10 @@ export class SecurityModel {
                 this.data.LastName = json['last_name'];
                 this.data.FirstName = json['first_name'];
             }
+            if (!res.ok) {
+                const json = await res.json();
+                return json['status'];
+            }
         } catch (e) {
             console.error(e);
         }

@@ -317,7 +317,7 @@ export class Message<T extends Element> {
     renderMassage = (itemsMassage: { id: number, client_id: number, sender: string, title: string, subTitle: string, files: string, time: string, read: boolean, avatar: string }[]) => {
         const messageText: { avatar: string; id: number; title: string; subTitle: string; time: string; read: boolean, sender: string }[] = [];
         itemsMassage.forEach((item: { avatar: string; id: number; title: string; subTitle: string; time: string; read: boolean, sender: string }, index: number) => {
-            if (this.type === 'outcome') {
+            if (this.type === 'outcome' || this.type === 'draft') {
                 item.read = true;
             }
 

@@ -1,6 +1,8 @@
 import {eventEmitter} from "../../EventEmitter/EventEmitter";
 import {ProfileModel} from "../../../Model/ProfileModel/ProfileModel";
 import {Profile} from "../../../View/Profile/Profile";
+import {router} from "../../Router/Router";
+import {urlsRouter} from "../../Router/UrlsRouter";
 
 export class ProfilePresenter {
     private readonly parent: Element;
@@ -14,7 +16,11 @@ export class ProfilePresenter {
         eventEmitter.cleanEvents();
         this.parent.innerHTML = '';
         const profileModel = new ProfileModel();
-        await profileModel.fetchProfile();
+        const status = await profileModel.fetchProfile();
+        if (status === 7) {
+            router.redirect(urlsRouter.login);
+            return;
+        }
         await profileModel.fetchGetAvatar();
         const profileView = new Profile(this.parent, profileModel.outPutData());
         profileView.render();

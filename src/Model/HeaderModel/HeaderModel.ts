@@ -32,10 +32,11 @@ export class HeaderModel {
             }
 
             if (!res.ok) {
-                eventEmitter.goToSignIn();
+                const json = await res.json();
+                return json['status'];
             }
         } catch (e) {
-            console.log(e);
+            console.error(e);
         }
     }
 
@@ -54,7 +55,6 @@ export class HeaderModel {
             }
         } catch (e) {
             console.error(e);
-            eventEmitter.goToSignIn();
         }
     }
 

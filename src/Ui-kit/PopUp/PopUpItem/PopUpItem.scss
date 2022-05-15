@@ -25,6 +25,9 @@
     @media screen and (max-width: 1000px) {
         font-size: 16px;
     }
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
     margin-left: 10px;
     font-size: 20px;
     flex: 1;

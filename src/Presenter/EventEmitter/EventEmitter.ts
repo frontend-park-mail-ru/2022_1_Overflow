@@ -46,7 +46,7 @@ class EventEmitter {
     }
 
     goToDraft = () => {
-        const mainPage = new MainPage(this.root, 'draft', '');
+        const mainPage = new MainPage(this.root, 'draft', 'Черновики');
         mainPage.render();
     }
 
@@ -56,7 +56,7 @@ class EventEmitter {
     }
 
     goToSpam = () => {
-        const mainPage = new MainPage(this.root, 'spam', '');
+        const mainPage = new MainPage(this.root, 'spam', 'Спам');
         mainPage.render();
     }
 

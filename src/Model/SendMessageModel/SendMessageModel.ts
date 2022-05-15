@@ -132,10 +132,6 @@ export class SendMessageModel {
                 this.infoProfile.lastName = json['last_name'];
                 this.infoProfile.firstName = json['first_name'];
             }
-
-            if (!res.ok) {
-                eventEmitter.goToSignIn();
-            }
         } catch (e) {
             console.error(e);
         }

@@ -196,7 +196,6 @@ export class Menu<T extends Element> {
     }
 
     eventReNameFolder = (data: {name: string, id: number}) => {
-        console.log(data);
         const element = document.getElementById(data.id.toString()) as HTMLDivElement;
         if (!element) {
             return;
@@ -206,7 +205,6 @@ export class Menu<T extends Element> {
             return;
         }
         popReNameFolder.remove();
-        console.log(data.name);
         element.children.item(1)!.textContent = data.name;
         this.isLoading = false;
     }

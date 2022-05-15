@@ -7,6 +7,8 @@ import {MessagePage} from '../../../View/MessagePage/MessagePage'
 import {MenuModel} from "../../../Model/MenuModel/MenuModel";
 import {MessageModel} from "../../../Model/MessageModel/MessageModel";
 import {Message} from "../../../View/Message/Message";
+import {router} from "../../Router/Router";
+import {urlsRouter} from "../../Router/UrlsRouter";
 
 export class MessagePagePresenter {
     private readonly parent: Element;
@@ -27,24 +29,36 @@ export class MessagePagePresenter {
     }
 
     render = async () => {
-        eventEmitter.cleanEvents();
-        this.parent.innerHTML = '';
-        this.headerModel = new HeaderModel();
-        await this.headerModel.getProfile();
-        await this.headerModel.getAvatar();
-        this.headerView = new Header(this.parent, this.headerModel.outputData());
-        this.headerView.render();
-        this.headerView.evenPopUp(this.headerModel.logout);
+        const messagesOld = document.getElementById('messages');
+        if (!messagesOld) {
+            eventEmitter.cleanEvents();
+            this.parent.innerHTML = '';
+            this.headerModel = new HeaderModel();
+            const status = await this.headerModel.getProfile();
+            if (status === 7) {
+                router.redirect(urlsRouter.login);
+                return;
+            }
+            await this.headerModel.getAvatar();
+            this.headerView = new Header(this.parent, this.headerModel.outputData());
+            this.headerView.render();
+            this.headerView.evenPopUp(this.headerModel.logout);
 
-        this.menuModel = new MenuModel();
-        await this.menuModel.getFolders();
-        this.menuView = new Menu(this.parent, this.menuModel.outPutFoldersName());
-        eventEmitter.on('createFolder', this.menuView.renderNewFolder);
-        eventEmitter.on('errorFolder', this.menuView.setErrorFolderName);
-        eventEmitter.on('reNameFolder', this.menuView.eventReNameFolder);
-        this.menuView.render();
-        this.menuView.eventRightClickMessage({handlerRm: this.menuModel.rmFolder, handlerRename: this.menuModel.reName});
-        this.menuView.newFolderEvent(this.menuModel.addNewFolder);
+            this.menuModel = new MenuModel();
+            await this.menuModel.getFolders();
+            this.menuView = new Menu(this.parent, this.menuModel.outPutFoldersName());
+            eventEmitter.on('createFolder', this.menuView.renderNewFolder);
+            eventEmitter.on('errorFolder', this.menuView.setErrorFolderName);
+            eventEmitter.on('reNameFolder', this.menuView.eventReNameFolder);
+            this.menuView.render();
+            this.menuView.eventRightClickMessage({
+                handlerRm: this.menuModel.rmFolder,
+                handlerRename: this.menuModel.reName
+            });
+            this.menuView.newFolderEvent(this.menuModel.addNewFolder);
+        } else {
+            messagesOld.remove();
+        }
         const main = document.getElementById('main');
         if (main === null)
             return
@@ -59,7 +73,6 @@ export class MessagePagePresenter {
         this.messagePageView.forward();
         this.messagePageView.reMail();
         this.messageModel = new MessageModel();
-        console.log(this.type);
         if (this.type === 'income') {
             this.messagePageView.eventSettings({
                 handlerGetFolders: this.messageModel.getFolders,
@@ -103,5 +116,6 @@ export class MessagePagePresenter {
             handlerSpam: this.messageModel.addInFolderMessage,
             handlerAddInFolder: this.messageModel.addInFolderMessage,
         }, this.type);
-    };
+    }
+    ;
 }

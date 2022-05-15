@@ -27,8 +27,6 @@
   z-index: 500;
 
   .messageErrorBoxAuto{
-    width: auto;
-
     @extend %tplMessageError;
   }
 

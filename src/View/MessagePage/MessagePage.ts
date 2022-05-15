@@ -98,7 +98,7 @@ export class MessagePage<T extends Element> {
                 return;
             }
             const popUp = new PopUp(this.popUp);
-            const root = document.getElementById('messageOutPut');
+            const root = document.getElementById('messages');
             root?.insertAdjacentHTML('beforeend', popUp.render());
             const popUpReal = document.getElementById('popUp') as HTMLDivElement;
             if (!popUpReal) {
@@ -191,7 +191,7 @@ export class MessagePage<T extends Element> {
             classNameDiv: 'classPopUpFolders',
             content: foldersName
         });
-        const root = document.getElementById('messageOutPut');
+        const root = document.getElementById('messages');
         root?.insertAdjacentHTML('beforeend', popUpFolders.render());
 
         const foldersDiv = document.getElementById('popUpFolders');
@@ -216,7 +216,6 @@ export class MessagePage<T extends Element> {
 
         folders.forEach((item) => {
             const eventFolderClick = async () => {
-                console.log(item.name, folderName, id);
                 if (folderName) {
                     await handlerGetFoldersMove(item.name, folderName, id);
                     router.redirect(`/folder/${folderName}`);
