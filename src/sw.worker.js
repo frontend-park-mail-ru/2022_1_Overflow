@@ -1,8 +1,3 @@
-// this.addEventListener('install', () => {
-//
-// });
-
-
 const cacheName = 'overflow';
 
 const cacheUrls = [

@@ -1,10 +1,10 @@
-import {MainPage} from "../Pages/MainPage/MainPage";
-import {SignInRender} from "../Pages/SignIn/SignIn";
-import {SignUpRender} from "../Pages/SignUp/SignUp";
-import {SendMessagePresenter} from "../Pages/SendMessagePresenter/SendMessagePresenter";
-import {MessagePagePresenter} from "../Pages/MessagePagePresenter/MessagePagePresenter";
-import {ProfilePresenter} from "../Pages/ProfilePresenter/ProfilePresenter";
-import {SecurityPresenter} from "../Pages/SecurityPresenter/SecurityPresenter";
+import {MainPage} from "../PagesPresenters/MainPagesPresenter/MainPage";
+import {SignInRender} from "../PagesPresenters/SignInPresenter/SignIn";
+import {SignUpRender} from "../PagesPresenters/SignUpPresenter/SignUp";
+import {SendMessagePresenter} from "../PagesPresenters/SendMessagePresenter/SendMessagePresenter";
+import {MessagePagePresenter} from "../PagesPresenters/MessagePagePresenter/MessagePagePresenter";
+import {ProfilePresenter} from "../PagesPresenters/ProfilePresenter/ProfilePresenter";
+import {SecurityPresenter} from "../PagesPresenters/SecurityPresenter/SecurityPresenter";
 import {router} from "../Router/Router";
 
 class EventEmitter {
