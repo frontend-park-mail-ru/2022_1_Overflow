@@ -101,6 +101,10 @@ export class SendMessagePresenter {
             await this.sendMessageModel.fetchGetUserAvatar(this.data.login);
         }
 
+        if (this.flag === 'draft') {
+            await this.sendMessageModel.fetchGetUserAvatar(this.data.login);
+        }
+
         this.sendMessageView.send(this.sendMessageModel.checkInput);
         this.sendMessageView.eventsLoginChange(this.sendMessageModel.fetchGetUserAvatar);
     };

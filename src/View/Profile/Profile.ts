@@ -151,7 +151,7 @@ export class Profile<T extends Element> {
 
         const inputProfileLastName = new Input({
             realText: this.data.LastName,
-            text: 'Фамиля',
+            text: 'Фамилия',
             id: 'inputLastName',
             size: 'XL',
             type: 'text',
