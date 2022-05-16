@@ -123,6 +123,10 @@ export class Message<T extends Element> {
                             }
                             this.isLoading = true;
                             popUpReal.remove();
+                            const isFoldersDiv = document.getElementById('popUpFolders');
+                            if (isFoldersDiv) {
+                                isFoldersDiv.remove();
+                            }
                             document.removeEventListener('click', docEvent);
                             if (getElem.nextElementSibling) {
                                 getElem.nextElementSibling.remove();
