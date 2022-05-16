@@ -12,7 +12,7 @@ app.use(express.static(path.resolve(__dirname, '..', 'dist')));
 app.use(body.json());
 app.use(cookie());
 
-const port = 3000;
+const port = 80;
 
 app.all('*', (req, res, next) => {
     res.sendFile(path.resolve(__dirname, '..', 'dist/index.html'));
