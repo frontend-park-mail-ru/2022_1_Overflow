@@ -92,6 +92,11 @@ export class ProfileModel {
                 });
 
                 if (!postAvatarSet.ok) {
+                    const json: {status: number, message: string} = await postAvatarSet.json();
+                    if (json.status === 16) {
+                        eventEmitter.emit('error', {text: '', type: 'FirstName'});
+                        eventEmitter.emit('error', {text: 'Недопустимый формат файла', type: 'LastName'});
+                    }
                     return;
                 }
             }

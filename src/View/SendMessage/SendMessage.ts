@@ -16,10 +16,12 @@ import * as templateFileItem from './FileItem/FileItem.hbs';
 export class SendMessage<T extends Element> {
     private readonly parent: T;
     private readonly data: {avatar: string, login: string, theme: string, date: string, id: number, text: string} | null;
+    private readonly filesData: {input: HTMLInputElement, img: HTMLImageElement, text: HTMLDivElement, close: HTMLImageElement, all: HTMLDivElement}[];
 
     constructor(parent: T, data: {avatar: string, login: string, theme: string, date: string, id: number, text: string} | null) {
         this.parent = parent;
         this.data = data;
+        this.filesData = [];
     }
 
     setErrorTheme = (obj: {text: string, handler: (form: {addressee: string, files: string, text: string, theme: string}) => void}) => {
@@ -259,8 +261,9 @@ export class SendMessage<T extends Element> {
                 closeSvg: closeSvg,
                 text: '123.jpg',
                 inputId: 1,
-            })
+            });
             files.insertAdjacentHTML('beforeend', template);
+            // this.filesData.push({})
         }
         addFile.addEventListener('click', eventNewFile);
     }

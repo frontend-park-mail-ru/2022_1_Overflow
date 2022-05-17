@@ -432,10 +432,5 @@ export class Menu<T extends Element> {
         });
 
         this.parent.insertAdjacentHTML('beforeend', main);
-        // const send = document.getElementById('send');
-        // send!.addEventListener('click', (ev) => {
-        //     ev.preventDefault();
-        //     router.redirect(urlsRouter.send);
-        // });
     }
 }

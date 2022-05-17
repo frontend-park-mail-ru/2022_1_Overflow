@@ -93,9 +93,11 @@ export class MenuModel {
             });
             if (res.ok) {
                 const json: {amount: number , folders:[{id: number, name: string, user_id: number, created_at: string}]} = await res.json();
-                json.folders.forEach((item) => {
-                    this.folderItems.push({id: item.id, name: item.name, userId: item.user_id, date: item.created_at});
-                });
+                if (json.folders) {
+                    json.folders.forEach((item) => {
+                        this.folderItems.push({id: item.id, name: item.name, userId: item.user_id, date: item.created_at});
+                    });
+                }
             }
         } catch (e) {
             console.error(e);
