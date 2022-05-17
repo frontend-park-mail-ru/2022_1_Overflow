@@ -110,7 +110,7 @@ export class Header<T extends Element> {
             menuSvg: menuSvg,
             login: login.render(),
             logoText: logoText.render(),
-            profileAvatar: `http://${window.location.hostname}:8080/${this.data.avatar}`,
+            profileAvatar: `http://${window.location.hostname}:8080${this.data.avatar}`,
             arrow: arrowSvg,
         })
 

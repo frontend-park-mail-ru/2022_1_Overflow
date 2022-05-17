@@ -14,7 +14,20 @@
         </div>
     </div>
     <hr class="hrClass">
-    <textarea id="textareaMain" class="textInput" placeholder="Содержимое письма">{{{text}}}</textarea>
+    <div class="filesAddLine">
+        <img id="addFile" class="addFile" src="{{addFile}}">
+        <div id="files" class="filesAddLineItems">
+        </div>
+<!--        <div id="file" class="filesAdd">-->
+<!--            <img class="newFile" src="{{addFile}}">-->
+<!--            <img class="closeFile" src="{{closeSvg}}">-->
+<!--            <p class="textFile">123.jpgfsafasfash</p>-->
+<!--            <input id="input{{inputId}}" class="inputFill" type="file">-->
+<!--        </div>-->
+    </div>
+    <hr class="hrClass">
+    <textarea id="textareaMain" class="textInput" placeholder="Содержимое письма">
+{{{text}}}</textarea>
     <hr class="hrClass">
     {{{send}}}
 </div>

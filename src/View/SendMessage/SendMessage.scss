@@ -107,3 +107,31 @@
     width: 350px;
 }
 
+.addFile{
+    width: 17px;
+    height: 24px;
+    padding: 7px;
+    margin-left: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+    &:hover{
+        border-radius: 10px;
+        background: #F1F1F1;
+    }
+}
+
+.filesAddLine{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.filesAddLineItems{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    white-space: nowrap;
+    width: 500px;
+    overflow-x: scroll;
+}
+

@@ -168,6 +168,10 @@ export class Message<T extends Element> {
                             this.isLoading = true;
                             document.removeEventListener('click', docEvent);
                             popUpReal.remove();
+                            const isFoldersDiv = document.getElementById('popUpFolders');
+                            if (isFoldersDiv) {
+                                isFoldersDiv.remove();
+                            }
                             if (getElem.nextElementSibling) {
                                 getElem.nextElementSibling.remove();
                             } else {

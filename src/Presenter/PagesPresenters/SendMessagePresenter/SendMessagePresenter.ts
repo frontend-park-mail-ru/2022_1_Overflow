@@ -105,6 +105,7 @@ export class SendMessagePresenter {
             await this.sendMessageModel.fetchGetUserAvatar(this.data.login);
         }
 
+        this.sendMessageView.eventAddNewFile();
         this.sendMessageView.send(this.sendMessageModel.checkInput);
         this.sendMessageView.eventsLoginChange(this.sendMessageModel.fetchGetUserAvatar);
     };

@@ -14,7 +14,7 @@ export class SendMessageModel {
     }
 
     cleanDefault = (data: { avatar: string, login: string, theme: string, date: string, text: string }) => {
-        data.text = `\n\n\nС уважение,\n${this.infoProfile.lastName} ${this.infoProfile.firstName}`;
+        data.text = `\n\n\nС уважением,\n${this.infoProfile.lastName} ${this.infoProfile.firstName}`;
     }
 
     cleanLogin = (data: { avatar: string, login: string, theme: string, date: string, text: string }) => {

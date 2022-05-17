@@ -55,7 +55,7 @@ export class MessageModel {
             this.messages.push({
                 id: pars.mail.id,
                 client_id: pars.mail.client_id,
-                avatar: `http://${window.location.hostname}:8080/${pars.avatar_url}`,
+                avatar: `http://${window.location.hostname}:8080${pars.avatar_url}`,
                 read: pars.mail.read,
                 sender: (pars.mail.sender !== '') ? pars.mail.sender : pars.mail.addressee,
                 title: pars.mail.theme,

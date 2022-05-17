@@ -6,10 +6,12 @@ import {Text} from '../../Ui-kit/Text/Text'
 import {Input} from '../../Ui-kit/Input/Input'
 import {Button} from "../../Ui-kit/Button/Button";
 import {PopUpError} from "../../Ui-kit/PopUpError/PopUpError";
-import {PopUp} from "../../Ui-kit/PopUp/PopUp";
-import {calcPositionXY} from "../../Utils/CalcPositionXY/CalcPositionXY";
 import {router} from "../../Presenter/Router/Router";
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
+import addFileSvg from '../image/add.svg';
+import closeSvg from '../image/close.svg';
+import './FileItem/FileItem.scss';
+import * as templateFileItem from './FileItem/FileItem.hbs';
 
 export class SendMessage<T extends Element> {
     private readonly parent: T;
@@ -185,6 +187,11 @@ export class SendMessage<T extends Element> {
     }
 
     createPopUpDraft = (urlNext: string) => {
+        const form = this.getForm();
+        if (this.data?.text === form.text && this.data.login === form.addressee && this.data.theme === form.theme) {
+            router.redirect(urlNext);
+            return;
+        }
         const primBtn = new Button({
             size: 'S',
             id: 'create',
@@ -235,6 +242,29 @@ export class SendMessage<T extends Element> {
         noDraft.addEventListener('click', eventDraftNo);
     }
 
+    eventAddNewFile = () => {
+        const addFile = document.getElementById('addFile');
+        if (!addFile) {
+            return;
+        }
+        const eventNewFile = () => {
+            const files = document.getElementById('files');
+            if (!files) {
+                return;
+            }
+            const template = templateFileItem({
+                fileId: 1,
+                svgFile: addFileSvg,
+                closeId: 1,
+                closeSvg: closeSvg,
+                text: '123.jpg',
+                inputId: 1,
+            })
+            files.insertAdjacentHTML('beforeend', template);
+        }
+        addFile.addEventListener('click', eventNewFile);
+    }
+
     render = () => {
         const who = new Text({
             color: 'Black',
@@ -277,6 +307,8 @@ export class SendMessage<T extends Element> {
         const template = sendMessageHbs({
             avatar: avatar,
             who: who.render(),
+            addFile: addFileSvg,
+            closeSvg: closeSvg,
             login: inputLogin.render(),
             theme: theme.render(),
             themeInput: themeInput.render(),
@@ -285,5 +317,11 @@ export class SendMessage<T extends Element> {
         });
 
         this.parent.insertAdjacentHTML('beforeend', template);
+
+        const cursorSet = document.getElementById('textareaMain');
+        if (!cursorSet) {
+            return;
+        }
+        cursorSet.focus();
     }
 }
