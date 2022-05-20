@@ -6,7 +6,7 @@ import './MessagePage.scss';
 import settings from '../image/settings.svg'
 import {router} from "../../Presenter/Router/Router";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
-import {PopUp} from "../../Ui-kit/PopUp/PopUp";
+import {PopUp} from "../../Ui-kit/Dropdown/PopUp";
 import {calcPositionXY} from "../../Utils/CalcPositionXY/CalcPositionXY";
 import spamSVG from "../image/spam.svg";
 import plusSVG from "../image/plus.svg";
@@ -142,6 +142,10 @@ export class MessagePage<T extends Element> {
                             return;
                         }
                         const folders = await handlers.handlerGetFolders();
+                        if (!folders) {
+                            this.isLoading = false;
+                            return;
+                        }
                         this.createFolders(folders, handlers.handlerGetFoldersMove, handlers.handlerGoToIncome, handlers.handlerAddInFolder, getElem, this.data.id, folderName);
                         this.isLoading = false;
                         return;

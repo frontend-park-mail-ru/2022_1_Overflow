@@ -5,7 +5,7 @@ import avatar from '../image/dummy.svg';
 import {Text} from '../../Ui-kit/Text/Text'
 import {Input} from '../../Ui-kit/Input/Input'
 import {Button} from "../../Ui-kit/Button/Button";
-import {PopUpError} from "../../Ui-kit/PopUpError/PopUpError";
+import {PopUpError} from "../../Ui-kit/Dilog/PopUpError";
 import {router} from "../../Presenter/Router/Router";
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 import addFileSvg from '../image/add.svg';
@@ -17,11 +17,15 @@ export class SendMessage<T extends Element> {
     private readonly parent: T;
     private readonly data: {avatar: string, login: string, theme: string, date: string, id: number, text: string} | null;
     private readonly filesData: {input: HTMLInputElement, img: HTMLImageElement, text: HTMLDivElement, close: HTMLImageElement, all: HTMLDivElement}[];
+    private readonly flag: string;
 
-    constructor(parent: T, data: {avatar: string, login: string, theme: string, date: string, id: number, text: string} | null) {
+    constructor(parent: T, data: {avatar: string, login: string, theme: string, date: string, id: number, text: string} | null, flag?: string) {
         this.parent = parent;
         this.data = data;
         this.filesData = [];
+        if (flag) {
+            this.flag = flag
+        }
     }
 
     setErrorTheme = (obj: {text: string, handler: (form: {addressee: string, files: string, text: string, theme: string}) => void}) => {
@@ -176,7 +180,7 @@ export class SendMessage<T extends Element> {
         };
     }
 
-    send = (handler: (form: {addressee: string, files: string, theme: string, text: string}) => void) => {
+    send = (handler: (text: { addressee: string, files: string, text: string, theme: string }, draftId?: number) => void) => {
         const sendMessage = document.getElementById('sendButton');
         if (!sendMessage) {
             return;
@@ -184,7 +188,11 @@ export class SendMessage<T extends Element> {
 
         sendMessage.addEventListener('click', async () => {
             sendMessage.setAttribute("disabled", "disabled");
-            await handler(this.getForm());
+            if (this.flag) {
+                await handler(this.getForm(), this.data?.id);
+            } else {
+                await handler(this.getForm());
+            }
         });
     }
 

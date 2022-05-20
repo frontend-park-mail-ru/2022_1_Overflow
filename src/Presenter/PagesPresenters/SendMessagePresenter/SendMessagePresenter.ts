@@ -70,7 +70,7 @@ export class SendMessagePresenter {
 
         this.sendMessageModel = new SendMessageModel();
         await this.sendMessageModel.fetchGetProfile();
-        this.sendMessageView = new SendMessage(main, this.data);
+        this.sendMessageView = new SendMessage(main, this.data, this.flag);
 
         eventEmitter.on('error', this.sendMessageView.setError);
         eventEmitter.on('errorTheme', this.sendMessageView.setErrorTheme);

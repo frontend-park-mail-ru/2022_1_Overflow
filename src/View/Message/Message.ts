@@ -10,7 +10,7 @@ import * as messageItem from './MessageItem/MessageItem.hbs';
 import * as mainMessage from './Message.hbs';
 import './MessageItem/MessageItem.scss';
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
-import {PopUp} from "../../Ui-kit/PopUp/PopUp";
+import {PopUp} from "../../Ui-kit/Dropdown/PopUp";
 import {calcPositionXY} from "../../Utils/CalcPositionXY/CalcPositionXY";
 import {calcSecondPositionXY} from "../../Utils/CalcPositionXY/CalcSecondPositionXY";
 import {router} from "../../Presenter/Router/Router";
@@ -141,7 +141,6 @@ export class Message<T extends Element> {
                             } else {
                                 await handlers.handlerSpam('Спам', list.id);
                             }
-                            await handlers.handlerSpam('Спам', list.id);
                             this.isLoading = false;
                             return;
                         }
@@ -156,6 +155,10 @@ export class Message<T extends Element> {
                                 return;
                             }
                             const folders = await handlers.handlerGetFolders();
+                            if (!folders) {
+                                this.isLoading = false;
+                                return;
+                            }
                             this.createFolders(folders, handlers.handlerGetFoldersMove, handlers.handlerGoToIncome, handlers.handlerAddInFolder, getElem, list, folderName);
                             this.isLoading = false;
                             return;

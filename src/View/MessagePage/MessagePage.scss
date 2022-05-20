@@ -24,9 +24,12 @@
 
 .listEmailText{
     flex: 1;
-    white-space: pre;
-    overflow: auto;
+    white-space: break-spaces;
+    overflow-y: scroll;
     width: 100%;
+    word-break: break-word;
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .greyLine{

@@ -4,7 +4,7 @@ import menuSvg from '../image/menu.svg';
 import arrowSvg from '../image/arrow.svg';
 import {Text} from '../../Ui-kit/Text/Text';
 import * as headerHBS from './Header.hbs';
-import {PopUp} from "../../Ui-kit/PopUp/PopUp";
+import {PopUp} from "../../Ui-kit/Dropdown/PopUp";
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 import doorSvg from "../image/door.svg";
 import profileSvg from "../image/profile.svg";

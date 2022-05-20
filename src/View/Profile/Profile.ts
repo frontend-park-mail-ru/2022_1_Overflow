@@ -9,7 +9,6 @@ import * as profileItemsHbs from './ProfileItem/ProfileItem.hbs';
 import lockSvg from "../image/lock.svg";
 import profileSvg from "../image/profile.svg";
 import './ProfileItem/ProfileItem.scss'
-import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 import {Text} from "../../Ui-kit/Text/Text";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
 import {router} from "../../Presenter/Router/Router";
@@ -159,7 +158,7 @@ export class Profile<T extends Element> {
         });
 
         const primBtn = new Button({
-            text: 'Изменить',
+            text: 'Сохранить',
             size: 'XL',
             id: 'set',
             type: 'submit',

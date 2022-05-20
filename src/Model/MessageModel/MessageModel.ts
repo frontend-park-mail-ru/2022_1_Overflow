@@ -180,7 +180,7 @@ export class MessageModel {
             if (res.ok) {
                 const json: {amount: number , folders:[{id: number, name: string, user_id: number, created_at: string}]} = await res.json();
                 if (!json.folders) {
-                    return [];
+                    return null;
                 }
                 const folders: {id: number, name: string, userId: number, date: string}[] = [];
                 json.folders.forEach((item) => {

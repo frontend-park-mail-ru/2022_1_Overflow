@@ -50,7 +50,7 @@ export class SendMessageModel {
         }, '')}`
     }
 
-    checkInput = async (text: { addressee: string, files: string, text: string, theme: string }) => {
+    checkInput = async (text: { addressee: string, files: string, text: string, theme: string }, draftId?: number) => {
         if (text.addressee === '') {
             eventEmitter.emit('error', 'Укажите кому вы хотите отправить сообщение');
             return;
@@ -63,7 +63,25 @@ export class SendMessageModel {
             eventEmitter.emit('errorTheme', {text: 'Хотите отправить сообщение без темы?', handler: this.fetchSend});
             return;
         }
+        if (draftId) {
+            await this.rmMessageInFolder('Черновики', draftId);
+        }
         await this.fetchSend(text);
+    }
+
+    rmMessageInFolder = async (folder_name: string, mail_id: number) => {
+        const header = await getCSRFToken(`http://${window.location.hostname}:8080/folder/mail/delete`);
+
+        await fetch(`http://${window.location.hostname}:8080/folder/mail/delete`, {
+            mode: 'cors',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-token': header,
+            },
+            method: 'POST',
+            credentials: 'include',
+            body: JSON.stringify({folder_name, mail_id}),
+        });
     }
 
     fetchSend = async (text: { addressee: string, files: string, text: string, theme: string }) => {

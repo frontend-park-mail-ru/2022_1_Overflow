@@ -152,7 +152,7 @@ export class Security<T extends Element> {
         });
 
         const primBtn = new Button({
-            text: 'Изменить',
+            text: 'Сохранить',
             size: 'XL',
             id: 'set',
             type: 'submit',
