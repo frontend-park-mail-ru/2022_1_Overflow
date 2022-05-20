@@ -188,7 +188,7 @@ export class SendMessage<T extends Element> {
 
         sendMessage.addEventListener('click', async () => {
             sendMessage.setAttribute("disabled", "disabled");
-            if (this.flag) {
+            if (this.flag && this.data?.id !== -1) {
                 await handler(this.getForm(), this.data?.id);
             } else {
                 await handler(this.getForm());
