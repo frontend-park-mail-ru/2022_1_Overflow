@@ -64,15 +64,15 @@ export class SendMessageModel {
             return;
         }
         if (draftId) {
-            await this.rmMessageInFolder('Черновики', draftId);
+            await this.rmMessage(draftId);
         }
         await this.fetchSend(text);
     }
 
-    rmMessageInFolder = async (folder_name: string, mail_id: number) => {
-        const header = await getCSRFToken(`http://${window.location.hostname}:8080/folder/mail/delete`);
+    rmMessage = async (id: number) => {
+        const header = await getCSRFToken(`http://${window.location.hostname}:8080/mail/delete`);
 
-        await fetch(`http://${window.location.hostname}:8080/folder/mail/delete`, {
+        await fetch(`http://${window.location.hostname}:8080/mail/delete`, {
             mode: 'cors',
             headers: {
                 'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ export class SendMessageModel {
             },
             method: 'POST',
             credentials: 'include',
-            body: JSON.stringify({folder_name, mail_id}),
+            body: JSON.stringify({id}),
         });
     }
 
