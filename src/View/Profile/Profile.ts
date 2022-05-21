@@ -177,7 +177,7 @@ export class Profile<T extends Element> {
             items: items,
             logo: logoSvg,
             inputFile: inputFile.render(),
-            profileSvg: `http://${window.location.hostname}:80/api/v1/${this.data.avatar}`,
+            profileSvg: `http://${window.location.hostname}:8080/${this.data.avatar}`,
             editSvg: editSvg,
             inputProfileName: inputProfileName.render(),
             inputProfileLastName: inputProfileLastName.render(),

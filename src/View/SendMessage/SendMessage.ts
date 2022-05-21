@@ -160,7 +160,7 @@ export class SendMessage<T extends Element> {
         if (!avatar) {
             return;
         }
-        avatar.src = `http://${window.location.hostname}:80/api/v1/${path}`
+        avatar.src = `http://${window.location.hostname}:8080/${path}`
     }
 
     getForm = () => {

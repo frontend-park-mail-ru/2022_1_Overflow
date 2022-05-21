@@ -70,7 +70,7 @@ export class MessagePagePresenter {
         await this.messagePageModel.readMessage();
         await this.messagePageModel.getAvatar(this.type);
         this.messagePageModel.setTime();
-        this.messagePageView = new MessagePage(main, this.messagePageModel.outputData(), this.messagePageModel.outputFiles());
+        this.messagePageView = new MessagePage(main, this.messagePageModel.outputData(), this.messagePageModel.outputFiles(), this.type);
         this.messagePageView.render();
         this.messagePageView.createFiles();
         this.messagePageView.forward();

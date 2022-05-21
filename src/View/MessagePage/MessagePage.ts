@@ -34,11 +34,13 @@ export class MessagePage<T extends Element> {
     private readonly popUp;
     private isLoading: boolean;
     private readonly files: string[];
+    private readonly type: string;
 
-    constructor(parent: T, data: { avatar: string, addressee: string; date: Date; files: string; id: number; read: boolean; sender: string; text: string; theme: string, realDate: string }, files: string[]) {
+    constructor(parent: T, data: { avatar: string, addressee: string; date: Date; files: string; id: number; read: boolean; sender: string; text: string; theme: string, realDate: string }, files: string[], type: string) {
         this.parent = parent;
         this.data = data;
         this.files = files;
+        this.type = type;
         this.isLoading = false;
         this.popUp = {
             id: 'popUp',
@@ -268,7 +270,7 @@ export class MessagePage<T extends Element> {
         const login = new Text({
             color: 'Black',
             size: 'L',
-            text: `От: ${this.data.sender}`,
+            text: (this.type === 'outcome') ? `Получаетель: ${this.data.addressee}` : `От: ${this.data.sender}`,
             id: 'login',
             className: 'loginIncome',
         });

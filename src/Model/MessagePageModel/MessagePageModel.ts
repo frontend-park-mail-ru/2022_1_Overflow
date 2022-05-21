@@ -1,6 +1,4 @@
 import {getCSRFToken} from '../Network/NetworkGet';
-import {router} from "../../Presenter/Router/Router";
-import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 
 export class MessagePageModel {
     private readonly id: number;
@@ -45,8 +43,8 @@ export class MessagePageModel {
 
     getFiles = async () => {
         try {
-            const header = await getCSRFToken(`http://${window.location.hostname}:80/api/v1/mail/attach/list`);
-            const res = await fetch(`http://${window.location.hostname}:80/api/v1/mail/attach/list`, {
+            const header = await getCSRFToken(`http://${window.location.hostname}:8080/mail/attach/list`);
+            const res = await fetch(`http://${window.location.hostname}:8080/mail/attach/list`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -67,7 +65,7 @@ export class MessagePageModel {
 
     getMessage = async () => {
         try {
-            const res = await fetch(`http://${window.location.hostname}:80/api/v1/mail/get?id=${this.id}`, {
+            const res = await fetch(`http://${window.location.hostname}:8080/mail/get?id=${this.id}`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -84,13 +82,13 @@ export class MessagePageModel {
 
     getAvatar = async(type: string) => {
         let name;
-        if (type === 'output'){
+        if (type === 'outcome'){
             name = this.data.addressee;
         } else {
             name = this.data.sender;
         }
         try {
-            const res = await fetch(`http://${window.location.hostname}:80/api/v1/profile/avatar?username=${name}`, {
+            const res = await fetch(`http://${window.location.hostname}:8080/profile/avatar?username=${name}`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -99,7 +97,7 @@ export class MessagePageModel {
             });
             if (res.ok) {
                 const json: {status: number, message: string} = await res.json();
-                this.data.avatar = `http://${window.location.hostname}:80/api/v1/${json.message}`;
+                this.data.avatar = `http://${window.location.hostname}:8080/${json.message}`;
             }
         } catch (e) {
             console.error(e);
@@ -108,8 +106,8 @@ export class MessagePageModel {
 
     readMessage = async () => {
         try {
-            const header = await getCSRFToken(`http://${window.location.hostname}:80/api/v1/mail/read`);
-            const res = await fetch(`http://${window.location.hostname}:80/api/v1/mail/read`, {
+            const header = await getCSRFToken(`http://${window.location.hostname}:8080/mail/read`);
+            const res = await fetch(`http://${window.location.hostname}:8080/mail/read`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',

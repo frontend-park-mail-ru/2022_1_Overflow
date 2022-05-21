@@ -37,7 +37,7 @@ export class SecurityModel {
 
     fetchProfile = async () => {
         try {
-            const res = await fetch(`http://${window.location.hostname}:80/api/v1/profile`, {
+            const res = await fetch(`http://${window.location.hostname}:8080/profile`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -61,8 +61,8 @@ export class SecurityModel {
 
     fetchSetPassword = async (data: {password_old: string, password_new: string, password_new_confirmation: string}) => {
         try {
-            const header = await getCSRFToken(`http://${window.location.hostname}:80/api/v1/profile/change_password`);
-            const postSetProfile = await fetch(`http://${window.location.hostname}:80/api/v1/profile/change_password`, {
+            const header = await getCSRFToken(`http://${window.location.hostname}:8080/profile/change_password`);
+            const postSetProfile = await fetch(`http://${window.location.hostname}:8080/profile/change_password`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',

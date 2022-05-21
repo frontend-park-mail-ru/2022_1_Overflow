@@ -14,8 +14,8 @@ export class MenuModel {
 
     addNewFolder = async (folder_name: string) => {
         try {
-            const header = await getCSRFToken(`http://${window.location.hostname}:80/api/v1/folder/add`);
-            const res = await fetch(`http://${window.location.hostname}:80/api/v1/folder/add`, {
+            const header = await getCSRFToken(`http://${window.location.hostname}:8080/folder/add`);
+            const res = await fetch(`http://${window.location.hostname}:8080/folder/add`, {
                 mode: 'cors',
                 method: 'POST',
                 headers: {
@@ -40,8 +40,8 @@ export class MenuModel {
 
     rmFolder = async (name: string) => {
         try {
-            const header = await getCSRFToken(`http://${window.location.hostname}:80/api/v1/folder/delete`);
-            const res = await fetch(`http://${window.location.hostname}:80/api/v1/folder/delete`, {
+            const header = await getCSRFToken(`http://${window.location.hostname}:8080/folder/delete`);
+            const res = await fetch(`http://${window.location.hostname}:8080/folder/delete`, {
                 mode: 'cors',
                 method: 'POST',
                 headers: {
@@ -58,8 +58,8 @@ export class MenuModel {
 
     reName = async (folder_name: string, new_folder_name: string, id: number) => {
         try {
-            const header = await getCSRFToken(`http://${window.location.hostname}:80/api/v1/folder/rename`);
-            const res = await fetch(`http://${window.location.hostname}:80/api/v1/folder/rename`, {
+            const header = await getCSRFToken(`http://${window.location.hostname}:8080/folder/rename`);
+            const res = await fetch(`http://${window.location.hostname}:8080/folder/rename`, {
                 mode: 'cors',
                 method: 'POST',
                 headers: {
@@ -84,7 +84,7 @@ export class MenuModel {
 
     getFolders = async () => {
         try {
-            const res = await fetch(`http://${window.location.hostname}:80/api/v1/folder/list`, {
+            const res = await fetch(`http://${window.location.hostname}:8080/folder/list`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
