@@ -29,8 +29,8 @@ export class SignInModel {
 
     fetchSignIn = async (text: {Username: string, password: string}) => {
         try {
-            const header = await getCSRFToken(`http://${window.location.hostname}:8080/signin`);
-            const res = await fetch(`http://${window.location.hostname}:8080/signin`, {
+            const header = await getCSRFToken(`http://${window.location.hostname}:80/api/v1/signin`);
+            const res = await fetch(`http://${window.location.hostname}:80/api/v1/signin`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',

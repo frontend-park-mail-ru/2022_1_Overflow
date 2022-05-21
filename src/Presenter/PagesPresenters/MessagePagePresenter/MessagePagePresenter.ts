@@ -66,11 +66,13 @@ export class MessagePagePresenter {
 
         this.messagePageModel = new MessagePageModel(this.idMsg);
         await this.messagePageModel.getMessage();
+        await this.messagePageModel.getFiles();
         await this.messagePageModel.readMessage();
         await this.messagePageModel.getAvatar(this.type);
         this.messagePageModel.setTime();
-        this.messagePageView = new MessagePage(main, this.messagePageModel.outputData());
+        this.messagePageView = new MessagePage(main, this.messagePageModel.outputData(), this.messagePageModel.outputFiles());
         this.messagePageView.render();
+        this.messagePageView.createFiles();
         this.messagePageView.forward();
         this.messagePageView.reMail();
         this.messageModel = new MessageModel();

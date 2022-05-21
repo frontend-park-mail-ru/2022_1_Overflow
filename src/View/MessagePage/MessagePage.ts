@@ -4,16 +4,17 @@ import reMail from '../image/reMail.svg';
 import {Text} from '../../Ui-kit/Text/Text'
 import './MessagePage.scss';
 import settings from '../image/settings.svg'
+import downloadSvg from '../image/download.svg'
 import {router} from "../../Presenter/Router/Router";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
 import {PopUp} from "../../Ui-kit/Dropdown/PopUp";
-import {calcPositionXY} from "../../Utils/CalcPositionXY/CalcPositionXY";
 import spamSVG from "../image/spam.svg";
 import plusSVG from "../image/plus.svg";
 import rmSVG from "../image/remove.svg";
 import inputSVG from "../image/input.svg";
 import folderSVG from "../image/directories.svg";
-import {calcSecondPositionXY} from "../../Utils/CalcPositionXY/CalcSecondPositionXY";
+import * as templateFileItem from "../SendMessage/FileItem/FileItem.hbs";
+import addFileSvg from "../image/add.svg";
 
 
 export class MessagePage<T extends Element> {
@@ -32,10 +33,12 @@ export class MessagePage<T extends Element> {
     };
     private readonly popUp;
     private isLoading: boolean;
+    private readonly files: string[];
 
-    constructor(parent: T, data: { avatar: string, addressee: string; date: Date; files: string; id: number; read: boolean; sender: string; text: string; theme: string, realDate: string }) {
+    constructor(parent: T, data: { avatar: string, addressee: string; date: Date; files: string; id: number; read: boolean; sender: string; text: string; theme: string, realDate: string }, files: string[]) {
         this.parent = parent;
         this.data = data;
+        this.files = files;
         this.isLoading = false;
         this.popUp = {
             id: 'popUp',
@@ -142,10 +145,6 @@ export class MessagePage<T extends Element> {
                             return;
                         }
                         const folders = await handlers.handlerGetFolders();
-                        if (!folders) {
-                            this.isLoading = false;
-                            return;
-                        }
                         this.createFolders(folders, handlers.handlerGetFoldersMove, handlers.handlerGoToIncome, handlers.handlerAddInFolder, getElem, this.data.id, folderName);
                         this.isLoading = false;
                         return;
@@ -179,16 +178,44 @@ export class MessagePage<T extends Element> {
         });
     }
 
-    createFolders = async (folders: { id: number; name: string; userId: number; date: string }[], handlerGetFoldersMove: (folder_name_dest: string, folder_name_src: string, mail_id: number) => void, handlerGoToIncome: (foldr_id: string, mail_id: number) => void, handlerAddInFolder: (foldr_id: string, mail_id: number) => void, getElem: HTMLElement, id: number, folderName: string) => {
+    createFiles = () => {
+        if (this.files.length <= 0) {
+            return;
+        }
+        this.files.forEach((item, index) => {
+            const files = document.getElementById('files');
+            if (!files) {
+                return;
+            }
+            const template = templateFileItem({
+                fileId: index,
+                svgFile: addFileSvg,
+                closeSvg: downloadSvg,
+                text: item,
+            });
+            files.insertAdjacentHTML('beforeend', template);
+            const close = document.getElementById(`close${index}`) as HTMLImageElement;
+            close.style.height = '15px';
+        })
+    }
+
+    createFolders = (folders: { id: number; name: string; userId: number; date: string }[], handlerGetFoldersMove: (folder_name_dest: string, folder_name_src: string, mail_id: number) => void, handlerGoToIncome: (foldr_id: string, mail_id: number) => void, handlerAddInFolder: (foldr_id: string, mail_id: number) => void, getElem: HTMLElement, id: number, folderName: string) => {
         const foldersName: { id: string, text: string, icon: string }[] = [];
 
         if (folderName) {
             foldersName.push({id: 'incomePopUp', icon: inputSVG, text: 'Входящие'});
         }
 
-        folders.forEach((item) => {
-            foldersName.push({id: item.id.toString() + 'popUp', icon: folderSVG, text: item.name});
-        });
+        if (folders) {
+            folders.forEach((item) => {
+                foldersName.push({id: item.id.toString() + 'popUp', icon: folderSVG, text: item.name});
+            });
+        }
+
+        if (foldersName.length === 0) {
+            this.isLoading = false;
+            return;
+        }
 
         const popUpFolders = new PopUp({
             id: 'popUpFolders',
@@ -202,6 +229,7 @@ export class MessagePage<T extends Element> {
         if (!foldersDiv) {
             return;
         }
+
         const popUpReal = document.getElementById('popUp') as HTMLDivElement;
         if (!popUpReal) {
             return;
@@ -272,6 +300,7 @@ export class MessagePage<T extends Element> {
         const template = messageSoloHbs({
             theme: theme.render(),
             avatar: this.data.avatar,
+            files: (this.files) ? '1' : '',
             login: login.render(),
             time: time.render(),
             text: text.render(),

@@ -9,7 +9,6 @@ import {Text} from "../../Ui-kit/Text/Text";
 import * as messageItem from './MessageItem/MessageItem.hbs';
 import * as mainMessage from './Message.hbs';
 import './MessageItem/MessageItem.scss';
-import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 import {PopUp} from "../../Ui-kit/Dropdown/PopUp";
 import {calcPositionXY} from "../../Utils/CalcPositionXY/CalcPositionXY";
 import {calcSecondPositionXY} from "../../Utils/CalcPositionXY/CalcSecondPositionXY";
@@ -22,6 +21,7 @@ export class Message<T extends Element> {
         id: number;
         client_id: number;
         sender: string;
+        addressee: string;
         title: string;
         subTitle: string;
         files: string;
@@ -40,6 +40,7 @@ export class Message<T extends Element> {
     constructor(parent: T, data: {
         id: number,
         client_id: number,
+        addressee: string,
         sender: string,
         title: string,
         subTitle: string,
@@ -155,10 +156,6 @@ export class Message<T extends Element> {
                                 return;
                             }
                             const folders = await handlers.handlerGetFolders();
-                            if (!folders) {
-                                this.isLoading = false;
-                                return;
-                            }
                             this.createFolders(folders, handlers.handlerGetFoldersMove, handlers.handlerGoToIncome, handlers.handlerAddInFolder, getElem, list, folderName);
                             this.isLoading = false;
                             return;
@@ -212,9 +209,16 @@ export class Message<T extends Element> {
             foldersName.push({id: 'incomePopUp', icon: inputSVG, text: 'Входящие'});
         }
 
-        folders.forEach((item) => {
-            foldersName.push({id: item.id.toString() + 'popUp', icon: folderSVG, text: item.name});
-        })
+        if (folders) {
+            folders.forEach((item) => {
+                foldersName.push({id: item.id.toString() + 'popUp', icon: folderSVG, text: item.name});
+            });
+        }
+
+        if (foldersName.length === 0) {
+            this.isLoading = false;
+            return;
+        }
 
         const popUpFolders = new PopUp({
             id: 'popUpFolders',
@@ -325,23 +329,33 @@ export class Message<T extends Element> {
         this.parent.insertAdjacentHTML('beforeend', render);
     }
 
-    renderMassage = (itemsMassage: { id: number, client_id: number, sender: string, title: string, subTitle: string, files: string, time: string, read: boolean, avatar: string }[]) => {
+    renderMassage = (itemsMassage: { id: number, client_id: number, sender: string, addressee: string, title: string, subTitle: string, files: string, time: string, read: boolean, avatar: string }[]) => {
         const messageText: { avatar: string; id: number; title: string; subTitle: string; time: string; read: boolean, sender: string }[] = [];
-        itemsMassage.forEach((item: { avatar: string; id: number; title: string; subTitle: string; time: string; read: boolean, sender: string }, index: number) => {
+        itemsMassage.forEach((item, index: number) => {
             if (this.type === 'outcome' || this.type === 'draft') {
                 item.read = true;
             }
 
-            const senderText = (item.read) ? new Text({
-                    text: item.sender,
-                    size: 'L',
-                    className: 'widthName',
-                }) :
-                new Text({
-                    text: item.sender,
-                    size: 'L',
-                    className: 'bold widthName',
-                });
+            let senderText;
+
+            if (this.type === 'draft' || this.type === 'outcome') {
+                senderText = new Text({
+                        text: item.addressee,
+                        size: 'L',
+                        className: 'widthName',
+                    });
+            } else {
+                senderText = (item.read) ? new Text({
+                        text: item.sender,
+                        size: 'L',
+                        className: 'widthName',
+                    }) :
+                    new Text({
+                        text: item.sender,
+                        size: 'L',
+                        className: 'bold widthName',
+                    });
+            }
 
             const titleText = (item.read) ? new Text({
                     text: item.title,

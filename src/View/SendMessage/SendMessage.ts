@@ -16,13 +16,17 @@ import * as templateFileItem from './FileItem/FileItem.hbs';
 export class SendMessage<T extends Element> {
     private readonly parent: T;
     private readonly data: {avatar: string, login: string, theme: string, date: string, id: number, text: string} | null;
-    private readonly filesData: {input: HTMLInputElement, img: HTMLImageElement, text: HTMLDivElement, close: HTMLImageElement, all: HTMLDivElement}[];
+    private filesData: File[];
     private readonly flag: string;
+    private isLoading: boolean;
+    private counterFile: number;
 
     constructor(parent: T, data: {avatar: string, login: string, theme: string, date: string, id: number, text: string} | null, flag?: string) {
         this.parent = parent;
         this.data = data;
+        this.isLoading = false;
         this.filesData = [];
+        this.counterFile = 0;
         if (flag) {
             this.flag = flag
         }
@@ -156,7 +160,7 @@ export class SendMessage<T extends Element> {
         if (!avatar) {
             return;
         }
-        avatar.src = `http://${window.location.hostname}:8080/${path}`
+        avatar.src = `http://${window.location.hostname}:80/api/v1/${path}`
     }
 
     getForm = () => {
@@ -180,7 +184,7 @@ export class SendMessage<T extends Element> {
         };
     }
 
-    send = (handler: (text: { addressee: string, files: string, text: string, theme: string }, draftId?: number) => void) => {
+    send = (handler: (text: { addressee: string, files: string, text: string, theme: string }, draftId?: number) => void, handlerSendFile: (data: {attach: File, id: number}) => void, handlerGetLastId: () => number) => {
         const sendMessage = document.getElementById('sendButton');
         if (!sendMessage) {
             return;
@@ -192,6 +196,11 @@ export class SendMessage<T extends Element> {
                 await handler(this.getForm(), this.data?.id);
             } else {
                 await handler(this.getForm());
+            }
+            if (this.filesData.length > 0) {
+                this.filesData.forEach((item) => {
+                    handlerSendFile({attach: item, id: handlerGetLastId()});
+                })
             }
         });
     }
@@ -245,6 +254,7 @@ export class SendMessage<T extends Element> {
             popUpElem?.remove();
             router.redirect(urlNext);
         }
+
         const noDraft = document.getElementById('prev');
         if (!noDraft) {
             return;
@@ -253,27 +263,89 @@ export class SendMessage<T extends Element> {
     }
 
     eventAddNewFile = () => {
+        const messages = document.getElementById('messages');
+        if (!messages) {
+            return;
+        }
         const addFile = document.getElementById('addFile');
         if (!addFile) {
             return;
         }
-        const eventNewFile = () => {
+        const isInputTmp = document.getElementById('inputTmp');
+        if (!isInputTmp) {
+            const inputTmp = document.createElement('input') as HTMLInputElement;
+            inputTmp.type = 'file';
+            inputTmp.style.display = 'none';
+            inputTmp.id = 'inputTmp'
+            messages.appendChild(inputTmp);
+            const eventNewFile = () => {
+                if (this.isLoading) {
+                    return;
+                }
+                this.isLoading = true;
+                const input = document.getElementById('inputTmp') as HTMLInputElement;
+                if (!input) {
+                    return;
+                }
+                input.click();
+                this.isLoading = false;
+            }
+            addFile.addEventListener('click', eventNewFile);
+            this.eventInputClick();
+        }
+    }
+
+    eventInputClick = () => {
+        const input = document.getElementById('inputTmp') as HTMLInputElement;
+        if (!input) {
+            return;
+        }
+        input.addEventListener('change', () => {
+            if (this.isLoading) {
+                return;
+            }
+            this.isLoading = true;
             const files = document.getElementById('files');
             if (!files) {
                 return;
             }
             const template = templateFileItem({
-                fileId: 1,
+                fileId: this.counterFile,
                 svgFile: addFileSvg,
-                closeId: 1,
                 closeSvg: closeSvg,
-                text: '123.jpg',
-                inputId: 1,
+                text: '',
             });
             files.insertAdjacentHTML('beforeend', template);
-            // this.filesData.push({})
-        }
-        addFile.addEventListener('click', eventNewFile);
+
+            const img = document.getElementById(`img${this.counterFile}`) as HTMLImageElement;
+            const text = document.getElementById(`text${this.counterFile}`) as HTMLDivElement;
+            const close = document.getElementById(`close${this.counterFile}`) as HTMLImageElement;
+            const all = document.getElementById(`all${this.counterFile}`) as HTMLDivElement;
+            const file = input.files?.item(0);
+            if (!file) {
+                return;
+            }
+            console.log(1);
+            this.filesData.push(file);
+            text.textContent = file.name;
+
+            close.addEventListener('click', () => {
+                if (this.isLoading) {
+                    return;
+                }
+                this.isLoading = true;
+                this.filesData.filter((value, index) => {
+                    if (value === file) {
+                        this.filesData.splice(index, 1);
+                        return;
+                    }
+                })
+                all.remove();
+                this.isLoading = false;
+            });
+            this.counterFile = this.counterFile + 1;
+            this.isLoading = false;
+        });
     }
 
     render = () => {

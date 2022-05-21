@@ -19,7 +19,7 @@ export class HeaderModel {
 
     getProfile = async () => {
         try {
-            const res = await fetch(`http://${window.location.hostname}:8080/profile`, {
+            const res = await fetch(`http://${window.location.hostname}:80/api/v1/profile`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ export class HeaderModel {
 
     getAvatar = async() => {
         try {
-            const res = await fetch(`http://${window.location.hostname}:8080/profile/avatar`, {
+            const res = await fetch(`http://${window.location.hostname}:80/api/v1/profile/avatar`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -59,9 +59,9 @@ export class HeaderModel {
     }
 
     logout = async () => {
-        const header = await getCSRFToken(`http://${window.location.hostname}:8080/logout`);
+        const header = await getCSRFToken(`http://${window.location.hostname}:80/api/v1/logout`);
 
-        await fetch(`http://${window.location.hostname}:8080/logout`, {
+        await fetch(`http://${window.location.hostname}:80/api/v1/logout`, {
             mode: 'cors',
             method: 'POST',
             headers: {

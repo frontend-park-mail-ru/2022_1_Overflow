@@ -106,7 +106,7 @@ export class SendMessagePresenter {
         }
 
         this.sendMessageView.eventAddNewFile();
-        this.sendMessageView.send(this.sendMessageModel.checkInput);
+        this.sendMessageView.send(this.sendMessageModel.checkInput, this.sendMessageModel.fetchSendFile, this.sendMessageModel.getIdLastSend);
         this.sendMessageView.eventsLoginChange(this.sendMessageModel.fetchGetUserAvatar);
     };
 }

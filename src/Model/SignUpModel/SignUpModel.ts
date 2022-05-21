@@ -53,8 +53,8 @@ export class SignUpModel {
 
     fetchSignUp = async (text: {firstName: string, lastName: string, Username: string, password: string, passwordConfirmation: string}) => {
         try {
-            const header = await getCSRFToken(`http://${window.location.hostname}:8080/signup`);
-            const res = await fetch(`http://${window.location.hostname}:8080/signup`, {
+            const header = await getCSRFToken(`http://${window.location.hostname}:80/api/v1/signup`);
+            const res = await fetch(`http://${window.location.hostname}:80/api/v1/signup`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -83,8 +83,8 @@ export class SignUpModel {
 
     fetchSignIn = async (text: {Username: string, password: string}) => {
         try {
-            const header = await getCSRFToken(`http://${window.location.hostname}:8080/signin`);
-            const res = await fetch(`http://${window.location.hostname}:8080/signin`, {
+            const header = await getCSRFToken(`http://${window.location.hostname}:80/api/v1/signin`);
+            const res = await fetch(`http://${window.location.hostname}:80/api/v1/signin`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
