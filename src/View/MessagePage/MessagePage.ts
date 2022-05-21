@@ -12,6 +12,7 @@ import spamSVG from "../image/spam.svg";
 import plusSVG from "../image/plus.svg";
 import rmSVG from "../image/remove.svg";
 import inputSVG from "../image/input.svg";
+import fileSvg from '../image/file.svg';
 import folderSVG from "../image/directories.svg";
 import * as templateFileItem from "../SendMessage/FileItem/FileItem.hbs";
 import addFileSvg from "../image/add.svg";
@@ -181,6 +182,9 @@ export class MessagePage<T extends Element> {
     }
 
     createFiles = () => {
+        if (!this.files) {
+            return;
+        }
         if (this.files.length <= 0) {
             return;
         }
@@ -191,7 +195,7 @@ export class MessagePage<T extends Element> {
             }
             const template = templateFileItem({
                 fileId: index,
-                svgFile: addFileSvg,
+                svgFile: fileSvg,
                 closeSvg: downloadSvg,
                 text: item,
             });

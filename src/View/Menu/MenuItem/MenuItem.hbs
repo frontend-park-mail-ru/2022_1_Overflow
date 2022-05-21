@@ -1,4 +1,9 @@
 <a {{#if href}}href="/{{href}}"{{/if}} id="{{id}}" class="manuPoint">
     <img class="iconPoint1" src="{{icon}}" alt="input">
     {{{text}}}
+    {{#if readcount}}
+        <div class="readCount">
+            {{readcount}}
+        </div>
+    {{/if}}
 </a>

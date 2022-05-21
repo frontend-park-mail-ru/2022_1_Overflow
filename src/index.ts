@@ -32,3 +32,25 @@ if ('serviceWorker' in navigator) {
         console.log('Не удалось зарегистрировать сервис воркер: ' + error);
     });
 }
+
+const socket = new WebSocket('ws://127.0.0.1/api/v1/ws');
+
+socket.onopen = function (ev) {
+    console.log('open');
+}
+
+socket.onmessage = function(event) {
+    console.log(`[message] Данные получены с сервера: ${event.data}`);
+};
+
+socket.onclose = function(event) {
+    if (event.wasClean) {
+        console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
+    } else {
+        console.log('[close] Соединение прервано');
+    }
+};
+
+socket.onerror = function(error) {
+    console.log(`[error] ${error}`);
+};

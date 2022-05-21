@@ -27,17 +27,19 @@ export class Menu<T extends Element> {
     private isLoading: boolean;
     private xPos: number;
     private yPos: number;
+    private countNotRead: number;
     private popUpFolderOpen;
     private handlerRm: (name: string) => void;
     private handlerRename: (folderName: string, newFolderName: string, id: number) => void
 
 
-    constructor(parent: T, folders: {id: number, name: string, userId: number, date: string}[]) {
+    constructor(parent: T, folders: {id: number, name: string, userId: number, date: string}[], countNotRead: number) {
         this.isLoading = false;
         this.parent = parent;
         this.itemsFolder = folders;
         this.xPos = 0;
         this.yPos = 0;
+        this.countNotRead = countNotRead;
         this.popUpFolderOpen = {
             id: 'popUpFolderOpen',
             content: [

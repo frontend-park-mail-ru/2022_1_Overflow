@@ -56,7 +56,7 @@ export class MessageModel {
             this.messages.push({
                 id: pars.mail.id,
                 client_id: pars.mail.client_id,
-                avatar: `http://${window.location.hostname}:8080${pars.avatar_url}`,
+                avatar: `http://${window.location.hostname}${pars.avatar_url}`,
                 read: pars.mail.read,
                 addressee: pars.mail.addressee,
                 sender: pars.mail.sender,
@@ -72,7 +72,7 @@ export class MessageModel {
 
     getOutComeMessage = async () => {
         try {
-            const res = await fetch(`http://${window.location.hostname}:8080/mail/outcome`, {
+            const res = await fetch(`http://${window.location.hostname}/api/v1/mail/outcome`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -88,9 +88,9 @@ export class MessageModel {
     }
 
     rmMessageInFolder = async (folder_name: string, mail_id: number) => {
-        const header = await getCSRFToken(`http://${window.location.hostname}:8080/folder/mail/delete`);
+        const header = await getCSRFToken(`http://${window.location.hostname}/api/v1/folder/mail/delete`);
 
-        await fetch(`http://${window.location.hostname}:8080/folder/mail/delete`, {
+        await fetch(`http://${window.location.hostname}/api/v1/folder/mail/delete`, {
             mode: 'cors',
             headers: {
                 'Content-Type': 'application/json',
@@ -103,9 +103,9 @@ export class MessageModel {
     }
 
     rmMessage = async (id: number) => {
-        const header = await getCSRFToken(`http://${window.location.hostname}:8080/mail/delete`);
+        const header = await getCSRFToken(`http://${window.location.hostname}/api/v1/mail/delete`);
 
-        await fetch(`http://${window.location.hostname}:8080/mail/delete`, {
+        await fetch(`http://${window.location.hostname}/api/v1/mail/delete`, {
             mode: 'cors',
             headers: {
                 'Content-Type': 'application/json',
@@ -119,7 +119,7 @@ export class MessageModel {
 
     selectFolderMessage = async (folder_name: string) => {
         try {
-            const res = await fetch(`http://${window.location.hostname}:8080/folder/list?folder_name=${folder_name}`, {
+            const res = await fetch(`http://${window.location.hostname}/api/v1/folder/list?folder_name=${folder_name}`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -136,8 +136,8 @@ export class MessageModel {
 
     moveInFolderMessage = async (folder_name_dest: string, folder_name_src: string, mail_id: number) => {
         try {
-            const header = await getCSRFToken(`http://${window.location.hostname}:8080/folder/mail/move`);
-            await fetch(`http://${window.location.hostname}:8080/folder/mail/move`, {
+            const header = await getCSRFToken(`http://${window.location.hostname}/api/v1/folder/mail/move`);
+            await fetch(`http://${window.location.hostname}/api/v1/folder/mail/move`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -154,8 +154,8 @@ export class MessageModel {
 
     addInFolderMessage = async (folder_name: string, mail_id: number) => {
         try {
-            const header = await getCSRFToken(`http://${window.location.hostname}:8080/folder/mail/add`);
-            const res = await fetch(`http://${window.location.hostname}:8080/folder/mail/add`, {
+            const header = await getCSRFToken(`http://${window.location.hostname}/api/v1/folder/mail/add`);
+            const res = await fetch(`http://${window.location.hostname}/api/v1/folder/mail/add`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -172,7 +172,7 @@ export class MessageModel {
 
     getFolders = async () => {
         try {
-            const res = await fetch(`http://${window.location.hostname}:8080/folder/list`, {
+            const res = await fetch(`http://${window.location.hostname}/api/v1/folder/list`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -198,7 +198,7 @@ export class MessageModel {
     getMessage = async (name: string) => {
         if (name === 'income' || name === 'outcome') {
             try {
-                const res = await fetch(`http://${window.location.hostname}:8080/mail/${name}`, {
+                const res = await fetch(`http://${window.location.hostname}/api/v1/mail/${name}`, {
                     mode: 'cors',
                     headers: {
                         'Content-Type': 'application/json',
@@ -213,7 +213,7 @@ export class MessageModel {
             }
         } else {
             try {
-                const res = await fetch(`http://${window.location.hostname}:8080/folder/list?folder_name=${name}`, {
+                const res = await fetch(`http://${window.location.hostname}/api/v1/folder/list?folder_name=${name}`, {
                     mode: 'cors',
                     headers: {
                         'Content-Type': 'application/json',

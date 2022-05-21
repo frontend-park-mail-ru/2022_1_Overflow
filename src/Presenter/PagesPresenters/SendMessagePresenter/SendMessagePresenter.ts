@@ -17,18 +17,18 @@ export class SendMessagePresenter {
     private headerModel: HeaderModel;
     private sendMessageModel: SendMessageModel;
     private sendMessageView: SendMessage<Element>;
-    private data: { avatar: string, login: string, theme: string, date: string, id: number, text: string };
+    private data: { avatar: string, sender: string, addressee: string, theme: string, date: string, id: number, text: string };
     private flag: string;
 
     constructor(parent: Element) {
         this.parent = parent;
         this.flag = 'default';
-        this.data = {avatar: '', login: '', theme: '', date: '', text: '', id: -1};
+        this.data = {avatar: '', sender: '', addressee: '', theme: '', date: '', text: '', id: -1};
     }
 
     set context(data: {avatar: string, sender: string, addressee: string, theme: string, date: string, text: string, id: number, flag: string}) {
         if (data !== null) {
-            this.data = {avatar: data.avatar, login: data.sender, theme: data.theme, date: data.date, id: data.id, text: data.text};
+            this.data = {avatar: data.avatar, sender: data.sender, addressee: data.addressee, theme: data.theme, date: data.date, id: data.id, text: data.text};
             this.flag = data.flag;
         }
     }
@@ -51,7 +51,8 @@ export class SendMessagePresenter {
 
             this.menuModel = new MenuModel();
             await this.menuModel.getFolders();
-            this.menuView = new Menu(this.parent, this.menuModel.outPutFoldersName());
+            await this.menuModel.getCountNotRead();
+            this.menuView = new Menu(this.parent, this.menuModel.outPutFoldersName(), this.menuModel.outCountNotRead());
             eventEmitter.on('createFolder', this.menuView.renderNewFolder);
             eventEmitter.on('errorFolder', this.menuView.setErrorFolderName);
             eventEmitter.on('reNameFolder', this.menuView.eventReNameFolder);
@@ -98,11 +99,11 @@ export class SendMessagePresenter {
         this.sendMessageView.render();
 
         if (this.flag === 'reSend') {
-            await this.sendMessageModel.fetchGetUserAvatar(this.data.login);
+            await this.sendMessageModel.fetchGetUserAvatar(this.data.addressee);
         }
 
         if (this.flag === 'draft') {
-            await this.sendMessageModel.fetchGetUserAvatar(this.data.login);
+            await this.sendMessageModel.fetchGetUserAvatar(this.data.addressee);
         }
 
         this.sendMessageView.eventAddNewFile();

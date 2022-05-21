@@ -291,7 +291,7 @@ export class Message<T extends Element> {
                 return;
             }
             getElem.addEventListener('click', () => {
-                router.redirect(urlsRouter.send, 'dif', {dataSendMessage: {avatar: list.avatar, sender: list.sender, addressee: list.sender, theme: list.title, date: list.time, text: list.subTitle, id: list.id, flag: 'draft'}})
+                router.redirect(urlsRouter.send, 'dif', {dataSendMessage: {avatar: list.avatar, sender: list.sender, addressee: list.addressee, theme: list.title, date: list.time, text: list.subTitle, id: list.id, flag: 'draft'}})
             });
         });
     }

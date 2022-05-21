@@ -3,19 +3,44 @@ import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 
 export class MenuModel {
     private readonly folderItems: {id: number, name: string, userId: number, date: string}[];
+    private countNotRead: number;
 
     constructor() {
         this.folderItems = [];
+        this.countNotRead = 0;
     }
 
     outPutFoldersName = (): {id: number, name: string, userId: number, date: string}[] => {
         return this.folderItems;
     }
 
+    outCountNotRead = (): number => {
+        return this.countNotRead;
+    }
+
+    getCountNotRead = async () => {
+        try {
+            const res = await fetch(`http://${window.location.hostname}/api/v1/mail/countunread`, {
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include'
+            });
+            if (res.ok) {
+                const json: {count: number} = await res.json();
+                console.log(json);
+                this.countNotRead = json.count;
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
     addNewFolder = async (folder_name: string) => {
         try {
-            const header = await getCSRFToken(`http://${window.location.hostname}:8080/folder/add`);
-            const res = await fetch(`http://${window.location.hostname}:8080/folder/add`, {
+            const header = await getCSRFToken(`http://${window.location.hostname}/api/v1/folder/add`);
+            const res = await fetch(`http://${window.location.hostname}/api/v1/folder/add`, {
                 mode: 'cors',
                 method: 'POST',
                 headers: {
@@ -40,8 +65,8 @@ export class MenuModel {
 
     rmFolder = async (name: string) => {
         try {
-            const header = await getCSRFToken(`http://${window.location.hostname}:8080/folder/delete`);
-            const res = await fetch(`http://${window.location.hostname}:8080/folder/delete`, {
+            const header = await getCSRFToken(`http://${window.location.hostname}/api/v1/folder/delete`);
+            const res = await fetch(`http://${window.location.hostname}/api/v1/folder/delete`, {
                 mode: 'cors',
                 method: 'POST',
                 headers: {
@@ -58,8 +83,8 @@ export class MenuModel {
 
     reName = async (folder_name: string, new_folder_name: string, id: number) => {
         try {
-            const header = await getCSRFToken(`http://${window.location.hostname}:8080/folder/rename`);
-            const res = await fetch(`http://${window.location.hostname}:8080/folder/rename`, {
+            const header = await getCSRFToken(`http://${window.location.hostname}/api/v1/folder/rename`);
+            const res = await fetch(`http://${window.location.hostname}/api/v1/folder/rename`, {
                 mode: 'cors',
                 method: 'POST',
                 headers: {
@@ -84,7 +109,7 @@ export class MenuModel {
 
     getFolders = async () => {
         try {
-            const res = await fetch(`http://${window.location.hostname}:8080/folder/list`, {
+            const res = await fetch(`http://${window.location.hostname}/api/v1/folder/list`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',

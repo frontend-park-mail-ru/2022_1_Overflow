@@ -10,18 +10,19 @@ import {router} from "../../Presenter/Router/Router";
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 import addFileSvg from '../image/add.svg';
 import closeSvg from '../image/close.svg';
+import fileSvg from '../image/file.svg';
 import './FileItem/FileItem.scss';
 import * as templateFileItem from './FileItem/FileItem.hbs';
 
 export class SendMessage<T extends Element> {
     private readonly parent: T;
-    private readonly data: {avatar: string, login: string, theme: string, date: string, id: number, text: string} | null;
+    private readonly data: {avatar: string, sender: string, addressee: string, theme: string, date: string, id: number, text: string} | null;
     private filesData: File[];
     private readonly flag: string;
     private isLoading: boolean;
     private counterFile: number;
 
-    constructor(parent: T, data: {avatar: string, login: string, theme: string, date: string, id: number, text: string} | null, flag?: string) {
+    constructor(parent: T, data: {avatar: string, sender: string, addressee: string, theme: string, date: string, id: number, text: string} | null, flag?: string) {
         this.parent = parent;
         this.data = data;
         this.isLoading = false;
@@ -160,7 +161,7 @@ export class SendMessage<T extends Element> {
         if (!avatar) {
             return;
         }
-        avatar.src = `http://${window.location.hostname}:8080/${path}`
+        avatar.src = `http://${window.location.hostname}/${path}`
     }
 
     getForm = () => {
@@ -207,7 +208,7 @@ export class SendMessage<T extends Element> {
 
     createPopUpDraft = (urlNext: string) => {
         const form = this.getForm();
-        if (this.data?.text === form.text && this.data.login === form.addressee && this.data.theme === form.theme) {
+        if (this.data?.text === form.text && this.data.addressee === form.addressee && this.data.theme === form.theme) {
             router.redirect(urlNext);
             return;
         }
@@ -311,7 +312,7 @@ export class SendMessage<T extends Element> {
             }
             const template = templateFileItem({
                 fileId: this.counterFile,
-                svgFile: addFileSvg,
+                svgFile: fileSvg,
                 closeSvg: closeSvg,
                 text: '',
             });
@@ -355,12 +356,13 @@ export class SendMessage<T extends Element> {
             id: 'who',
         });
 
+        console.log(this.data?.addressee, this.data?.sender)
         const inputLogin = new Input({
             type: 'text',
             id: 'inputLogin',
             size: 'Empty',
             text: '',
-            realText: this.data !== null ? this.data.login : '',
+            realText: this.data !== null ? this.data.addressee : '',
             classNameDiv: 'divWidth',
         });
 

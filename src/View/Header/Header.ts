@@ -14,11 +14,11 @@ import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
 
 export class Header<T extends Element> {
     private readonly parent: T;
-    private readonly data: { name: string; avatar: string; };
+    private readonly data: {name: string; avatar: string};
     private readonly popUp;
     private isLoading: boolean;
 
-    constructor(parent: T, data: { name: string; avatar: string; }) {
+    constructor(parent: T, data: {name: string, avatar: string}) {
         this.parent = parent;
         this.data = data;
         this.popUp = {
@@ -110,7 +110,7 @@ export class Header<T extends Element> {
             menuSvg: menuSvg,
             login: login.render(),
             logoText: logoText.render(),
-            profileAvatar: `http://${window.location.hostname}:8080${this.data.avatar}`,
+            profileAvatar: `http://${window.location.hostname}${this.data.avatar}`,
             arrow: arrowSvg,
         })
 

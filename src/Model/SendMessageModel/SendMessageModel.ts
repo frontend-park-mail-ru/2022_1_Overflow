@@ -19,16 +19,16 @@ export class SendMessageModel {
         return this.idLastSend;
     }
 
-    cleanDefault = (data: { avatar: string, login: string, theme: string, date: string, text: string }) => {
+    cleanDefault = (data: { avatar: string, sender: string, addressee: string, theme: string, date: string, text: string }) => {
         data.text = `\n\n\nС уважением,\n${this.infoProfile.lastName} ${this.infoProfile.firstName}`;
     }
 
-    cleanLogin = (data: { avatar: string, login: string, theme: string, date: string, text: string }) => {
-        data.text = `Переслано от ${data.login}:\n${data.text}`;
-        data.login = '';
+    cleanLogin = (data: { avatar: string, sender: string, addressee: string, theme: string, date: string, text: string }) => {
+        data.text = `Переслано от ${data.sender}:\n${data.text}`;
+        data.sender = '';
     }
 
-    cleanRe = (data: { avatar: string, login: string, theme: string, date: string, text: string }) => {
+    cleanRe = (data: { avatar: string, sender: string, addressee: string, theme: string, date: string, text: string }) => {
         if (data === null) {
             return;
         }
@@ -48,7 +48,7 @@ export class SendMessageModel {
             splitText[idx] = '>>' + text;
         });
 
-        data.text = `\n\n\nС уважением,\n${this.infoProfile.lastName} ${this.infoProfile.firstName}\n\n>>В ответ ${data.login} на:\n${splitText.reduce((text, cur, idx) => {
+        data.text = `\n\n\nС уважением,\n${this.infoProfile.lastName} ${this.infoProfile.firstName}\n\n>>В ответ ${data.sender} на:\n${splitText.reduce((text, cur, idx) => {
             if (idx === splitText.length - 1) {
                 return text + `${cur}`;
             }
@@ -76,9 +76,9 @@ export class SendMessageModel {
     }
 
     rmMessage = async (id: number) => {
-        const header = await getCSRFToken(`http://${window.location.hostname}:8080/mail/delete`);
+        const header = await getCSRFToken(`http://${window.location.hostname}/api/v1/mail/delete`);
 
-        await fetch(`http://${window.location.hostname}:8080/mail/delete`, {
+        await fetch(`http://${window.location.hostname}/api/v1/mail/delete`, {
             mode: 'cors',
             headers: {
                 'Content-Type': 'application/json',
@@ -92,8 +92,8 @@ export class SendMessageModel {
 
     fetchSend = async (text: { addressee: string, files: string, text: string, theme: string }) => {
         try {
-            const header = await getCSRFToken(`http://${window.location.hostname}:8080/mail/send`);
-            const res = await fetch(`http://${window.location.hostname}:8080/mail/send`, {
+            const header = await getCSRFToken(`http://${window.location.hostname}/api/v1/mail/send`);
+            const res = await fetch(`http://${window.location.hostname}/api/v1/mail/send`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -125,8 +125,8 @@ export class SendMessageModel {
             const formData = new FormData();
             formData.append('attach', data.attach);
             formData.append('mailID', data.id.toString());
-            const header = await getCSRFToken(`http://${window.location.hostname}:8080/mail/attach/add`);
-            const res = await fetch(`http://${window.location.hostname}:8080/mail/attach/add`, {
+            const header = await getCSRFToken(`http://${window.location.hostname}/api/v1/mail/attach/add`);
+            const res = await fetch(`http://${window.location.hostname}/api/v1/mail/attach/add`, {
                 mode: 'cors',
                 headers: {
                     'X-CSRF-token': header,
@@ -151,8 +151,8 @@ export class SendMessageModel {
         text: string,
         theme: string}}) => {
         try {
-            const header = await getCSRFToken(`http://${window.location.hostname}:8080/folder/mail/add_form`);
-            const res = await fetch(`http://${window.location.hostname}:8080/folder/mail/add_form`, {
+            const header = await getCSRFToken(`http://${window.location.hostname}/api/v1/folder/mail/add_form`);
+            const res = await fetch(`http://${window.location.hostname}/api/v1/folder/mail/add_form`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -169,7 +169,7 @@ export class SendMessageModel {
 
     fetchGetProfile = async () => {
         try {
-            const res = await fetch(`http://${window.location.hostname}:8080/profile`, {
+            const res = await fetch(`http://${window.location.hostname}/api/v1/profile`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -189,7 +189,7 @@ export class SendMessageModel {
 
     fetchGetUserAvatar = async (name: string) => {
         try {
-            const res = await fetch(`http://${window.location.hostname}:8080/profile/avatar?username=${name}`, {
+            const res = await fetch(`http://${window.location.hostname}/api/v1/profile/avatar?username=${name}`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',

@@ -44,7 +44,8 @@ export class MainPage {
 
             this.menuModel = new MenuModel();
             await this.menuModel.getFolders();
-            this.menuView = new Menu(this.parent, this.menuModel.outPutFoldersName());
+            await this.menuModel.getCountNotRead();
+            this.menuView = new Menu(this.parent, this.menuModel.outPutFoldersName(), this.menuModel.outCountNotRead());
             eventEmitter.on('createFolder', this.menuView.renderNewFolder);
             eventEmitter.on('errorFolder', this.menuView.setErrorFolderName);
             eventEmitter.on('reNameFolder', this.menuView.eventReNameFolder);
@@ -95,14 +96,6 @@ export class MainPage {
             this.messageView = new Message(main, this.messageModel.outputData()!, this.type, '');
             this.messageView.render();
             this.messageView.goToMessageEdit();
-            this.messageView.eventRightClickMessage({
-                handlerGetFolders: this.messageModel.getFolders,
-                handlerGetFoldersMove: this.messageModel.moveInFolderMessage,
-                handlerRm: this.messageModel.rmMessage,
-                handlerGoToIncome: this.messageModel.rmMessageInFolder,
-                handlerSpam: this.messageModel.addInFolderMessage,
-                handlerAddInFolder: this.messageModel.addInFolderMessage
-            }, this.nameMessageFolder);
         }
 
         if (this.type === 'spam') {
