@@ -18,6 +18,7 @@
         margin-top: 0px;
         text-overflow: ellipsis;
         overflow: hidden;
+        flex: 1;
         white-space: nowrap;
     }
 
@@ -29,7 +30,13 @@
     }
 
     .readCount{
-        width: 15px;
-        height: 15px;
+
+        background-color: blue;
+        border-radius: 50%;
+        color: white;
+        text-align: center;
+        line-height: inherit;
+        font-family: "Goudy Bookletter 1911", sans-serif;
+        padding: 2px 8px;
     }
 }

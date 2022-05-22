@@ -376,11 +376,18 @@ export class Menu<T extends Element> {
         });
     }
 
+    eventCountEdit = () => {
+        const counter = document.getElementById('readCount');
+    }
 
     render = () => {
         const items: string[] = [];
 
         this.itemsMenu.forEach((item) => {
+            let readcount = false;
+            if (item.textText === 'Входящие') {
+                readcount = true;
+            }
             const text = new Text({
                 color: 'Black',
                 text: item.textText,
@@ -390,6 +397,7 @@ export class Menu<T extends Element> {
             items.push(menuItem({
                 icon: item.iconName,
                 href: item.id,
+                readcount: (readcount) ? this.countNotRead : readcount,
                 id: item.id,
                 text: text.render(),
             }));
