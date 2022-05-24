@@ -187,6 +187,14 @@ class Router {
     redirectEvent(ev : MouseEvent) {
         let target: HTMLElement | null = ev.target as HTMLElement;
         while (target) {
+            if (target instanceof HTMLAnchorElement) {
+                const re = new RegExp('minio-storage/attach');
+                if (target.pathname.match(re)){
+                    console.log(target.pathname);
+                    return;
+                }
+                console.log(target.pathname);
+            }
             if (target instanceof HTMLAnchorElement && target.pathname !== '') {
                 ev.preventDefault();
                 if (this.getCurrentPath() === '/send') {

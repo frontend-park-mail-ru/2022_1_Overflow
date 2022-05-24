@@ -49,6 +49,9 @@ export class MessagePagePresenter {
             await this.menuModel.getFolders();
             await this.menuModel.getCountNotRead();
             this.menuView = new Menu(this.parent, this.menuModel.outPutFoldersName(), this.menuModel.outCountNotRead());
+            eventEmitter.on('count+', this.menuView.eventCountPlus);
+            eventEmitter.on('count-', this.menuView.eventCountMinus);
+            eventEmitter.on('countEdit', this.menuView.eventCountEdit);
             eventEmitter.on('createFolder', this.menuView.renderNewFolder);
             eventEmitter.on('errorFolder', this.menuView.setErrorFolderName);
             eventEmitter.on('reNameFolder', this.menuView.eventReNameFolder);

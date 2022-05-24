@@ -16,6 +16,7 @@ import fileSvg from '../image/file.svg';
 import folderSVG from "../image/directories.svg";
 import * as templateFileItem from "../SendMessage/FileItem/FileItem.hbs";
 import addFileSvg from "../image/add.svg";
+import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 
 
 export class MessagePage<T extends Element> {
@@ -34,10 +35,13 @@ export class MessagePage<T extends Element> {
     };
     private readonly popUp;
     private isLoading: boolean;
-    private readonly files: string[];
+    private readonly files: {filename: string, url: string}[];
     private readonly type: string;
 
-    constructor(parent: T, data: { avatar: string, addressee: string; date: Date; files: string; id: number; read: boolean; sender: string; text: string; theme: string, realDate: string }, files: string[], type: string) {
+    constructor(parent: T, data: { avatar: string, addressee: string; date: Date; files: string; id: number; read: boolean; sender: string; text: string; theme: string, realDate: string }, files: {filename: string, url: string}[], type: string) {
+        if (!data.read) {
+            eventEmitter.emit('count-', undefined);
+        }
         this.parent = parent;
         this.data = data;
         this.files = files;
@@ -195,9 +199,10 @@ export class MessagePage<T extends Element> {
             }
             const template = templateFileItem({
                 fileId: index,
+                href: item.url,
                 svgFile: fileSvg,
                 closeSvg: downloadSvg,
-                text: item,
+                text: item.filename,
             });
             files.insertAdjacentHTML('beforeend', template);
             const close = document.getElementById(`close${index}`) as HTMLImageElement;
@@ -303,10 +308,11 @@ export class MessagePage<T extends Element> {
             className: 'listEmailText',
         });
 
+        console.log(this.files);
         const template = messageSoloHbs({
             theme: theme.render(),
             avatar: this.data.avatar,
-            files: (this.files) ? '1' : '',
+            files: (this.files && this.files.length) ? '1' : '',
             login: login.render(),
             time: time.render(),
             text: text.render(),

@@ -71,10 +71,10 @@ module.exports = {
         }),
         new CopyPlugin({
             patterns: [
-                // {
-                //     from: 'src/View/fonts/',
-                //     to: 'fonts/'
-                // },
+                {
+                    from: 'src/View/Audio/',
+                    to: 'Audio/'
+                },
                 {
                     from: 'src/sw.worker.js',
                     to: '',

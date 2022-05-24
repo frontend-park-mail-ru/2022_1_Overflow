@@ -14,14 +14,14 @@ export class MessagePageModel {
         theme: string,
         realDate: string,
     };
-    private files: string[]
+    private files: {filename: string, url: string}[]
 
     constructor(id: number) {
         this.id = id;
         this.files = [];
     }
 
-    outputFiles = (): string[] => {
+    outputFiles = (): {filename: string, url: string}[] => {
         return this.files;
     }
 
@@ -55,8 +55,8 @@ export class MessagePageModel {
                 body: JSON.stringify({mail_id: this.id})
             })
             if (res.ok) {
-                const json: {filenames: string[]} = await res.json();
-                this.files = json.filenames
+                const json: {attaches: {filename: string, url: string}[]} = await res.json();
+                this.files = json.attaches;
             }
         } catch (e) {
             console.error(e);

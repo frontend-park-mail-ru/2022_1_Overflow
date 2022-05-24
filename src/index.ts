@@ -41,7 +41,15 @@ socket.onopen = function (ev) {
 
 socket.onmessage = function(event) {
     console.log(`[message] Данные получены с сервера: ${event.data}`);
+    eventEmitter.emit('countEdit', event.data);
+    PlaySound('Audio/soundNewMessage.mp3');
 };
+
+function PlaySound(path: string) {
+    const audioElement = document.createElement('audio');
+    audioElement.setAttribute('src', path);
+    audioElement.play();
+}
 
 socket.onclose = function(event) {
     if (event.wasClean) {
@@ -54,3 +62,4 @@ socket.onclose = function(event) {
 socket.onerror = function(error) {
     console.log(`[error] ${error}`);
 };
+

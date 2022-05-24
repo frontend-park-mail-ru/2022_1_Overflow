@@ -376,8 +376,41 @@ export class Menu<T extends Element> {
         });
     }
 
-    eventCountEdit = () => {
+    eventCountMinus = () => {
         const counter = document.getElementById('readCount');
+        if (!counter) {
+            return;
+        }
+        let count = Number(counter.textContent);
+        count--;
+        if (count === 0) {
+            counter.style.visibility = 'hidden';
+        }
+        counter.textContent = count.toString();
+    }
+
+    eventCountPlus = () => {
+        const counter = document.getElementById('readCount');
+        if (!counter) {
+            return;
+        }
+        let count = Number(counter.textContent);
+        if (count === 0) {
+            counter.style.visibility = 'visible';
+        }
+        counter.textContent = (++count).toString();
+    }
+
+    eventCountEdit = (count: string) => {
+        const counter = document.getElementById('readCount');
+        if (!counter) {
+            return;
+        }
+        const tmp = Number(counter.textContent);
+        if (tmp <= 0) {
+            counter.style.visibility = 'visible';
+        }
+        counter.textContent = count;
     }
 
     render = () => {
@@ -397,7 +430,8 @@ export class Menu<T extends Element> {
             items.push(menuItem({
                 icon: item.iconName,
                 href: item.id,
-                readcount: (readcount) ? this.countNotRead : readcount,
+                readcount: readcount,
+                count: this.countNotRead,
                 id: item.id,
                 text: text.render(),
             }));

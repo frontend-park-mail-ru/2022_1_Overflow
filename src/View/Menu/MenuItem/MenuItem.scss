@@ -30,7 +30,16 @@
     }
 
     .readCount{
-
+        background-color: blue;
+        border-radius: 50%;
+        color: white;
+        text-align: center;
+        line-height: inherit;
+        font-family: "Goudy Bookletter 1911", sans-serif;
+        padding: 2px 8px;
+    }
+    .readCountNone{
+        visibility: hidden;
         background-color: blue;
         border-radius: 50%;
         color: white;

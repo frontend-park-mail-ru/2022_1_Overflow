@@ -2,8 +2,14 @@
     <img class="iconPoint1" src="{{icon}}" alt="input">
     {{{text}}}
     {{#if readcount}}
-        <div id="readCount" class="readCount">
-            {{readcount}}
-        </div>
+        {{#if count}}
+            <div id="readCount" class="readCount">
+                {{count}}
+            </div>
+        {{else}}
+            <div id="readCount" class="readCountNone">
+                {{count}}
+            </div>
+        {{/if}}
     {{/if}}
 </a>
