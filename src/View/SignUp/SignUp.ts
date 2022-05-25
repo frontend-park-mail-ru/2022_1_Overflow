@@ -51,7 +51,7 @@ export class SignUp<T extends Element> {
         error.textContent = 'Не верное имя пользователя или пароль';
     }
 
-    submitForm = (handler: (form: {firstName: string, lastName: string, passwordConfirmation: string, password: string, Username: string}) => void) => {
+    submitForm = (handler: (form: {firstName: string, lastName: string, passwordConfirmation: string, password: string, username: string}) => void) => {
         const form = document.getElementById('formSignUp');
         if (form === null)
             return;
@@ -77,7 +77,7 @@ export class SignUp<T extends Element> {
         const email: string = (document.getElementById('inputLogin') as HTMLInputElement).value;
         const password: string = (document.getElementById('inputPassword') as HTMLInputElement).value;
         const passwordConfirmation: string = (document.getElementById('inputPasswordRepeat') as HTMLInputElement).value;
-        return {firstName: firstName, lastName: lastName, Username: email, password: password, passwordConfirmation: passwordConfirmation};
+        return {firstName: firstName, lastName: lastName, username: email, password: password, passwordConfirmation: passwordConfirmation};
     }
 
     render = () => {

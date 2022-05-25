@@ -8,13 +8,13 @@ import {http} from "../../index";
 
 
 export class SignUpModel {
-    private text: {firstName: string, lastName: string, Username: string, password: string, passwordConfirmation: string};
+    private text: {firstName: string, lastName: string, username: string, password: string, passwordConfirmation: string};
 
     constructor() {
-        this.text = {firstName: '', lastName: '', Username: '', password: '', passwordConfirmation: ''};
+        this.text = {firstName: '', lastName: '', username: '', password: '', passwordConfirmation: ''};
     }
 
-    checkInput = async(text: {firstName: string, lastName: string, Username: string, password: string, passwordConfirmation: string}) => {
+    checkInput = async(text: {firstName: string, lastName: string, username: string, password: string, passwordConfirmation: string}) => {
         const errFirstName = LengthCheckPasswordAndName(text.firstName, 'имени');
         if (errFirstName !== '') {
             eventEmitter.emit('error', {text: errFirstName, type: 'FirstName'});
@@ -25,7 +25,7 @@ export class SignUpModel {
             eventEmitter.emit('error', {text: errLastName, type: 'LastName'});
         }
 
-        const errUsername = LengthCheckUsername(text.Username, 'логина');
+        const errUsername = LengthCheckUsername(text.username, 'логина');
         if (errUsername !== '') {
             eventEmitter.emit('error', {text: errUsername, type: 'Login'});
         }
@@ -52,7 +52,7 @@ export class SignUpModel {
         }
     }
 
-    fetchSignUp = async (text: {firstName: string, lastName: string, Username: string, password: string, passwordConfirmation: string}) => {
+    fetchSignUp = async (text: {firstName: string, lastName: string, username: string, password: string, passwordConfirmation: string}) => {
         try {
             const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/signup`);
             const res = await fetch(`${http}://${window.location.hostname}/api/v1/signup`, {
@@ -66,17 +66,17 @@ export class SignUpModel {
                 body: JSON.stringify({
                     'first_name': text.firstName,
                     'last_name': text.lastName,
-                    'username': text.Username,
+                    'username': text.username,
                     'password': text.password,
                     'password_confirmation': text.passwordConfirmation,
                 }),
             });
             if (res.ok) {
-                await this.fetchSignIn({Username: text.Username, password: text.password});
+                await this.fetchSignIn({Username: text.username, password: text.password});
                 return;
             }
             const json = await res.json();
-            eventEmitter.emit('error', { text: checkStatus(json['status'], text.Username), type: 'Login'});
+            eventEmitter.emit('error', { text: checkStatus(json['status'], text.username), type: 'Login'});
         } catch (e) {
             console.error(e);
         }
