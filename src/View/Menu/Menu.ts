@@ -423,7 +423,7 @@ export class Menu<T extends Element> {
                 console.log(item.href);
                 console.log(router.getCurrentPath());
                 let href = item.href;
-                const re1 = /http:\/\/(.+?)\//;
+                const re1 = /https:\/\/(.+?)\//;
                 href = href.replace(re1, '');
                 href = '/' + href;
                 const arrHref = href.split('/');
