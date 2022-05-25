@@ -33,7 +33,7 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-const socket = new WebSocket(`ws://${window.location.hostname}/api/v1/ws`);
+const socket = new WebSocket(`wss://${window.location.hostname}/api/v1/ws`);
 
 socket.onopen = function (ev) {
     console.log('open');
