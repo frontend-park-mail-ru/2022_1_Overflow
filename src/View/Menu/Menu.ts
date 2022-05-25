@@ -420,6 +420,8 @@ export class Menu<T extends Element> {
         }
         allElem.childNodes.forEach((item) => {
             if (item instanceof HTMLAnchorElement) {
+                console.log(item.href);
+                console.log(router.getCurrentPath());
                 let href = item.href;
                 const re1 = /http:\/\/(.+?)\//;
                 href = href.replace(re1, '');
