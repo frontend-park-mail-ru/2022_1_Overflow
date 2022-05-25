@@ -72,7 +72,7 @@ export class SignUpModel {
                 }),
             });
             if (res.ok) {
-                await this.fetchSignIn({Username: text.username, password: text.password});
+                await this.fetchSignIn({username: text.username, password: text.password});
                 return;
             }
             const json = await res.json();
@@ -82,7 +82,7 @@ export class SignUpModel {
         }
     }
 
-    fetchSignIn = async (text: {Username: string, password: string}) => {
+    fetchSignIn = async (text: {username: string, password: string}) => {
         try {
             const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/signin`);
             const res = await fetch(`${http}://${window.location.hostname}/api/v1/signin`, {
@@ -100,7 +100,7 @@ export class SignUpModel {
                 return;
             }
             const body = await res.json();
-            eventEmitter.emit('error', checkStatus(body['status'], text.Username));
+            eventEmitter.emit('error', checkStatus(body['status'], text.username));
         } catch (e) {
             console.error(e);
         }
