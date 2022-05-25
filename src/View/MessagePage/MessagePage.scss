@@ -29,6 +29,9 @@
     flex: 1;
     white-space: break-spaces;
     overflow-y: scroll;
+    &::-webkit-scrollbar {
+        display: none;
+    }
     width: 100%;
     word-break: break-word;
     margin-top: 0;

@@ -36,11 +36,9 @@ class GetRequestManager {
 
     async _handleRequest(request){
         const response = await fetch(request);
-        if(response && response.ok){
+        if(response && response.ok) {
             let cache = await caches.open(cacheName);
-            if (request.status === 200) {
-                await cache.put(request, response.clone());
-            }
+            await cache.put(request, response.clone());
         }
         return response;
     }

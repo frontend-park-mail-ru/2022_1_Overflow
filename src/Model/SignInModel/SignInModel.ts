@@ -4,7 +4,7 @@ import {checkStatus} from "../CheckStatus/CheckStatus";
 import {getCSRFToken} from "../Network/NetworkGet";
 import {router} from "../../Presenter/Router/Router";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
-import {http} from "../../index";
+import {http, ws} from "../../index";
 
 
 export class SignInModel {

@@ -39,10 +39,6 @@ if ('serviceWorker' in navigator) {
 
 const socket = new WebSocket(`${ws}://${window.location.hostname}/api/v1/ws`);
 
-// socket.onopen = function (ev) {
-//     console.log('open');
-// }
-
 socket.onmessage = function(event) {
     if (event.data === 'okey') {
         return;
@@ -57,6 +53,10 @@ function PlaySound(path: string) {
     audioElement.setAttribute('src', path);
     audioElement.play();
 }
+
+// socket.onopen = function (ev) {
+//     console.log('open');
+// }
 
 // socket.onclose = function(event) {
 //     if (event.wasClean) {
