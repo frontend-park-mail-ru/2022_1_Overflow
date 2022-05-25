@@ -53,6 +53,7 @@ export class SendMessagePresenter {
             await this.menuModel.getFolders();
             await this.menuModel.getCountNotRead();
             this.menuView = new Menu(this.parent, this.menuModel.outPutFoldersName(), this.menuModel.outCountNotRead());
+            eventEmitter.on('setPath', this.menuView.setCurrentPath);
             eventEmitter.on('count+', this.menuView.eventCountPlus);
             eventEmitter.on('count-', this.menuView.eventCountMinus);
             eventEmitter.on('countEdit', this.menuView.eventCountEdit);

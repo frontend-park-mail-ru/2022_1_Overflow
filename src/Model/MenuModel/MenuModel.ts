@@ -29,7 +29,6 @@ export class MenuModel {
             });
             if (res.ok) {
                 const json: {count: number} = await res.json();
-                console.log(json);
                 this.countNotRead = json.count;
             }
         } catch (e) {

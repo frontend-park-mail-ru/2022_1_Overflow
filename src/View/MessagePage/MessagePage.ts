@@ -308,7 +308,6 @@ export class MessagePage<T extends Element> {
             className: 'listEmailText',
         });
 
-        console.log(this.files);
         const template = messageSoloHbs({
             theme: theme.render(),
             avatar: this.data.avatar,

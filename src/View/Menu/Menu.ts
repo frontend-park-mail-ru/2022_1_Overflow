@@ -413,6 +413,36 @@ export class Menu<T extends Element> {
         counter.textContent = count;
     }
 
+    setCurrentPath() {
+        const allElem = document.getElementById('menu');
+        if (!allElem) {
+            return;
+        }
+        allElem.childNodes.forEach((item) => {
+            if (item instanceof HTMLAnchorElement) {
+                let href = item.href;
+                const re1 = /http:\/\/(.+?)\//;
+                href = href.replace(re1, '');
+                href = '/' + href;
+                const arrHref = href.split('/');
+                const arrHrefPath = router.getCurrentPath().split('/');
+                if (arrHref[1] === arrHrefPath[1] && href !== '/') {
+                    if (arrHref[1] === 'folder' && arrHrefPath[1] === 'folder') {
+                        if (arrHref[2] === arrHrefPath[2]) {
+                            item.style.backgroundColor = "#CBCBCB";
+                        } else {
+                            item.style.backgroundColor = '';
+                        }
+                    } else {
+                        item.style.backgroundColor = "#CBCBCB";
+                    }
+                } else {
+                    item.style.backgroundColor = '';
+                }
+            }
+        })
+    }
+
     render = () => {
         const items: string[] = [];
 
@@ -476,5 +506,6 @@ export class Menu<T extends Element> {
         });
 
         this.parent.insertAdjacentHTML('beforeend', main);
+        eventEmitter.emit('setPath', undefined);
     }
 }

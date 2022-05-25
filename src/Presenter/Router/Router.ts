@@ -18,7 +18,7 @@ class Router {
             this.redirectNotFound();
             return;
         }
-
+        eventEmitter.emit('setPath', undefined);
         this.removeListeners = route.callback.call(this, this.getParamsFromRegExp(route));
     }
 
@@ -190,10 +190,8 @@ class Router {
             if (target instanceof HTMLAnchorElement) {
                 const re = new RegExp('minio-storage/attach');
                 if (target.pathname.match(re)){
-                    console.log(target.pathname);
                     return;
                 }
-                console.log(target.pathname);
             }
             if (target instanceof HTMLAnchorElement && target.pathname !== '') {
                 ev.preventDefault();
@@ -201,7 +199,6 @@ class Router {
                     eventEmitter.emit('createPopUpDraft', target.pathname);
                     return;
                 }
-
                 this.redirect(target.pathname, '', {title: document.title});
                 return;
             }
