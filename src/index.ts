@@ -45,7 +45,7 @@ socket.onmessage = function(event) {
     }
     console.log(`[message] Данные получены с сервера: ${event.data}`);
     eventEmitter.emit('countEdit', event.data);
-    PlaySound('/Audio/soundNewMessage.mp3');
+    PlaySound(`${http}://${window.location.hostname}/static/soundNewMessage.mp3`);
 };
 
 function PlaySound(path: string) {

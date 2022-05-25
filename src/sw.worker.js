@@ -38,9 +38,7 @@ class GetRequestManager {
         const response = await fetch(request);
         if(response && response.ok) {
             let cache = await caches.open(cacheName);
-            if (request.status < 300) {
-                await cache.put(request, response.clone());
-            }
+            await cache.put(request, response.clone());
         }
         return response;
     }
