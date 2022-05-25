@@ -39,14 +39,17 @@ if ('serviceWorker' in navigator) {
 
 const socket = new WebSocket(`${ws}://${window.location.hostname}/api/v1/ws`);
 
-socket.onopen = function (ev) {
-    console.log('open');
-}
+// socket.onopen = function (ev) {
+//     console.log('open');
+// }
 
 socket.onmessage = function(event) {
-    // console.log(`[message] Данные получены с сервера: ${event.data}`);
+    if (event.data === 'okey') {
+        return;
+    }
+    console.log(`[message] Данные получены с сервера: ${event.data}`);
     eventEmitter.emit('countEdit', event.data);
-    PlaySound('Audio/soundNewMessage.mp3');
+    PlaySound('/Audio/soundNewMessage.mp3');
 };
 
 function PlaySound(path: string) {

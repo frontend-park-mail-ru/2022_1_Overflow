@@ -38,16 +38,16 @@ class GetRequestManager {
         const response = await fetch(request);
         if(response && response.ok){
             let cache = await caches.open(cacheName);
-            await cache.put(request, response.clone());
+            if (request.status === 200) {
+                await cache.put(request, response.clone());
+            }
         }
-
         return response;
     }
 
     async _offlineRequestHandler(request){
         let cache = await caches.open(cacheName);
         const match = await cache.match(request);
-
         return match;
     }
 
