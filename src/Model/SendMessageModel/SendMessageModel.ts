@@ -2,6 +2,7 @@ import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 import {getCSRFToken} from "../Network/NetworkGet";
 import {router} from "../../Presenter/Router/Router";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
+import {http} from "../../index";
 
 
 export class SendMessageModel {
@@ -76,9 +77,9 @@ export class SendMessageModel {
     }
 
     rmMessage = async (id: number) => {
-        const header = await getCSRFToken(`https://${window.location.hostname}/api/v1/mail/delete`);
+        const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/mail/delete`);
 
-        await fetch(`https://${window.location.hostname}/api/v1/mail/delete`, {
+        await fetch(`${http}://${window.location.hostname}/api/v1/mail/delete`, {
             mode: 'cors',
             headers: {
                 'Content-Type': 'application/json',
@@ -92,8 +93,8 @@ export class SendMessageModel {
 
     fetchSend = async (text: { addressee: string, files: string, text: string, theme: string }) => {
         try {
-            const header = await getCSRFToken(`https://${window.location.hostname}/api/v1/mail/send`);
-            const res = await fetch(`https://${window.location.hostname}/api/v1/mail/send`, {
+            const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/mail/send`);
+            const res = await fetch(`${http}://${window.location.hostname}/api/v1/mail/send`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -125,8 +126,8 @@ export class SendMessageModel {
             const formData = new FormData();
             formData.append('attach', data.attach);
             formData.append('mailID', data.id.toString());
-            const header = await getCSRFToken(`https://${window.location.hostname}/api/v1/mail/attach/add`);
-            const res = await fetch(`https://${window.location.hostname}/api/v1/mail/attach/add`, {
+            const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/mail/attach/add`);
+            const res = await fetch(`${http}://${window.location.hostname}/api/v1/mail/attach/add`, {
                 mode: 'cors',
                 headers: {
                     'X-CSRF-token': header,
@@ -151,8 +152,8 @@ export class SendMessageModel {
         text: string,
         theme: string}}) => {
         try {
-            const header = await getCSRFToken(`https://${window.location.hostname}/api/v1/folder/mail/add_form`);
-            const res = await fetch(`https://${window.location.hostname}/api/v1/folder/mail/add_form`, {
+            const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/folder/mail/add_form`);
+            const res = await fetch(`${http}://${window.location.hostname}/api/v1/folder/mail/add_form`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -169,7 +170,7 @@ export class SendMessageModel {
 
     fetchGetProfile = async () => {
         try {
-            const res = await fetch(`https://${window.location.hostname}/api/v1/profile`, {
+            const res = await fetch(`${http}://${window.location.hostname}/api/v1/profile`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -189,7 +190,7 @@ export class SendMessageModel {
 
     fetchGetUserAvatar = async (name: string) => {
         try {
-            const res = await fetch(`https://${window.location.hostname}/api/v1/profile/avatar?username=${name}`, {
+            const res = await fetch(`${http}://${window.location.hostname}/api/v1/profile/avatar?username=${name}`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',

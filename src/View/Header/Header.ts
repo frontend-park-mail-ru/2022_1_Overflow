@@ -10,6 +10,7 @@ import doorSvg from "../image/door.svg";
 import profileSvg from "../image/profile.svg";
 import {isMobile} from "../../Utils/IsMobile/IsMobile";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
+import {http} from "../../index";
 
 
 export class Header<T extends Element> {
@@ -110,7 +111,7 @@ export class Header<T extends Element> {
             menuSvg: menuSvg,
             login: login.render(),
             logoText: logoText.render(),
-            profileAvatar: `https://${window.location.hostname}${this.data.avatar}`,
+            profileAvatar: `${http}://${window.location.hostname}${this.data.avatar}`,
             arrow: arrowSvg,
         })
 

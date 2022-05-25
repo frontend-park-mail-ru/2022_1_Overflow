@@ -1,4 +1,5 @@
 import {getCSRFToken} from '../Network/NetworkGet';
+import {http} from "../../index";
 
 export class MessagePageModel {
     private readonly id: number;
@@ -43,8 +44,8 @@ export class MessagePageModel {
 
     getFiles = async () => {
         try {
-            const header = await getCSRFToken(`https://${window.location.hostname}/api/v1/mail/attach/list`);
-            const res = await fetch(`https://${window.location.hostname}/api/v1/mail/attach/list`, {
+            const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/mail/attach/list`);
+            const res = await fetch(`${http}://${window.location.hostname}/api/v1/mail/attach/list`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -65,7 +66,7 @@ export class MessagePageModel {
 
     getMessage = async () => {
         try {
-            const res = await fetch(`https://${window.location.hostname}/api/v1/mail/get?id=${this.id}`, {
+            const res = await fetch(`${http}://${window.location.hostname}/api/v1/mail/get?id=${this.id}`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -88,7 +89,7 @@ export class MessagePageModel {
             name = this.data.sender;
         }
         try {
-            const res = await fetch(`https://${window.location.hostname}/api/v1/profile/avatar?username=${name}`, {
+            const res = await fetch(`${http}://${window.location.hostname}/api/v1/profile/avatar?username=${name}`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -97,7 +98,7 @@ export class MessagePageModel {
             });
             if (res.ok) {
                 const json: {status: number, message: string} = await res.json();
-                this.data.avatar = `https://${window.location.hostname}${json.message}`;
+                this.data.avatar = `${http}://${window.location.hostname}${json.message}`;
             }
         } catch (e) {
             console.error(e);
@@ -106,8 +107,8 @@ export class MessagePageModel {
 
     readMessage = async () => {
         try {
-            const header = await getCSRFToken(`https://${window.location.hostname}/api/v1/mail/read`);
-            const res = await fetch(`https://${window.location.hostname}/api/v1/mail/read`, {
+            const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/mail/read`);
+            const res = await fetch(`${http}://${window.location.hostname}/api/v1/mail/read`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',

@@ -4,6 +4,7 @@ import {checkStatus} from "../CheckStatus/CheckStatus";
 import {getCSRFToken} from "../Network/NetworkGet";
 import {router} from "../../Presenter/Router/Router";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
+import {http} from "../../index";
 
 
 export class SignUpModel {
@@ -53,8 +54,8 @@ export class SignUpModel {
 
     fetchSignUp = async (text: {firstName: string, lastName: string, Username: string, password: string, passwordConfirmation: string}) => {
         try {
-            const header = await getCSRFToken(`https://${window.location.hostname}/api/v1/signup`);
-            const res = await fetch(`https://${window.location.hostname}/api/v1/signup`, {
+            const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/signup`);
+            const res = await fetch(`${http}://${window.location.hostname}/api/v1/signup`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -83,8 +84,8 @@ export class SignUpModel {
 
     fetchSignIn = async (text: {Username: string, password: string}) => {
         try {
-            const header = await getCSRFToken(`https://${window.location.hostname}/api/v1/signin`);
-            const res = await fetch(`https://${window.location.hostname}/api/v1/signin`, {
+            const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/signin`);
+            const res = await fetch(`${http}://${window.location.hostname}/api/v1/signin`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',

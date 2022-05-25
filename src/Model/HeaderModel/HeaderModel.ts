@@ -2,6 +2,7 @@ import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 import {getCSRFToken} from "../Network/NetworkGet";
 import {router} from "../../Presenter/Router/Router";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
+import {http} from "../../index";
 
 
 export class HeaderModel {
@@ -19,7 +20,7 @@ export class HeaderModel {
 
     getProfile = async () => {
         try {
-            const res = await fetch(`https://${window.location.hostname}/api/v1/profile`, {
+            const res = await fetch(`${http}://${window.location.hostname}/api/v1/profile`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -42,7 +43,7 @@ export class HeaderModel {
 
     getAvatar = async() => {
         try {
-            const res = await fetch(`https://${window.location.hostname}/api/v1/profile/avatar`, {
+            const res = await fetch(`${http}://${window.location.hostname}/api/v1/profile/avatar`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -59,9 +60,9 @@ export class HeaderModel {
     }
 
     logout = async () => {
-        const header = await getCSRFToken(`https://${window.location.hostname}/api/v1/logout`);
+        const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/logout`);
 
-        await fetch(`https://${window.location.hostname}/api/v1/logout`, {
+        await fetch(`${http}://${window.location.hostname}/api/v1/logout`, {
             mode: 'cors',
             method: 'POST',
             headers: {

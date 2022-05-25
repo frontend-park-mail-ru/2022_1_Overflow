@@ -13,6 +13,7 @@ import closeSvg from '../image/close.svg';
 import fileSvg from '../image/file.svg';
 import './FileItem/FileItem.scss';
 import * as templateFileItem from './FileItem/FileItem.hbs';
+import {http} from "../../index";
 
 export class SendMessage<T extends Element> {
     private readonly parent: T;
@@ -161,7 +162,7 @@ export class SendMessage<T extends Element> {
         if (!avatar) {
             return;
         }
-        avatar.src = `https://${window.location.hostname}/${path}`
+        avatar.src = `${http}://${window.location.hostname}/${path}`
     }
 
     getForm = () => {

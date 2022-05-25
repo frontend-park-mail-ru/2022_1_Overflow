@@ -19,6 +19,7 @@ import {calcPositionXY} from "../../Utils/CalcPositionXY/CalcPositionXY";
 import rmSVG from "../image/remove.svg";
 import {router} from "../../Presenter/Router/Router";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
+import {http} from "../../index";
 
 export class Menu<T extends Element> {
     private readonly parent: T;
@@ -423,7 +424,8 @@ export class Menu<T extends Element> {
                 // console.log(item.href);
                 // console.log(router.getCurrentPath());
                 let href = item.href;
-                const re1 = /https:\/\/(.+?)\//;
+                new RegExp(`/${http}:\/\/(.+?)\//`)
+                const re1 = /http:\/\/(.+?)\//;
                 href = href.replace(re1, '');
                 href = '/' + href;
                 const arrHref = href.split('/');

@@ -3,6 +3,7 @@ import {LengthCheckPasswordAndName} from "../LengthCheck/LengthCheck";
 import {getCSRFToken} from "../Network/NetworkGet";
 import {router} from "../../Presenter/Router/Router";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
+import {http} from "../../index";
 
 
 export class SecurityModel {
@@ -37,7 +38,7 @@ export class SecurityModel {
 
     fetchProfile = async () => {
         try {
-            const res = await fetch(`https://${window.location.hostname}/api/v1/profile`, {
+            const res = await fetch(`${http}://${window.location.hostname}/api/v1/profile`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -61,8 +62,8 @@ export class SecurityModel {
 
     fetchSetPassword = async (data: {password_old: string, password_new: string, password_new_confirmation: string}) => {
         try {
-            const header = await getCSRFToken(`https://${window.location.hostname}/api/v1/profile/change_password`);
-            const postSetProfile = await fetch(`https://${window.location.hostname}/api/v1/profile/change_password`, {
+            const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/profile/change_password`);
+            const postSetProfile = await fetch(`${http}://${window.location.hostname}/api/v1/profile/change_password`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',

@@ -3,6 +3,7 @@ import {LengthCheckPasswordAndName} from "../LengthCheck/LengthCheck";
 import {getCSRFToken} from "../Network/NetworkGet";
 import {router} from "../../Presenter/Router/Router";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
+import {http} from "../../index";
 
 
 export class ProfileModel {
@@ -34,7 +35,7 @@ export class ProfileModel {
 
     fetchProfile = async () => {
         try {
-            const res = await fetch(`https://${window.location.hostname}/api/v1/profile`, {
+            const res = await fetch(`${http}://${window.location.hostname}/api/v1/profile`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -58,7 +59,7 @@ export class ProfileModel {
 
     fetchGetAvatar = async () => {
         try {
-            const res = await fetch(`https://${window.location.hostname}/api/v1/profile/avatar`, {
+            const res = await fetch(`${http}://${window.location.hostname}/api/v1/profile/avatar`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -80,8 +81,8 @@ export class ProfileModel {
                 const formData = new FormData();
                 formData.append('file', data.avatar);
 
-                const header = await getCSRFToken(`https://${window.location.hostname}/api/v1/profile/avatar/set`);
-                const postAvatarSet = await fetch(`https://${window.location.hostname}/api/v1/profile/avatar/set`, {
+                const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/profile/avatar/set`);
+                const postAvatarSet = await fetch(`${http}://${window.location.hostname}/api/v1/profile/avatar/set`, {
                     mode: 'cors',
                     headers: {
                         'X-CSRF-token': header,
@@ -101,8 +102,8 @@ export class ProfileModel {
                 }
             }
 
-            const header = await getCSRFToken(`https://${window.location.hostname}/api/v1/profile/set`);
-            const postSetProfile = await fetch(`https://${window.location.hostname}/api/v1/profile/set`, {
+            const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/profile/set`);
+            const postSetProfile = await fetch(`${http}://${window.location.hostname}/api/v1/profile/set`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',

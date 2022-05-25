@@ -3,6 +3,10 @@ import {eventEmitter} from "./Presenter/EventEmitter/EventEmitter";
 import {router} from './Presenter/Router/Router';
 import {urlsRouter} from './Presenter/Router/UrlsRouter';
 
+console.log(window.location.hostname);
+export const http = ((window.location.hostname === '127.0.0.1') ? 'http' : 'https');
+export const ws = ((window.location.hostname === '127.0.0.1') ? 'ws' : 'wss');
+
 router.register(urlsRouter.root, eventEmitter.goToInCome);
 router.register(urlsRouter.login, eventEmitter.goToSignIn);
 router.register(urlsRouter.registration, eventEmitter.goToSignUp);
@@ -33,7 +37,7 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-const socket = new WebSocket(`wss://${window.location.hostname}/api/v1/ws`);
+const socket = new WebSocket(`${ws}://${window.location.hostname}/api/v1/ws`);
 
 socket.onopen = function (ev) {
     console.log('open');

@@ -4,6 +4,7 @@ import {checkStatus} from "../CheckStatus/CheckStatus";
 import {getCSRFToken} from "../Network/NetworkGet";
 import {router} from "../../Presenter/Router/Router";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
+import {http} from "../../index";
 
 
 export class SignInModel {
@@ -29,8 +30,8 @@ export class SignInModel {
 
     fetchSignIn = async (text: {username: string, password: string}) => {
         try {
-            const header = await getCSRFToken(`https://${window.location.hostname}/api/v1/signin`);
-            const res = await fetch(`https://${window.location.hostname}/api/v1/signin`, {
+            const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/signin`);
+            const res = await fetch(`${http}://${window.location.hostname}/api/v1/signin`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',

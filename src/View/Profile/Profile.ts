@@ -12,6 +12,7 @@ import './ProfileItem/ProfileItem.scss'
 import {Text} from "../../Ui-kit/Text/Text";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
 import {router} from "../../Presenter/Router/Router";
+import {http} from "../../index";
 
 const itemsMenu = [
     {
@@ -177,7 +178,7 @@ export class Profile<T extends Element> {
             items: items,
             logo: logoSvg,
             inputFile: inputFile.render(),
-            profileSvg: `https://${window.location.hostname}${this.data.avatar}`,
+            profileSvg: `${http}://${window.location.hostname}${this.data.avatar}`,
             editSvg: editSvg,
             inputProfileName: inputProfileName.render(),
             inputProfileLastName: inputProfileLastName.render(),
