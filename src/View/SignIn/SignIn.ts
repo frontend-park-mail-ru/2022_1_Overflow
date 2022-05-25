@@ -50,12 +50,12 @@ export class SignIn<T extends Element> {
     }
 
     getForm = () => {
-        const Username: string = (document.getElementById('inputLogin') as HTMLInputElement).value;
+        const username: string = (document.getElementById('inputLogin') as HTMLInputElement).value;
         const password : string = (document.getElementById('inputPassword') as HTMLInputElement).value;
-        return {Username: Username, password: password};
+        return {username, password};
     }
 
-    submitForm = (handler: (form: {password: string, Username: string}) => void) => {
+    submitForm = (handler: (form: {password: string, username: string}) => void) => {
         const form = document.getElementById('formSignIn');
         if (form === null)
             return;

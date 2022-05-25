@@ -7,14 +7,14 @@ import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
 
 
 export class SignInModel {
-    private text: {Username: string, password: string};
+    private text: {username: string, password: string};
 
     constructor() {
-        this.text = {Username: '', password: ''};
+        this.text = {username: '', password: ''};
     }
 
-    checkInput = async (text: {Username: string, password: string}) => {
-        const errLogin = LengthCheckUsername(text.Username, 'логина');
+    checkInput = async (text: {username: string, password: string}) => {
+        const errLogin = LengthCheckUsername(text.username, 'логина');
         if (errLogin !== '') {
             eventEmitter.emit('error', {text: errLogin, type: 'Login'});
         }
@@ -27,7 +27,7 @@ export class SignInModel {
         }
     }
 
-    fetchSignIn = async (text: {Username: string, password: string}) => {
+    fetchSignIn = async (text: {username: string, password: string}) => {
         try {
             const header = await getCSRFToken(`http://${window.location.hostname}/api/v1/signin`);
             const res = await fetch(`http://${window.location.hostname}/api/v1/signin`, {
@@ -46,7 +46,7 @@ export class SignInModel {
             }
             const body = await res.json();
             eventEmitter.emit('error', {text: '\n', type: 'Login'});
-            eventEmitter.emit('error', {text: checkStatus(body['status'], text.Username), type: 'Password'});
+            eventEmitter.emit('error', {text: checkStatus(body['status'], text.username), type: 'Password'});
         } catch (e) {
             console.error(e);
         }
