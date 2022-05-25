@@ -34,8 +34,11 @@ const cacheUrls = [
 class GetRequestManager {
     constructor(){}
 
-    async _handleRequest(request){
+    async _handleRequest(request) {
         const response = await fetch(request);
+        if (response.status === 206) {
+            return response;
+        }
         if(response && response.ok) {
             let cache = await caches.open(cacheName);
             await cache.put(request, response.clone());
