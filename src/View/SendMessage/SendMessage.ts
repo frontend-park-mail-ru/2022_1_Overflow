@@ -326,7 +326,6 @@ export class SendMessage<T extends Element> {
             if (!file) {
                 return;
             }
-            console.log(1);
             this.filesData.push(file);
             text.textContent = file.name;
 
@@ -356,7 +355,6 @@ export class SendMessage<T extends Element> {
             id: 'who',
         });
 
-        console.log(this.data?.addressee, this.data?.sender)
         const inputLogin = new Input({
             type: 'text',
             id: 'inputLogin',

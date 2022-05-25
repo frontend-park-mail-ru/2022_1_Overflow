@@ -40,7 +40,7 @@ socket.onopen = function (ev) {
 }
 
 socket.onmessage = function(event) {
-    console.log(`[message] Данные получены с сервера: ${event.data}`);
+    // console.log(`[message] Данные получены с сервера: ${event.data}`);
     eventEmitter.emit('countEdit', event.data);
     PlaySound('Audio/soundNewMessage.mp3');
 };
@@ -51,15 +51,15 @@ function PlaySound(path: string) {
     audioElement.play();
 }
 
-socket.onclose = function(event) {
-    if (event.wasClean) {
-        console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
-    } else {
-        console.log('[close] Соединение прервано');
-    }
-};
-
-socket.onerror = function(error) {
-    console.log(`[error] ${error}`);
-};
+// socket.onclose = function(event) {
+//     if (event.wasClean) {
+//         console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
+//     } else {
+//         console.log('[close] Соединение прервано');
+//     }
+// };
+//
+// socket.onerror = function(error) {
+//     console.log(`[error] ${error}`);
+// };
 
