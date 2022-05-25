@@ -46,7 +46,7 @@ export class SignIn<T extends Element> {
             return;
         }
         error.style.visibility = 'hidden';
-        error.textContent = '';
+        error.textContent = 'Не верное имя пользователя или пароль';
     }
 
     getForm = () => {

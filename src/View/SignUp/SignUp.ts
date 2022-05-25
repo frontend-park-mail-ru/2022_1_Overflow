@@ -48,7 +48,7 @@ export class SignUp<T extends Element> {
             return;
         }
         error.style.visibility = 'hidden';
-        error.textContent = '';
+        error.textContent = 'Не верное имя пользователя или пароль';
     }
 
     submitForm = (handler: (form: {firstName: string, lastName: string, passwordConfirmation: string, password: string, Username: string}) => void) => {

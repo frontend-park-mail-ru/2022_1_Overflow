@@ -307,6 +307,12 @@ export class SendMessage<T extends Element> {
                 return;
             }
             this.isLoading = true;
+            const file = input.files?.item(0);
+            if (file && file.size >= 20971520) {
+                this.setError('Размер вложения превышает допустимый предел в 20Мб');
+                this.isLoading = false;
+                return;
+            }
             const files = document.getElementById('files');
             if (!files) {
                 return;
@@ -323,7 +329,7 @@ export class SendMessage<T extends Element> {
             const text = document.getElementById(`text${this.counterFile}`) as HTMLDivElement;
             const close = document.getElementById(`close${this.counterFile}`) as HTMLImageElement;
             const all = document.getElementById(`all${this.counterFile}`) as HTMLDivElement;
-            const file = input.files?.item(0);
+            // const file = input.files?.item(0);
             if (!file) {
                 return;
             }
