@@ -5,10 +5,8 @@ import arrowSvg from '../image/arrow.svg';
 import {Text} from '../../Ui-kit/Text/Text';
 import * as headerHBS from './Header.hbs';
 import {PopUp} from "../../Ui-kit/Dropdown/PopUp";
-import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 import doorSvg from "../image/door.svg";
 import profileSvg from "../image/profile.svg";
-import {isMobile} from "../../Utils/IsMobile/IsMobile";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
 import {http} from "../../index";
 

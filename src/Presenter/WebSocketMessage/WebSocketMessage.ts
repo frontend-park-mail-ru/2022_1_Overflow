@@ -28,7 +28,7 @@ class WebSocketMessage {
     }
 
     close = () => {
-        this.socket.close()
+        this.socket.close();
     }
 }
 

@@ -1,4 +1,3 @@
-import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 import {getCSRFToken} from "../Network/NetworkGet";
 import {router} from "../../Presenter/Router/Router";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";

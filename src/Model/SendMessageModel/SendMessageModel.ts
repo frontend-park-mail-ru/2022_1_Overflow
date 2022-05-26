@@ -153,7 +153,7 @@ export class SendMessageModel {
         theme: string}}) => {
         try {
             const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/folder/mail/add_form`);
-            const res = await fetch(`${http}://${window.location.hostname}/api/v1/folder/mail/add_form`, {
+            await fetch(`${http}://${window.location.hostname}/api/v1/folder/mail/add_form`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',

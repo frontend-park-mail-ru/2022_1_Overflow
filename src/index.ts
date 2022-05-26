@@ -38,5 +38,5 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-socket.init()
+socket.init();
 

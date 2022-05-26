@@ -5,7 +5,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     entry: './src/index.ts',
     output: {
         filename: 'main.[contenthash].js',

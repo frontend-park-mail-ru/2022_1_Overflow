@@ -66,7 +66,7 @@ export class MenuModel {
     rmFolder = async (name: string) => {
         try {
             const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/folder/delete`);
-            const res = await fetch(`${http}://${window.location.hostname}/api/v1/folder/delete`, {
+            await fetch(`${http}://${window.location.hostname}/api/v1/folder/delete`, {
                 mode: 'cors',
                 method: 'POST',
                 headers: {
