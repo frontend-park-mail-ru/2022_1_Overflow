@@ -5,6 +5,7 @@ import {getCSRFToken} from "../Network/NetworkGet";
 import {router} from "../../Presenter/Router/Router";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
 import {http} from "../../index";
+import {socket} from "../../Presenter/WebSocketMessage/WebSocketMessage";
 
 
 export class SignUpModel {
@@ -96,6 +97,7 @@ export class SignUpModel {
                 body: JSON.stringify(text),
             })
             if (res.ok) {
+                socket.init();
                 router.redirect(urlsRouter.income);
                 return;
             }

@@ -78,7 +78,6 @@ class EventEmitter {
     goToSendMessage = () => {
         const sendMessage = new SendMessagePresenter(this.root);
         if (router.getState() && router.getState().dataSendMessage) {
-            console.log(router.getState().dataSendMessage);
             sendMessage.context = router.getState().dataSendMessage;
         }
         sendMessage.render();

@@ -3,6 +3,7 @@ import {getCSRFToken} from "../Network/NetworkGet";
 import {router} from "../../Presenter/Router/Router";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
 import {http} from "../../index";
+import {socket} from "../../Presenter/WebSocketMessage/WebSocketMessage";
 
 
 export class HeaderModel {
@@ -71,6 +72,7 @@ export class HeaderModel {
             },
             credentials: 'include'
         });
+        socket.close();
         router.redirect(urlsRouter.login);
     }
 

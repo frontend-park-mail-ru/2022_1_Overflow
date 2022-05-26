@@ -2,6 +2,7 @@ import './index.scss';
 import {eventEmitter} from "./Presenter/EventEmitter/EventEmitter";
 import {router} from './Presenter/Router/Router';
 import {urlsRouter} from './Presenter/Router/UrlsRouter';
+import {socket} from "./Presenter/WebSocketMessage/WebSocketMessage";
 
 // console.log(window.location.hostname);
 export const http = ((window.location.hostname === '127.0.0.1') ? 'http' : 'https');
@@ -37,36 +38,5 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-const socket = new WebSocket(`${ws}://${window.location.hostname}/api/v1/ws`);
-
-socket.onmessage = function(event) {
-    if (event.data === 'okey') {
-        return;
-    }
-    console.log(`[message] Данные получены с сервера: ${event.data}`);
-    eventEmitter.emit('countEdit', event.data);
-    PlaySound(`${http}://${window.location.hostname}/static/soundNewMessage.mp3`);
-};
-
-function PlaySound(path: string) {
-    const audioElement = document.createElement('audio');
-    audioElement.setAttribute('src', path);
-    audioElement.play();
-}
-
-// socket.onopen = function (ev) {
-//     console.log('open');
-// }
-
-// socket.onclose = function(event) {
-//     if (event.wasClean) {
-//         console.log(`[close] Соединение закрыто чисто, код=${event.code} причина=${event.reason}`);
-//     } else {
-//         console.log('[close] Соединение прервано');
-//     }
-// };
-//
-// socket.onerror = function(error) {
-//     console.log(`[error] ${error}`);
-// };
+socket.init()
 
