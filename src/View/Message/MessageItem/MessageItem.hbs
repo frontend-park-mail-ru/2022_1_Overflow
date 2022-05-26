@@ -1,0 +1,23 @@
+{{#if empty}}
+    <div id="{{id}}" class="messageText1">
+        {{{emptyTextText}}}
+    </div>
+{{else}}
+    {{#if flag}}
+        <hr class="hrClass">
+    {{/if}}
+    <a {{#if href}}href="/{{href}}"{{/if}} id="{{id}}" class="messageText">
+        {{#if read}}
+            <img class="dot" src="{{{dot}}}" alt="avatar">
+        {{else}}
+            <img class="dotHidden" src="{{{dot}}}" alt="avatar">
+        {{/if}}
+        <img class="avatarMassage" src="{{{avatar}}}" alt="avatar">
+        <div class="mobileText">
+            {{{name}}}
+            {{{titleText}}}
+            {{{subText}}}
+        </div>
+        {{{timeText}}}
+    </a>
+{{/if}}

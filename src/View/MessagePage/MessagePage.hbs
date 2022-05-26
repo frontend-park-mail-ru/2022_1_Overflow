@@ -1,0 +1,37 @@
+<div id="messages" class="messageOutPut">
+    {{{theme}}}
+    <hr class="hrClass">
+    <div class="menuOutput">
+        <img class="avatarOutputMail" src="{{avatar}}">
+        {{{login}}}
+        {{{time}}}
+    </div>
+    <hr class="hrClass">
+    {{#if files}}
+    <div id="files" class="filesAddLineItems">
+    </div>
+    <hr class="hrClass">
+    {{/if}}
+
+    {{{text}}}
+
+    <hr class="hrClass">
+    <div class="greyLine">
+        <div id="reMail" class="otvet">
+            <img src="{{otvet}}">
+            <p class="otvetText">
+                Ответить
+            </p>
+        </div>
+        <div id="forward" class="otvet">
+            <img src="{{reText}}">
+            <p class="otvetText">
+                Переслать
+            </p>
+        </div>
+        <div class="flexLine2"></div>
+        <div id="settings" class="settingsImg">
+            <img src="{{settings}}">
+        </div>
+    </div>
+</div>

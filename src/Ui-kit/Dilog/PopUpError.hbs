@@ -1,0 +1,17 @@
+<div id="{{id}}" class="messageErrorBigBox">
+    <div class="messageErrorBox{{size}} {{classNameDiv}}">
+        {{{text}}}
+        {{#if input}}
+            {{{input}}}
+            {{#if error}}
+                <p id="{{error}}" class="invalidMsgPopUpError">Не верное имя пользователя или пароль</p>
+            {{/if}}
+        {{/if}}
+        <div class="mobileMargin">
+            {{#if primBtn}}
+                {{{primBtn}}}
+            {{/if}}
+            {{{secBtn}}}
+        </div>
+    </div>
+</div>

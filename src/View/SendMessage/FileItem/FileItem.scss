@@ -1,0 +1,46 @@
+.filesAdd{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  cursor: pointer;
+  padding: 7px;
+  margin-right: 10px;
+  border: 1px #2E6395 solid;
+  border-radius: 10px;
+  position: relative;
+  max-width: 100px;
+
+  .newFile{
+    width: 17px;
+    height: 24px;
+  }
+
+  .textFile{
+    margin-top: 0;
+    margin-bottom: 0;
+    margin-left: 5px;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  .closeFile{
+    top: -5px;
+    right: -5px;
+    position: absolute;
+    padding: 10px;
+    width: 10px;
+    height: 10px;
+    opacity: 0;
+  }
+
+  &:hover{
+    .closeFile{
+      opacity: 100%;
+    }
+  }
+
+  .inputFill{
+    display: none;
+  }
+}

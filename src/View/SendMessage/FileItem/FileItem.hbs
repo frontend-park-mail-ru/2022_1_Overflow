@@ -1,0 +1,5 @@
+{{#if href}}<a href="{{href}}" download="{{text}}" title="всплывающая подсказка"{{else}}<div {{/if}} id="all{{fileId}}" class="filesAdd">
+    <img id="img{{fileId}}" class="newFile" src="{{svgFile}}">
+    <img id="close{{fileId}}" class="closeFile" src="{{closeSvg}}">
+    <p id="text{{fileId}}" class="textFile">{{text}}</p>
+{{#if href}}</a>{{else}}</div>{{/if}}

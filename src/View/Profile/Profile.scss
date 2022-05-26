@@ -1,0 +1,177 @@
+.containerProfile {
+    background-color: #C0DAF3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+}
+
+.containerProfileAll{
+    @media screen and (max-width: 1000px){
+        flex-direction: column;
+        background: none;
+        box-shadow: none;
+    }
+    height: 600px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    box-shadow: 0 0 15px rgba(0,0,0,0.25);
+    background: #FFFFFF;
+    border-radius: 15px;
+    position: relative;
+}
+
+.blockProfileMenu{
+    @media screen and (max-width: 1000px){
+        border-radius: 15px;
+        box-shadow: 0 0 15px rgba(0,0,0,0.25);
+        margin-bottom: 10px;
+        flex-direction: row;
+        background: #FFFFFF;
+        align-items: center;
+        justify-content: space-around;
+        height: 55px;
+    }
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #cccccc;
+}
+
+.blockProfileMain{
+    @media screen and (max-width: 1000px){
+        box-shadow: 0 0 15px rgba(0,0,0,0.25);
+        border-radius: 15px;
+        background: #FFFFFF;
+        padding: 30px 10px;
+        height: 500px;
+    }
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 0 40px;
+}
+
+.LogoProfile {
+    @media screen and (max-width: 1000px){
+        width: 100px;
+        margin-right: 0;
+        margin-top: 0;
+        margin-bottom: 5px;
+    }
+    margin-top: 20px;
+    width: 150px;
+}
+
+.exitArrow {
+    @media screen and (max-width: 1000px){
+        margin-right: 13px;
+        margin-top: 70px;
+    }
+    cursor: pointer;
+    width: 17px;
+    align-self: flex-end;
+    margin-right: 9px;
+    margin-top: 10px;
+    padding: 5px;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.btnMarginTop{
+    margin-top: 10px;
+}
+
+.avatarProfile{
+    @media screen and (max-width: 1000px){
+        width: 100px;
+        height: 100px;
+        margin-top: 10px;
+    }
+    object-fit: cover;
+    margin-top: 25px;
+    border-radius: 50%;
+    top: 0;
+    left: 0;
+    width: 120px;
+    height: 120px;
+}
+
+.avatarReduct{
+    @media screen and (max-width: 1000px){
+        margin-top: 5px;
+        width: 50px;
+        height: 50px;
+        padding: 25px;
+    }
+    object-fit: cover;
+    cursor: pointer;
+    position: absolute;
+    margin-top: 20px;
+    opacity: 0;
+    width: 60px;
+    height: 60px;
+    padding: 30px;
+    top: 0px;
+    left: 0px;
+    &:hover{
+        opacity: 1;
+    }
+}
+
+.inputProfile{
+    margin-top: 20px;
+}
+
+.profileSet{
+    @media screen and (max-width: 1000px){
+        margin-bottom: 5px;
+    }
+    position: relative;
+    &:hover .avatarProfile{
+        filter: brightness(50%);
+    }
+}
+
+.displayForm{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .hiddenForm{
+        display: none;
+    }
+}
+
+.marginForm{
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 2px;
+}
+
+.marginError{
+    width: 390px;
+}
+
+.invalidMsgProfile {
+    @media screen and (max-width: 1000px){
+        margin-left: 25px;
+    }
+    display: flex;
+    font-style: normal;
+    visibility: hidden;
+    color: #FF0000;
+    font-weight: 300;
+    align-content: center;
+    flex-direction: row;
+    text-align: start;
+    width: 320px;
+    font-size: 14px;
+    margin-top: 2px;
+    margin-bottom: 5px;
+    min-height: 14px;
+    margin-left: -75px;
+}

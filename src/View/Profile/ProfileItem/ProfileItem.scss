@@ -1,0 +1,11 @@
+.sizeGap{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.topGap{
+    @media screen and (max-width: 1000px){
+        margin-top: 0;
+    }
+    margin-top: 15px;
+}

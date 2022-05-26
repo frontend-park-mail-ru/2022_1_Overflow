@@ -1,0 +1,34 @@
+.exit{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+
+    &:hover{
+        background: #F1F1F1;
+        border-radius: 15px;
+    }
+}
+
+.iconPointHidden{
+    visibility: hidden;
+}
+
+.iconPoint{
+    cursor: pointer;
+    padding-right: 10px;
+}
+
+.menuText{
+    @media screen and (max-width: 1000px) {
+        font-size: 16px;
+    }
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    margin-left: 10px;
+    font-size: 20px;
+    flex: 1;
+}

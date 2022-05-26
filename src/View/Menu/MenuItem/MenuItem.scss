@@ -1,0 +1,51 @@
+.manuPoint{
+    user-select: none;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 6px;
+    cursor: pointer;
+    border-radius: 15px;
+
+    &:hover{
+        background: #F1F1F1;
+    }
+
+    .menuText1{
+        cursor: pointer;
+        margin-left: 10px;
+        margin-bottom: 0px;
+        margin-top: 0px;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        flex: 1;
+        white-space: nowrap;
+    }
+
+    .iconPoint1{
+        cursor: pointer;
+        padding-right: 10px;
+        width: 15px;
+        height: 15px;
+    }
+
+    .readCount{
+        background-color: blue;
+        border-radius: 50%;
+        color: white;
+        text-align: center;
+        line-height: inherit;
+        font-family: "Goudy Bookletter 1911", sans-serif;
+        padding: 2px 8px;
+    }
+    .readCountNone{
+        visibility: hidden;
+        background-color: blue;
+        border-radius: 50%;
+        color: white;
+        text-align: center;
+        line-height: inherit;
+        font-family: "Goudy Bookletter 1911", sans-serif;
+        padding: 2px 8px;
+    }
+}

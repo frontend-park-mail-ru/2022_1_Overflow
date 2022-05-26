@@ -1,0 +1,23 @@
+{{#if items}}<div id="containerProfile" class="containerProfile">
+    <div id="containerProfileAll" class="containerProfileAll">
+        <div class="blockProfileMenu showboxLeft">
+            {{#each items}}
+                {{{this}}}
+            {{/each}}
+        </div>
+        <div id="blockProfileMain" class="blockProfileMain showboxRight">{{/if}}
+            <a class="exitArrow" href="/income"><img id="exit" src="{{strokeSvg}}"></a>
+            <img src="{{logo}}" class="LogoProfile">
+            <form id="form" class="displayForm">
+                {{{inputPasswordLast}}}
+                <p id="errorLastPassword" class="invalidMsgProfile">Не верное имя пользователя или пароль</p>
+                {{{inputPassword}}}
+                <p id="errorPassword" class="invalidMsgProfile">Не верное имя пользователя или пароль</p>
+                {{{inputPasswordRepeat}}}
+                <p id="errorPasswordRepeat" class="invalidMsgProfile">Не верное имя пользователя или пароль</p>
+                {{{nextBtn}}}
+            </form>
+            {{{prevBtn}}}
+{{#if items}}</div>
+    </div>
+</div>{{/if}}
