@@ -141,6 +141,9 @@ export class MainPage {
             messagesOld.innerHTML = '';
             const tmp = this.messageView.renderMassage();
             if (!tmp) {
+                messagesOld.innerHTML = '';
+                const tmp = this.messageView.renderEmpty();
+                messagesOld.insertAdjacentHTML('beforeend', tmp.at(0)!);
                 return;
             }
             const elem = tmp.reduce((acc, item) => {
@@ -148,13 +151,8 @@ export class MainPage {
             }, '');
             messagesOld.insertAdjacentHTML('beforeend', elem);
         } else {
-            messagesOld.innerHTML = '';
-            const tmp = this.messageView.renderEmpty();
-            if (!tmp) {
-                return;
-            }
-            messagesOld.insertAdjacentHTML('beforeend', tmp);
             this.messageView.render();
+            return;
         }
     }
 }

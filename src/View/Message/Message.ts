@@ -303,26 +303,23 @@ export class Message<T extends Element> {
             size: 'L',
             className: 'messageEmpty'
         });
-        const emptyTextText = [messageItem({
+        const empty: string[] | undefined = [messageItem({
             emptyTextText: emptyText.render(),
             empty: 1,
             flag: 0,
         })];
-        // this.parent.insertAdjacentHTML('beforeend', renderEmpty);
-        return mainMessage({
-            items: emptyTextText,
-        });
+        return empty;
     }
 
     render = () => {
+        let items: string[] | undefined;
         if (this.messages === null) {
-            this.parent.insertAdjacentHTML('beforeend', this.renderEmpty());
-            return;
+            items = this.renderEmpty();
+        } else {
+            items = this.renderMassage();
         }
-
-        const messageText = this.renderMassage();
         const render = mainMessage({
-            items: messageText,
+            items: items,
         });
 
         this.parent.insertAdjacentHTML('beforeend', render);
