@@ -133,7 +133,7 @@ export class MainPage {
     }
 
     checkMessage = (messagesOld: HTMLElement | null) => {
-        if (!messagesOld) {
+        if (!messagesOld || isMobile()) {
             this.messageView.render();
             return;
         }
