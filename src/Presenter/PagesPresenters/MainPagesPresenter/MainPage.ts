@@ -59,7 +59,9 @@ export class MainPage {
             });
             this.menuView.newFolderEvent(this.menuModel.addNewFolder);
         } else {
-            messagesOld.remove();
+            if (messagesOld?.className !== 'message') {
+                messagesOld.remove();
+            }
         }
         const main = document.getElementById('main');
         if (main === null)
@@ -69,7 +71,7 @@ export class MainPage {
         if (this.type === 'income') {
             await this.messageModel.getMessage(this.type);
             this.messageView = new Message(main, this.messageModel.outputData()!, this.type, '');
-            this.messageView.render();
+            this.checkMessage(messagesOld);
             this.messageView.eventRightClickMessage({
                 handlerGetFolders: this.messageModel.getFolders,
                 handlerGetFoldersMove: this.messageModel.moveInFolderMessage,
@@ -83,7 +85,7 @@ export class MainPage {
         if (this.type === 'outcome') {
             await this.messageModel.getMessage(this.type);
             this.messageView = new Message(main, this.messageModel.outputData()!, this.type, '');
-            this.messageView.render();
+            this.checkMessage(messagesOld);
             this.messageView.eventRightClickMessage({
                 handlerGetFolders: this.messageModel.getFolders,
                 handlerGetFoldersMove: this.messageModel.moveInFolderMessage,
@@ -97,14 +99,14 @@ export class MainPage {
         if (this.type === 'draft') {
             await this.messageModel.getMessage('Черновики');
             this.messageView = new Message(main, this.messageModel.outputData()!, this.type, '');
-            this.messageView.render();
+            this.checkMessage(messagesOld);
             this.messageView.goToMessageEdit();
         }
 
         if (this.type === 'spam') {
             await this.messageModel.getMessage('Спам');
             this.messageView = new Message(main, this.messageModel.outputData()!, this.type, '');
-            this.messageView.render();
+            this.checkMessage(messagesOld);
             this.messageView.eventRightClickMessage({
                 handlerGetFolders: this.messageModel.getFolders,
                 handlerGetFoldersMove: this.messageModel.moveInFolderMessage,
@@ -118,7 +120,7 @@ export class MainPage {
         if (this.type === 'folder') {
             await this.messageModel.getMessage(this.nameMessageFolder);
             this.messageView = new Message(main, this.messageModel.outputData()!, this.type, this.nameMessageFolder);
-            this.messageView.render();
+            this.checkMessage(messagesOld);
             this.messageView.eventRightClickMessage({
                 handlerGetFolders: this.messageModel.getFolders,
                 handlerGetFoldersMove: this.messageModel.moveInFolderMessage,
@@ -127,6 +129,32 @@ export class MainPage {
                 handlerSpam: this.messageModel.addInFolderMessage,
                 handlerAddInFolder: this.messageModel.addInFolderMessage
             }, this.nameMessageFolder);
+        }
+    }
+
+    checkMessage = (messagesOld: HTMLElement | null) => {
+        if (!messagesOld) {
+            this.messageView.render();
+            return;
+        }
+        if (messagesOld?.className === 'message') {
+            messagesOld.innerHTML = '';
+            const tmp = this.messageView.renderMassage();
+            if (!tmp) {
+                return;
+            }
+            const elem = tmp.reduce((acc, item) => {
+                return acc + item;
+            }, '');
+            messagesOld.insertAdjacentHTML('beforeend', elem);
+        } else {
+            messagesOld.innerHTML = '';
+            const tmp = this.messageView.renderEmpty();
+            if (!tmp) {
+                return;
+            }
+            messagesOld.insertAdjacentHTML('beforeend', tmp);
+            this.messageView.render();
         }
     }
 }

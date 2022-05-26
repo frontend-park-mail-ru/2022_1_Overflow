@@ -96,36 +96,39 @@ export class Security<T extends Element> {
     }
 
     render = () => {
+        const main = document.getElementById('blockProfileMain');
         const items: string[] = [];
-        itemsMenu.forEach((item, idx) => {
-            const text = new Text({
-                color: 'Black',
-                text: item.textText,
-                size: 'L',
-                className: 'menuText1'
+        if (!main) {
+            itemsMenu.forEach((item, idx) => {
+                const text = new Text({
+                    color: 'Black',
+                    text: item.textText,
+                    size: 'L',
+                    className: 'menuText1'
+                });
+                if (idx === 0) {
+                    items.push(profileItemsHbs(
+                        {
+                            svg: item.iconName,
+                            text: text.render(),
+                            href: item.href,
+                            id: item.id,
+                            empty: true,
+                        })
+                    );
+                } else {
+                    items.push(profileItemsHbs(
+                        {
+                            svg: item.iconName,
+                            text: text.render(),
+                            href: item.href,
+                            id: item.id,
+                            empty: false,
+                        })
+                    );
+                }
             });
-            if (idx === 0) {
-                items.push(profileItemsHbs(
-                    {
-                        svg: item.iconName,
-                        text: text.render(),
-                        href: item.href,
-                        id: item.id,
-                        empty: true,
-                    })
-                );
-            } else {
-                items.push(profileItemsHbs(
-                    {
-                        svg: item.iconName,
-                        text: text.render(),
-                        href: item.href,
-                        id: item.id,
-                        empty: false,
-                    })
-                );
-            }
-        });
+        }
 
         const lastPassword = new Input({
             text: 'Старый пароль',
@@ -178,6 +181,11 @@ export class Security<T extends Element> {
             strokeSvg: strokeSvg,
         });
 
-        this.parent.insertAdjacentHTML('beforeend', template);
+        if (main) {
+            main.innerHTML = '';
+            main.insertAdjacentHTML('beforeend', template);
+        } else {
+            this.parent.insertAdjacentHTML('beforeend', template);
+        }
     }
 }

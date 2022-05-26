@@ -14,7 +14,6 @@ import {calcPositionXY} from "../../Utils/CalcPositionXY/CalcPositionXY";
 import {calcSecondPositionXY} from "../../Utils/CalcPositionXY/CalcSecondPositionXY";
 import {router} from "../../Presenter/Router/Router";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
-import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 
 export class Message<T extends Element> {
     private readonly parent: T;
@@ -309,20 +308,19 @@ export class Message<T extends Element> {
             empty: 1,
             flag: 0,
         })];
-        const renderEmpty = mainMessage({
+        // this.parent.insertAdjacentHTML('beforeend', renderEmpty);
+        return mainMessage({
             items: emptyTextText,
-        })
-        this.parent.insertAdjacentHTML('beforeend', renderEmpty);
-        return;
+        });
     }
 
     render = () => {
         if (this.messages === null) {
-            this.renderEmpty();
+            this.parent.insertAdjacentHTML('beforeend', this.renderEmpty());
             return;
         }
 
-        const messageText = this.renderMassage(this.messages);
+        const messageText = this.renderMassage();
         const render = mainMessage({
             items: messageText,
         });
@@ -330,9 +328,13 @@ export class Message<T extends Element> {
         this.parent.insertAdjacentHTML('beforeend', render);
     }
 
-    renderMassage = (itemsMassage: { id: number, client_id: number, sender: string, addressee: string, title: string, subTitle: string, files: string, time: string, read: boolean, avatar: string }[]) => {
-        const messageText: { avatar: string; id: number; title: string; subTitle: string; time: string; read: boolean, sender: string }[] = [];
-        itemsMassage.forEach((item, index: number) => {
+    renderMassage = () => {
+        if (this.messages === null) {
+            this.renderEmpty();
+            return;
+        }
+        const messageText: string[] = [];
+        this.messages.forEach((item, index: number) => {
             if (this.type === 'outcome' || this.type === 'draft') {
                 item.read = true;
             }

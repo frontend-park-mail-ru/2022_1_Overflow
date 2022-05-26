@@ -1,11 +1,11 @@
-<div id="containerProfile" class="containerProfile">
+{{#if items}}<div id="containerProfile" class="containerProfile">
     <div id="containerProfileAll" class="containerProfileAll">
         <div class="blockProfileMenu">
             {{#each items}}
                 {{{this}}}
             {{/each}}
         </div>
-        <div id="blockProfileMain" class="blockProfileMain">
+<div id="blockProfileMain" class="blockProfileMain">{{/if}}
             <a class="exitArrow" href="/income"><img id="exit" src="{{strokeSvg}}"></a>
             <img src="{{logo}}" class="LogoProfile">
             <div class="profileSet" id="img">
@@ -21,6 +21,6 @@
                 {{{nextBtn}}}
             </form>
             {{{prevBtn}}}
-        </div>
+{{#if items}}</div>
     </div>
-</div>
+</div>{{/if}}

@@ -13,7 +13,10 @@ export class SecurityPresenter {
 
     render = async () => {
         eventEmitter.cleanEvents();
-        this.parent.innerHTML = '';
+        const main = document.getElementById('blockProfileMain');
+        if (!main) {
+            this.parent.innerHTML = '';
+        }
         const securityModel = new SecurityModel();
         const status = await securityModel.fetchProfile();
         if (status === 7) {

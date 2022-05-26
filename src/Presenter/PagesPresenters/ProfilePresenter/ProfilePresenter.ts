@@ -14,8 +14,10 @@ export class ProfilePresenter {
 
     render = async () => {
         eventEmitter.cleanEvents();
-        const prev = document.getElementById('blockProfileMain')
-        this.parent.innerHTML = '';
+        const main = document.getElementById('blockProfileMain');
+        if (!main) {
+            this.parent.innerHTML = '';
+        }
         const profileModel = new ProfileModel();
         const status = await profileModel.fetchProfile();
         if (status === 7) {
