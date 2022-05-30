@@ -30,8 +30,6 @@ router.addNotFound(eventEmitter.goToMainPage);
 
 router.start();
 
-document.getElementsByTagName('body')[0].style.backgroundImage = ;
-
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.worker.js', {scope: '/'})
         .then((reg) => {
