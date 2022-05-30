@@ -170,8 +170,8 @@ export class SendMessageModel {
 
     fetchUpdateDraft = async (folderName: string, form: {addressee: string, files: string, text: string, theme: string}, idMail: number) => {
         try {
-            const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/folder/mail/add_form`);
-            await fetch(`${http}://${window.location.hostname}/api/v1/folder/mail/add_form`, {
+            const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/folder/mail/update`);
+            await fetch(`${http}://${window.location.hostname}/api/v1/folder/mail/update`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
