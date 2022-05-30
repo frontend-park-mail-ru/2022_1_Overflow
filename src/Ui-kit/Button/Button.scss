@@ -19,6 +19,7 @@
 .btnS{
     @media screen and (max-width: 1000px){
         width: auto;
+        height: 35px;
     }
     width: 100px;
     height: 40px;
@@ -29,10 +30,7 @@
 .btnL{
     @media screen and (max-width: 1400px){
         width: 280px;
-        height: 30px;
-    }
-    @media screen and (max-width: 1000px){
-        width: 280px;
+        height: 35px;
     }
     width: 320px;
     height: 40px;
@@ -43,6 +41,7 @@
 .btnXL{
     @media screen and (max-width: 1000px){
         width: 300px;
+        height: 35px;
     }
     width: 400px;
     height: 40px;
