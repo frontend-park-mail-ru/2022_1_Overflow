@@ -156,6 +156,9 @@
 }
 
 .invalidMsgProfile {
+    @media screen and (min-width: 1000px) and (max-width: 1400px){
+        margin-left: 25px;
+    }
     @media screen and (max-width: 1000px){
         margin-left: 25px;
     }
