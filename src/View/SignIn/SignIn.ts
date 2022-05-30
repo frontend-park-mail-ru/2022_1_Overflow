@@ -1,5 +1,5 @@
 import './SignIn.scss';
-import logoSvg from '../image/Logo.svg';
+import logoSvg from '../image/logoAndTitle.svg';
 import {Button} from "../../Ui-kit/Button/Button";
 import {Input} from "../../Ui-kit/Input/Input";
 import * as signInMain from './SignIn.hbs';
