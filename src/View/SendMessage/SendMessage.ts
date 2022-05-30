@@ -351,7 +351,6 @@ export class SendMessage<T extends Element> {
             const text = document.getElementById(`text${this.counterFile}`) as HTMLDivElement;
             const close = document.getElementById(`close${this.counterFile}`) as HTMLImageElement;
             const all = document.getElementById(`all${this.counterFile}`) as HTMLDivElement;
-            // const file = input.files?.item(0);
             if (!file) {
                 return;
             }

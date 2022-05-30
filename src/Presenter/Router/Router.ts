@@ -196,6 +196,11 @@ class Router {
             if (target instanceof HTMLAnchorElement && target.pathname !== '') {
                 ev.preventDefault();
                 if (this.getCurrentPath() === '/send') {
+                    const state = this.getState();
+                    if (!state.title) {
+                        this.redirect(target.pathname, '', {title: document.title});
+                        return;
+                    }
                     eventEmitter.emit('createPopUpDraft', target.pathname);
                     return;
                 }
