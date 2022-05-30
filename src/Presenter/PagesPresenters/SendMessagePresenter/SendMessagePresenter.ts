@@ -108,6 +108,7 @@ export class SendMessagePresenter {
 
         if (this.flag === 'draft') {
             await this.sendMessageModel.fetchGetUserAvatar(this.data.addressee);
+            await this.sendMessageView.save(this.sendMessageModel.fetchUpdateDraft);
         }
 
         this.sendMessageView.eventAddNewFile();

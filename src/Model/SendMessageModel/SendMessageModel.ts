@@ -168,6 +168,24 @@ export class SendMessageModel {
         }
     }
 
+    fetchUpdateDraft = async (folderName: string, form: {addressee: string, files: string, text: string, theme: string}, idMail: number) => {
+        try {
+            const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/folder/mail/add_form`);
+            await fetch(`${http}://${window.location.hostname}/api/v1/folder/mail/add_form`, {
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-token': header,
+                },
+                method: 'POST',
+                credentials: 'include',
+                body: JSON.stringify({folder_name: folderName, form: form, mail_id: idMail}),
+            });
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
     fetchGetProfile = async () => {
         try {
             const res = await fetch(`${http}://${window.location.hostname}/api/v1/profile`, {

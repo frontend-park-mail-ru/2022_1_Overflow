@@ -186,6 +186,29 @@ export class SendMessage<T extends Element> {
         };
     }
 
+    save = (handler: (folderName: string, form: {addressee: string, files: string, text: string, theme: string}, idMail: number) => void) => {
+        const btnSave = document.getElementById('btnSave');
+        if (!btnSave) {
+            return;
+        }
+        const secBtn = new Button({
+            size: 'S',
+            variant: 'Secondary',
+            id: 'saveButton',
+            text: 'Сохранить',
+            className: 'gapSave',
+        });
+        btnSave.insertAdjacentHTML('beforeend', secBtn.render());
+        const saveButton = document.getElementById('saveButton');
+        if (!saveButton) {
+            return;
+        }
+        const eventUpDate = async () => {
+            await handler('Черновики', this.getForm(), this.data!.id);
+        }
+        saveButton.addEventListener('click', eventUpDate);
+    }
+
     send = (handler: (text: { addressee: string, files: string, text: string, theme: string }, draftId?: number) => void, handlerSendFile: (data: {attach: File, id: number}) => void, handlerGetLastId: () => number) => {
         const sendMessage = document.getElementById('sendButton');
         if (!sendMessage) {
@@ -225,7 +248,7 @@ export class SendMessage<T extends Element> {
             variant: 'Secondary',
             id: 'prev',
             text: 'Нет',
-        })
+        });
 
         const popUpNewFolder = new PopUpError({
             size: 'Auto',
