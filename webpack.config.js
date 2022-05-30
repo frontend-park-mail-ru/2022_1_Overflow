@@ -28,11 +28,16 @@ module.exports = {
                 test: /\.s[ac]ss$/i,
                 use: [
                     "style-loader",
-                    "css-loader",
+                    {
+                        loader: 'css-loader?url=false',
+                        options: { importLoaders: 1 }
+                    },
+                    'resolve-url-loader',
                     {
                         loader: "sass-loader",
                         options: {
                             implementation: require.resolve("sass"),
+                            sourceMap: true,
                         },
                     },
                 ]
