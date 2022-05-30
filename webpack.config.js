@@ -27,11 +27,8 @@ module.exports = {
             {
                 test: /\.s[ac]ss$/i,
                 use: [
-                    "style-loader",
-                    {
-                        loader: 'css-loader?url=false',
-                        options: { importLoaders: 1 }
-                    },
+                    'style-loader',
+                    'css-loader',
                     'resolve-url-loader',
                     {
                         loader: "sass-loader",
