@@ -33,6 +33,7 @@ export class Message<T extends Element> {
     private readonly type: string;
     private readonly folderName: string;
     private readonly popUpMessage;
+    private readonly popUpDraft;
     private xPos: number;
     private yPos: number;
     private isLoading: boolean;
@@ -77,10 +78,20 @@ export class Message<T extends Element> {
                     text: 'Удалить',
                 },
             ],
+        };
+        this.popUpDraft = {
+            id: 'popUpMessage',
+            content: [
+                {
+                    id: 'remove',
+                    icon: rmSVG,
+                    text: 'Удалить',
+                },
+            ],
         }
     }
 
-    eventRightClickMessage = (handlers: {handlerGetFolders: () => any, handlerGoToIncome: (folder_name: string, mail_id: number) => void, handlerRm: (name: number) => void, handlerSpam: (foldr_id: string, mail_id: number) => void, handlerAddInFolder: (foldr_id: string, mail_id: number) => void, handlerGetFoldersMove: (folder_name_dest: string, folder_name_src: string, mail_id: number) => void}, folderName: string) => {
+    eventRightClickMessage = (handlers: { handlerGetFolders: () => any, handlerGoToIncome: (folder_name: string, mail_id: number) => void, handlerRm: (name: number) => void, handlerSpam: (foldr_id: string, mail_id: number) => void, handlerAddInFolder: (foldr_id: string, mail_id: number) => void, handlerGetFoldersMove: (folder_name_dest: string, folder_name_src: string, mail_id: number) => void }, folderName: string) => {
         if (!this.messages) {
             return;
         }
@@ -101,7 +112,12 @@ export class Message<T extends Element> {
                     popUpFolders.remove();
                 }
 
-                const popUp = new PopUp(this.popUpMessage);
+                let popUp;
+                if (this.type === 'draft') {
+                    popUp = new PopUp(this.popUpDraft);
+                } else {
+                    popUp = new PopUp(this.popUpMessage);
+                }
                 const root = document.getElementsByTagName('body')[0];
                 root.insertAdjacentHTML('beforeend', popUp.render());
                 const popUpReal = document.getElementById('popUpMessage') as HTMLDivElement;
@@ -291,7 +307,18 @@ export class Message<T extends Element> {
                 return;
             }
             getElem.addEventListener('click', () => {
-                router.redirect(urlsRouter.send, 'dif', {dataSendMessage: {avatar: list.avatar, sender: list.sender, addressee: list.addressee, theme: list.title, date: list.time, text: list.subTitle, id: list.id, flag: 'draft'}})
+                router.redirect(urlsRouter.send, 'dif', {
+                    dataSendMessage: {
+                        avatar: list.avatar,
+                        sender: list.sender,
+                        addressee: list.addressee,
+                        theme: list.title,
+                        date: list.time,
+                        text: list.subTitle,
+                        id: list.id,
+                        flag: 'draft'
+                    }
+                })
             });
         });
     }
@@ -303,26 +330,23 @@ export class Message<T extends Element> {
             size: 'L',
             className: 'messageEmpty'
         });
-        const emptyTextText = [messageItem({
+        const empty: string[] | undefined = [messageItem({
             emptyTextText: emptyText.render(),
             empty: 1,
             flag: 0,
         })];
-        // this.parent.insertAdjacentHTML('beforeend', renderEmpty);
-        return mainMessage({
-            items: emptyTextText,
-        });
+        return empty;
     }
 
     render = () => {
+        let items: string[] | undefined;
         if (this.messages === null) {
-            this.parent.insertAdjacentHTML('beforeend', this.renderEmpty());
-            return;
+            items = this.renderEmpty();
+        } else {
+            items = this.renderMassage();
         }
-
-        const messageText = this.renderMassage();
         const render = mainMessage({
-            items: messageText,
+            items: items,
         });
 
         this.parent.insertAdjacentHTML('beforeend', render);
@@ -343,10 +367,10 @@ export class Message<T extends Element> {
 
             if (this.type === 'draft' || this.type === 'outcome') {
                 senderText = new Text({
-                        text: item.addressee,
-                        size: 'L',
-                        className: 'widthName',
-                    });
+                    text: item.addressee,
+                    size: 'L',
+                    className: 'widthName',
+                });
             } else {
                 senderText = (item.read) ? new Text({
                         text: item.sender,

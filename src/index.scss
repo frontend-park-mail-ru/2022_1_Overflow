@@ -1,6 +1,14 @@
 html, body {
     width: 100%;
     height: 100%;
+    background-image: url("https://overmail.online/static/overmail_bg.png");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
     display: flex;
     flex-direction: column;
     font-family: Roboto;

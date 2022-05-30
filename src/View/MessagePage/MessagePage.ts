@@ -15,7 +15,6 @@ import inputSVG from "../image/input.svg";
 import fileSvg from '../image/file.svg';
 import folderSVG from "../image/directories.svg";
 import * as templateFileItem from "../SendMessage/FileItem/FileItem.hbs";
-import addFileSvg from "../image/add.svg";
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 
 

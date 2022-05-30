@@ -5,7 +5,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 const ESLintPlugin = require('eslint-webpack-plugin');
 
 module.exports = {
-    mode: 'development',
+    mode: 'production',
     entry: './src/index.ts',
     output: {
         filename: 'main.[contenthash].js',
@@ -27,12 +27,13 @@ module.exports = {
             {
                 test: /\.s[ac]ss$/i,
                 use: [
-                    "style-loader",
-                    "css-loader",
+                    'style-loader',
+                    'css-loader',
                     {
                         loader: "sass-loader",
                         options: {
                             implementation: require.resolve("sass"),
+                            sourceMap: true,
                         },
                     },
                 ]

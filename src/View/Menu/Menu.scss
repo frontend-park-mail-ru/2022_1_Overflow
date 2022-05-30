@@ -1,5 +1,4 @@
 .mainParent{
-    background: #C0DAF3;
     margin-top: 60px;
     display: flex;
     flex: 1;
@@ -12,7 +11,6 @@
         flex-direction: row;
         justify-content: flex-start;
         padding: 20px;
-        background: #C0DAF3;
 
         .menu {
             @media screen and (max-width: 1000px) {

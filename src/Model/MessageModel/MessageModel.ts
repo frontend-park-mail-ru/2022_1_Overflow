@@ -1,5 +1,4 @@
 import {getCSRFToken} from "../Network/NetworkGet";
-import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 import {http} from "../../index";
 
 export class MessageModel {
@@ -50,7 +49,7 @@ export class MessageModel {
             if (date.getDate() === today.getDate() &&
                 date.getMonth() === today.getMonth() &&
                 date.getFullYear() === today.getFullYear()) {
-                dateSet = ('0' + date.getUTCHours()).slice(-2) + ':' + ('0' + (date.getUTCMinutes())).slice(-2);
+                dateSet = ('0' + date.getHours()).slice(-2) + ':' + ('0' + (date.getMinutes())).slice(-2);
             } else {
                 dateSet = ('0' + date.getDate()).slice(-2) + ' ' + (monthNames[date.getMonth()]);
             }
@@ -156,7 +155,7 @@ export class MessageModel {
     addInFolderMessage = async (folder_name: string, mail_id: number) => {
         try {
             const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/folder/mail/add`);
-            const res = await fetch(`${http}://${window.location.hostname}/api/v1/folder/mail/add`, {
+            await fetch(`${http}://${window.location.hostname}/api/v1/folder/mail/add`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',

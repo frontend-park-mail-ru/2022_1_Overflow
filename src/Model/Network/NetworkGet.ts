@@ -1,6 +1,8 @@
+import {http} from "../../index";
+
 export const getCSRFToken = async (url: string) => {
     try {
-        const response = await fetch(url, {
+        const response = await fetch(`${http}://${window.location.hostname}/api/v1/get_token`, {
             mode: 'cors',
             headers: {
                 'Content-Type': 'application/json',

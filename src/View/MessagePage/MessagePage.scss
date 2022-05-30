@@ -8,6 +8,7 @@
 .bolt{
     @media screen and (max-width: 1000px){
         margin-bottom: 10px;
+        margin-top: 10px;
     }
     font-family: 'Roboto', sans-serif;
     font-size: 20px;
@@ -84,6 +85,7 @@
         right: 5px;
         bottom: 90px;
     }
+    position: absolute;
     right: 40px;
     bottom: 95px;
 }
@@ -93,6 +95,7 @@
         right: 5px;
         bottom: 235px;
     }
+    position: absolute;
     right: 310px;
     bottom: 95px;
 }

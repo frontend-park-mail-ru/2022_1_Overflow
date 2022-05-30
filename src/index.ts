@@ -3,6 +3,7 @@ import {eventEmitter} from "./Presenter/EventEmitter/EventEmitter";
 import {router} from './Presenter/Router/Router';
 import {urlsRouter} from './Presenter/Router/UrlsRouter';
 import {socket} from "./Presenter/WebSocketMessage/WebSocketMessage";
+import svg from './View/image/overmail_bg.png'
 
 // console.log(window.location.hostname);
 export const http = ((window.location.hostname === '127.0.0.1') ? 'http' : 'https');
@@ -38,5 +39,5 @@ if ('serviceWorker' in navigator) {
     });
 }
 
-socket.init()
+socket.init();
 

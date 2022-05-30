@@ -6,7 +6,6 @@ import {MessagePageModel} from "../../../Model/MessagePageModel/MessagePageModel
 import {MessagePage} from '../../../View/MessagePage/MessagePage'
 import {MenuModel} from "../../../Model/MenuModel/MenuModel";
 import {MessageModel} from "../../../Model/MessageModel/MessageModel";
-import {Message} from "../../../View/Message/Message";
 import {router} from "../../Router/Router";
 import {urlsRouter} from "../../Router/UrlsRouter";
 import {isMobile} from "../../../Utils/IsMobile/IsMobile";

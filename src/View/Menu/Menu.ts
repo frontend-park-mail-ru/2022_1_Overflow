@@ -18,8 +18,6 @@ import {PopUp} from "../../Ui-kit/Dropdown/PopUp";
 import {calcPositionXY} from "../../Utils/CalcPositionXY/CalcPositionXY";
 import rmSVG from "../image/remove.svg";
 import {router} from "../../Presenter/Router/Router";
-import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
-import {http} from "../../index";
 
 export class Menu<T extends Element> {
     private readonly parent: T;
