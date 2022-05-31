@@ -60,7 +60,7 @@ export class HeaderModel {
     }
 
     logout = async () => {
-        const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/logout`);
+        const header = await getCSRFToken();
 
         await fetch(`${http}://${window.location.hostname}/api/v1/logout`, {
             mode: 'cors',

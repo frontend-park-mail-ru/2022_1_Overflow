@@ -62,7 +62,7 @@ export class SecurityModel {
 
     fetchSetPassword = async (data: {password_old: string, password_new: string, password_new_confirmation: string}) => {
         try {
-            const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/profile/change_password`);
+            const header = await getCSRFToken();
             const postSetProfile = await fetch(`${http}://${window.location.hostname}/api/v1/profile/change_password`, {
                 mode: 'cors',
                 headers: {

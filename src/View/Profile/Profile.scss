@@ -155,6 +155,16 @@
     width: 390px;
 }
 
+.secForm{
+    @media screen and (min-width: 1000px) and (max-width: 1400px){
+        margin-top: 67px;
+    }
+    @media screen and (max-width: 1000px){
+        margin-top: 37px;
+    }
+    margin-top: 57px;
+}
+
 .invalidMsgProfile {
     @media screen and (min-width: 1000px) and (max-width: 1400px){
         margin-left: 25px;

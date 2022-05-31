@@ -1,6 +1,6 @@
 import {http} from "../../index";
 
-export const getCSRFToken = async (url: string) => {
+export const getCSRFToken = async () => {
     try {
         const response = await fetch(`${http}://${window.location.hostname}/api/v1/get_token`, {
             mode: 'cors',

@@ -44,7 +44,7 @@ export class MessagePageModel {
 
     getFiles = async () => {
         try {
-            const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/mail/attach/list`);
+            const header = await getCSRFToken();
             const res = await fetch(`${http}://${window.location.hostname}/api/v1/mail/attach/list`, {
                 mode: 'cors',
                 headers: {
@@ -107,7 +107,7 @@ export class MessagePageModel {
 
     readMessage = async () => {
         try {
-            const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/mail/read`);
+            const header = await getCSRFToken();
             const res = await fetch(`${http}://${window.location.hostname}/api/v1/mail/read`, {
                 mode: 'cors',
                 headers: {

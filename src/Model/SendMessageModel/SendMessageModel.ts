@@ -77,7 +77,7 @@ export class SendMessageModel {
     }
 
     rmMessage = async (id: number) => {
-        const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/mail/delete`);
+        const header = await getCSRFToken();
 
         await fetch(`${http}://${window.location.hostname}/api/v1/mail/delete`, {
             mode: 'cors',
@@ -93,7 +93,7 @@ export class SendMessageModel {
 
     fetchSend = async (text: { addressee: string, files: string, text: string, theme: string }) => {
         try {
-            const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/mail/send`);
+            const header = await getCSRFToken();
             const res = await fetch(`${http}://${window.location.hostname}/api/v1/mail/send`, {
                 mode: 'cors',
                 headers: {
@@ -126,7 +126,7 @@ export class SendMessageModel {
             const formData = new FormData();
             formData.append('attach', data.attach);
             formData.append('mailID', data.id.toString());
-            const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/mail/attach/add`);
+            const header = await getCSRFToken();
             const res = await fetch(`${http}://${window.location.hostname}/api/v1/mail/attach/add`, {
                 mode: 'cors',
                 headers: {
@@ -152,7 +152,7 @@ export class SendMessageModel {
         text: string,
         theme: string}}) => {
         try {
-            const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/folder/mail/add_form`);
+            const header = await getCSRFToken();
             await fetch(`${http}://${window.location.hostname}/api/v1/folder/mail/add_form`, {
                 mode: 'cors',
                 headers: {
@@ -170,8 +170,8 @@ export class SendMessageModel {
 
     fetchUpdateDraft = async (folderName: string, form: {addressee: string, files: string, text: string, theme: string}, idMail: number) => {
         try {
-            const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/folder/mail/update`);
-            await fetch(`${http}://${window.location.hostname}/api/v1/folder/mail/update`, {
+            const header = await getCSRFToken();
+            const res = await fetch(`${http}://${window.location.hostname}/api/v1/folder/mail/update`, {
                 mode: 'cors',
                 headers: {
                     'Content-Type': 'application/json',
@@ -181,6 +181,9 @@ export class SendMessageModel {
                 credentials: 'include',
                 body: JSON.stringify({folder_name: folderName, form: form, mail_id: idMail}),
             });
+            if (res.ok) {
+                router.redirect(urlsRouter.draft);
+            }
         } catch (e) {
             console.error(e);
         }

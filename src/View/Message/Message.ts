@@ -100,7 +100,7 @@ export class Message<T extends Element> {
             if (getElem === null) {
                 return;
             }
-            getElem.addEventListener('contextmenu', (event) => {
+            const eventPopup = (event: any) => {
                 event.preventDefault();
                 const popUpPrev = document.getElementById('popUpMessage');
                 if (popUpPrev) {
@@ -113,7 +113,7 @@ export class Message<T extends Element> {
                 }
 
                 let popUp;
-                if (this.type === 'draft') {
+                if (this.type === 'draft' || this.type === 'outcome') {
                     popUp = new PopUp(this.popUpDraft);
                 } else {
                     popUp = new PopUp(this.popUpMessage);
@@ -214,7 +214,8 @@ export class Message<T extends Element> {
                     }
                 };
                 document.addEventListener('click', docEvent);
-            });
+            };
+            getElem.addEventListener('contextmenu', eventPopup);
         });
     }
 
@@ -232,6 +233,39 @@ export class Message<T extends Element> {
         }
 
         if (foldersName.length === 0) {
+            foldersName.push({id: 'newFolderInPopUp', icon: plusSVG, text: 'Новая папка'});
+            const popUpFolders = new PopUp({
+                id: 'popUpFolders',
+                content: foldersName
+            });
+            const root = document.getElementsByTagName('body')[0];
+            root.insertAdjacentHTML('beforeend', popUpFolders.render());
+
+            const foldersDiv = document.getElementById('popUpFolders');
+            if (!foldersDiv) {
+                return;
+            }
+            const popUpReal = document.getElementById('popUpMessage') as HTMLDivElement;
+            if (!popUpReal) {
+                return;
+            }
+            const {x, y} = calcSecondPositionXY(this.xPos, this.yPos, popUpReal, foldersDiv);
+            foldersDiv.style.top = y.toString() + 'px';
+            foldersDiv.style.left = x.toString() + 'px';
+
+            const newFolderInPopUp = document.getElementById('newFolderInPopUp');
+            if (!newFolderInPopUp) {
+                return;
+            }
+            const eventClickNewFolder = () => {
+                const newFolderReal = document.getElementById('plus');
+                if (!newFolderReal) {
+                    return;
+                }
+                console.log('click');
+                newFolderReal.click();
+            }
+            newFolderInPopUp.addEventListener('click', eventClickNewFolder);
             this.isLoading = false;
             return;
         }

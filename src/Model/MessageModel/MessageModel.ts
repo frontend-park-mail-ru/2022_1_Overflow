@@ -88,7 +88,7 @@ export class MessageModel {
     }
 
     rmMessageInFolder = async (folder_name: string, mail_id: number) => {
-        const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/folder/mail/delete`);
+        const header = await getCSRFToken();
 
         await fetch(`${http}://${window.location.hostname}/api/v1/folder/mail/delete`, {
             mode: 'cors',
@@ -103,7 +103,7 @@ export class MessageModel {
     }
 
     rmMessage = async (id: number) => {
-        const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/mail/delete`);
+        const header = await getCSRFToken();
 
         await fetch(`${http}://${window.location.hostname}/api/v1/mail/delete`, {
             mode: 'cors',
@@ -136,7 +136,7 @@ export class MessageModel {
 
     moveInFolderMessage = async (folder_name_dest: string, folder_name_src: string, mail_id: number) => {
         try {
-            const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/folder/mail/move`);
+            const header = await getCSRFToken();
             await fetch(`${http}://${window.location.hostname}/api/v1/folder/mail/move`, {
                 mode: 'cors',
                 headers: {
@@ -154,7 +154,7 @@ export class MessageModel {
 
     addInFolderMessage = async (folder_name: string, mail_id: number) => {
         try {
-            const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/folder/mail/add`);
+            const header = await getCSRFToken();
             await fetch(`${http}://${window.location.hostname}/api/v1/folder/mail/add`, {
                 mode: 'cors',
                 headers: {

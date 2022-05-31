@@ -81,7 +81,7 @@ export class ProfileModel {
                 const formData = new FormData();
                 formData.append('file', data.avatar);
 
-                const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/profile/avatar/set`);
+                const header = await getCSRFToken();
                 const postAvatarSet = await fetch(`${http}://${window.location.hostname}/api/v1/profile/avatar/set`, {
                     mode: 'cors',
                     headers: {
@@ -102,7 +102,7 @@ export class ProfileModel {
                 }
             }
 
-            const header = await getCSRFToken(`${http}://${window.location.hostname}/api/v1/profile/set`);
+            const header = await getCSRFToken();
             const postSetProfile = await fetch(`${http}://${window.location.hostname}/api/v1/profile/set`, {
                 mode: 'cors',
                 headers: {
