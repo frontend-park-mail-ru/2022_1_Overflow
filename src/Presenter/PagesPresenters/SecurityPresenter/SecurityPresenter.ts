@@ -26,6 +26,8 @@ export class SecurityPresenter {
         const securityView = new Security(this.parent);
         securityView.render();
         eventEmitter.on('error', securityView.setError);
+        eventEmitter.on('setPathLogin', securityView.setCurrentPath);
+        eventEmitter.emit('setPathLogin', undefined);
         securityView.submitForm(securityModel.checkInput);
     };
 }

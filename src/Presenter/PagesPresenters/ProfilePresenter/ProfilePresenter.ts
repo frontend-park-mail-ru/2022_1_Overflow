@@ -27,6 +27,8 @@ export class ProfilePresenter {
         await profileModel.fetchGetAvatar();
         const profileView = new Profile(this.parent, profileModel.outPutData());
         profileView.render();
+        eventEmitter.on('setPathLogin', profileView.setCurrentPath);
+        eventEmitter.emit('setPathLogin', undefined);
         eventEmitter.on('error', profileView.setError);
         profileView.submitForm(profileModel.checkInput);
     };

@@ -19,6 +19,7 @@ class Router {
             return;
         }
         eventEmitter.emit('setPath', undefined);
+        eventEmitter.emit('setPathLogin', undefined);
         this.removeListeners = route.callback.call(this, this.getParamsFromRegExp(route));
     }
 

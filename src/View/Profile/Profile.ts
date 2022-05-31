@@ -102,6 +102,36 @@ export class Profile<T extends Element> {
         });
     }
 
+    setCurrentPath() {
+        const allElem = document.getElementById('menuProfileItems');
+        if (!allElem) {
+            return;
+        }
+        allElem.childNodes.forEach((item) => {
+            if (item instanceof HTMLAnchorElement) {
+                let href = item.href;
+                const re1 = /https:\/\/(.+?)\//;
+                href = href.replace(re1, '');
+                href = '/' + href;
+                const arrHref = href.split('/');
+                const arrHrefPath = router.getCurrentPath().split('/');
+                if (arrHref[1] === arrHrefPath[1] && href !== '/') {
+                    if (arrHref[1] === 'folder' && arrHrefPath[1] === 'folder') {
+                        if (arrHref[2] === arrHrefPath[2]) {
+                            item.style.backgroundColor = "#CBCBCB";
+                        } else {
+                            item.style.backgroundColor = '';
+                        }
+                    } else {
+                        item.style.backgroundColor = "#CBCBCB";
+                    }
+                } else {
+                    item.style.backgroundColor = '';
+                }
+            }
+        })
+    }
+
     render = () => {
         const main = document.getElementById('blockProfileMain');
         const items: string[] = [];
