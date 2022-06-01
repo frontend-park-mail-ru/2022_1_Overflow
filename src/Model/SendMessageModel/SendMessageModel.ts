@@ -115,6 +115,9 @@ export class SendMessageModel {
                 if (body['status'] === 11) {
                     eventEmitter.emit('error', 'Вы пытаетесь отправить сообщение несуществующему пользователю');
                 }
+                if (body['status'] === 12) {
+                    eventEmitter.emit('error', 'Отправка на данный тип адресов не поддерживается');
+                }
             }
         } catch (e) {
             console.error(e);
