@@ -1,5 +1,6 @@
 import {getCSRFToken} from "../Network/NetworkGet";
 import {http} from "../../index";
+import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
 
 export class MessageModel {
     private messages:
@@ -152,7 +153,53 @@ export class MessageModel {
         }
     }
 
+    readMessage = async (id: number) => {
+        try {
+            const header = await getCSRFToken();
+            const res = await fetch(`${http}://${window.location.hostname}/api/v1/mail/read`, {
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-token': header,
+                },
+                method: 'POST',
+                credentials: 'include',
+                body: JSON.stringify({id: id, isread: true})
+            })
+            if (res.ok) {
+                return;
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
+    getMessageSolo = async (id: number) => {
+        try {
+            const res = await fetch(`${http}://${window.location.hostname}/api/v1/mail/get?id=${id}`, {
+                mode: 'cors',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+            })
+            if (res.ok) {
+                const data = await res.json();
+                console.log(data);
+                if (data['read'] === false) {
+                    await this.readMessage(id);
+                    eventEmitter.emit('count-', undefined);
+                }
+            }
+        } catch (e) {
+            console.error(e);
+        }
+    }
+
     addInFolderMessage = async (folder_name: string, mail_id: number) => {
+        if (folder_name === 'Спам') {
+            await this.getMessageSolo(mail_id)
+        }
         try {
             const header = await getCSRFToken();
             await fetch(`${http}://${window.location.hostname}/api/v1/folder/mail/add`, {
