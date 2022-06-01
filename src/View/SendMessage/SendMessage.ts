@@ -388,7 +388,7 @@ export class SendMessage<T extends Element> {
             id: 'inputLogin',
             size: 'Empty',
             text: '',
-            realText: this.data !== null ? this.data.addressee : '',
+            realText: this.data !== null ? this.data.sender : '',
             classNameDiv: 'divWidth',
         });
 

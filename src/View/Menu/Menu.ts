@@ -288,6 +288,7 @@ export class Menu<T extends Element> {
                 }
                 const nameNewFoldr: string = inputNewFolderName.value;
                 handler(nameNewFoldr);
+                this.isLoading = false;
             }
             btnNewFolder.addEventListener('click', addNewFolder);
         }

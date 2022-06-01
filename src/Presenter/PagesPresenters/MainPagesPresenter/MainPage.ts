@@ -126,8 +126,9 @@ export class MainPage {
         }
 
         if (this.type === 'folder') {
-            await this.messageModel.getMessage(this.nameMessageFolder);
-            this.messageView = new Message(main, this.messageModel.outputData()!, this.type, this.nameMessageFolder);
+            console.log(decodeURI(this.nameMessageFolder));
+            await this.messageModel.getMessage(decodeURI(this.nameMessageFolder));
+            this.messageView = new Message(main, this.messageModel.outputData()!, this.type, decodeURI(this.nameMessageFolder));
             this.checkMessage(messagesOld);
             this.messageView.eventRightClickMessage({
                 handlerGetFolders: this.messageModel.getFolders,
@@ -136,7 +137,7 @@ export class MainPage {
                 handlerRm: this.messageModel.rmMessage,
                 handlerSpam: this.messageModel.addInFolderMessage,
                 handlerAddInFolder: this.messageModel.addInFolderMessage
-            }, this.nameMessageFolder);
+            }, decodeURI(this.nameMessageFolder));
         }
     }
 

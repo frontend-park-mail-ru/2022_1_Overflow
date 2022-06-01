@@ -38,6 +38,10 @@ export class MenuModel {
     }
 
     addNewFolder = async (folder_name: string) => {
+        if (folder_name === '') {
+            eventEmitter.emit('errorFolder', {text: 'Имя папки не может быть пустым', type: 'NewFolderName'});
+            return;
+        }
         try {
             const header = await getCSRFToken();
             const res = await fetch(`${http}://${window.location.hostname}/api/v1/folder/add`, {
@@ -57,6 +61,9 @@ export class MenuModel {
             const json: {status: number, message: string} = await res.json();
             if (json.status === 15) {
                 eventEmitter.emit('errorFolder', {text: 'Папка с таким именем уже существует', type: 'NewFolderName'});
+            }
+            if (json.status === 2) {
+                eventEmitter.emit('errorFolder', {text: 'Имя папки не может состоять из одних пробелов', type: 'NewFolderName'});
             }
         } catch (e) {
             console.error(e);

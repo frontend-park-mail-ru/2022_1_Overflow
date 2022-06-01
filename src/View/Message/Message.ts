@@ -172,6 +172,7 @@ export class Message<T extends Element> {
                                 return;
                             }
                             const folders = await handlers.handlerGetFolders();
+                            console.log(folderName);
                             this.createFolders(folders, handlers.handlerGetFoldersMove, handlers.handlerGoToIncome, handlers.handlerAddInFolder, getElem, list, folderName);
                             this.isLoading = false;
                             return;

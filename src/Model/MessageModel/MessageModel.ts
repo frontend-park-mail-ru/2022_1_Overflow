@@ -186,6 +186,7 @@ export class MessageModel {
                 }
                 const folders: {id: number, name: string, userId: number, date: string}[] = [];
                 json.folders.forEach((item) => {
+                    console.log({id: item.id, name: item.name, userId: item.user_id, date: item.created_at});
                     folders.push({id: item.id, name: item.name, userId: item.user_id, date: item.created_at});
                 });
                 return folders;
@@ -212,6 +213,7 @@ export class MessageModel {
                 console.error(e);
             }
         } else {
+            console.log(name);
             try {
                 const res = await fetch(`${http}://${window.location.hostname}/api/v1/folder/list?folder_name=${name}`, {
                     mode: 'cors',

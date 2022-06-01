@@ -83,6 +83,7 @@ export class SendMessagePresenter {
         eventEmitter.on('createPopUpDraft', this.sendMessageView.createPopUpDraft);
         eventEmitter.on('fetchDraft', this.sendMessageModel.fetchDraft);
 
+        console.log(this.data);
         if (this.flag === 'default') {
             if (this.data !== null) {
                 this.sendMessageModel.cleanDefault(this.data);
