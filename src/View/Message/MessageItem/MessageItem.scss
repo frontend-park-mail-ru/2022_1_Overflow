@@ -88,6 +88,19 @@
     }
 }
 
+.settingsImgMessage{
+    @media screen and (max-width: 1000px){
+        display: flex;
+    }
+    display: none;
+    cursor: pointer;
+    padding: 10px;
+    &:hover{
+        background-color: #cccccc;
+        border-radius: 15px;
+    }
+}
+
 .divWidthMax{
     width: 100%;
 }

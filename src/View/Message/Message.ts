@@ -3,6 +3,7 @@ import dotSVG from '../image/dot.svg';
 import spamSVG from '../image/spam.svg';
 import inputSVG from '../image/input.svg';
 import plusSVG from '../image/plus.svg';
+import settingsSvg from '../image/settings.svg';
 import rmSVG from '../image/remove.svg';
 import folderSVG from '../image/directories.svg'
 import {Text} from "../../Ui-kit/Text/Text";
@@ -98,6 +99,10 @@ export class Message<T extends Element> {
         this.messages.forEach((list) => {
             const getElem = document.getElementById(`message${list.id.toString()}`);
             if (getElem === null) {
+                return;
+            }
+            const getElemSettings = document.getElementById(`settingsmessage${list.id.toString()}`);
+            if (getElemSettings === null) {
                 return;
             }
             const eventPopup = (event: any) => {
@@ -215,6 +220,10 @@ export class Message<T extends Element> {
                 };
                 document.addEventListener('click', docEvent);
             };
+            getElemSettings.addEventListener('click', (ev) => {
+                ev.stopPropagation();
+                eventPopup(ev);
+            });
             getElem.addEventListener('contextmenu', eventPopup);
         });
     }
@@ -455,6 +464,7 @@ export class Message<T extends Element> {
                 titleText: titleText.render(),
                 subText: subText.render(),
                 timeText: timeText.render(),
+                settings: settingsSvg,
                 flag: flag,
                 empty: 0,
             }));

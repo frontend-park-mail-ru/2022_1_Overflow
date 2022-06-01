@@ -49,3 +49,16 @@
         padding: 2px 8px;
     }
 }
+
+.settingsImgMessage2{
+    @media screen and (max-width: 1000px){
+        display: flex;
+    }
+    display: none;
+    cursor: pointer;
+    padding: 2px 15px;
+    &:hover{
+        background-color: #cccccc;
+        border-radius: 15px;
+    }
+}

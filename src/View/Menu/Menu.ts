@@ -5,6 +5,7 @@ import editSvg from '../image/edit.svg';
 import draftSvg from '../image/draft.svg';
 import spamSvg from '../image/spam.svg';
 import plusSvg from '../image/plus.svg';
+import settingsSvg from '../image/settings.svg';
 import directoriesSvg from '../image/directories.svg';
 import * as menuItem from './MenuItem/MenuItem.hbs';
 import './MenuItem/MenuItem.scss';
@@ -18,6 +19,7 @@ import {PopUp} from "../../Ui-kit/Dropdown/PopUp";
 import {calcPositionXY} from "../../Utils/CalcPositionXY/CalcPositionXY";
 import rmSVG from "../image/remove.svg";
 import {router} from "../../Presenter/Router/Router";
+import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
 
 export class Menu<T extends Element> {
     private readonly parent: T;
@@ -94,6 +96,8 @@ export class Menu<T extends Element> {
         const itemMenuNewFoldr: string = menuItem({
             icon: directoriesSvg,
             href: `folder/${data.name}`,
+            folderReal: true,
+            settings: settingsSvg,
             id: data.id,
             text: textDirectories.render(),
         });
@@ -301,6 +305,10 @@ export class Menu<T extends Element> {
         if (getElem === null) {
             return;
         }
+        const getEditElem = document.getElementById(`menuEdit${list.id.toString()}`);
+        if (getEditElem === null) {
+            return;
+        }
         const event = (event: MouseEvent) => {
             event.preventDefault();
             if (this.isLoading) {
@@ -349,6 +357,9 @@ export class Menu<T extends Element> {
                         await this.handlerRm(list.name);
                         popUpReal.remove();
                         getElem.remove();
+                        if (decodeURI(router.getCurrentPath()).match(list.name)) {
+                            router.redirect(urlsRouter.income);
+                        }
                         this.isLoading = false;
                         return;
                     }
@@ -364,7 +375,10 @@ export class Menu<T extends Element> {
             document.addEventListener('click', docEvent);
             this.isLoading = false;
         }
-
+        getEditElem.addEventListener('click', (ev) => {
+            ev.stopPropagation();
+            event(ev);
+        });
         getElem.addEventListener('contextmenu', event);
     }
 
@@ -496,6 +510,8 @@ export class Menu<T extends Element> {
             directories.push(menuItem({
                 icon: directoriesSvg,
                 id: item.id,
+                folderReal: true,
+                settings: settingsSvg,
                 href: `folder/${item.name}`,
                 text: textDirectories.render(),
             }));
