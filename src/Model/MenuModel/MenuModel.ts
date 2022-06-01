@@ -38,6 +38,7 @@ export class MenuModel {
     }
 
     addNewFolder = async (folder_name: string) => {
+        folder_name = folder_name.trim();
         if (folder_name === '') {
             eventEmitter.emit('errorFolder', {text: 'Имя папки не может быть пустым', type: 'NewFolderName'});
             return;
