@@ -126,7 +126,6 @@ export class MainPage {
         }
 
         if (this.type === 'folder') {
-            console.log(decodeURI(this.nameMessageFolder));
             await this.messageModel.getMessage(decodeURI(this.nameMessageFolder));
             this.messageView = new Message(main, this.messageModel.outputData()!, this.type, decodeURI(this.nameMessageFolder));
             this.checkMessage(messagesOld);

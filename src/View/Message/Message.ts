@@ -172,7 +172,6 @@ export class Message<T extends Element> {
                                 return;
                             }
                             const folders = await handlers.handlerGetFolders();
-                            console.log(folderName);
                             this.createFolders(folders, handlers.handlerGetFoldersMove, handlers.handlerGoToIncome, handlers.handlerAddInFolder, getElem, list, folderName);
                             this.isLoading = false;
                             return;
@@ -263,7 +262,6 @@ export class Message<T extends Element> {
                 if (!newFolderReal) {
                     return;
                 }
-                console.log('click');
                 newFolderReal.click();
             }
             newFolderInPopUp.addEventListener('click', eventClickNewFolder);

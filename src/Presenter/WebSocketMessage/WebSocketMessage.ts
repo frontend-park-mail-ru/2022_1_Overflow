@@ -12,7 +12,7 @@ class WebSocketMessage {
             if (event.data === 'okey') {
                 return;
             }
-            console.log(`[message] Данные получены с сервера: ${event.data}`);
+            //console.log(`[message] Данные получены с сервера: ${event.data}`);
             if (router.getCurrentPath() === urlsRouter.income) {
                 router.redirect(urlsRouter.income);
             }
