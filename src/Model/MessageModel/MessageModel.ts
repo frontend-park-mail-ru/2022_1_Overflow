@@ -136,6 +136,9 @@ export class MessageModel {
     }
 
     moveInFolderMessage = async (folder_name_dest: string, folder_name_src: string, mail_id: number) => {
+        if (folder_name_dest === 'Спам') {
+            await this.getMessageSolo(mail_id)
+        }
         try {
             const header = await getCSRFToken();
             await fetch(`${http}://${window.location.hostname}/api/v1/folder/mail/move`, {
