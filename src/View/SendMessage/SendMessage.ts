@@ -217,7 +217,7 @@ export class SendMessage<T extends Element> {
 
         sendMessage.addEventListener('click', async () => {
             sendMessage.setAttribute("disabled", "disabled");
-            if (this.flag && this.data?.id !== -1) {
+            if (this.flag === 'draft' && this.data?.id !== -1) {
                 await handler(this.getForm(), this.data?.id);
             } else {
                 await handler(this.getForm());
@@ -388,7 +388,7 @@ export class SendMessage<T extends Element> {
             id: 'inputLogin',
             size: 'Empty',
             text: '',
-            realText: this.data !== null ? this.data.sender : '',
+            realText: this.data !== null ? this.flag === 'draft' ? this.data.addressee : this.data.sender : '',
             classNameDiv: 'divWidth',
         });
 
