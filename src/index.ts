@@ -3,7 +3,7 @@ import {eventEmitter} from "./Presenter/EventEmitter/EventEmitter";
 import {router} from './Presenter/Router/Router';
 import {urlsRouter} from './Presenter/Router/UrlsRouter';
 import {socket} from "./Presenter/WebSocketMessage/WebSocketMessage";
-import svg from './View/image/overmail_bg.png'
+import {ColorSetter} from "./View/image/ColorSetter/ColorSetter";
 
 // console.log(window.location.hostname);
 export const http = ((window.location.hostname === '127.0.0.1') ? 'http' : 'https');
@@ -29,6 +29,8 @@ router.register(urlsRouter.security, eventEmitter.goToSecurity);
 router.addNotFound(eventEmitter.goToMainPage);
 
 router.start();
+
+const obj = new ColorSetter();
 
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.worker.js', {scope: '/'})

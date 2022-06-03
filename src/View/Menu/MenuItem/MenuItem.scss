@@ -30,7 +30,7 @@
     }
 
     .readCount{
-        background-color: blue;
+        background-color: var(--background-color-icon) ;
         border-radius: 50%;
         color: white;
         text-align: center;
@@ -38,9 +38,10 @@
         font-family: "Goudy Bookletter 1911", sans-serif;
         padding: 2px 8px;
     }
+
     .readCountNone{
         visibility: hidden;
-        background-color: blue;
+        background-color: var(--background-color-icon) ;
         border-radius: 50%;
         color: white;
         text-align: center;

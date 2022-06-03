@@ -1,21 +1,13 @@
 import * as messageSoloHbs from './MessagePage.hbs';
-import otvet from '../image/otvet.svg';
-import reMail from '../image/reMail.svg';
+import reMail from '../image/Blue/reMail.svg';
 import {Text} from '../../Ui-kit/Text/Text'
 import './MessagePage.scss';
-import settings from '../image/settings.svg'
-import downloadSvg from '../image/download.svg'
 import {router} from "../../Presenter/Router/Router";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
 import {PopUp} from "../../Ui-kit/Dropdown/PopUp";
-import spamSVG from "../image/spam.svg";
-import plusSVG from "../image/plus.svg";
-import rmSVG from "../image/remove.svg";
-import inputSVG from "../image/input.svg";
-import fileSvg from '../image/file.svg';
-import folderSVG from "../image/directories.svg";
 import * as templateFileItem from "../SendMessage/FileItem/FileItem.hbs";
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
+import {color} from "../image/ColorSetter/ColorSetter";
 
 
 export class MessagePage<T extends Element> {
@@ -52,18 +44,18 @@ export class MessagePage<T extends Element> {
             content: [
                 {
                     id: 'spam',
-                    icon: spamSVG,
+                    icon: color.getData().svg.spam,
                     text: 'Добавить в спам',
                 },
                 {
                     id: 'folder',
-                    icon: plusSVG,
+                    icon: color.getData().svg.plus,
                     type: 'folders',
                     text: 'Добавить в папку',
                 },
                 {
                     id: 'remove',
-                    icon: rmSVG,
+                    icon: color.getData().svg.remove,
                     text: 'Удалить',
                 },
             ],
@@ -199,8 +191,8 @@ export class MessagePage<T extends Element> {
             const template = templateFileItem({
                 fileId: index,
                 href: item.url,
-                svgFile: fileSvg,
-                closeSvg: downloadSvg,
+                svgFile: color.getData().svg.file,
+                closeSvg: color.getData().svg.download,
                 text: item.filename,
             });
             files.insertAdjacentHTML('beforeend', template);
@@ -213,12 +205,12 @@ export class MessagePage<T extends Element> {
         const foldersName: { id: string, text: string, icon: string }[] = [];
 
         if (folderName) {
-            foldersName.push({id: 'incomePopUp', icon: inputSVG, text: 'Входящие'});
+            foldersName.push({id: 'incomePopUp', icon: color.getData().svg.input, text: 'Входящие'});
         }
 
         if (folders) {
             folders.forEach((item) => {
-                foldersName.push({id: item.id.toString() + 'popUp', icon: folderSVG, text: item.name});
+                foldersName.push({id: item.id.toString() + 'popUp', icon: color.getData().svg.directories, text: item.name});
             });
         }
 
@@ -314,9 +306,9 @@ export class MessagePage<T extends Element> {
             login: login.render(),
             time: time.render(),
             text: text.render(),
-            otvet: otvet,
-            reText: reMail,
-            settings: settings,
+            otvet: color.getData().svg.otvet,
+            reText: color.getData().svg.reMail,
+            settings: color.getData().svg.settings,
         })
 
         this.parent.insertAdjacentHTML('beforeend', template);

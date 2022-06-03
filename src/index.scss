@@ -1,3 +1,26 @@
+:root{
+    --background-color-main-theme1: #93B1E7;
+    --background-color-sec-theme1: #275682;
+    --background-color-icon-theme1: #2E6395;
+
+    --background-color-main-theme2: #F196B8;
+    --background-color-sec-theme2: #91294D;;
+    --background-color-icon-theme2: #9E325A;
+
+    --background-color-main-theme3: #91E896;
+    --background-color-sec-theme3: #268E2D;
+    --background-color-icon-theme3: #309837;
+
+    --background-color-main-theme4: #FFC89F;
+    --background-color-sec-theme4: #9C5A2A;
+    --background-color-icon-theme4: #A76535;
+
+
+    --background-color-main: var(--background-color-main-theme1);
+    --background-color-sec: var(--background-color-sec-theme1);
+    --background-color-icon: var(--background-color-icon-theme1);
+}
+
 html, body {
     width: 100%;
     height: 100%;

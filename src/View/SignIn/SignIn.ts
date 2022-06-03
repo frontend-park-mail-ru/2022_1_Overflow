@@ -1,10 +1,10 @@
 import './SignIn.scss';
-import logoSvg from '../image/logoAndTitle.svg';
 import {Button} from "../../Ui-kit/Button/Button";
 import {Input} from "../../Ui-kit/Input/Input";
 import * as signInMain from './SignIn.hbs';
 import {router} from "../../Presenter/Router/Router";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
+import {color} from "../image/ColorSetter/ColorSetter";
 
 export class SignIn<T extends Element> {
     private readonly parent : T;
@@ -99,7 +99,7 @@ export class SignIn<T extends Element> {
         });
 
         const signIn = signInMain({
-            logo: logoSvg,
+            logo: color.getData().svg.logoAndTitle,
             loginInput: loginInput.render(),
             passwordInput: passwordInput.render(),
             primBtn: primBtn.render(),

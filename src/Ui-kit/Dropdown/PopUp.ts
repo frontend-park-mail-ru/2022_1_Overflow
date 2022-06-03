@@ -2,7 +2,7 @@ import './PopUp.scss';
 import './PopUpItem/PopUpItem.scss';
 import * as templateHBS from './PopUp.hbs';
 import * as templateItemHBS from './PopUpItem/PopUpItem.hbs';
-import arrowSvg from '../../View/image/arrow.svg'
+import arrowSvg from '../../View/image/Blue/arrow.svg'
 import {IPopUp} from "./IPopUp";
 
 

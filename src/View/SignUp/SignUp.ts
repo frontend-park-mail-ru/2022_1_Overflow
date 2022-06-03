@@ -1,10 +1,10 @@
 import './SignUp.scss';
-import logoSvg from '../image/logoAndTitle.svg';
 import {Button} from "../../Ui-kit/Button/Button";
 import {Input} from "../../Ui-kit/Input/Input";
 import * as signUpMain from './SignUp.hbs'
 import {router} from "../../Presenter/Router/Router";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
+import {color} from "../image/ColorSetter/ColorSetter";
 
 export class SignUp<T extends Element> {
     private readonly parent: T;
@@ -126,7 +126,7 @@ export class SignUp<T extends Element> {
         });
 
         const signUp = signUpMain({
-            logo: logoSvg,
+            logo: color.getData().svg.logoAndTitle,
             firstNameInput: firstNameInput.render(),
             lastNameInput:lastNameInput.render(),
             loginInput: loginInput.render(),

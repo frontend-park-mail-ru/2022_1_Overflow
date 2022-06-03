@@ -1,12 +1,4 @@
 import './Menu.scss';
-import inputSvg from '../image/input.svg';
-import outSvg from '../image/out.svg';
-import editSvg from '../image/edit.svg';
-import draftSvg from '../image/draft.svg';
-import spamSvg from '../image/spam.svg';
-import plusSvg from '../image/plus.svg';
-import settingsSvg from '../image/settings.svg';
-import directoriesSvg from '../image/directories.svg';
 import * as menuItem from './MenuItem/MenuItem.hbs';
 import './MenuItem/MenuItem.scss';
 import * as mainHBS from './Menu.hbs';
@@ -17,9 +9,9 @@ import {Input} from "../../Ui-kit/Input/Input";
 import {Button} from "../../Ui-kit/Button/Button";
 import {PopUp} from "../../Ui-kit/Dropdown/PopUp";
 import {calcPositionXY} from "../../Utils/CalcPositionXY/CalcPositionXY";
-import rmSVG from "../image/remove.svg";
 import {router} from "../../Presenter/Router/Router";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
+import {color} from "../image/ColorSetter/ColorSetter";
 
 export class Menu<T extends Element> {
     private readonly parent: T;
@@ -46,39 +38,39 @@ export class Menu<T extends Element> {
             content: [
                 {
                     id: 'renameFolder',
-                    icon: editSvg,
+                    icon: color.getData().svg.edit,
                     text: 'Редактировать',
                 },
                 {
                     id: 'rmFolder',
-                    icon: rmSVG,
+                    icon: color.getData().svg.remove,
                     text: 'Удалить',
                 },
             ],
         }
         this.itemsMenu = [
             {
-                iconName: editSvg,
+                iconName: color.getData().svg.edit,
                 textText: 'Написать',
                 id: 'send'
             },
             {
-                iconName: inputSvg,
+                iconName: color.getData().svg.input,
                 textText: 'Входящие',
                 id: 'income'
             },
             {
-                iconName: outSvg,
+                iconName: color.getData().svg.out,
                 textText: 'Отправленные',
                 id: 'outcome'
             },
             {
-                iconName: draftSvg,
+                iconName: color.getData().svg.draft,
                 textText: 'Черновик',
                 id: 'draft'
             },
             {
-                iconName: spamSvg,
+                iconName: color.getData().svg.spam,
                 textText: 'Спам',
                 id: 'spam'
             },
@@ -94,10 +86,10 @@ export class Menu<T extends Element> {
         });
 
         const itemMenuNewFoldr: string = menuItem({
-            icon: directoriesSvg,
+            icon: color.getData().svg.directories,
             href: `folder/${data.name}`,
             folderReal: true,
-            settings: settingsSvg,
+            settings: color.getData().svg.settings,
             id: data.id,
             text: textDirectories.render(),
         });
@@ -492,7 +484,7 @@ export class Menu<T extends Element> {
         });
 
         const newDirectory = menuItem({
-            icon: plusSvg,
+            icon: color.getData().svg.plus,
             id: 'plus',
             text: textNewDirectory.render(),
         });
@@ -508,10 +500,10 @@ export class Menu<T extends Element> {
             });
 
             directories.push(menuItem({
-                icon: directoriesSvg,
+                icon: color.getData().svg.directories,
                 id: item.id,
                 folderReal: true,
-                settings: settingsSvg,
+                settings: color.getData().svg.settings,
                 href: `folder/${item.name}`,
                 text: textDirectories.render(),
             }));

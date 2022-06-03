@@ -1,19 +1,18 @@
 import './SendMessage.scss';
 import './SendMessageError.scss'
 import * as sendMessageHbs from './SendMessage.hbs';
-import avatar from '../image/dummy.svg';
+import avatar from '../image/Blue/dummy.svg';
 import {Text} from '../../Ui-kit/Text/Text'
 import {Input} from '../../Ui-kit/Input/Input'
 import {Button} from "../../Ui-kit/Button/Button";
 import {PopUpError} from "../../Ui-kit/Dilog/PopUpError";
 import {router} from "../../Presenter/Router/Router";
 import {eventEmitter} from "../../Presenter/EventEmitter/EventEmitter";
-import addFileSvg from '../image/add.svg';
-import closeSvg from '../image/close.svg';
-import fileSvg from '../image/file.svg';
+import closeSvg from '../image/Blue/close.svg';
 import './FileItem/FileItem.scss';
 import * as templateFileItem from './FileItem/FileItem.hbs';
 import {http} from "../../index";
+import {color} from "../image/ColorSetter/ColorSetter";
 
 export class SendMessage<T extends Element> {
     private readonly parent: T;
@@ -342,7 +341,7 @@ export class SendMessage<T extends Element> {
             }
             const template = templateFileItem({
                 fileId: this.counterFile,
-                svgFile: fileSvg,
+                svgFile: color.getData().svg.file,
                 closeSvg: closeSvg,
                 text: '',
             });
@@ -418,7 +417,7 @@ export class SendMessage<T extends Element> {
         const template = sendMessageHbs({
             avatar: avatar,
             who: who.render(),
-            addFile: addFileSvg,
+            addFile: color.getData().svg.add,
             closeSvg: closeSvg,
             login: inputLogin.render(),
             theme: theme.render(),

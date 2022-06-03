@@ -1,26 +1,24 @@
 import './Profile.scss';
-import logoSvg from '../image/logoAndTitle.svg';
 import {Button} from "../../Ui-kit/Button/Button";
 import {Input} from "../../Ui-kit/Input/Input";
 import * as securityHbs from './Security.hbs';
 import * as profileItemsHbs from './ProfileItem/ProfileItem.hbs';
-import lockSvg from "../image/lock.svg";
-import profileSvg from "../image/profile.svg";
 import './ProfileItem/ProfileItem.scss'
 import {Text} from "../../Ui-kit/Text/Text";
-import strokeSvg from "../image/stroke.svg";
+import strokeSvg from "../image/Blue/stroke.svg";
 import {router} from "../../Presenter/Router/Router";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
+import {color} from "../image/ColorSetter/ColorSetter";
 
 const itemsMenu = [
     {
-        iconName: profileSvg,
+        iconName: color.getData().svg.profile,
         textText: 'Профиль',
         href: urlsRouter.profile,
         id: 'profile'
     },
     {
-        iconName: lockSvg,
+        iconName: color.getData().svg.lock,
         textText: 'Безопасность',
         href: urlsRouter.security,
         id: 'security'
@@ -201,7 +199,7 @@ export class Security<T extends Element> {
 
         const template = securityHbs({
             items: items,
-            logo: logoSvg,
+            logo: color.getData().svg.logoAndTitle,
             inputPasswordLast: lastPassword.render(),
             inputPassword: password.render(),
             inputPasswordRepeat: passwordRepeat.render(),

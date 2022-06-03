@@ -1,11 +1,4 @@
 import './Message.scss';
-import dotSVG from '../image/dot.svg';
-import spamSVG from '../image/spam.svg';
-import inputSVG from '../image/input.svg';
-import plusSVG from '../image/plus.svg';
-import settingsSvg from '../image/settings.svg';
-import rmSVG from '../image/remove.svg';
-import folderSVG from '../image/directories.svg'
 import {Text} from "../../Ui-kit/Text/Text";
 import * as messageItem from './MessageItem/MessageItem.hbs';
 import * as mainMessage from './Message.hbs';
@@ -15,6 +8,7 @@ import {calcPositionXY} from "../../Utils/CalcPositionXY/CalcPositionXY";
 import {calcSecondPositionXY} from "../../Utils/CalcPositionXY/CalcSecondPositionXY";
 import {router} from "../../Presenter/Router/Router";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
+import {color} from "../image/ColorSetter/ColorSetter";
 
 export class Message<T extends Element> {
     private readonly parent: T;
@@ -64,18 +58,18 @@ export class Message<T extends Element> {
             content: [
                 {
                     id: 'spam',
-                    icon: spamSVG,
+                    icon: color.getData().svg.spam,
                     text: 'Добавить в спам',
                 },
                 {
                     id: 'folder',
-                    icon: plusSVG,
+                    icon: color.getData().svg.plus,
                     type: 'folders',
                     text: 'Добавить в папку',
                 },
                 {
                     id: 'remove',
-                    icon: rmSVG,
+                    icon: color.getData().svg.remove,
                     text: 'Удалить',
                 },
             ],
@@ -85,7 +79,7 @@ export class Message<T extends Element> {
             content: [
                 {
                     id: 'remove',
-                    icon: rmSVG,
+                    icon: color.getData().svg.remove,
                     text: 'Удалить',
                 },
             ],
@@ -232,17 +226,17 @@ export class Message<T extends Element> {
         const foldersName: { id: string, text: string, icon: string }[] = [];
 
         if (folderName) {
-            foldersName.push({id: 'incomePopUp', icon: inputSVG, text: 'Входящие'});
+            foldersName.push({id: 'incomePopUp', icon: color.getData().svg.input, text: 'Входящие'});
         }
 
         if (folders) {
             folders.forEach((item) => {
-                foldersName.push({id: item.id.toString() + 'popUp', icon: folderSVG, text: item.name});
+                foldersName.push({id: item.id.toString() + 'popUp', icon: color.getData().svg.directories, text: item.name});
             });
         }
 
         if (foldersName.length === 0) {
-            foldersName.push({id: 'newFolderInPopUp', icon: plusSVG, text: 'Новая папка'});
+            foldersName.push({id: 'newFolderInPopUp', icon: color.getData().svg.plus, text: 'Новая папка'});
             const popUpFolders = new PopUp({
                 id: 'popUpFolders',
                 content: foldersName
@@ -459,12 +453,12 @@ export class Message<T extends Element> {
                 href: (this.type === 'draft') ? '' : `${this.type}/${(this.folderName) ? this.folderName + '/' : ''}${item.id}`,
                 avatar: item.avatar,
                 read: !item.read,
-                dot: dotSVG,
+                dot: color.getData().svg.dot,
                 name: senderText.render(),
                 titleText: titleText.render(),
                 subText: subText.render(),
                 timeText: timeText.render(),
-                settings: settingsSvg,
+                settings: color.getData().svg.settings,
                 flag: flag,
                 empty: 0,
             }));

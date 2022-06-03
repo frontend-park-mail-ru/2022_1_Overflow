@@ -1,28 +1,25 @@
 import './Profile.scss';
-import logoSvg from '../image/logoAndTitle.svg';
-import strokeSvg from '../image/stroke.svg';
+import strokeSvg from '../image/Blue/stroke.svg';
 import {Button} from "../../Ui-kit/Button/Button";
 import {Input} from "../../Ui-kit/Input/Input";
-import editSvg from '../image/edit.svg';
 import * as profileHbs from './Profile.hbs';
 import * as profileItemsHbs from './ProfileItem/ProfileItem.hbs';
-import lockSvg from "../image/lock.svg";
-import profileSvg from "../image/profile.svg";
 import './ProfileItem/ProfileItem.scss'
 import {Text} from "../../Ui-kit/Text/Text";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
 import {router} from "../../Presenter/Router/Router";
 import {http} from "../../index";
+import {color} from "../image/ColorSetter/ColorSetter";
 
 const itemsMenu = [
     {
-        iconName: profileSvg,
+        iconName: color.getData().svg.profile,
         textText: 'Профиль',
         href: urlsRouter.profile,
         id: 'profile'
     },
     {
-        iconName: lockSvg,
+        iconName: color.getData().svg.lock,
         textText: 'Безопасность',
         href: urlsRouter.security,
         id: 'security'
@@ -209,10 +206,10 @@ export class Profile<T extends Element> {
 
         const template = profileHbs({
             items: items,
-            logo: logoSvg,
+            logo: color.getData().svg.logoAndTitle,
             inputFile: inputFile.render(),
             profileSvg: `${http}://${window.location.hostname}${this.data.avatar}`,
-            editSvg: editSvg,
+            editSvg: color.getData().svg.edit,
             inputProfileName: inputProfileName.render(),
             inputProfileLastName: inputProfileLastName.render(),
             nextBtn: primBtn.render(),

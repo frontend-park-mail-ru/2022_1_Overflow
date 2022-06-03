@@ -1,12 +1,10 @@
 import './Header.scss';
-import logoSvg from '../image/Logo.svg';
-import menuSvg from '../image/menu.svg';
-import arrowSvg from '../image/arrow.svg';
+import {color} from "../image/ColorSetter/ColorSetter";
+import menuSvg from '../image/Blue/menu.svg';
+import arrowSvg from '../image/Blue/arrow.svg';
 import {Text} from '../../Ui-kit/Text/Text';
 import * as headerHBS from './Header.hbs';
 import {PopUp} from "../../Ui-kit/Dropdown/PopUp";
-import doorSvg from "../image/door.svg";
-import profileSvg from "../image/profile.svg";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
 import {http} from "../../index";
 
@@ -24,13 +22,13 @@ export class Header<T extends Element> {
             id: 'popUp',
             content: [
                 {
-                    icon: profileSvg,
+                    icon: color.getData().svg.profile,
                     text: 'Профиль',
                     href: urlsRouter.profile,
                     id: 'profile',
                 },
                 {
-                    icon: doorSvg,
+                    icon: color.getData().svg.door,
                     text: 'Выход',
                     id: 'exit',
                 },
@@ -88,6 +86,17 @@ export class Header<T extends Element> {
         });
     }
 
+    eventSetColor = () => {
+        const colors = document.getElementById('color');
+        if (!colors) {
+            return;
+        }
+        const event = () => {
+            color.setPink(true);
+        }
+        colors.addEventListener('click', event);
+    }
+
     render = () => {
         const logoText = new Text({
             color: 'White',
@@ -105,7 +114,7 @@ export class Header<T extends Element> {
 
         const header = headerHBS({
             logoLink: '/',
-            logoSvg: logoSvg,
+            logoSvg: color.getData().svg.Logo,
             menuSvg: menuSvg,
             login: login.render(),
             logoText: logoText.render(),
@@ -134,5 +143,6 @@ export class Header<T extends Element> {
         }
 
         menuOpen.addEventListener('click', evenMenuClick);
+        this.eventSetColor();
     }
 }

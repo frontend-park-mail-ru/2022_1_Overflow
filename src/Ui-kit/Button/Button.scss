@@ -53,11 +53,11 @@
 .btnPrimary{
     border-radius: 5px;
     border: 0;
-    background: #2E6395;
+    background: var(--background-color-icon);
     color: #FFFFFF;
     &:hover{
         cursor: pointer;
-        background: #275682;
+        background: var(--background-color-sec);
     }
 }
 

@@ -13,7 +13,7 @@
 
 %tplInputFocus{
     outline: none;
-    border-color: #2E6395 !important;
+    border-color: var(--background-color-icon) !important;
 }
 
 %tplInputPlaceholder{
