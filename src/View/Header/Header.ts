@@ -7,7 +7,7 @@ import * as headerHBS from './Header.hbs';
 import {PopUp} from "../../Ui-kit/Dropdown/PopUp";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
 import {http} from "../../index";
-import setter from "../image/Blue/123.jpg";
+import setter from "../image/Blue/new_setter.svg";
 import setter_g from "../image/Green/setter_g.svg";
 import setter_b from "../image/Blue/setter_b.svg";
 import setter_p from "../image/Pink/setter_p.svg";
