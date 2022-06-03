@@ -1,3 +1,4 @@
+import setter from '../Blue/setter.svg';
 import add from '../Blue/add.svg';
 import directories from '../Blue/directories.svg';
 import door from '../Blue/door.svg';
@@ -91,7 +92,7 @@ import {router} from "../../../Presenter/Router/Router";
 export class ColorSetter {
     private color: {main: string, icon: string, fill: string, bg: string, svg: any};
     constructor() {
-        this.setGreen(false);
+        this.setBlue(false);
     }
 
     getData = (): {
@@ -100,6 +101,7 @@ export class ColorSetter {
         fill: string,
         bg: string,
         svg: {
+            setter: string,
             add: string,
             avatar: string,
             close: string,
@@ -135,6 +137,7 @@ export class ColorSetter {
             fill: '#C3D4F3',
             bg: 'https://overmail.online/static/overmail_bg_blue.png',
             svg: {
+                setter,
                 add,
                 directories,
                 door,
@@ -163,7 +166,9 @@ export class ColorSetter {
         document.body.style.setProperty('--background-color-icon', 'var(--background-color-icon-theme1)');
         document.body.style.setProperty('--background-color-sec', 'var(--background-color-sec-theme1)');
         if (flag) {
-            window.location.reload();
+            const root = document.getElementsByTagName('body')[0];
+            root.innerHTML = '';
+            router.redirect(router.getCurrentPath());
         }
     }
 
@@ -174,6 +179,7 @@ export class ColorSetter {
             fill: '#C1F3C5',
             bg: 'https://overmail.online/static/overmail_bg_green.png',
             svg: {
+                 setter: setter,
                  add: add_g,
                  directories: directories_g,
                  door: door_g,
@@ -202,7 +208,9 @@ export class ColorSetter {
         document.body.style.setProperty('--background-color-icon', 'var(--background-color-icon-theme3)');
         document.body.style.setProperty('--background-color-sec', 'var(--background-color-sec-theme3)');
         if (flag) {
-            window.location.reload();
+            const root = document.getElementsByTagName('body')[0];
+            root.innerHTML = '';
+            router.redirect(router.getCurrentPath());
         }
     }
 
@@ -213,6 +221,7 @@ export class ColorSetter {
             fill: '#F8C5D8',
             bg: 'https://overmail.online/static/overmail_bg_pink.png',
             svg: {
+                 setter: setter,
                  add: add_p,
                  directories: directories_p,
                  door: door_p,
@@ -241,7 +250,9 @@ export class ColorSetter {
         document.body.style.setProperty('--background-color-icon', 'var(--background-color-icon-theme2)');
         document.body.style.setProperty('--background-color-sec', 'var(--background-color-sec-theme2)');
         if (flag) {
-            window.location.reload();
+            const root = document.getElementsByTagName('body')[0];
+            root.innerHTML = '';
+            router.redirect(router.getCurrentPath());
         }
     }
 
@@ -252,6 +263,7 @@ export class ColorSetter {
             fill: '#FFE1CB',
             bg: 'https://overmail.online/static/overmail_bg_orange.png',
             svg: {
+                setter: setter,
                 add: add_o,
                 directories: directories_o,
                 door: door_o,
@@ -280,7 +292,9 @@ export class ColorSetter {
         document.body.style.setProperty('--background-color-icon', 'var(--background-color-icon-theme4)');
         document.body.style.setProperty('--background-color-sec', 'var(--background-color-sec-theme4)');
         if (flag) {
-            window.location.reload();
+            const root = document.getElementsByTagName('body')[0];
+            root.innerHTML = '';
+            router.redirect(router.getCurrentPath());
         }
     }
 }

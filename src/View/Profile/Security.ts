@@ -10,26 +10,26 @@ import {router} from "../../Presenter/Router/Router";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
 import {color} from "../image/ColorSetter/ColorSetter";
 
-const itemsMenu = [
-    {
-        iconName: color.getData().svg.profile,
-        textText: 'Профиль',
-        href: urlsRouter.profile,
-        id: 'profile'
-    },
-    {
-        iconName: color.getData().svg.lock,
-        textText: 'Безопасность',
-        href: urlsRouter.security,
-        id: 'security'
-    },
-];
-
 export class Security<T extends Element> {
     private readonly parent: T;
+    private readonly itemsMenu: {iconName: string, textText: string, href: string, id: string}[];
 
     constructor(parent: T) {
         this.parent = parent;
+        this.itemsMenu = [
+            {
+                iconName: color.getData().svg.profile,
+                textText: 'Профиль',
+                href: urlsRouter.profile,
+                id: 'profile'
+            },
+            {
+                iconName: color.getData().svg.lock,
+                textText: 'Безопасность',
+                href: urlsRouter.security,
+                id: 'security'
+            },
+        ];
     }
 
     setError = (data: {text: string, type: string}) => {
@@ -126,7 +126,7 @@ export class Security<T extends Element> {
         const main = document.getElementById('blockProfileMain');
         const items: string[] = [];
         if (!main) {
-            itemsMenu.forEach((item, idx) => {
+            this.itemsMenu.forEach((item, idx) => {
                 const text = new Text({
                     color: 'Black',
                     text: item.textText,

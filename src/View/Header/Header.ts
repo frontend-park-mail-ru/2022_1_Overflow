@@ -7,17 +7,45 @@ import * as headerHBS from './Header.hbs';
 import {PopUp} from "../../Ui-kit/Dropdown/PopUp";
 import {urlsRouter} from "../../Presenter/Router/UrlsRouter";
 import {http} from "../../index";
+import setter from "../image/Blue/setterMain.svg";
+import setter_g from "../image/Green/setter_g.svg";
+import setter_b from "../image/Blue/setter_b.svg";
+import setter_p from "../image/Pink/setter_p.svg";
+import setter_o from "../image/Orange/setter_o.svg";
 
 
 export class Header<T extends Element> {
     private readonly parent: T;
-    private readonly data: {name: string; avatar: string};
+    private readonly data: { name: string; avatar: string };
     private readonly popUp;
+    private readonly popUpColor;
     private isLoading: boolean;
 
-    constructor(parent: T, data: {name: string, avatar: string}) {
+    constructor(parent: T, data: { name: string, avatar: string }) {
         this.parent = parent;
         this.data = data;
+        this.popUpColor = {
+            id: 'popUpColor',
+            content: [
+                {
+                    icon: setter_b,
+                    id: 'blue',
+                },
+                {
+                    icon: setter_g,
+                    id: 'green',
+                },
+                {
+                    icon: setter_o,
+                    id: 'orange',
+                },
+                {
+                    icon: setter_p,
+                    id: 'pink',
+                },
+            ],
+            classNameDiv: 'positionPopUpColor',
+        }
         this.popUp = {
             id: 'popUp',
             content: [
@@ -44,9 +72,9 @@ export class Header<T extends Element> {
             return;
         let profileEvent: EventListenerOrEventListenerObject;
         profile.addEventListener('click', profileEvent = (event) => {
+            event.stopPropagation();
             const popUpNew = new PopUp(this.popUp);
             this.parent.insertAdjacentHTML('beforeend', popUpNew.render());
-            event.stopPropagation();
             profile.removeEventListener('click', profileEvent);
             let docEvent: EventListenerOrEventListenerObject;
             document.addEventListener('click', docEvent = (event2) => {
@@ -91,10 +119,90 @@ export class Header<T extends Element> {
         if (!colors) {
             return;
         }
-        const event = () => {
-            color.setPink(true);
-        }
-        colors.addEventListener('click', event);
+        let profileEvent: EventListenerOrEventListenerObject;
+        colors.addEventListener('click', profileEvent = (event) => {
+            event.stopPropagation();
+            const popUpNew = new PopUp(this.popUpColor);
+            this.parent.insertAdjacentHTML('beforeend', popUpNew.render());
+            const popUpPosition = document.getElementById('popUpColor');
+            if (!popUpPosition) {
+                return;
+            }
+            popUpPosition.style.width = '55px';
+            colors.removeEventListener('click', profileEvent);
+            let docEvent: EventListenerOrEventListenerObject;
+            document.addEventListener('click', docEvent = (event2) => {
+                let target: HTMLElement | null = event2.target as HTMLElement;
+                while (target) {
+                    if (target?.id === 'pink') {
+                        if (this.isLoading) {
+                            return;
+                        }
+                        this.isLoading = true;
+                        color.setPink(true);
+                        document.removeEventListener('click', docEvent);
+                        const popUpFolder = document.getElementById('popUpColor');
+                        if (popUpFolder === null)
+                            return;
+                        popUpFolder.remove();
+                        return;
+                    }
+
+                    if (target?.id === 'blue') {
+                        if (this.isLoading) {
+                            return;
+                        }
+                        this.isLoading = true;
+                        color.setBlue(true);
+                        document.removeEventListener('click', docEvent);
+                        const popUpFolder = document.getElementById('popUpColor');
+                        if (popUpFolder === null)
+                            return;
+                        popUpFolder.remove();
+                        return;
+                    }
+
+                    if (target?.id === 'green') {
+                        if (this.isLoading) {
+                            return;
+                        }
+                        this.isLoading = true;
+                        color.setGreen(true);
+                        document.removeEventListener('click', docEvent);
+                        const popUpFolder = document.getElementById('popUpColor');
+                        if (popUpFolder === null)
+                            return;
+                        popUpFolder.remove();
+                        return;
+                    }
+
+                    if (target?.id === 'orange') {
+                        if (this.isLoading) {
+                            return;
+                        }
+                        this.isLoading = true;
+                        color.setOrange(true);
+                        document.removeEventListener('click', docEvent);
+                        const popUpFolder = document.getElementById('popUpColor');
+                        if (popUpFolder === null)
+                            return;
+                        popUpFolder.remove();
+                        return;
+                    }
+
+                    target = target.parentElement;
+                    if (target === null) {
+                        const popUpFolder = document.getElementById('popUpColor');
+                        if (popUpFolder === null)
+                            return;
+                        popUpFolder.remove();
+                        document.removeEventListener('click', docEvent);
+                        colors.addEventListener('click', profileEvent);
+                        return;
+                    }
+                }
+            });
+        });
     }
 
     render = () => {
@@ -116,6 +224,7 @@ export class Header<T extends Element> {
             logoLink: '/',
             logoSvg: color.getData().svg.Logo,
             menuSvg: menuSvg,
+            setter: setter,
             login: login.render(),
             logoText: logoText.render(),
             profileAvatar: `${http}://${window.location.hostname}${this.data.avatar}`,

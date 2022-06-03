@@ -11,26 +11,26 @@ import {router} from "../../Presenter/Router/Router";
 import {http} from "../../index";
 import {color} from "../image/ColorSetter/ColorSetter";
 
-const itemsMenu = [
-    {
-        iconName: color.getData().svg.profile,
-        textText: 'Профиль',
-        href: urlsRouter.profile,
-        id: 'profile'
-    },
-    {
-        iconName: color.getData().svg.lock,
-        textText: 'Безопасность',
-        href: urlsRouter.security,
-        id: 'security'
-    },
-];
-
 export class Profile<T extends Element> {
     private readonly parent: T;
+    private readonly itemsMenu: {iconName: string, textText: string, href: string, id: string}[];
     private readonly data: {Username: string, FirstName: string, LastName: string, avatar: string, password: string};
 
     constructor(parent: T, data: {Username: string, FirstName: string, LastName: string, avatar: string, password: string}) {
+        this.itemsMenu = [
+            {
+                iconName: color.getData().svg.profile,
+                textText: 'Профиль',
+                href: urlsRouter.profile,
+                id: 'profile'
+            },
+            {
+                iconName: color.getData().svg.lock,
+                textText: 'Безопасность',
+                href: urlsRouter.security,
+                id: 'security'
+            },
+        ];
         this.parent = parent;
         this.data = data;
     }
@@ -133,7 +133,7 @@ export class Profile<T extends Element> {
         const main = document.getElementById('blockProfileMain');
         const items: string[] = [];
         if (!main) {
-            itemsMenu.forEach((item, idx) => {
+            this.itemsMenu.forEach((item, idx) => {
                 const text = new Text({
                     color: 'Black',
                     text: item.textText,
